@@ -1,0 +1,8 @@
+# Jupytext Configuration
+# This pairs notebooks in the 'notebooks/' folder with python scripts in the 'lectures/' folder.
+# This allows for clean diffs in 'lectures/' while keeping viewable notebooks in 'notebooks/'.
+formats = "notebooks//ipynb,lectures//py:percent"
+
+# Filter out cell metadata that clutters the .py source files
+# This keeps the .py files clean for Git diffs while preserving IDs in the .ipynb
+cell_metadata_filter = "-id,-colab,-outputId"

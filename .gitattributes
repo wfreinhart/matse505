@@ -1,0 +1,2 @@
+# Mark notebooks as generated to collapse diffs on GitHub/GitLab
+notebooks/*.ipynb linguist-generated=true

@@ -1,0 +1,17 @@
+# Core ML
+numpy
+pandas
+scikit-learn
+matplotlib
+scipy
+
+# Deep Learning
+torch
+torchvision
+
+# Jupyter and Utilities
+notebook
+jupytext
+ipywidgets
+tqdm
+Pillow
