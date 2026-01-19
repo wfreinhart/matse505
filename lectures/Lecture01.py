@@ -51,7 +51,7 @@
 #
 # It turns out there are other ways to use Python besides downloading and installing it.
 # Google has provided a basic Python environment for everyone to use free of charge through the Colaboratory platform, or Colab for short.
-# This web page is hosted on [colab.research.com](colab.research.com).
+# This web page is hosted on [colab.research.google.com](colab.research.google.com).
 # You can create your own such pages for free by going to File ➡ New notebook.
 #
 # **Important:** you must be logged in with a Google account to run code in Colab.

@@ -40,15 +40,15 @@
 # %%
 import requests
 
-# define the url
-url = 'https://pennstateoffice365-my.sharepoint.com/:x:/g/personal/wfr5091_psu_edu/EU5JYKhddWRLhNaq_frzFS0BJOz9cXZTtxx-zKGJQEhVnw?e=jOmqFq&download=1'
-
-# fetch the data stored at the url
-r = requests.get(url)
-
-# write the data to the local file system
-with open('data.csv', 'w') as fid:
-    fid.write(r.text)
+# # define the url
+# url = 'https://pennstateoffice365-my.sharepoint.com/:x:/g/personal/wfr5091_psu_edu/EU5JYKhddWRLhNaq_frzFS0BJOz9cXZTtxx-zKGJQEhVnw?e=jOmqFq&download=1'
+# 
+# # fetch the data stored at the url
+# r = requests.get(url)
+# 
+# # write the data to the local file system
+# with open('data.csv', 'w') as fid:
+#     fid.write(r.text)
 
 # %% [markdown]
 # ## Reading with pandas
@@ -75,8 +75,19 @@ with open('data.csv', 'w') as fid:
 
 # %%
 import pandas as pd
+import os
 
-data = pd.read_csv('data.csv')  # load into pandas
+# Set the path to the data file
+filename = 'elements.csv'
+local_path = f'../datasets/{filename}'
+github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
+
+# Load the data: try local path first, fallback to GitHub for Colab
+if os.path.exists(local_path):
+    data = pd.read_csv(local_path)
+else:
+    data = pd.read_csv(github_url)
+
 data                            # show a view of the data file
 
 # %% [markdown]
@@ -157,7 +168,12 @@ print(data.iloc[0, 2])
 # Let's try it out and see what happens:
 
 # %%
-ele_data = pd.read_csv('data.csv', index_col='Symbol')  # load into pandas using Symbol as the index
+# Load again with index_col using the same smart path logic
+if os.path.exists(local_path):
+    ele_data = pd.read_csv(local_path, index_col='Symbol')
+else:
+    ele_data = pd.read_csv(github_url, index_col='Symbol')
+
 ele_data                                                # show a view of the data file
 
 # %% [markdown]
@@ -768,7 +784,7 @@ print(x.kurt())
 #
 # $\bar{\mu}_3 = E[(X-\mu)^3] / \sigma^3$
 #
-# $\bar{\mu}_4 = E[(X-\mu)^3] / \sigma^4$
+# $\bar{\mu}_4 = E[(X-\mu)^4] / \sigma^4$
 #
 # where $\mu$ is the mean and $\sigma$ is the standard deviation.
 
@@ -990,9 +1006,9 @@ ax.set_ylabel(z.name)
 #
 # A common metric for goodness of fit is the $R^2$:
 #
-# $R^2 = 1 - \frac{SS_\mathrm{model}}{SS_\mathrm{total}}$
+# $R^2 = 1 - \frac{SS_\mathrm{residual}}{SS_\mathrm{total}}$
 #
-# where $SS_\mathrm{model} = \sum_i (y_i - \hat{y}_i)^2$ and $SS_\mathrm{total} = \sum_i (y_i - \mu)^2$ with $\hat{y}$ being the model prediction and $\mu$ being the data mean.
+# where $SS_\mathrm{residual} = \sum_i (y_i - \hat{y}_i)^2$ and $SS_\mathrm{total} = \sum_i (y_i - \mu)^2$ with $\hat{y}$ being the model prediction and $\mu$ being the data mean.
 #
 # This is also sometimes called "explained variance" because you can use this alternative formulation:
 #

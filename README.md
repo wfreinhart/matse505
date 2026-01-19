@@ -8,7 +8,8 @@ This repository contains lecture materials, assignments, and resources for the c
 - `lectures/`: Paired `.py` files (percent format) for clean code review and editing.
 - `assignments/`: Homework assignments and lab exercises.
 - `lectures/assets/`: External resources and images used in lectures.
-- `data/`: Datasets used in the course (excluded from Git).
+- `datasets/`: Course datasets (CSV files) - committed to Git for easy access.
+- `.local/`: Local artifacts and temporary files (gitignored).
 
 ## Setup Instructions
 

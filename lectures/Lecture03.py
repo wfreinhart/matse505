@@ -120,16 +120,19 @@
 import requests
 import pandas as pd
 import numpy as np
+import os
 
-# define the url
-url = 'https://pennstateoffice365-my.sharepoint.com/:x:/g/personal/wfr5091_psu_edu/EZaAQFZWkipHsG8UaXkQxN8BzEUvZOb-xtER99yFGwKxaQ?e=2SyAUk&download=1'
-r = requests.get(url)  # fetch the data stored at the url
+# Set the path to the data file
+filename = 'concrete.csv'
+local_path = f'../datasets/{filename}'
+github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
 
-# write the data to the local file system
-with open('data.csv', 'w') as fid:
-    fid.write(r.text)
+# Load the data: try local path first, fallback to GitHub for Colab
+if os.path.exists(local_path):
+    data = pd.read_csv(local_path)
+else:
+    data = pd.read_csv(github_url)
 
-data = pd.read_csv('data.csv')  # load into pandas
 data                            # show a view of the data file
 
 # %% [markdown]
@@ -144,6 +147,8 @@ data.corr()['Concrete compressive strength(MPa, megapascals) ']
 
 # %% [markdown]
 # It looks like `Cement`, `Superplasticizer`, and `Age` are the strongest contributors to the `Concrete compressive strength`. Let's evaluate these trends visually:
+#
+# > **Note:** Some column names in this dataset have trailing spaces (e.g., `'Concrete compressive strength(MPa, megapascals) '`). Be careful when indexing!
 
 # %%
 ax = data.plot.scatter('Cement (component 1)(kg in a m^3 mixture)', 'Concrete compressive strength(MPa, megapascals) ')
@@ -467,7 +472,7 @@ fig, ax = plt.subplots()
 _ = ax.hist(residual)
 ax.set_xlabel('Model residual (eV)')
 ax.set_ylabel('Frequency')
-ax.set_title('Residuals from linear model of static energy')
+ax.set_title('Residuals from linear model of concrete strength')
 
 # %% [markdown]
 # From this historgram, you can see a generally Normal distribution around the zero mean.
@@ -505,7 +510,7 @@ print(f'MAE  = {mae}')
 # %% [markdown]
 # The MAE applies a power of 1 to the residuals while the RMSE applies a power of 2.
 # You can observe that the RMSE leads to a larger value than MAE.
-# These normalizations are called $L_1$ and $L_2$ **regularization**. Let's make a histogram of the residuals to see what this means visually:
+# These normalizations are called $L_1$ and $L_2$ **norms**. Let's make a histogram of the residuals to see what this means visually:
 
 # %%
 res_l1 = np.abs(y - y_model)
@@ -888,7 +893,7 @@ evaluate_model(model, xtrain, xtest, ytrain, ytest)
 plot_model(model, xtrain, xtest, ytrain, ytest)
 
 # %% [markdown]
-# This model still outperforms the polynomial LinearRegression while not suffering greatly from overfitting. It is substantially more robust than a single Deicision Tree. However, it is no longer even traceable, let alone interpretable -- there is no way we can parse the decisions made by 100+ individual trees!
+# This model still outperforms the polynomial LinearRegression while not suffering greatly from overfitting. It is substantially more robust than a single Decision Tree. However, it is no longer even traceable, let alone interpretable -- there is no way we can parse the decisions made by 100+ individual trees!
 
 # %% [markdown]
 # ## Neural Networks
@@ -903,6 +908,8 @@ plot_model(model, xtrain, xtest, ytrain, ytest)
 # Here we use the simplest version of a NN called a Multi-Layer Perceptron. It is basically a very shallow NN.
 #
 # > We call this **shallow** learning because there is only one layer (few parameters). Many layers of NN becomes a **deep** network. Deep networks are capable of expressing more complex relationships between variables.
+#
+# > **Practical Note:** Neural networks are sensitive to the scale of input features. In real-world applications, it is standard practice to scale features (e.g., using `StandardScaler`) before training. We will explore this in detail later.
 #
 # > We will spend a lot of time with deep neural networks later in the course, using the `pytorch` library.
 

@@ -33,9 +33,11 @@ ENV/
 */.ipynb_checkpoints/*
 checkpoint_*.ipynb
 
-# Data and Models
-data/*
-!data/.gitkeep
+# Local artifacts (temporary files, build outputs, etc.)
+.local/
+
+# Datasets - committed to repo for course use
+# datasets/  # Uncomment to exclude datasets from git
 
 # Jupytext
 .jupyter/

@@ -35,22 +35,29 @@
 # Let's dive in and see some examples of this in action. We need to switch to a dataset that has categorical labels:
 
 # %%
-import requests
+# import requests
 import pandas as pd
+import os
 
-url = 'https://pennstateoffice365-my.sharepoint.com/:x:/g/personal/wfr5091_psu_edu/EYX7CVOMEdtKuGf-r6Eju70BkuoAMjSTqv0-ebh5WFVLQg?e=8Pu55u&download=1'
-r = requests.get(url)  # fetch the data stored at the url
+# Set the path to the data file
+filename = 'steels.csv'
+local_path = f'../datasets/{filename}'
+github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
 
-# write the data to the local file system
-with open('data.csv', 'w') as fid:
-    fid.write(r.text)
+# Load the data: try local path first, fallback to GitHub for Colab
+if os.path.exists(local_path):
+    data = pd.read_csv(local_path)
+else:
+    data = pd.read_csv(github_url)
 
-data = pd.read_csv('data.csv')  # load into pandas
 data                            # show a view of the data file
 
 # %% [markdown]
 # In this dataset, we have elemental compositions at the left and then some mechanical properties at the right.
 # Let's try to use the data to predict the `Alloy code`, which is categorical.
+#
+# > **Note:** Some column names in this dataset have leading spaces (e.g., `' C'`, `' 0.2% Proof Stress (MPa)'`). We include these in the code below.
+#
 # We can start by looking at the values of `Alloy code`:
 
 # %%
@@ -175,7 +182,7 @@ np.unique(y)[pred_label] == model.predict(xtest)
 #
 # From [Wikipedia](https://en.wikipedia.org/wiki/Kernel_method):
 #
-# > Kernel functions enable a method to operate in a   high-dimensional, implicit feature space ever computing the coordinates of the data in that space, but rather by simply computing the inner products between the images of all pairs of data in the feature space.
+# > Kernel functions enable a method to operate in a   high-dimensional, implicit feature space without ever computing the coordinates of the data in that space, but rather by simply computing the inner products between the images of all pairs of data in the feature space.
 # >
 # >This operation is often computationally cheaper than the explicit computation of the coordinates.
 # >
@@ -326,7 +333,7 @@ model.score(xtest, ytest)
 x = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']
 y = data['Alloy family']
 
-xtrain, xtest, ytrain, ytest = train_test_split(x, y)
+xtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)
 print(xtrain.shape)
 
 # %% [markdown]
@@ -470,7 +477,7 @@ ConfusionMatrixDisplay.from_estimator(model, xtest, ytest)
 #
 # There is some overlap between the algorithms for classification and regression; for example:
 # * A classification algorithm may predict a continuous value, but the continuous value is in the form of a probability for a class label.
-# * A regression algorithm may predict a discrete value, but the discrete value in the form of an integer quantity.
+# * A regression algorithm may predict a discrete value, but the discrete value is in the form of an integer quantity.
 #
 # Some algorithms can be used for both classification and regression with small modifications, such as decision trees and artificial neural networks.
 # Some algorithms cannot, or cannot easily be used for both problem types, such as linear regression for regression predictive modeling and logistic regression for classification predictive modeling.
