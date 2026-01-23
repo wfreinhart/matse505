@@ -14,11 +14,29 @@ This repository contains lecture materials, assignments, and resources for the c
 ## Setup Instructions
 
 ### Environment
-We use the `matse505` conda environment for this course. 
+We use a hybrid Conda + `pip-tools` approach to keep local packages synced with Google Colab.
 
+#### 1. Initial Setup
 ```bash
+# Create the environment
+conda create -n matse505 python=3.11
 conda activate matse505
+
+# Install pip-tools
+conda install -c conda-forge pip-tools
 ```
+
+#### 2. Syncing with Colab
+To ensure your local versions match Colab's pre-installed packages:
+1. Ensure `colab-constraints.txt` is updated (see `.agent/workflows/sync-env.md`).
+2. Compile the locked requirements:
+   ```bash
+   pip-compile requirements.in --constraints colab-constraints.txt --output-file requirements.txt
+   ```
+3. Install/Sync your environment:
+   ```bash
+   pip-sync requirements.txt
+   ```
 
 ### Jupytext
 To keep the repository size manageable and version-control friendly, we use [Jupytext](https://jupytext.readthedocs.io/en/latest/). This allows us to store notebooks as paired Python scripts, avoiding the overhead of large binary notebook files in Git history.
@@ -34,15 +52,6 @@ To keep the repository size manageable and version-control friendly, we use [Jup
    - **Sync both files**: `jupytext --sync lectures/LectureXX.py`
    - **Rebuild notebook from script**: `jupytext --to ipynb lectures/LectureXX.py`
 - **Extract script from notebook**: `jupytext --to py:percent lectures/LectureXX.ipynb`
-
-### Image Optimization
-To keep the repository size manageable, we use an agent skill to resize and compress images in the `assets/` folder.
-
-If you are an AI agent, use the `image-optimization` skill. For manual runs:
-```bash
-python .agent/skills/images/optimize_images.py
-```
-This will resize images to a maximum width of 600px and convert them to compressed JPGs.
 
 ## License
 

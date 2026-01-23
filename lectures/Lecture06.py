@@ -48,7 +48,7 @@ x = clean_data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']
 # %% [markdown]
 # One thing to watch out for when doing unsupervised representation learning is features with different units. If one of the features has magnitudes of $10^6$ and another has $10^1$, the big one will completely dominate the embedding. We can get around this using **feature scaling**.
 #
-# <img src="./assets/feature_scaling.jpg" width=600 alt="Comparison of data distribution before and after different scaling methods: StandardScaler, MinMaxScaler, and RobustScaler">
+# <img src="../lectures/assets/feature_scaling.jpg" width=600 alt="Comparison of data distribution before and after different scaling methods: StandardScaler, MinMaxScaler, and RobustScaler">
 #
 # Making sure the data are roughly isotropic really helps us capture more information in the embedding.
 
@@ -167,7 +167,7 @@ plt.colorbar(im)
 # The power transformer is a scheme to make a non-Gaussian distribution look more Gaussian.
 # Here's a visual example:
 #
-# <img src="./assets/power_transformer.jpg" width=600 alt="Effect of PowerTransformer on skewed data distributions to make them more Gaussian-like">
+# <img src="../lectures/assets/power_transformer.png" width=600 alt="Effect of PowerTransformer on skewed data distributions to make them more Gaussian-like">
 #
 # Why would we do this?
 # This is an attempt to avoid the long tails dominating the reduced space.
@@ -386,7 +386,7 @@ ax.set_ylabel(x.columns[1])
 #
 # Here's a nice motivating example that shows the difference between a **linear projection** and a **nonlinear manifold**:
 #
-# <img src="./assets/manifold_learning_spiral.jpg" height=400 alt="A 3D spiral dataset representing a manifold that can be unrolled into 2D">
+# <img src="../lectures/assets/manifold_learning_spiral.png" height=400 alt="A 3D spiral dataset representing a manifold that can be unrolled into 2D">
 #
 # If we plot the data just based on the $x$ coordinate, we end up with the picture on the left. But if we find patterns in the data using unsupervised learning, we can "unroll" the spiral and get a new representation like the one on the right.
 #
@@ -430,7 +430,7 @@ ax.set_ylabel('Principal Component 2')
 #
 # Here is a great visual example of the kernel trick at work:
 #
-# <img src="./assets/kernel_trick.jpg" width=600 alt="Diagram illustrating the kernel trick: projecting linearly inseparable data into a higher dimension where it becomes separable">
+# <img src="../lectures/assets/kernel_trick.png" width=600 alt="Diagram illustrating the kernel trick: projecting linearly inseparable data into a higher dimension where it becomes separable">
 #
 # After this nonlinear transformation, the decision boundary can be very easily defined by a linear model.
 #
@@ -706,7 +706,7 @@ ax.set_ylabel('Principal Component 2')
 # Uniform Manifold APproximation uses more sophisticated machinery to compute something like the spectral embedding.
 # It ends up being able to resolve irregularly space data like [this visualization of UMAP topology](https://umap-learn.readthedocs.io/en/latest/how_umap_works.html):
 #
-# <img src="./assets/umap_graph.jpg" width=600 alt="Visualization of a high-dimensional dataset projected into 2D using the UMAP manifold learning algorithm">
+# <img src="../lectures/assets/umap_graph.jpg" width=600 alt="Visualization of a high-dimensional dataset projected into 2D using the UMAP manifold learning algorithm">
 #
 # To use the package, we first need to install the UMAP package using `pip`:
 
