@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.18.1
+#       jupytext_version: 1.19.0
 #   kernelspec:
 #     display_name: Python 3
 #     name: python3
@@ -33,7 +33,7 @@
 # As discussed earlier, clustering is a ML scheme where we try to identify discrete groups of data points without having any labels associated.
 # This stands in contrast to both flavors of supervised learning (regression and classification) which always have target labels.
 #
-# <img src="./assets/kmeans_diagram.jpg" height=300 alt="Schematic diagram of the K-Means clustering algorithm steps">
+# <img src="../lectures/assets/kmeans_diagram.jpg" height=300 alt="Schematic diagram of the K-Means clustering algorithm steps">
 #
 # This can be helpful for understanding:
 # * patterns in the data,
@@ -46,7 +46,7 @@
 # It's worth taking a moment to make sure you understand the difference -- there are no predefined labels here!
 # This graphic may help make the point:
 #
-# <img src="./assets/classification_vs_clustering.jpg" width=600 alt="Comparison between supervised classification (with labels) and unsupervised clustering (without labels)">
+# <img src="../lectures/assets/classification_vs_clustering.jpg" width=600 alt="Comparison between supervised classification (with labels) and unsupervised clustering (without labels)">
 
 # %% [markdown]
 # ## Implementation in `sklearn`
@@ -78,18 +78,18 @@ x
 # The first clustering model we consider is the Gaussian Mixture Model (GMM).
 # This name is pretty literal, as you can see in this image:
 #
-# <img src="./assets/gmm_distribution_mixture.jpg" width=500 alt="A Gaussian Mixture Model representing a probability distribution as a sum of multiple Gaussian components">
+# <img src="../lectures/assets/gmm_distribution_mixture.jpg" width=500 alt="A Gaussian Mixture Model representing a probability distribution as a sum of multiple Gaussian components">
 #
 # The idea is that each cluster of data represents a distribution with different parameters.
 # We can fit the mixture of Gaussians to represent these clusters, perhaps accounting for some overlapping at the edges.
 # It will look like this in 2D:
 #
-# <img src="./assets/gmm_2d_clusters.jpg" width=500 alt="2D visualization of clusters identified by a Gaussian Mixture Model">
+# <img src="../lectures/assets/gmm_2d_clusters.jpg" width=500 alt="2D visualization of clusters identified by a Gaussian Mixture Model">
 #
 # The GMM is a parametric model with each distribution having a mean $\mu_i$ and vector of covariance $\sigma_{ij}$ (i.e., each pair of distributions has a covariance).
 # Depending on how the assumptions, the model can behave quite differently:
 #
-# <img src="./assets/gmm_covariances.jpg" width=500 alt="Visualization of different Gaussian Mixture Model covariance types: spherical, tied, diag, and full">
+# <img src="../lectures/assets/gmm_covariances.jpg" width=500 alt="Visualization of different Gaussian Mixture Model covariance types: spherical, tied, diag, and full">
 
 # %% [markdown]
 # The implementation in `scikit-learn` is very straightforward to use.
@@ -128,7 +128,7 @@ px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
 # $k$-means minimizes within-cluster variances of $k$ clusters.
 # It basically means it looks for compact groups and splits the data along any "gaps" or "ridges" as shown in the figure below:
 #
-# <img src="./assets/kmeans_viz.jpg" width=500 alt="Visualization of K-Means clustering centroids and partition boundaries">
+# <img src="../lectures/assets/kmeans_viz.jpg" width=500 alt="Visualization of K-Means clustering centroids and partition boundaries">
 #
 #
 
@@ -191,7 +191,7 @@ px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=y)
 # At each level, a dissimilarity metric can be assessed.
 # This permits a choice between either a fixed number of clusters OR a threshold dissimilarity at which to stop merging.
 #
-# <img src="./assets/hierarchical_clustering.jpg" width=600 alt="A dendrogram illustrating the stages of hierarchical agglomerative clustering">
+# <img src="../lectures/assets/hierarchical_clustering.jpg" width=600 alt="A dendrogram illustrating the stages of hierarchical agglomerative clustering">
 #
 # Note that depending on the dissimilarity metric used, the shapes of the clusters can be radically different.
 #
@@ -261,7 +261,7 @@ px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
 # This avoids penalizing non-convex shapes (which are completely plausible for some data distributions).
 # This has important consequences for the resulting shape of clusters:
 #
-# <img src="./assets/dbscan_vs_others.jpg" width=600 alt="Comparison of DBSCAN clustering performance on non-spherical datasets compared to K-Means">
+# <img src="../lectures/assets/dbscan_vs_others.jpg" width=600 alt="Comparison of DBSCAN clustering performance on non-spherical datasets compared to K-Means">
 
 # %% [markdown]
 # ## Other methods
@@ -269,7 +269,7 @@ px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
 # `scikit-learn` has many methods available and they are all [well documented](https://scikit-learn.org/stable/modules/clustering.html).
 # Here is an excellent visual guide to the performance characteristics of different approaches:
 #
-# <img src="./assets/sklearn_clustering_comparison.jpg" width=600 alt="Comprehensive comparison chart of different scikit-learn clustering algorithms on various dataset shapes">
+# <img src="../lectures/assets/sklearn_clustering_comparison.jpg" width=600 alt="Comprehensive comparison chart of different scikit-learn clustering algorithms on various dataset shapes">
 
 # %% [markdown]
 # ## [Check your understanding]
@@ -437,7 +437,7 @@ _ = ax.set_ylabel('$s$')
 #
 # For example, consider these data:
 #
-# <img src="./assets/pca_3d_to_2d.jpg" width=800 alt="Diagram illustrating Principal Component Analysis projecting 3D data onto a 2D principal component plane">
+# <img src="../lectures/assets/pca_3d_to_2d.jpg" width=800 alt="Diagram illustrating Principal Component Analysis projecting 3D data onto a 2D principal component plane">
 #
 # Here we have 3 spatial dimensions plus a color.
 # The PCA shows clear groupings in a 2D space which is a plane through the original 3D space.
@@ -446,7 +446,7 @@ _ = ax.set_ylabel('$s$')
 # PCA is based on the eigenvectors of the covariance matrix.
 # You are probably familiar with the concept of covariance in 2D, like the following:
 #
-# <img src="./assets/covariance_types.jpg" width=600 alt="Visual representation of different spatial covariance structures in data">
+# <img src="../lectures/assets/covariance_types.jpg" width=600 alt="Visual representation of different spatial covariance structures in data">
 #
 # This readily extends to higher dimensions, and can be calculated with builtins such as with `numpy.cov`:
 # > The transpose is needed because `numpy.cov` assumes "Each row of m represents a variable, and each column a single observation of all those variables" -- the transpose of our `DataFrame`

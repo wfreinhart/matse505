@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.18.1
+#       jupytext_version: 1.19.0
 #   kernelspec:
 #     display_name: Python 3
 #     name: python3
@@ -16,9 +16,9 @@
 # # Introduction
 
 # %% [markdown]
-# <img src="../lectures/assets/lecture01_xkcd_python.jpg" alt="XKCD comic #353" height=500/>
+# <img src="../lectures/assets/lecture01_xkcd_python.jpg" alt="XKCD comic #353 about Python: a character learns Python in minutes and realizes they can fly." height=500/>
 #
-# (image credit [XKCD.com](https://xkcd.com/353/))
+# (image credit [the XKCD website](https://xkcd.com/353/))
 #
 
 # %% [markdown]
@@ -45,13 +45,13 @@
 # %% [markdown]
 # ## Google Colaboratory
 #
-# <img src="../lectures/assets/lecture01_colab_logo.jpg" width=200 alt="Google Colab logo">
+# <img src="../lectures/assets/lecture01_colab_logo.jpg" width=200 alt="The Google Colab logo, consisting of a stylized infinity loop in Google colors.">
 #
 # *What are we doing on this site?*
 #
 # It turns out there are other ways to use Python besides downloading and installing it.
 # Google has provided a basic Python environment for everyone to use free of charge through the Colaboratory platform, or Colab for short.
-# This web page is hosted on [colab.research.google.com](colab.research.google.com).
+# This web page is hosted on [the Google Colab website](https://colab.research.google.com).
 # You can create your own such pages for free by going to File ➡ New notebook.
 #
 # **Important:** you must be logged in with a Google account to run code in Colab.
@@ -71,9 +71,9 @@
 # %% [markdown]
 # Jupyter lets us include **formatted text** and $E_{Q}u^at_io^ns$ alongside [hyperlinks](https://en.wikipedia.org/wiki/Project_Jupyter) and images:
 #
-# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2048px-Python-logo-notext.svg.png" alt="Python logo" height=200/>
+# <img src="../lectures/assets/python_logo.png" alt="The official Python logo, featuring two interlocking snakes in blue and yellow." height=200/>
 #
-# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Jupyter_logo.svg/1200px-Jupyter_logo.svg.png" alt="Jupyter logo" height=200/>
+# <img src="../lectures/assets/jupyter_logo.png" alt="The Project Jupyter logo, showing an orange planet-like circle with orbiting moons." height=200/>
 #
 #
 
@@ -97,7 +97,7 @@
 # The picture below illustrates the difference:
 
 # %% [markdown]
-# ![image](../lectures/assets/lecture01_notebooks_vs_scripts.jpg)
+# ![A comparison diagram showing a Jupyter Notebook with mixed text and code vs a plain Python script with only code.](../lectures/assets/lecture01_notebooks_vs_scripts.jpg)
 #
 # (image credit [Krishna Subramanian](https://krishna-subramanian.net/index.php/portfolio/notebooksvscripts/))
 
