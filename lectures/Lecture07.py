@@ -79,7 +79,7 @@ for i in np.argsort(np.abs(model.coef_)):
 #
 # The scheme is illustrated schematically below:
 #
-# <img src="./assets/permutation_importance_diagram.jpg" width=600 alt="Visual explanation of the permutation importance algorithm: shuffling a single feature to measure its impact on model error">
+# <img src="../lectures/assets/permutation_importance_diagram.jpg" width=600 alt="Visual explanation of the permutation importance algorithm: shuffling a single feature to measure its impact on model error">
 
 # %%
 def calc_rmse(y, y_pred):

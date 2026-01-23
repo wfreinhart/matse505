@@ -165,7 +165,7 @@ for k in range(1, 20):
 #
 # We need another split in our data!
 #
-# <img src="./assets/hyperparameter_tuning_bias_variance.jpg" alt="Illustration of the bias-variance tradeoff in hyperparameter tuning showing underfitting and overfitting regions">
+# <img src="../lectures/assets/hyperparameter_tuning_bias_variance.png" alt="Illustration of the bias-variance tradeoff in hyperparameter tuning showing underfitting and overfitting regions">
 
 # %%
 # split off 20% of the data for testing -- it will never be seen by the model
@@ -229,7 +229,7 @@ for k in range(1, 20):
 # In fact, we already dealt with 2 implicitly by ignoring the `weights` option of `KNeighborsRegressor`.
 # Now we'll deal with this issue directly via "grid search":
 #
-# <img src="./assets/grid_search_diagram.jpg" width=500 alt="Schematic of Grid Search: systematically testing combinations of hyperparameters across a grid">
+# <img src="../lectures/assets/grid_search_diagram.jpg" width=500 alt="Schematic of Grid Search: systematically testing combinations of hyperparameters across a grid">
 #
 # Here the "grid" just means looping over all combinations of different parameters and trying them.
 # The contours represent the value of the RMSE from before.
@@ -321,7 +321,7 @@ df
 # The solution is to use "cross-fold validation."
 # In this scheme, we separate the data into some $k$ number of "folds" and then train $k$ different models using different sub-splits:
 #
-# <img src="./assets/hyperparameter_validation_set.jpg" width=600 alt="Diagram of the Train, Validation, and Test set split strategy">
+# <img src="../lectures/assets/hyperparameter_validation_set.jpg" width=600 alt="Diagram of the Train, Validation, and Test set split strategy">
 #
 # This has the great advantage of not needing to remove any more data from the training set while averaging out some of the variance in the test performance.
 
@@ -375,7 +375,7 @@ for i, s in enumerate(['Train', 'Test ']):
 # Of course we will need to hold out a test set as well.
 # We can do it as shown in this diagram:
 #
-# <img src="./assets/grid_search_cv.jpg" width=500 alt="Workflow combining Grid Search with Cross-Validation for robust hyperparameter optimization">
+# <img src="../lectures/assets/grid_search_cv.jpg" width=500 alt="Workflow combining Grid Search with Cross-Validation for robust hyperparameter optimization">
 #
 # All the models trained on the different fold-specific train/test splits can then be tested using the held-out test set.
 
@@ -488,7 +488,7 @@ ax.set_ylim(7.5, 10)
 # The basic implementation of cross-fold validation is the k-fold scheme.
 # Here we divide the data directly into $k$ number of evenly sized folds like so:
 #
-# <img src="./assets/kfold_cv.jpg" width=600 alt="Schematic of K-Fold Cross-Validation showing the data split into k folds for iterative training and testing">
+# <img src="../lectures/assets/kfold_cv.jpg" width=600 alt="Schematic of K-Fold Cross-Validation showing the data split into k folds for iterative training and testing">
 #
 # What is the problem with this scheme?
 #
@@ -617,7 +617,7 @@ for k, (train_index, test_index) in enumerate(folds.split(np.arange(x_sort.shape
 #
 # We can get around some of the limitations of the above using `shuffle=True` to get something more like this:
 #
-# <img src="./assets/shuffle_split_cv.jpg" width=600 alt="Illustration of the Shuffle-Split cross-validation strategy">
+# <img src="../lectures/assets/shuffle_split_cv.jpg" width=600 alt="Illustration of the Shuffle-Split cross-validation strategy">
 #
 # Let's see how this applies to the cement data:
 
@@ -654,7 +654,7 @@ plt.subplots_adjust(hspace=0.05)
 # This effectively uses each and every sample as a test set.
 # It would look like so:
 #
-# <img src="./assets/cross_validation_diagram.jpg" width=600 alt="Generalized flowchart of the cross-validation process">
+# <img src="../lectures/assets/cross_validation_diagram.jpg" width=600 alt="Generalized flowchart of the cross-validation process">
 #
 # What are the downsides of this scheme?
 #
@@ -692,7 +692,7 @@ plt.subplots_adjust(hspace=0.05)
 # We may want to take care to get a similar distribution in each fold.
 # Here's what it looks like:
 #
-# <img src="./assets/stratified_cv.jpg" width=600 alt="Schematic of Stratified K-Fold CV ensuring each fold has the same class distribution as the original data">
+# <img src="../lectures/assets/stratified_cv.jpg" width=600 alt="Schematic of Stratified K-Fold CV ensuring each fold has the same class distribution as the original data">
 #
 # This can improve model performance but is not always a good assumption.
 # Why would this be a problem?
@@ -787,7 +787,7 @@ plt.subplots_adjust(hspace=0.05)
 # Sometimes there are additional identifiers in the data beyond discrete or continuous labels.
 # For instance, imagine making multiple measurements on different physical material samples.
 #
-# <img src="./assets/group_cv_concept.jpg" width=600 alt="Visual explanation of Group-based Cross-Validation where samples are grouped by a shared identifier like session or patient">
+# <img src="../lectures/assets/group_cv_concept.jpg" width=600 alt="Visual explanation of Group-based Cross-Validation where samples are grouped by a shared identifier like session or patient">
 #
 # Some of these tensile bars might have been made on different days, or different machines, or tested by different personnel.
 # It may be important to evaluate the effect of these variations through "grouping" the samples into specific folds.
@@ -795,7 +795,7 @@ plt.subplots_adjust(hspace=0.05)
 #
 # Here is a schematic illustrating this concept:
 #
-# <img src="./assets/group_kfold.jpg" width=600 alt="Schematic of Group K-Fold Cross-Validation ensuring no group is split across training and validation folds">
+# <img src="../lectures/assets/group_kfold.jpg" width=600 alt="Schematic of Group K-Fold Cross-Validation ensuring no group is split across training and validation folds">
 #
 # Note that unlike stratification, the classes are not balanced here, as only the groups are evaluated to create the folds.
 # Of course there are "group" variants of all the other schemes, including `StratifiedGroupKFold`, `LeaveOneGroupOut`, etc.
@@ -866,7 +866,7 @@ plt.subplots_adjust(hspace=0.05)
 #
 # Here's a schematic illustrating the difference between **interpolation** and **extrapolation**:
 #
-# <img src="./assets/interpolation_vs_extrapolation.jpg" width=600 alt="Plot comparing interpolation (making predictions within the range of training data) versus extrapolation (predicting outside the range)">
+# <img src="../lectures/assets/interpolation_vs_extrapolation.jpg" width=600 alt="Plot comparing interpolation (making predictions within the range of training data) versus extrapolation (predicting outside the range)">
 #
 # How can we address this?
 # By using **groups** to investigate how the models perform on data towards the center of the distribution versus the edges!

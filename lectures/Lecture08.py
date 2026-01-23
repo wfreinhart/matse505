@@ -135,7 +135,7 @@ px.scatter(x=labels, y=np.random.rand(n), color=labels, hover_name=cat[labels])
 #
 # The solution is to use *one-hot encoding*:
 #
-# <img src="./assets/one_hot_encoding_diagram.jpg" width=600 alt="Diagram showing the transformation of a categorical 'Color' feature into multiple binary 'One-Hot' feature vectors">
+# <img src="../lectures/assets/one_hot_encoding_diagram.jpg" width=600 alt="Diagram showing the transformation of a categorical 'Color' feature into multiple binary 'One-Hot' feature vectors">
 #
 # In this scheme, each category gets its own "dummy feature" which is a binary vector indicating whether the observation falls into that category or not.
 # Let's see how to achieve this transformation and then look at the advantages.

@@ -115,14 +115,14 @@ print(results)
 # %% [markdown]
 # # Bayesian optimization
 #
-# <img src="./assets/bayesian_optimization_workflow.jpg" width=600 alt="Flowchart of the Bayesian Optimization process: surrogate model, acquisition function, and objective evaluation">
+# <img src="../lectures/assets/bayesian_optimization_workflow.jpg" width=600 alt="Flowchart of the Bayesian Optimization process: surrogate model, acquisition function, and objective evaluation">
 
 # %% [markdown]
 # ## Gaussian process
 #
-# <img src="./assets/gp_noise_gp.jpg" width=600 alt="Visualization of a Gaussian Process regression with confidence intervals and noisy data points">
+# <img src="../lectures/assets/gp_noise_gp.jpg" width=600 alt="Visualization of a Gaussian Process regression with confidence intervals and noisy data points">
 #
-# <img src="./assets/kernel_types.jpg" width=600 alt="Visual gallery of different Gaussian Process kernels and their resulting functions">
+# <img src="../lectures/assets/kernel_types.jpg" width=600 alt="Visual gallery of different Gaussian Process kernels and their resulting functions">
 
 # %% [markdown]
 # ## Basic hyperparameter tuning
@@ -206,7 +206,7 @@ print( 'r-squared, test:', model.score(x_test, y_test))
 # We can also specify discrete options such as the activation functions.
 # These can have a huge effect on the results:
 #
-# <img src="./assets/activation_functions.jpg" width=600 alt="Plots of common neural network activation functions including Sigmoid, Tanh, and ReLU">
+# <img src="../lectures/assets/activation_functions.jpg" width=600 alt="Plots of common neural network activation functions including Sigmoid, Tanh, and ReLU">
 
 # %%
 best_parameters, values, experiment, model = optimize(
@@ -235,12 +235,12 @@ print(best_parameters)
 #
 # Deep learning models may have very complex architecture with many hyperparameters to choose:
 #
-# <img src="./assets/neural_network_architecture.jpg" width=600 alt="Schematic diagram of a multi-layer perceptron neural network with input, hidden, and output layers">
+# <img src="../lectures/assets/neural_network_architecture.jpg" width=600 alt="Schematic diagram of a multi-layer perceptron neural network with input, hidden, and output layers">
 #
 # In this case, we need to be clever in how to encode the many possible options.
 # Here are some common shapes for NNs:
 #
-# <img src="./assets/neural_network_zoo.jpg" width=400 alt="Graphic showing various neural network architecture types beyond simple feed-forward networks">
+# <img src="../lectures/assets/neural_network_zoo.jpg" width=400 alt="Graphic showing various neural network architecture types beyond simple feed-forward networks">
 #
 # You will see that NNs do not typically have wildly oscillating sizes between layers.
 # Instead, they vary smoothly and the typical shapes are flat or trapezoidal.
@@ -265,15 +265,15 @@ print(best_parameters)
 #
 # "Evolutionary algorithm," "genetic algorithm," or "evolutionary optimization" is a scheme that utilizes the idea of natural selection to perform numerical optimization:
 #
-# <img src="./assets/genetic_algorithm_concept.jpg" width=600 alt="Visual metaphor for Genetic Algorithms based on biological evolution: selection, crossover, and mutation">
+# <img src="../lectures/assets/genetic_algorithm_concept.jpg" width=600 alt="Visual metaphor for Genetic Algorithms based on biological evolution: selection, crossover, and mutation">
 #
 # In each "generation," traits from the best individuals are combined in a process analagous to gene transfer between DNA of parents in biological organisms:
 #
-# <img src="./assets/genetic_algorithm_flow.jpg" width=600 alt="Step-by-step flowchart of the Genetic Algorithm iterative loop">
+# <img src="../lectures/assets/genetic_algorithm_flow.jpg" width=600 alt="Step-by-step flowchart of the Genetic Algorithm iterative loop">
 #
 # We also include mutations to permit new traits to arise in the population:
 #
-# <img src="./assets/genetic_algorithm_operators.jpg" width=600 alt="Visual detail of Genetic Algorithm operators: Crossover (recombination) and Mutation">
+# <img src="../lectures/assets/genetic_algorithm_operators.png" width=600 alt="Visual detail of Genetic Algorithm operators: Crossover (recombination) and Mutation">
 #
 # If the new traits lead to greater fitness, they persist and are passed on to future generations.
 #
