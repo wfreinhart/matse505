@@ -31,8 +31,18 @@
 # %%
 import pandas as pd
 import numpy as np
+import os
 
-data = pd.read_csv('../datasets/concrete.csv')
+# Set the path to the data file
+filename = 'concrete.csv'
+local_path = f'../datasets/{filename}'
+github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
+
+# Load the data: try local path first, fallback to GitHub for Colab
+if os.path.exists(local_path):
+    data = pd.read_csv(local_path)
+else:
+    data = pd.read_csv(github_url)
 data
 
 # %% [markdown]

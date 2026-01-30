@@ -20,12 +20,21 @@
 
 # %% [markdown]
 # Loading a dataset:
-
-# %%
-import pandas as pd
-
-data = pd.read_csv('../datasets/elements.csv', index_col=0)
-data.head()
+#
+# import pandas as pd
+# import os
+#
+# Set the path to the data file
+# filename = 'elements.csv'
+# local_path = f'../datasets/{filename}'
+# github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
+#
+# Load the data: try local path first, fallback to GitHub for Colab
+# if os.path.exists(local_path):
+#     data = pd.read_csv(local_path, index_col=0)
+# else:
+#     data = pd.read_csv(github_url, index_col=0)
+# data.head()
 
 # %% [markdown]
 # This dataset has a combination of continuous labels and categorical features which will help us explore some nuances of feature representation.

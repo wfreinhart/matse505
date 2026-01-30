@@ -32,8 +32,18 @@
 # %%
 import pandas as pd
 import numpy as np
+import os
 
-data = pd.read_csv('../datasets/concrete.csv')
+# Set the path to the data file
+filename = 'concrete.csv'
+local_path = f'../datasets/{filename}'
+github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
+
+# Load the data: try local path first, fallback to GitHub for Colab
+if os.path.exists(local_path):
+    data = pd.read_csv(local_path)
+else:
+    data = pd.read_csv(github_url)
 data
 
 # %% [markdown]
@@ -721,7 +731,16 @@ ax.legend()
 # ## A new dataset
 
 # %%
-data_cl = pd.read_csv('../datasets/steels.csv')
+# Set the path to the second data file
+filename_cl = 'steels.csv'
+local_path_cl = f'../datasets/{filename_cl}'
+github_url_cl = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename_cl}'
+
+# Load the data: try local path first, fallback to GitHub for Colab
+if os.path.exists(local_path_cl):
+    data_cl = pd.read_csv(local_path_cl)
+else:
+    data_cl = pd.read_csv(github_url_cl)
 data_cl['Alloy family'] = [x[0] for x in data_cl['Alloy code']]
 data_cl
 
