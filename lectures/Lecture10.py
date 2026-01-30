@@ -282,7 +282,7 @@ print(best_parameters)
 #
 # We also include mutations to permit new traits to arise in the population:
 #
-# <img src="../lectures/assets/genetic_algorithm_operators.png" width=600 alt="Visual detail of Genetic Algorithm operators: Crossover (recombination) and Mutation">
+# <img src="../lectures/assets/genetic_algorithm_operators.jpg" width=600 alt="Visual detail of Genetic Algorithm operators: Crossover (recombination) and Mutation">
 #
 # If the new traits lead to greater fitness, they persist and are passed on to future generations.
 #

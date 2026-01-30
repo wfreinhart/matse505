@@ -175,7 +175,7 @@ for k in range(1, 20):
 #
 # We need another split in our data!
 #
-# <img src="../lectures/assets/hyperparameter_tuning_bias_variance.png" alt="Illustration of the bias-variance tradeoff in hyperparameter tuning showing underfitting and overfitting regions">
+# <img src="../lectures/assets/hyperparameter_tuning_bias_variance.jpg" alt="Illustration of the bias-variance tradeoff in hyperparameter tuning showing underfitting and overfitting regions">
 
 # %%
 # split off 20% of the data for testing -- it will never be seen by the model
