@@ -22,7 +22,7 @@
 #
 # With regression we are predicting *continuous* labels, basically floating point numbers. However, some problems have *categorical* labels, which correspond to discrete groups rather than numbers.
 #
-# <img src="https://cdn-coiao.nitrocdn.com/CYHudqJZsSxQpAPzLkHFOkuzFKDpEHGF/assets/static/optimized/rev-85bf93c/wp-content/uploads/2021/04/regression-vs-classification_simple-comparison-image_v3.png" width=600>
+# <img src="../lectures/assets/lecture04_regression_vs_classification.jpg" width=600>
 
 # %% [markdown]
 # At first glance you might think we could just do regression with `int` in place of `float`. For instance, consider data falling in 3 groups: `Apple, Banana, Orange`. If we convert these to `int` so they are discrete, we would get `0, 1, 2`. Technically we can then use a regressor to predict the values.
@@ -96,7 +96,7 @@ print(xtrain.shape, xtest.shape)
 #
 # Despite its name, logistic regression is a linear classification algorithm.
 #
-# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Exam_pass_logistic_curve.svg/400px-Exam_pass_logistic_curve.svg.png" width=400>
+# <img src="../lectures/assets/lecture04_logistic_regression.jpg" width=400>
 
 # %%
 from sklearn import linear_model
@@ -434,7 +434,7 @@ print(metrics.classification_report(ytest, ypred))
 #
 # Here's a reference:
 #
-# <img src="https://www.researchgate.net/profile/Rune-Jacobsen/publication/334840641/figure/fig3/AS:794222751928321@1566368868347/Confusion-matrix-and-evaluation-metrics.png" height=300>
+# <img src="../lectures/assets/lecture04_confusion_matrix.jpg" height=300>
 
 # %% [markdown]
 # We can create this confusion matrix using the convenient `sklearn.metrics.ConfusionMatrixDisplay` function:
