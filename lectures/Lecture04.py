@@ -96,7 +96,7 @@ print(xtrain.shape, xtest.shape)
 #
 # Despite its name, logistic regression is a linear classification algorithm.
 #
-# <img src="../lectures/assets/lecture04_logistic_regression.jpg" width=400>
+# <img src="../lectures/assets/lecture04_logistic_regression.jpg" alt="Illustration of a logistic regression curve" width=400>
 
 # %%
 from sklearn import linear_model
@@ -174,7 +174,7 @@ np.unique(y)[pred_label] == model.predict(xtest)
 # <img src="../lectures/assets/lecture04_svm_boundary_linear.jpg" width=500>
 #
 # This approach can be extended to multiple classes and higher dimensions.
-# It can also be used with nonlinear decision boundaries (illustrated in the `sklearn` documentation [here](https://scikit-learn.org/stable/modules/svm.html#classification)):
+# It can also be used with nonlinear decision boundaries (illustrated in the [SVM classification documentation](https://scikit-learn.org/stable/modules/svm.html#classification)):
 #
 # <img src="../lectures/assets/lecture04_svm_boundary_nonlinear.jpg">
 #
@@ -434,7 +434,7 @@ print(metrics.classification_report(ytest, ypred))
 #
 # Here's a reference:
 #
-# <img src="../lectures/assets/lecture04_confusion_matrix.jpg" height=300>
+# <img src="../lectures/assets/lecture04_confusion_matrix.jpg" alt="Confusion matrix diagram showing true positives, false positives, etc." height=300>
 
 # %% [markdown]
 # We can create this confusion matrix using the convenient `sklearn.metrics.ConfusionMatrixDisplay` function:

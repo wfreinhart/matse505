@@ -183,7 +183,7 @@ ax = data.plot.scatter('Age (day)', 'Concrete compressive strength(MPa, megapasc
 # Here's a still from [this youtube video](https://youtu.be/qAWOnPfZkGM?t=1234) illustrating the idea:
 
 # %% [markdown]
-# ![image.png](../lectures/assets/lecture03_loss_function.jpg)
+# ![image.jpg](../lectures/assets/lecture03_loss_function.jpg)
 
 # %% [markdown]
 # Let's look at the `minimize` docstring to get started:
@@ -789,7 +789,7 @@ def plot_model(model, xtrain, xtest, ytrain, ytest, title=None):
 #
 # K-Nearest Neighbors, abbreviated KNN, or called K Neighbors, is a voting algorithm. Essentially we just look at the values of the $k$ nearest points to the unlabeled observation in question $X_i$ in feature space and use the neighbors' labels $\{ y \}_k$ to predict $y_i$. It would look something like this:
 #
-# <img src="https://miro.medium.com/max/1400/0*ItVKiyx2F3ZU8zV5" height=300>
+# <img src="../lectures/assets/lecture03_knn_concept.jpg" alt="K-Nearest Neighbors concept diagram" height=300>
 #
 # This is a relatively simple idea but it can work quite well for some problems, especially with a lot of training data.
 # In some sense it is just an interpolation scheme, but it may work in very high dimensions.
@@ -820,7 +820,7 @@ plot_model(model, xtrain, xtest, ytrain, ytest)
 #
 # Decision Trees are a nonlinear method that identify outcomes based on a separation of the features into discrete domains. The domains are chosen in a hierarchical manner which yields a tree structure, like so:
 #
-# <img src="https://forum.huawei.com/enterprise/en/data/attachment/forum/202103/24/190400o09x7rhnnhy2yon7.png?1.png" width=600>
+# <img src="../lectures/assets/lecture03_decision_tree.jpg" alt="Visual representation of a decision tree structure" width=600>
 #
 # In essence, each split while going down the tree defines a mapping of the data from input to output. Building a very deep tree can result in a pretty complex, nonlinear mapping between input and output.
 
@@ -866,7 +866,7 @@ _ = tree.plot_tree(model, ax=ax, fontsize=10, label='root',
 #
 # In practical applications, Decision Trees tend to be somewhat weak. There may be too many features to evaluate, or too much variation to provide a strong prediction from a single path through the tree. Decision Trees can be made more robust through aggregation of multiple trees into an **ensemble**. One of the most common forms of ensemble learning is the Random Forest, so named because it uses a collection of Decision Trees (i.e., a Forest):
 #
-# <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Random_forest_diagram_complete.png">
+# <img src="../lectures/assets/lecture03_random_forest.jpg" alt="Schematic of a Random Forest ensemble learning architecture" width=600>
 #
 # Using this collection of many trees with consensus voting can give much stronger results than the single Decision Tree. This method can actually provide very complex mappings and as a result there is a big risk of overfitting. To see how this might happen, you can imagine creating leaf nodes for each individual outcome -- this might be similar to K-Neighbors with only one neighbor.
 
@@ -901,7 +901,7 @@ plot_model(model, xtrain, xtest, ytrain, ytest)
 # Neural Networks are perhaps the most famous ML models. They have achieved exceptional results in computer vision and natural language tasks, which have historically been incredibly challenging problems. The model name comes from its similarity to the architecture of a neuron in your brain.
 # Here is a schematic of how it works mathematically:
 #
-# <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--7y0EX4vc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://raw.githubusercontent.com/DrakeEntity/project-Image/master/1_8VSBCaqL2XeSCZQe_BAyVA.jpeg">
+# <img src="../lectures/assets/lecture03_neuron.jpg" alt="Mathematical schematic of a single artificial neuron" width=600>
 #
 # Basically the model alternates between a linear algebra block (which is fast and easy to compute) and a nonlinear function (the activation). By stacking multiple of these "layers," it is mathematically provable that the network can approximate any function. This has led to daring attempts by Deep Learning experts to learn functions with no conceivable alternative functional form, like human face generation (e.g., DeepFakes).
 #

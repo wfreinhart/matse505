@@ -71,9 +71,9 @@
 # %% [markdown]
 # Jupyter lets us include **formatted text** and $E_{Q}u^at_io^ns$ alongside [hyperlinks](https://en.wikipedia.org/wiki/Project_Jupyter) and images:
 #
-# <img src="../lectures/assets/python_logo.png" alt="The official Python logo, featuring two interlocking snakes in blue and yellow." height=200/>
+# <img src="../lectures/assets/python_logo.jpg" alt="The official Python logo, featuring two interlocking snakes in blue and yellow." height=200/>
 #
-# <img src="../lectures/assets/jupyter_logo.png" alt="The Project Jupyter logo, showing an orange planet-like circle with orbiting moons." height=200/>
+# <img src="../lectures/assets/jupyter_logo.jpg" alt="The Project Jupyter logo, showing an orange planet-like circle with orbiting moons." height=200/>
 #
 #
 

@@ -317,7 +317,7 @@ plt.plot([1, 2, 3, 10], [2, 4, 6, 10])
 # There is a simple way to get around the default behavior of `pyplot`, which is to explicitly create variables to store the chart.
 # Matplotlib calls the elements of a chart the `Figure` and `Axes`, as illustrated in this diagram:
 #
-# <img src="https://i1.wp.com/ajaytech.co/wp-content/uploads/2019/05/matplotlib-relationship-hierarchy.png?w=712&ssl=1" alt="Diagram of matplotlib Figure classes." height=400/>
+# <img src="../lectures/assets/lecture02_matplotlib_hierarchy.jpg" alt="Diagram showing the hierarchy of Matplotlib Figure elements" width=600>
 #
 # (image credit [ajaytech.co](https://ajaytech.co/matplotlib))
 
@@ -438,7 +438,7 @@ ax.legend()  # create the legend based on `label`
 # * Add a line plot for $y$ vs $x$, use a green (`'g'`) line color with "dash-dot" style (`'-.'`)
 # * Add a title and axis labels
 #
-# > You could reference [this link](https://matplotlib.org/stable/gallery/color/named_colors.html) for all the named colors
+# > You could reference [Matplotlib named colors](https://matplotlib.org/stable/gallery/color/named_colors.html) for all the named colors
 
 # %%
 
