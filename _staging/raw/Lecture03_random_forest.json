@@ -1,0 +1,51 @@
+{
+  "id": "Lecture03_random_forest",
+  "markdown_content": "## Random Forest\n\nIn practical applications, Decision Trees tend to be somewhat weak. There may be too many features to evaluate, or too much variation to provide a strong prediction from a single path through the tree. Decision Trees can be made more robust through aggregation of multiple trees into an **ensemble**. One of the most common forms of ensemble learning is the Random Forest, so named because it uses a collection of Decision Trees (i.e., a Forest):\n\n<img src=\"../lectures/assets/lecture03_random_forest.jpg\" alt=\"Schematic of a Random Forest ensemble learning architecture\" width=600>\n\nUsing this collection of many trees with consensus voting can give much stronger results than the single Decision Tree. This method can actually provide very complex mappings and as a result there is a big risk of overfitting. To see how this might happen, you can imagine creating leaf nodes for each individual outcome -- this might be similar to K-Neighbors with only one neighbor.\n\nThis model has also suffers from overfitting, like the Decision Trees (since the Forest is made up of Trees).\nFrom the training data, you would think it predicts the outcome nearly perfectly. However, we get 2-3x increase in RMSE in testing. This is stil the best model we have so far, but it's very important not to believe the training result.\n\nWe can greatly reduce overfitting by limiting the depth of the decision trees using the `max_depth` keyword argument:\n\nThis model still outperforms the polynomial LinearRegression while not suffering greatly from overfitting. It is substantially more robust than a single Decision Tree. However, it is no longer even traceable, let alone interpretable -- there is no way we can parse the decisions made by 100+ individual trees!",
+  "code_block": "\n\nfrom sklearn import ensemble\n\nmodel = ensemble.RandomForestRegressor().fit(xtrain, ytrain)\n\nevaluate_model(model, xtrain, xtest, ytrain, ytest)\n\nplot_model(model, xtrain, xtest, ytrain, ytest)\n\nmodel = ensemble.RandomForestRegressor(max_depth=5).fit(xtrain, ytrain)\n\nevaluate_model(model, xtrain, xtest, ytrain, ytest)\n\nplot_model(model, xtrain, xtest, ytrain, ytest)",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Random Forest\n\nIn practical applications, Decision Trees tend to be somewhat weak. There may be too many features to evaluate, or too much variation to provide a strong prediction from a single path through the tree. Decision Trees can be made more robust through aggregation of multiple trees into an **ensemble**. One of the most common forms of ensemble learning is the Random Forest, so named because it uses a collection of Decision Trees (i.e., a Forest):\n\n<img src=\"../lectures/assets/lecture03_random_forest.jpg\" alt=\"Schematic of a Random Forest ensemble learning architecture\" width=600>\n\nUsing this collection of many trees with consensus voting can give much stronger results than the single Decision Tree. This method can actually provide very complex mappings and as a result there is a big risk of overfitting. To see how this might happen, you can imagine creating leaf nodes for each individual outcome -- this might be similar to K-Neighbors with only one neighbor.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import ensemble\n\nmodel = ensemble.RandomForestRegressor().fit(xtrain, ytrain)\n\nevaluate_model(model, xtrain, xtest, ytrain, ytest)\n\nplot_model(model, xtrain, xtest, ytrain, ytest)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This model has also suffers from overfitting, like the Decision Trees (since the Forest is made up of Trees).\nFrom the training data, you would think it predicts the outcome nearly perfectly. However, we get 2-3x increase in RMSE in testing. This is stil the best model we have so far, but it's very important not to believe the training result.\n\nWe can greatly reduce overfitting by limiting the depth of the decision trees using the `max_depth` keyword argument:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model = ensemble.RandomForestRegressor(max_depth=5).fit(xtrain, ytrain)\n\nevaluate_model(model, xtrain, xtest, ytrain, ytest)\n\nplot_model(model, xtrain, xtest, ytrain, ytest)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This model still outperforms the polynomial LinearRegression while not suffering greatly from overfitting. It is substantially more robust than a single Decision Tree. However, it is no longer even traceable, let alone interpretable -- there is no way we can parse the decisions made by 100+ individual trees!",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 24,
+  "parent_lecture": "Lecture03"
+}

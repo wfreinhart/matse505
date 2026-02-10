@@ -1,0 +1,53 @@
+{
+  "id": "Lecture05_cutoff_based_methods",
+  "markdown_content": "## Cutoff-based methods\n\nNot all clustering methods use a defined number of clusters (\"$k$\").\nSome provide a characteristic score for each.\nFor instance, agglomerative clustering builds up a tree where each node merges two clusters from below (with leaf nodes being single points).\nAt each level, a dissimilarity metric can be assessed.\nThis permits a choice between either a fixed number of clusters OR a threshold dissimilarity at which to stop merging.\n\n<img src=\"../lectures/assets/hierarchical_clustering.jpg\" width=600 alt=\"A dendrogram illustrating the stages of hierarchical agglomerative clustering\">\n\nNote that depending on the dissimilarity metric used, the shapes of the clusters can be radically different.\n\nThis is also an instance-based model, and the result of the clustering will be different for every new data sample.\nAs a result, there are no separate `fit` / `predict` methods, and instead we can only perform `fit_predict` in one step (i.e., new data cannot be clustered using pre-trained model parameters).",
+  "code_block": "\n\nmodel = cluster.AgglomerativeClustering()\nlabels = model.fit_predict(x)\n\npx.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)\n\nmodel = cluster.AgglomerativeClustering(n_clusters=4)\nlabels = model.fit_predict(x)\n\npx.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)\n\nfrom scipy.cluster.hierarchy import dendrogram\n\n\ndef plot_dendrogram(model, **kwargs):\n    # Create linkage matrix and then plot the dendrogram\n    # from https://scikit-learn.org/stable/auto_examples/cluster/plot_agglomerative_dendrogram.html\n\n    # create the counts of samples under each node\n    counts = np.zeros(model.children_.shape[0])\n    n_samples = len(model.labels_)\n    for i, merge in enumerate(model.children_):\n        current_count = 0\n        for child_idx in merge:\n            if child_idx < n_samples:\n                current_count += 1  # leaf node\n            else:\n                current_count += counts[child_idx - n_samples]\n        counts[i] = current_count\n\n    linkage_matrix = np.column_stack(\n        [model.children_, model.distances_, counts]\n    ).astype(float)\n\n    # Plot the corresponding dendrogram\n    dendrogram(linkage_matrix, **kwargs)\n\n\nmodel = cluster.AgglomerativeClustering(distance_threshold=0, n_clusters=None)\nmodel.fit(x)\nplot_dendrogram(model)\n\nmodel = cluster.AgglomerativeClustering(distance_threshold=0.3, n_clusters=None, linkage='single')\nlabels = model.fit_predict(x)\n\npx.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)\n\nmodel = cluster.AgglomerativeClustering(n_clusters=3, linkage='single')\nlabels = model.fit_predict(x)\n\npx.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Cutoff-based methods\n\nNot all clustering methods use a defined number of clusters (\"$k$\").\nSome provide a characteristic score for each.\nFor instance, agglomerative clustering builds up a tree where each node merges two clusters from below (with leaf nodes being single points).\nAt each level, a dissimilarity metric can be assessed.\nThis permits a choice between either a fixed number of clusters OR a threshold dissimilarity at which to stop merging.\n\n<img src=\"../lectures/assets/hierarchical_clustering.jpg\" width=600 alt=\"A dendrogram illustrating the stages of hierarchical agglomerative clustering\">\n\nNote that depending on the dissimilarity metric used, the shapes of the clusters can be radically different.\n\nThis is also an instance-based model, and the result of the clustering will be different for every new data sample.\nAs a result, there are no separate `fit` / `predict` methods, and instead we can only perform `fit_predict` in one step (i.e., new data cannot be clustered using pre-trained model parameters).",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model = cluster.AgglomerativeClustering()\nlabels = model.fit_predict(x)\n\npx.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "model = cluster.AgglomerativeClustering(n_clusters=4)\nlabels = model.fit_predict(x)\n\npx.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "from scipy.cluster.hierarchy import dendrogram\n\n\ndef plot_dendrogram(model, **kwargs):\n    # Create linkage matrix and then plot the dendrogram\n    # from https://scikit-learn.org/stable/auto_examples/cluster/plot_agglomerative_dendrogram.html\n\n    # create the counts of samples under each node\n    counts = np.zeros(model.children_.shape[0])\n    n_samples = len(model.labels_)\n    for i, merge in enumerate(model.children_):\n        current_count = 0\n        for child_idx in merge:\n            if child_idx < n_samples:\n                current_count += 1  # leaf node\n            else:\n                current_count += counts[child_idx - n_samples]\n        counts[i] = current_count\n\n    linkage_matrix = np.column_stack(\n        [model.children_, model.distances_, counts]\n    ).astype(float)\n\n    # Plot the corresponding dendrogram\n    dendrogram(linkage_matrix, **kwargs)\n\n\nmodel = cluster.AgglomerativeClustering(distance_threshold=0, n_clusters=None)\nmodel.fit(x)\nplot_dendrogram(model)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "model = cluster.AgglomerativeClustering(distance_threshold=0.3, n_clusters=None, linkage='single')\nlabels = model.fit_predict(x)\n\npx.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "model = cluster.AgglomerativeClustering(n_clusters=3, linkage='single')\nlabels = model.fit_predict(x)\n\npx.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 6,
+  "parent_lecture": "Lecture05"
+}

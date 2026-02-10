@@ -1,0 +1,68 @@
+{
+  "id": "Lecture05_pca_with_scikit_learn",
+  "markdown_content": "## PCA with `scikit-learn`\n\nOf course there is always the `sklearn` interface for the same operation:\n\nWe see that the output of `pca.transform` is the same size as the original `x`.\nThese are the coefficients of `x` projected onto the vectors identified by PCA.\nLet's see what these projections look like:\n\nIf we want to understand where each `Alloy family` appears in the manifold, we could do something like this:\n\nHere we begin to see why the `KMeans` clustering was confused between the `C` and `L` families -- they do not form compact groupings in the space! Instead they are defined by some strict definitions about their elemental compositions (which we saw last time using `DecisionTreeClassifier`).\n\nWe can plot the `KMeans` predictions in this space to see what it thinks should be the clusters:\n\nThe clustering algorithm prioritizes compact groupings in the 2D space whereas the ground truth labels make more slender/anisotropic groups.",
+  "code_block": "\n\nfrom sklearn import decomposition\n\n# fit the model\npca = decomposition.PCA().fit(x)\n\n# project X using PCA\np = pca.transform(x)\nprint(p.shape)\n\nfig, ax = plt.subplots()\nax.scatter(p[:, 0], p[:, 1], c=y)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')\n\nfig, ax = plt.subplots()\nax.scatter(p[:, 0], p[:, 1], c=y)\n\n# label the centers\nfor i in range(4):\n    center = np.mean(p[y==i], axis=0)\n    ax.text(center[0], center[1], encoder.classes_[i])\n\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')\n\nmodel = cluster.KMeans(n_clusters=4).fit(x)\nlabels = model.predict(x)\n\nfig, ax = plt.subplots()\nax.scatter(p[:, 0], p[:, 1], c=labels)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## PCA with `scikit-learn`\n\nOf course there is always the `sklearn` interface for the same operation:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import decomposition\n\n# fit the model\npca = decomposition.PCA().fit(x)\n\n# project X using PCA\np = pca.transform(x)\nprint(p.shape)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We see that the output of `pca.transform` is the same size as the original `x`.\nThese are the coefficients of `x` projected onto the vectors identified by PCA.\nLet's see what these projections look like:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.scatter(p[:, 0], p[:, 1], c=y)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "If we want to understand where each `Alloy family` appears in the manifold, we could do something like this:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.scatter(p[:, 0], p[:, 1], c=y)\n\n# label the centers\nfor i in range(4):\n    center = np.mean(p[y==i], axis=0)\n    ax.text(center[0], center[1], encoder.classes_[i])\n\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Here we begin to see why the `KMeans` clustering was confused between the `C` and `L` families -- they do not form compact groupings in the space! Instead they are defined by some strict definitions about their elemental compositions (which we saw last time using `DecisionTreeClassifier`).\n\nWe can plot the `KMeans` predictions in this space to see what it thinks should be the clusters:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model = cluster.KMeans(n_clusters=4).fit(x)\nlabels = model.predict(x)\n\nfig, ax = plt.subplots()\nax.scatter(p[:, 0], p[:, 1], c=labels)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "The clustering algorithm prioritizes compact groupings in the 2D space whereas the ground truth labels make more slender/anisotropic groups.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 16,
+  "parent_lecture": "Lecture05"
+}

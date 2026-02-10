@@ -1,0 +1,38 @@
+{
+  "id": "Lecture02_with_pandas_builtins",
+  "markdown_content": "## With `pandas` builtins\n\nThere is a huge shortcut we can take using `pandas` again:\n\nThis returns all the correlations between pairs of columns.\nIt is itself a `DataFrame` so we can filter using `loc`:",
+  "code_block": "\n\nxyz_data.corr()\n\nxyz_data.corr().loc[:, 'Atomic Mass']",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## With `pandas` builtins\n\nThere is a huge shortcut we can take using `pandas` again:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "xyz_data.corr()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This returns all the correlations between pairs of columns.\nIt is itself a `DataFrame` so we can filter using `loc`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "xyz_data.corr().loc[:, 'Atomic Mass']",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 35,
+  "parent_lecture": "Lecture02"
+}

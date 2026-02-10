@@ -1,0 +1,78 @@
+{
+  "id": "Lecture05_outlier_detection",
+  "markdown_content": "## Outlier detection\n\nAnother use of dimensionality reduction can be outlier detection. Let's switch our definition of $X$ from the compositions to the properties.\n\nClearly something is strange with that one point off on its own. Let's check it out:\n\nLook at that `Tensile Strength` value! If we examine the `Tensile Strength` data, we will see that it is indeed anomalous:\n\nThis value was almost certainly entered incorrectly (e.g., wrong decimal place). We can remove the outlier using `drop()`:\n\nThen we can look at our manifold again:\n\nOf course here we see some more strange behavior. We could continue to investigate these additional outliers using this method (though we may not always want to remove them, some might be \"real\" special cases).\n\nTo be clear, we could easily have found this anomaly by analyzing the `Tensile Strength (MPa)` column individually.\nHowever, the upshot is that we see that data point as an anomaly in the first Principal Component, without considering any column-wise statistics.",
+  "code_block": "\n\nx = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']\n\npca = decomposition.PCA().fit(x)\nP = pca.transform(x)\n\nfig, ax = plt.subplots()\nax.scatter(P[:, 0], P[:, 1])\nax.set_xlabel('$P_0$')\nax.set_ylabel('$P_1$')\n\noutlier = np.argmax(P[:, 0])  # find the largest value in Z_0\nprint(x.loc[outlier])\n\nfig, ax = plt.subplots()\n_ = ax.hist(x[' Tensile Strength (MPa)'], bins=100)\nax.set_xlabel('Tensile Strength (MPa)')\nax.set_ylabel('Count')\n\nclean_data = data.drop(index=outlier)\nclean_y = encoder.transform(clean_data['Alloy family'])\n\nclean_x = clean_data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']\n\npca = decomposition.PCA().fit(clean_x)\nP = pca.transform(clean_x)\n\nfig, ax = plt.subplots()\nax.scatter(P[:, 0], P[:, 1])\nax.set_xlabel('$P_0$')\nax.set_ylabel('$P_1$')",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Outlier detection\n\nAnother use of dimensionality reduction can be outlier detection. Let's switch our definition of $X$ from the compositions to the properties.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']\n\npca = decomposition.PCA().fit(x)\nP = pca.transform(x)\n\nfig, ax = plt.subplots()\nax.scatter(P[:, 0], P[:, 1])\nax.set_xlabel('$P_0$')\nax.set_ylabel('$P_1$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Clearly something is strange with that one point off on its own. Let's check it out:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "outlier = np.argmax(P[:, 0])  # find the largest value in Z_0\nprint(x.loc[outlier])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Look at that `Tensile Strength` value! If we examine the `Tensile Strength` data, we will see that it is indeed anomalous:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\n_ = ax.hist(x[' Tensile Strength (MPa)'], bins=100)\nax.set_xlabel('Tensile Strength (MPa)')\nax.set_ylabel('Count')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This value was almost certainly entered incorrectly (e.g., wrong decimal place). We can remove the outlier using `drop()`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "clean_data = data.drop(index=outlier)\nclean_y = encoder.transform(clean_data['Alloy family'])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Then we can look at our manifold again:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "clean_x = clean_data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']\n\npca = decomposition.PCA().fit(clean_x)\nP = pca.transform(clean_x)\n\nfig, ax = plt.subplots()\nax.scatter(P[:, 0], P[:, 1])\nax.set_xlabel('$P_0$')\nax.set_ylabel('$P_1$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Of course here we see some more strange behavior. We could continue to investigate these additional outliers using this method (though we may not always want to remove them, some might be \"real\" special cases).\n\nTo be clear, we could easily have found this anomaly by analyzing the `Tensile Strength (MPa)` column individually.\nHowever, the upshot is that we see that data point as an anomaly in the first Principal Component, without considering any column-wise statistics.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 18,
+  "parent_lecture": "Lecture05"
+}

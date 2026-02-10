@@ -1,0 +1,30 @@
+{
+  "id": "Lecture01_aliases",
+  "markdown_content": "## Aliases\n\nEven though modules have relatively short names, they sometimes need to be referenced a ton of times (hundreds or thousands).\nIn this case, it can be handy to change the name to something even shorter.\nWhen using `import`, you can rename things with the [`as` keyword](https://www.w3schools.com/python/ref_keyword_as.asp):\n\nNow the very short `np` will serve as an alias for the NumPy module.\nYou can think of this just like a variable name, where `np` points to the full NumPy module behind the scenes.",
+  "code_block": "\n\nimport numpy as np\nprint(np)",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Aliases\n\nEven though modules have relatively short names, they sometimes need to be referenced a ton of times (hundreds or thousands).\nIn this case, it can be handy to change the name to something even shorter.\nWhen using `import`, you can rename things with the [`as` keyword](https://www.w3schools.com/python/ref_keyword_as.asp):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import numpy as np\nprint(np)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now the very short `np` will serve as an alias for the NumPy module.\nYou can think of this just like a variable name, where `np` points to the full NumPy module behind the scenes.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 15,
+  "parent_lecture": "Lecture01"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "Lecture05_implementation_in_sklearn",
+  "type": "Foundational",
+  "sequence": 3,
+  "parent_lecture": "Lecture05",
+  "requirements": [
+    "tensors['os']"
+  ],
+  "markdown_content": "## Implementation in `sklearn`\n\nLet's load the alloys dataset from before...\n\nWe start by defining our features, $X$.\n\nUnlike in the supervised case, we have no $y$ labels.\n\nAlso, we don't need to do a train/test split because we have no labels to check against!",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from scipy.cluster.hierarchy import dendrogram\n    from sklearn import cluster\n    from sklearn import decomposition\n    from sklearn import metrics\n    from sklearn import preprocessing\n    from sklearn.mixture import GaussianMixture\n    import numpy as np\n    import os\n    import pandas as pd\n    import tqdm  # a very useful package for progress bars\n    os = ctx.get('tensors', {}).get('os')\n    \n    \n    import pandas as pd\n    import numpy as np\n    import os\n    \n    # Set the path to the data file\n    filename = 'steels.csv'\n    local_path = f'../datasets/{filename}'\n    github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n    \n    # Load the data: try local path first, fallback to GitHub for Colab\n    if os.path.exists(local_path):\n        data = pd.read_csv(local_path)\n    else:\n        data = pd.read_csv(github_url)\n    data                            # show a view of the data file\n    \n    x = data.loc[:, ' C':'Nb + Ta']\n    x\n    ctx['data'] = data\n    ctx['tensors']['filename'] = filename\n    ctx['tensors']['github_url'] = github_url\n    ctx['tensors']['local_path'] = local_path\n    ctx['tensors']['x'] = x"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "Lecture02_a_shortcut",
+  "markdown_content": "## A shortcut\n\nWe can start by defining some data of interest.\nI highly recommend a more declarative style of programming with variables defined whenever something will be reused.\nThis makes it easier to read and debug.\nYou can always optimize for speed later (we'll discuss...).\n\nLet's take a second to investigate these new variables:\n\nA `Series` is kind of like a `DataFrame` but only for one column.\nIt retains some useful features:",
+  "code_block": "\n\nx = data.loc[:, 'Atomic Mass']             # one option for indexing\ny = data['Vacancy Formation Energy (eV)']  # another option for indexing\nz = data.loc[:, 'Bulk Static Energy (eV)'] # I prefer this one -- more explicit\n\nprint(type(x))\n\nprint(x.name)    # an attribute\nprint(x.shape)   # another attribute\nprint(x.mean())  # a method (albeit with a static value)",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## A shortcut\n\nWe can start by defining some data of interest.\nI highly recommend a more declarative style of programming with variables defined whenever something will be reused.\nThis makes it easier to read and debug.\nYou can always optimize for speed later (we'll discuss...).",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = data.loc[:, 'Atomic Mass']             # one option for indexing\ny = data['Vacancy Formation Energy (eV)']  # another option for indexing\nz = data.loc[:, 'Bulk Static Energy (eV)'] # I prefer this one -- more explicit",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Let's take a second to investigate these new variables:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(type(x))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "A `Series` is kind of like a `DataFrame` but only for one column.\nIt retains some useful features:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(x.name)    # an attribute\nprint(x.shape)   # another attribute\nprint(x.mean())  # a method (albeit with a static value)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 21,
+  "parent_lecture": "Lecture02"
+}

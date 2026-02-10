@@ -1,0 +1,12 @@
+{
+  "id": "Lecture01_functions",
+  "type": "Foundational",
+  "sequence": 9,
+  "parent_lecture": "Lecture01",
+  "requirements": [
+    "tensors['my_variable']",
+    "tensors['x']"
+  ],
+  "markdown_content": "# Functions\n\n[Functions](https://www.w3schools.com/python/python_functions.asp) do something to variables.\nYou may have learned in math about functions like $f(x) = y$.\nThe Python version of a function is exactly the same, it produces some output $y$ from some input $x$.\n\nThere are a bunch of built-in functions including `print` that we have already seen.\nLet's try using print in a few different ways:\n\nFunctions are called by writing the name followed by `()`.\nThe function `arguments` go inside the parentheses.\nSome functions take no arguments and would look like this: `my_function()`.\n\nAnother builtin function is `type`:\n\nNote that `x` is an integer because its assigned value did not include a decimal point.\nIf we use a decimal point, it will become a floating point number (`float`):",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    import matplotlib\n    import numpy\n    import numpy as np\n    import numpy as np  # this is a module, with an alias\n    my_variable = ctx.get('tensors', {}).get('my_variable')\n    x = ctx.get('tensors', {}).get('x')\n    \n    \n    print(x)            # this will write \"1\" (from x = 1 above)\n    print(my_variable)  # this will write \"abc\" (from my_variable = 'abc' above)\n    print(5)\n    print(\"some text\")  # we can also call print on an input that's not a variable\n    print(x, 'text')    # print can take multiple arguments separated by commas\n    \n    print(print)\n    \n    type(x)  # x should be of type \"integer,\" or \"int\" for short\n    \n    x = 1.0\n    type(x)\n    ctx['tensors']['x'] = x"
+}

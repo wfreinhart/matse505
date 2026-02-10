@@ -1,0 +1,71 @@
+{
+  "id": "Lecture03_visualizing_model_performance",
+  "markdown_content": "## Visualizing model performance\n\nHow should we visualize the result?\n$x$ is no longer a 1D vector, but a 2D array with many observations of multiple values.\nWe can make charts with up to 4 variables using 3D scatter charts plus a color axis, but here we have 8 features!\n\nThe standard way is to plot the Prediction against the Observation, called a **parity plot**.\nThis shows you whether there is a systematic bias in your model, and the chart looks the same no matter what sort of model you're using.\n\nWe can see a slight bias to over-estimate at the bottom and over-estimate at the top. What might be going on here? One thing we could do is make a scatter plot of the results and color the points according to one of the variables. Then we will know if there is a correlation between the variable value and the residuals. Let's try it with `Age`:\n\nHere we see that indeed several of the points furthest from the Reference line are colored yellow, indicating an Age of 365 days. This shows that the model over-estimates the strength of the concrete when aged for much longer than average. We can see the same effect using a `scatter_3d` chart with `plotly`:\n\nWe can take another view of the data by plotting the residual against the Age:\n\nIf we look back at the `Concrete compressive strength` vs `Age` chart, we would see a highly nonlinear relationship between the two. This is backed up by the nonlinear shape of the residuals shown above. We will resolve this problem using more sophisticated methods very shortly.",
+  "code_block": "\n\nfrom matplotlib import pyplot as plt\n\nfig, ax = plt.subplots(figsize=(5, 5))\n\n# plot the results\nax.plot(y, y_pred, '.', label='Data')\n\n# create reference line along y = x to show the desired behavior\nmin_max = np.array([y.min(), y.max()])\nax.plot(min_max, min_max, 'k--', label='Reference')\nax.set_aspect('equal')  # very helpful to show y = x relationship\n\n# add labels and legend\nax.set_title('Multiple linear regression model of concrete strength')\nax.set_xlabel('Observation')\nax.set_ylabel('Prediction')\nax.legend()\n\nfig, ax = plt.subplots(figsize=(5, 5))\n\n# plot the results\nim = ax.scatter(y, y_pred, s=16, c=data['Age (day)'], label='Data')\ncb = plt.colorbar(im, ax=ax)\ncb.set_label('Age (day)')\n\n# create reference line along y = x to show the desired behavior\nmin_max = np.array([y.min(), y.max()])\nax.plot(min_max, min_max, 'k--', label='Reference')\nax.set_aspect('equal')  # very helpful to show y = x relationship\n\n# add labels and legend\nax.set_title('Linear regression of concrete strength')\nax.set_xlabel('Observation')\nax.set_ylabel('Prediction')\nax.legend()\n\nfrom plotly import express as px\n\npx.scatter_3d(x=y, y=y_pred, z=data['Age (day)'], color=data['Age (day)'], width=800, height=600)\n\nage = data['Age (day)']\nfig, ax = plt.subplots()\nax.plot(age, residuals, '.')\nax.plot([age.min(), age.max()], [0, 0], 'k--')\nax.set_xlabel('Observation')\nax.set_ylabel('Residual')",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Visualizing model performance\n\nHow should we visualize the result?\n$x$ is no longer a 1D vector, but a 2D array with many observations of multiple values.\nWe can make charts with up to 4 variables using 3D scatter charts plus a color axis, but here we have 8 features!\n\nThe standard way is to plot the Prediction against the Observation, called a **parity plot**.\nThis shows you whether there is a systematic bias in your model, and the chart looks the same no matter what sort of model you're using.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from matplotlib import pyplot as plt\n\nfig, ax = plt.subplots(figsize=(5, 5))\n\n# plot the results\nax.plot(y, y_pred, '.', label='Data')\n\n# create reference line along y = x to show the desired behavior\nmin_max = np.array([y.min(), y.max()])\nax.plot(min_max, min_max, 'k--', label='Reference')\nax.set_aspect('equal')  # very helpful to show y = x relationship\n\n# add labels and legend\nax.set_title('Multiple linear regression model of concrete strength')\nax.set_xlabel('Observation')\nax.set_ylabel('Prediction')\nax.legend()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can see a slight bias to over-estimate at the bottom and over-estimate at the top. What might be going on here? One thing we could do is make a scatter plot of the results and color the points according to one of the variables. Then we will know if there is a correlation between the variable value and the residuals. Let's try it with `Age`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots(figsize=(5, 5))\n\n# plot the results\nim = ax.scatter(y, y_pred, s=16, c=data['Age (day)'], label='Data')\ncb = plt.colorbar(im, ax=ax)\ncb.set_label('Age (day)')\n\n# create reference line along y = x to show the desired behavior\nmin_max = np.array([y.min(), y.max()])\nax.plot(min_max, min_max, 'k--', label='Reference')\nax.set_aspect('equal')  # very helpful to show y = x relationship\n\n# add labels and legend\nax.set_title('Linear regression of concrete strength')\nax.set_xlabel('Observation')\nax.set_ylabel('Prediction')\nax.legend()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Here we see that indeed several of the points furthest from the Reference line are colored yellow, indicating an Age of 365 days. This shows that the model over-estimates the strength of the concrete when aged for much longer than average. We can see the same effect using a `scatter_3d` chart with `plotly`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from plotly import express as px\n\npx.scatter_3d(x=y, y=y_pred, z=data['Age (day)'], color=data['Age (day)'], width=800, height=600)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can take another view of the data by plotting the residual against the Age:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "age = data['Age (day)']\nfig, ax = plt.subplots()\nax.plot(age, residuals, '.')\nax.plot([age.min(), age.max()], [0, 0], 'k--')\nax.set_xlabel('Observation')\nax.set_ylabel('Residual')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "If we look back at the `Concrete compressive strength` vs `Age` chart, we would see a highly nonlinear relationship between the two. This is backed up by the nonlinear shape of the residuals shown above. We will resolve this problem using more sophisticated methods very shortly.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 10,
+  "parent_lecture": "Lecture03"
+}

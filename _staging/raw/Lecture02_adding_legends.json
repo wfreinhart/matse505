@@ -1,0 +1,28 @@
+{
+  "id": "Lecture02_adding_legends",
+  "markdown_content": "## Adding legends\n\nLegends are essential for good charts (with multiple series).\nHere is my recommended way to add a legend using `ax.legend`:",
+  "code_block": "\n\nfig, ax = plt.subplots()\n\nax.plot([1, 2, 3, 5], [2, 4, 6, 10], label='Series 1')  # label will be used by legend() later\nax.plot([1, 2, 3, 4], [3, 4, 5, 6], label='Series 2')\n\nax.legend()  # create the legend based on `label`",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Adding legends\n\nLegends are essential for good charts (with multiple series).\nHere is my recommended way to add a legend using `ax.legend`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\n\nax.plot([1, 2, 3, 5], [2, 4, 6, 10], label='Series 1')  # label will be used by legend() later\nax.plot([1, 2, 3, 4], [3, 4, 5, 6], label='Series 2')\n\nax.legend()  # create the legend based on `label`",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 18,
+  "parent_lecture": "Lecture02"
+}

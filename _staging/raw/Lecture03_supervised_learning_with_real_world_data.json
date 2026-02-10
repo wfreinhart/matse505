@@ -1,0 +1,56 @@
+{
+  "id": "Lecture03_supervised_learning_with_real_world_data",
+  "markdown_content": "# Supervised learning with real-world data\n\nWe'll use this dataset of concrete compressive strengths for our supervised learning examples.\nThe data were obtained from [this Kaggle page](https://www.kaggle.com/datasets/elikplim/concrete-compressive-strength-data-set).\n\n> NOTE: Reuse of this database is unlimited with retention of copyright notice for Prof. I-Cheng Yeh and the following published paper:\nI-Cheng Yeh, \"Modeling of strength of high performance concrete using artificial\nneural networks,\" Cement and Concrete Research, Vol. 28, No. 12, pp. 1797-1808 (1998)\n\nLet's try to predict `Concrete compressive strength(MPa, megapascals)`.\nWe should start by trying to understand the dataset.\nThe independent variables are on the left.\nMost are compositions, but the last one is Age in days.\nWe can start by checking how the `Concrete compressive strength(MPa, megapascals) ` correlates to the other variables using the `corr()` method of the `DataFrame`:\n\nIt looks like `Cement`, `Superplasticizer`, and `Age` are the strongest contributors to the `Concrete compressive strength`. Let's evaluate these trends visually:\n\n> **Note:** Some column names in this dataset have trailing spaces (e.g., `'Concrete compressive strength(MPa, megapascals) '`). Be careful when indexing!",
+  "code_block": "\n\nimport requests\nimport pandas as pd\nimport numpy as np\nimport os\n\n# Set the path to the data file\nfilename = 'concrete.csv'\nlocal_path = f'../datasets/{filename}'\ngithub_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\n# Load the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path):\n    data = pd.read_csv(local_path)\nelse:\n    data = pd.read_csv(github_url)\n\ndata                            # show a view of the data file\n\ndata.corr()['Concrete compressive strength(MPa, megapascals) ']\n\nax = data.plot.scatter('Cement (component 1)(kg in a m^3 mixture)', 'Concrete compressive strength(MPa, megapascals) ')\nax = data.plot.scatter('Superplasticizer (component 5)(kg in a m^3 mixture)', 'Concrete compressive strength(MPa, megapascals) ')\nax = data.plot.scatter('Age (day)', 'Concrete compressive strength(MPa, megapascals) ')",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Supervised learning with real-world data\n\nWe'll use this dataset of concrete compressive strengths for our supervised learning examples.\nThe data were obtained from [this Kaggle page](https://www.kaggle.com/datasets/elikplim/concrete-compressive-strength-data-set).\n\n> NOTE: Reuse of this database is unlimited with retention of copyright notice for Prof. I-Cheng Yeh and the following published paper:\nI-Cheng Yeh, \"Modeling of strength of high performance concrete using artificial\nneural networks,\" Cement and Concrete Research, Vol. 28, No. 12, pp. 1797-1808 (1998)",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import requests\nimport pandas as pd\nimport numpy as np\nimport os\n\n# Set the path to the data file\nfilename = 'concrete.csv'\nlocal_path = f'../datasets/{filename}'\ngithub_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\n# Load the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path):\n    data = pd.read_csv(local_path)\nelse:\n    data = pd.read_csv(github_url)\n\ndata                            # show a view of the data file",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Let's try to predict `Concrete compressive strength(MPa, megapascals)`.\nWe should start by trying to understand the dataset.\nThe independent variables are on the left.\nMost are compositions, but the last one is Age in days.\nWe can start by checking how the `Concrete compressive strength(MPa, megapascals) ` correlates to the other variables using the `corr()` method of the `DataFrame`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data.corr()['Concrete compressive strength(MPa, megapascals) ']",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "It looks like `Cement`, `Superplasticizer`, and `Age` are the strongest contributors to the `Concrete compressive strength`. Let's evaluate these trends visually:\n\n> **Note:** Some column names in this dataset have trailing spaces (e.g., `'Concrete compressive strength(MPa, megapascals) '`). Be careful when indexing!",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "ax = data.plot.scatter('Cement (component 1)(kg in a m^3 mixture)', 'Concrete compressive strength(MPa, megapascals) ')\nax = data.plot.scatter('Superplasticizer (component 5)(kg in a m^3 mixture)', 'Concrete compressive strength(MPa, megapascals) ')\nax = data.plot.scatter('Age (day)', 'Concrete compressive strength(MPa, megapascals) ')",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 6,
+  "parent_lecture": "Lecture03"
+}

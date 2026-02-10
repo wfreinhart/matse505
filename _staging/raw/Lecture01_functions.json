@@ -1,0 +1,50 @@
+{
+  "id": "Lecture01_functions",
+  "markdown_content": "# Functions\n\n[Functions](https://www.w3schools.com/python/python_functions.asp) do something to variables.\nYou may have learned in math about functions like $f(x) = y$.\nThe Python version of a function is exactly the same, it produces some output $y$ from some input $x$.\n\nThere are a bunch of built-in functions including `print` that we have already seen.\nLet's try using print in a few different ways:\n\nFunctions are called by writing the name followed by `()`.\nThe function `arguments` go inside the parentheses.\nSome functions take no arguments and would look like this: `my_function()`.\n\nAnother builtin function is `type`:\n\nNote that `x` is an integer because its assigned value did not include a decimal point.\nIf we use a decimal point, it will become a floating point number (`float`):",
+  "code_block": "\n\nprint(x)            # this will write \"1\" (from x = 1 above)\nprint(my_variable)  # this will write \"abc\" (from my_variable = 'abc' above)\nprint(5)\nprint(\"some text\")  # we can also call print on an input that's not a variable\nprint(x, 'text')    # print can take multiple arguments separated by commas\n\nprint(print)\n\ntype(x)  # x should be of type \"integer,\" or \"int\" for short\n\nx = 1.0\ntype(x)",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Functions\n\n[Functions](https://www.w3schools.com/python/python_functions.asp) do something to variables.\nYou may have learned in math about functions like $f(x) = y$.\nThe Python version of a function is exactly the same, it produces some output $y$ from some input $x$.\n\nThere are a bunch of built-in functions including `print` that we have already seen.\nLet's try using print in a few different ways:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(x)            # this will write \"1\" (from x = 1 above)\nprint(my_variable)  # this will write \"abc\" (from my_variable = 'abc' above)\nprint(5)\nprint(\"some text\")  # we can also call print on an input that's not a variable\nprint(x, 'text')    # print can take multiple arguments separated by commas",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "print(print)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Functions are called by writing the name followed by `()`.\nThe function `arguments` go inside the parentheses.\nSome functions take no arguments and would look like this: `my_function()`.\n\nAnother builtin function is `type`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "type(x)  # x should be of type \"integer,\" or \"int\" for short",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Note that `x` is an integer because its assigned value did not include a decimal point.\nIf we use a decimal point, it will become a floating point number (`float`):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = 1.0\ntype(x)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 9,
+  "parent_lecture": "Lecture01"
+}

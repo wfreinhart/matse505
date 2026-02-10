@@ -1,0 +1,9 @@
+{
+  "id": "Lecture03_implementation_in_`sklearn`",
+  "type": "Foundational",
+  "sequence": 0,
+  "parent_lecture": "",
+  "requirements": [],
+  "markdown_content": "## Implementation in `sklearn`\n\n[scikit learn](https://scikit-learn.org/stable/index.html), which has the package name `sklearn`, is our go-to Python package for ML implementations. It has modules for:\n* Classification\n* Regression\n* Clustering\n* Dimensionality reduction\n* Model selection\n* Preprocessing\n\n...and more.\nEssentially all standard ML algorithms are available in this package.\nFor deep learning I recommend [pytorch](https://pytorch.org/).",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+}

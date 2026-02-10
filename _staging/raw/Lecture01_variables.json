@@ -1,0 +1,95 @@
+{
+  "id": "Lecture01_variables",
+  "markdown_content": "## Variables\n\n### Creating variables\n\nAnything we assign a value to becomes a [variable](https://www.w3schools.com/python/python_variables.asp).\nVariables are created when you first assign something to them and persist until the program completes or you manually delete them.\nFrom that point forward you can reference the variable to access the stored value.\n\n> There is something called scope that will make this statement more nuanced. We'll talk about it later.\n\nLet's try creating a variable in a few different ways:\n\nVariables can have any name that follows these rules:\n* not a [reserved keyword](https://www.w3schools.com/python/python_ref_keywords.asp) (one of the builtin parts of the language)\n* no spaces\n* starts with a letter (not a number)\n\nVariables are also *case sensitive*.\nFor variables that make sense as multiple words, we usually use an underscore `_` instead of a space.\nHere are some examples of valid variable names:\n\nLet's see what happens if we don't respect the case sensitivity:\n\nOops, we get a `NameError`.\nThis is Python trying to tell us that it doesn't understand our command in as much detail as it can.\nWe'll learn more about [Errors and Exceptions](https://docs.python.org/3/tutorial/errors.html) later.\n\n### Manipulating variables\n\nWe can manipulate variables using math.\nYou can imagine Python as a calculator if you're just using some of the basic functionality:\n\nMultiple variables can be involved in these math operations:\n\nOnce a variable is defined, its value persists between code blocks.\nFor example, do remember what value we assigned to `a_variable_with_a_long_name` from before?\nThe Python interpreter does!\n\nWhen manipulating a variable like this, it can get tiring to write expressions like `my_variable = my_variable + 1`.\nWe can use a shorthand `+=` or `-=` to *increment* or *decrement* the value like so:",
+  "code_block": "\n\nx = 1  # this changes the value from before!\nmy_variable = \"abc\"\n\na_variable_with_a_long_name = 1\nMyMixedCaseVariable = 2\nc = 3\nmy_var_4 = 4\n\nprint(a_variable_with_a_long_name)\nprint(MyMixedCaseVariable)\nprint(c)\nprint(my_var_4)\n\nprint(mymixedcasevariable)\n\nx = 1 * 2  # x will be 2\nx = x + 3  # x will be 2 + 3 = 5\nprint(x)   # print the value to see\n\nx = 1\ny = 2\nz = 3\nprint(x * y + z)\n\nprint(a_variable_with_a_long_name)\nprint(a_variable_with_a_long_name * 2)\nprint(a_variable_with_a_long_name + 5)\n\nx = 1\nprint(x)\nx += 1\nprint(x)\nx += x  # we can also use variable values\nprint(x)\nx *= 2  # we can use +, -, *, and / this way\nprint(x)",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Variables",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "### Creating variables\n\nAnything we assign a value to becomes a [variable](https://www.w3schools.com/python/python_variables.asp).\nVariables are created when you first assign something to them and persist until the program completes or you manually delete them.\nFrom that point forward you can reference the variable to access the stored value.\n\n> There is something called scope that will make this statement more nuanced. We'll talk about it later.\n\nLet's try creating a variable in a few different ways:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = 1  # this changes the value from before!\nmy_variable = \"abc\"",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Variables can have any name that follows these rules:\n* not a [reserved keyword](https://www.w3schools.com/python/python_ref_keywords.asp) (one of the builtin parts of the language)\n* no spaces\n* starts with a letter (not a number)\n\nVariables are also *case sensitive*.\nFor variables that make sense as multiple words, we usually use an underscore `_` instead of a space.\nHere are some examples of valid variable names:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "a_variable_with_a_long_name = 1\nMyMixedCaseVariable = 2\nc = 3\nmy_var_4 = 4\n\nprint(a_variable_with_a_long_name)\nprint(MyMixedCaseVariable)\nprint(c)\nprint(my_var_4)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Let's see what happens if we don't respect the case sensitivity:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(mymixedcasevariable)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Oops, we get a `NameError`.\nThis is Python trying to tell us that it doesn't understand our command in as much detail as it can.\nWe'll learn more about [Errors and Exceptions](https://docs.python.org/3/tutorial/errors.html) later.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "### Manipulating variables\n\nWe can manipulate variables using math.\nYou can imagine Python as a calculator if you're just using some of the basic functionality:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = 1 * 2  # x will be 2\nx = x + 3  # x will be 2 + 3 = 5\nprint(x)   # print the value to see",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Multiple variables can be involved in these math operations:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = 1\ny = 2\nz = 3\nprint(x * y + z)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Once a variable is defined, its value persists between code blocks.\nFor example, do remember what value we assigned to `a_variable_with_a_long_name` from before?\nThe Python interpreter does!",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(a_variable_with_a_long_name)\nprint(a_variable_with_a_long_name * 2)\nprint(a_variable_with_a_long_name + 5)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "When manipulating a variable like this, it can get tiring to write expressions like `my_variable = my_variable + 1`.\nWe can use a shorthand `+=` or `-=` to *increment* or *decrement* the value like so:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = 1\nprint(x)\nx += 1\nprint(x)\nx += x  # we can also use variable values\nprint(x)\nx *= 2  # we can use +, -, *, and / this way\nprint(x)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 8,
+  "parent_lecture": "Lecture01"
+}

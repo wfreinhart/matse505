@@ -1,0 +1,50 @@
+{
+  "id": "Lecture01_defining_functions",
+  "markdown_content": "## Defining functions\n\nUsing functions from open source modules will save us a lot of time and effort by providing well known formulas and functionalities without us having to design them ourselves.\nHere's how we can define our own functions with `def`:\n\nThis function does not send the value back to us, it only prints something. We can make this behavior more explicit like so:\n\nTo keep the value, we need to use `return`:",
+  "code_block": "\n\n# def is the python keyword\n# my_function is the name\n# arg is a positional argument\ndef my_function(arg):\n    # do something with the argument\n    print(arg)\n    # the extent is indicated by indent\n\n# call the function outside the indent\nout = my_function('hello')\nprint(out)\n\nout = print('hello')\nprint(out)\n\nout = my_function('hello')\nprint(f'out = {out}')\n\ndef my_function(arg):\n    arg_plus = arg + ' from my_function'\n    print(arg_plus)\n    return arg_plus  # this gets sent back to the main program\n\nout = my_function('hello')  # out will be set to `arg_plus`\nprint(out)",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Defining functions\n\nUsing functions from open source modules will save us a lot of time and effort by providing well known formulas and functionalities without us having to design them ourselves.\nHere's how we can define our own functions with `def`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# def is the python keyword\n# my_function is the name\n# arg is a positional argument\ndef my_function(arg):\n    # do something with the argument\n    print(arg)\n    # the extent is indicated by indent\n\n# call the function outside the indent\nout = my_function('hello')\nprint(out)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This function does not send the value back to us, it only prints something. We can make this behavior more explicit like so:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "out = print('hello')\nprint(out)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "out = my_function('hello')\nprint(f'out = {out}')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "To keep the value, we need to use `return`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "def my_function(arg):\n    arg_plus = arg + ' from my_function'\n    print(arg_plus)\n    return arg_plus  # this gets sent back to the main program\n\nout = my_function('hello')  # out will be set to `arg_plus`\nprint(out)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 11,
+  "parent_lecture": "Lecture01"
+}

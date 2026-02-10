@@ -1,0 +1,28 @@
+{
+  "id": "Lecture05_other_methods",
+  "markdown_content": "## Other methods\n\n`scikit-learn` has many methods available and they are all [well documented](https://scikit-learn.org/stable/modules/clustering.html).\nHere is an excellent visual guide to the performance characteristics of different approaches:\n\n<img src=\"../lectures/assets/sklearn_clustering_comparison.jpg\" width=600 alt=\"Comprehensive comparison chart of different scikit-learn clustering algorithms on various dataset shapes\">",
+  "code_block": "",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Other methods\n\n`scikit-learn` has many methods available and they are all [well documented](https://scikit-learn.org/stable/modules/clustering.html).\nHere is an excellent visual guide to the performance characteristics of different approaches:\n\n<img src=\"../lectures/assets/sklearn_clustering_comparison.jpg\" width=600 alt=\"Comprehensive comparison chart of different scikit-learn clustering algorithms on various dataset shapes\">",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 8,
+  "parent_lecture": "Lecture05"
+}

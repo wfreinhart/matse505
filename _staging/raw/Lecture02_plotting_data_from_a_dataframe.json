@@ -1,0 +1,23 @@
+{
+  "id": "Lecture02_plotting_data_from_a_dataframe",
+  "markdown_content": "# Plotting data from a `DataFrame`",
+  "code_block": "",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Plotting data from a `DataFrame`",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 20,
+  "parent_lecture": "Lecture02"
+}

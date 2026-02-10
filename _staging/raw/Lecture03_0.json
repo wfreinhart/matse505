@@ -1,0 +1,36 @@
+{
+  "id": "Lecture03_0",
+  "markdown_content": "\n\n> Homework 2 posted\n\nToday's topics:\n* Introduction to Machine Learning\n* Linear regression and optimization\n* Multivariate linear regression as ML\n* Nonlinear regression models",
+  "code_block": "",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "> Homework 2 posted",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "Today's topics:\n* Introduction to Machine Learning\n* Linear regression and optimization\n* Multivariate linear regression as ML\n* Nonlinear regression models",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 0,
+  "parent_lecture": "Lecture03"
+}

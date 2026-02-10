@@ -1,0 +1,12 @@
+{
+  "id": "Lecture02_making_persistent_`figures`",
+  "markdown_content": "## Making persistent `figures`\n\n*What happened to our line?*\n\nYou may have noticed we did not create any variables so far, and have only been calling `pyplot` **functions**.\nThis is because `pyplot` uses a concept called a \"state machine\" to store the chart behind the scenes rather than exposing it to the user.\nExecuting a new code cell clears the state and begins a new plot.\n\n*What if we want to access our chart again later?*\n\nThere is a simple way to get around the default behavior of `pyplot`, which is to explicitly create variables to store the chart.\nMatplotlib calls the elements of a chart the `Figure` and `Axes`, as illustrated in this diagram:\n\n<img src=\"../lectures/assets/lecture02_matplotlib_hierarchy.jpg\" alt=\"Diagram showing the hierarchy of Matplotlib Figure elements\" width=600>\n\n(image credit [ajaytech.co](https://ajaytech.co/matplotlib))",
+  "code_block": "",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Making persistent `figures`\n\n*What happened to our line?*\n\nYou may have noticed we did not create any variables so far, and have only been calling `pyplot` **functions**.\nThis is because `pyplot` uses a concept called a \"state machine\" to store the chart behind the scenes rather than exposing it to the user.\nExecuting a new code cell clears the state and begins a new plot.\n\n*What if we want to access our chart again later?*\n\nThere is a simple way to get around the default behavior of `pyplot`, which is to explicitly create variables to store the chart.\nMatplotlib calls the elements of a chart the `Figure` and `Axes`, as illustrated in this diagram:\n\n<img src=\"../lectures/assets/lecture02_matplotlib_hierarchy.jpg\" alt=\"Diagram showing the hierarchy of Matplotlib Figure elements\" width=600>\n\n(image credit [ajaytech.co](https://ajaytech.co/matplotlib))",
+      "metadata": "# %% [markdown]"
+    }
+  ]
+}

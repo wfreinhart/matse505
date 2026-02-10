@@ -1,0 +1,35 @@
+{
+  "id": "Lecture04_check_your_understanding",
+  "markdown_content": "## [Check your understanding]\n\n* Train a Random Forest to predict these same labels.\n> Make sure you use a classifier model, not a regressor!\n* Print the metrics and identify the model average precision, recall, and overall accuracy.\n* Draw a confusion matrix showing the model performance on the test set.",
+  "code_block": "\n\n",
+  "imports": [
+    "import numpy as np",
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "from matplotlib import pyplot as plt",
+    "import os",
+    "from plotly import express as px",
+    "from sklearn import svm",
+    "from sklearn import tree",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn import linear_model",
+    "from sklearn import neighbors",
+    "from sklearn import naive_bayes",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\n* Train a Random Forest to predict these same labels.\n> Make sure you use a classifier model, not a regressor!\n* Print the metrics and identify the model average precision, recall, and overall accuracy.\n* Draw a confusion matrix showing the model performance on the test set.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 13,
+  "parent_lecture": "Lecture04"
+}

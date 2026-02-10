@@ -1,0 +1,31 @@
+{
+  "id": "Lecture03_supervised_learning",
+  "markdown_content": "## Supervised learning\n\nLet's say we have a function $f(x) = y$. We have seen equations of this form many times before in math and engineering courses. Most often, we have acquired some data of the form $(x, y)_i$ and tried to find a form of $f$ that we feel explains the trends adequately.\n\nIf we don't know the true generating function exactly, we use curve fitting to identify $f$. For instance, we have a vector of $x$ and a vector of $y$ and we write $f(x) = m x + b = y$. Here $f$ is a (univariate) linear regression between $x$ and $y$.\n\nInstead of saying the parameters of the function $f$ are **fit**, we can instead say the function $f$ is **learned**. There, now we are doing machine learning -- our Python programming is effectively learning a relationship between our dependent ($y$) and independent ($X$) variables.\nIn ML, we call $X$ the **features** (uppercase indicates a 2D array instead of a 1D vector, each row of $X$ is called a feature vector) and $y$ the **labels**.",
+  "code_block": "",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Supervised learning\n\nLet's say we have a function $f(x) = y$. We have seen equations of this form many times before in math and engineering courses. Most often, we have acquired some data of the form $(x, y)_i$ and tried to find a form of $f$ that we feel explains the trends adequately.\n\nIf we don't know the true generating function exactly, we use curve fitting to identify $f$. For instance, we have a vector of $x$ and a vector of $y$ and we write $f(x) = m x + b = y$. Here $f$ is a (univariate) linear regression between $x$ and $y$.\n\nInstead of saying the parameters of the function $f$ are **fit**, we can instead say the function $f$ is **learned**. There, now we are doing machine learning -- our Python programming is effectively learning a relationship between our dependent ($y$) and independent ($X$) variables.\nIn ML, we call $X$ the **features** (uppercase indicates a 2D array instead of a 1D vector, each row of $X$ is called a feature vector) and $y$ the **labels**.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 2,
+  "parent_lecture": "Lecture03"
+}

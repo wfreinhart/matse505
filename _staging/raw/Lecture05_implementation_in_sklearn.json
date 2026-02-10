@@ -1,0 +1,48 @@
+{
+  "id": "Lecture05_implementation_in_sklearn",
+  "markdown_content": "## Implementation in `sklearn`\n\nLet's load the alloys dataset from before...\n\nWe start by defining our features, $X$.\n\nUnlike in the supervised case, we have no $y$ labels.\n\nAlso, we don't need to do a train/test split because we have no labels to check against!",
+  "code_block": "\n\nimport pandas as pd\nimport numpy as np\nimport os\n\n# Set the path to the data file\nfilename = 'steels.csv'\nlocal_path = f'../datasets/{filename}'\ngithub_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\n# Load the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path):\n    data = pd.read_csv(local_path)\nelse:\n    data = pd.read_csv(github_url)\ndata                            # show a view of the data file\n\nx = data.loc[:, ' C':'Nb + Ta']\nx",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Implementation in `sklearn`",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "Let's load the alloys dataset from before...",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import pandas as pd\nimport numpy as np\nimport os\n\n# Set the path to the data file\nfilename = 'steels.csv'\nlocal_path = f'../datasets/{filename}'\ngithub_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\n# Load the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path):\n    data = pd.read_csv(local_path)\nelse:\n    data = pd.read_csv(github_url)\ndata                            # show a view of the data file",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We start by defining our features, $X$.\n\nUnlike in the supervised case, we have no $y$ labels.\n\nAlso, we don't need to do a train/test split because we have no labels to check against!",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = data.loc[:, ' C':'Nb + Ta']\nx",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 3,
+  "parent_lecture": "Lecture05"
+}

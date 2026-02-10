@@ -1,0 +1,38 @@
+{
+  "id": "Lecture02_variance",
+  "markdown_content": "## Variance\n\nExactly the same except with either `np.var` (variance) or `np.std` (standard deviation):\n\nWe can also use the `axis` keyword as always:",
+  "code_block": "\n\nprint(np.std(x))\nprint(np.var(x))\nprint(np.sqrt(np.var(x)))  # demonstrate the definition of std dev\n\nprint(data.std(axis=0))",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Variance\n\nExactly the same except with either `np.var` (variance) or `np.std` (standard deviation):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(np.std(x))\nprint(np.var(x))\nprint(np.sqrt(np.var(x)))  # demonstrate the definition of std dev",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can also use the `axis` keyword as always:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(data.std(axis=0))",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 31,
+  "parent_lecture": "Lecture02"
+}

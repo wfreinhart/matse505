@@ -1,0 +1,30 @@
+{
+  "id": "Lecture04_0",
+  "markdown_content": "\n\nToday's topics:\n* Classification\n* Evaluating classification models",
+  "code_block": "",
+  "imports": [
+    "import numpy as np",
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "from matplotlib import pyplot as plt",
+    "import os",
+    "from plotly import express as px",
+    "from sklearn import svm",
+    "from sklearn import tree",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn import linear_model",
+    "from sklearn import neighbors",
+    "from sklearn import naive_bayes",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "Today's topics:\n* Classification\n* Evaluating classification models",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 0,
+  "parent_lecture": "Lecture04"
+}

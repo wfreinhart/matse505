@@ -1,0 +1,61 @@
+{
+  "id": "Lecture03_using_scikit_learn",
+  "markdown_content": "## Using scikit-learn\n\nThe advantage of using `sklearn` is that we have access to many regression models with a common interface.\nLet's repeat our multiple linear regression using scikit-learn.\n\n`sklearn` is (heavily) object-oriented, so we need to first create a `LinearRegression` object:\n\nModel \"fitting\" (i.e., parameter optimization) is performed with the `fit()` method:\n\nNote how the `fit()` method returns the fitted model object. In the future, we can just write something like\n\n> `model = linear_model.LinearRegression().fit(x, y)`\n\nNow let's use the `predict()` method to evalute the model:\n\nAs you can see, the result is exactly the same as with our manual approach.\nOnly the interface for fitting and predicting is different.\nHowever, you can see a difference between the Statistical way of thinking (where we compute `y_model` using the model equation itself) and the Machine Learning way of thinking (where we call a method called `predict` that computes the result for us).\nIf you can adapt to thinking of these functions in the abstract, rather than needing to write down the formulas by hand all the time, you will be able to generalize your workflows much more.",
+  "code_block": "\n\nfrom sklearn import linear_model\n\nmodel = linear_model.LinearRegression()\nprint(model)\n\nmodel.fit(x, y)\n\ny_pred = model.predict(x)\nresiduals = y_pred - y\n\nr2 = 1 - np.var(residuals) / np.var(y - y.mean())\n\nprint(f'Rsq = {r2:.3f}')",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Using scikit-learn\n\nThe advantage of using `sklearn` is that we have access to many regression models with a common interface.\nLet's repeat our multiple linear regression using scikit-learn.\n\n`sklearn` is (heavily) object-oriented, so we need to first create a `LinearRegression` object:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import linear_model\n\nmodel = linear_model.LinearRegression()\nprint(model)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Model \"fitting\" (i.e., parameter optimization) is performed with the `fit()` method:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model.fit(x, y)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Note how the `fit()` method returns the fitted model object. In the future, we can just write something like\n\n> `model = linear_model.LinearRegression().fit(x, y)`\n\nNow let's use the `predict()` method to evalute the model:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "y_pred = model.predict(x)\nresiduals = y_pred - y\n\nr2 = 1 - np.var(residuals) / np.var(y - y.mean())\n\nprint(f'Rsq = {r2:.3f}')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "As you can see, the result is exactly the same as with our manual approach.\nOnly the interface for fitting and predicting is different.\nHowever, you can see a difference between the Statistical way of thinking (where we compute `y_model` using the model equation itself) and the Machine Learning way of thinking (where we call a method called `predict` that computes the result for us).\nIf you can adapt to thinking of these functions in the abstract, rather than needing to write down the formulas by hand all the time, you will be able to generalize your workflows much more.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 9,
+  "parent_lecture": "Lecture03"
+}

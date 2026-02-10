@@ -1,0 +1,73 @@
+{
+  "id": "Lecture05_without_labels",
+  "markdown_content": "## Without labels\n\nIn most clustering scenarios, ground truth labels are not known (this would typically lead to a classification problem).\nThus we must make do with metrics that evaluate only the clusters themselves and not their accuracy relative to a target outcome.\n\nThe \"Silhouette Coefficient\" evaluates how well the clusters are separated from each other.\nIt is calculated as:\n\n$s = \\frac{b-a}{\\max(a,b)}$,\n\nwhere $a$ is the mean distance between samples in the same cluster and $b$ is the mean distance between samples in next-nearest clusters.\nTherefore, $s=1$ corresponds to very high separation ($b \\gg a$) while $s=0$ corresponds to very low separation ($b \\ll a$).\nAn intermediate value of $s=0.5$ means samples in different clusters are about twice as far apart as samples within clusters.\n\nWe can try calculating the performance of our `KMeans` model:\n\nLet's consider how to use this score to evaluate a suitable number of clusters.\nWe can write a `for` loop to iterate over a large number of possible clusters:\n\nThis shows that $s$ increases substantially from $k=3$ to around $k=5$, then stagnates, and has non-monotonic increases until $k=15$.\nAmong these options we need to evaluate how many clusters will be meaningful for our application.\nI think $k=5$ would be the first choice, then maybe $k=9$, and then $k=14$ if this is still few enough to be useful.\n\nWhat if we zoom out and try many more clusters?\nAfter all, it looks like $s$ is increasing with $k$...\n\nThis result shows that the Silhouette score generally increases as we move from 5 to 95 clusters.\nNow you have to ask yourself: is 95 clusters a useful result?\nIn many cases, probably not.\nThere is something unusual happening around $k=25$ clusters (a local dip in $s$ before it recovers again at $k=35$).\nIs this useful?\n\nThis simply illustrates that metrics only provide guidance and typically no single metric can determine which model to use.\nThe importance of different metrics will greatly depend on how you plan to deploy the models.\nThere is often a general range of allowable hyperparameters (such as $k \\le 10$) and then you can determine an optimal choice within this range.",
+  "code_block": "\n\nmodel = cluster.KMeans(n_clusters=4).fit(x)\nlabels = model.predict(x)\n\nmetrics.silhouette_score(x, labels, metric='euclidean')\n\nfrom matplotlib import pyplot as plt\n\nk_list = np.arange(2, 16)\ns = np.zeros(len(k_list))\nfor i, k in enumerate(k_list):\n\n    model = cluster.KMeans(n_clusters=k, random_state=0).fit(x)\n    labels = model.predict(x)\n    s[i] = metrics.silhouette_score(x, labels, metric='euclidean')\n\nfig, ax = plt.subplots()\nax.plot(k_list, s, 's')\nax.set_xlabel('$k$')\nax.set_ylabel('$s$')\n\nmodel = cluster.KMeans(n_clusters=14, random_state=0).fit(x)\nlabels = model.predict(x)\n\npx.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)\n\nfrom matplotlib import pyplot as plt\nimport tqdm  # a very useful package for progress bars\n\nk_list = np.arange(5, 96, 5)\ns = np.zeros(len(k_list))\nfor i, k in tqdm.tqdm(enumerate(k_list), total=len(k_list)):\n\n    model = cluster.KMeans(n_clusters=k, random_state=0).fit(x)\n    labels = model.predict(x)\n    s[i] = metrics.silhouette_score(x, labels, metric='euclidean')\n\nfig, ax = plt.subplots()\n_ = ax.plot(k_list, s, 's')\n_ = ax.set_xlabel('$k$')\n_ = ax.set_ylabel('$s$')",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Without labels\n\nIn most clustering scenarios, ground truth labels are not known (this would typically lead to a classification problem).\nThus we must make do with metrics that evaluate only the clusters themselves and not their accuracy relative to a target outcome.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "The \"Silhouette Coefficient\" evaluates how well the clusters are separated from each other.\nIt is calculated as:\n\n$s = \\frac{b-a}{\\max(a,b)}$,\n\nwhere $a$ is the mean distance between samples in the same cluster and $b$ is the mean distance between samples in next-nearest clusters.\nTherefore, $s=1$ corresponds to very high separation ($b \\gg a$) while $s=0$ corresponds to very low separation ($b \\ll a$).\nAn intermediate value of $s=0.5$ means samples in different clusters are about twice as far apart as samples within clusters.\n\nWe can try calculating the performance of our `KMeans` model:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model = cluster.KMeans(n_clusters=4).fit(x)\nlabels = model.predict(x)\n\nmetrics.silhouette_score(x, labels, metric='euclidean')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Let's consider how to use this score to evaluate a suitable number of clusters.\nWe can write a `for` loop to iterate over a large number of possible clusters:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from matplotlib import pyplot as plt\n\nk_list = np.arange(2, 16)\ns = np.zeros(len(k_list))\nfor i, k in enumerate(k_list):\n\n    model = cluster.KMeans(n_clusters=k, random_state=0).fit(x)\n    labels = model.predict(x)\n    s[i] = metrics.silhouette_score(x, labels, metric='euclidean')\n\nfig, ax = plt.subplots()\nax.plot(k_list, s, 's')\nax.set_xlabel('$k$')\nax.set_ylabel('$s$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This shows that $s$ increases substantially from $k=3$ to around $k=5$, then stagnates, and has non-monotonic increases until $k=15$.\nAmong these options we need to evaluate how many clusters will be meaningful for our application.\nI think $k=5$ would be the first choice, then maybe $k=9$, and then $k=14$ if this is still few enough to be useful.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model = cluster.KMeans(n_clusters=14, random_state=0).fit(x)\nlabels = model.predict(x)\n\npx.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "What if we zoom out and try many more clusters?\nAfter all, it looks like $s$ is increasing with $k$...",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from matplotlib import pyplot as plt\nimport tqdm  # a very useful package for progress bars\n\nk_list = np.arange(5, 96, 5)\ns = np.zeros(len(k_list))\nfor i, k in tqdm.tqdm(enumerate(k_list), total=len(k_list)):\n\n    model = cluster.KMeans(n_clusters=k, random_state=0).fit(x)\n    labels = model.predict(x)\n    s[i] = metrics.silhouette_score(x, labels, metric='euclidean')\n\nfig, ax = plt.subplots()\n_ = ax.plot(k_list, s, 's')\n_ = ax.set_xlabel('$k$')\n_ = ax.set_ylabel('$s$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This result shows that the Silhouette score generally increases as we move from 5 to 95 clusters.\nNow you have to ask yourself: is 95 clusters a useful result?\nIn many cases, probably not.\nThere is something unusual happening around $k=25$ clusters (a local dip in $s$ before it recovers again at $k=35$).\nIs this useful?\n\nThis simply illustrates that metrics only provide guidance and typically no single metric can determine which model to use.\nThe importance of different metrics will greatly depend on how you plan to deploy the models.\nThere is often a general range of allowable hyperparameters (such as $k \\le 10$) and then you can determine an optimal choice within this range.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 12,
+  "parent_lecture": "Lecture05"
+}

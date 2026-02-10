@@ -1,0 +1,58 @@
+{
+  "id": "Lecture02_indexing_practice",
+  "markdown_content": "## Indexing practice\n\nAs we said earlier, in addition to accessing single values, `loc` can access ranges of values.\nThis is done with `:` as we saw with `lists`.\nWhen we use `:`, we get the elements starting with the number to the left and ending with one less than the number on the right.\nSo `0:3` accesses elements at indices `[0, 1, 2]`.\nLet's try it out:\n\nWe could get all the elements in either a row or column by not specifying any numbers to the side of the `:`:\n\nWe can also use `:` with the index and column names, which is more intuitive -- in this case pandas actually includes the ending entry too:\n\n**IMPORTANT:**\nNote that in this case pandas actually returns a `DataFrame` object which is a subset of the larger `ele_data` `DataFrame`.\n\nPandas formats this nicely if we drop the `print` statement:",
+  "code_block": "\n\nprint(ele_data.iloc[0, 0:3])\n\nprint(ele_data.iloc[0, :])  # access a whole column by specifying a row only\nprint('')  # give a line break between print statements\nprint(ele_data.iloc[:, 0])  # access a whole row by specifying a column only\n\nprint(ele_data.loc['Al':'Cu', 'Atomic Number':'STP Phase'])\n\nsub_data = ele_data.loc['Al':'Cu', 'Atomic Number':'STP Phase']\nprint(type(sub_data))\nsub_data",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Indexing practice\n\nAs we said earlier, in addition to accessing single values, `loc` can access ranges of values.\nThis is done with `:` as we saw with `lists`.\nWhen we use `:`, we get the elements starting with the number to the left and ending with one less than the number on the right.\nSo `0:3` accesses elements at indices `[0, 1, 2]`.\nLet's try it out:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(ele_data.iloc[0, 0:3])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We could get all the elements in either a row or column by not specifying any numbers to the side of the `:`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(ele_data.iloc[0, :])  # access a whole column by specifying a row only\nprint('')  # give a line break between print statements\nprint(ele_data.iloc[:, 0])  # access a whole row by specifying a column only",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can also use `:` with the index and column names, which is more intuitive -- in this case pandas actually includes the ending entry too:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(ele_data.loc['Al':'Cu', 'Atomic Number':'STP Phase'])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "**IMPORTANT:**\nNote that in this case pandas actually returns a `DataFrame` object which is a subset of the larger `ele_data` `DataFrame`.\n\nPandas formats this nicely if we drop the `print` statement:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "sub_data = ele_data.loc['Al':'Cu', 'Atomic Number':'STP Phase']\nprint(type(sub_data))\nsub_data",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 6,
+  "parent_lecture": "Lecture02"
+}

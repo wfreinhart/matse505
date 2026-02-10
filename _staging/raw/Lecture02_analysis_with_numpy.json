@@ -1,0 +1,28 @@
+{
+  "id": "Lecture02_analysis_with_numpy",
+  "markdown_content": "# Analysis with `numpy`\n\nNumPy is a popular library for scientific computing that contains fast and convenient functions for linear algebra.\nLet's start by importing the [`numpy` module](https://numpy.org/doc/stable/).\nThis will give access to all the features the `numpy` authors have implemented for us.\nLet's use the `as` keyword to keep the module name short again.\nTrust me, this will be worth it -- we are going to reference `numpy` in almost every line!",
+  "code_block": "\n\nimport numpy as np",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Analysis with `numpy`\n\nNumPy is a popular library for scientific computing that contains fast and convenient functions for linear algebra.\nLet's start by importing the [`numpy` module](https://numpy.org/doc/stable/).\nThis will give access to all the features the `numpy` authors have implemented for us.\nLet's use the `as` keyword to keep the module name short again.\nTrust me, this will be worth it -- we are going to reference `numpy` in almost every line!",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import numpy as np",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 28,
+  "parent_lecture": "Lecture02"
+}

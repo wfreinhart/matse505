@@ -1,0 +1,14 @@
+{
+  "id": "Lecture02_using_`pandas`_builtins",
+  "type": "Foundational",
+  "sequence": 0,
+  "parent_lecture": "",
+  "requirements": [
+    "data",
+    "tensors['y']",
+    "tensors['z']",
+    "tensors['x']"
+  ],
+  "markdown_content": "## Using `pandas` builtins\n\nI personally don't use `pandas` for plotting, but you should know its objects include handy wrappers for `pyplot`.\n\nFor example, a method of the `Series` object:\n\nWe can plot multiple `Series` using a method of the `DataFrame`:\n\nAnd finally we can introduce the (x,y)+color scatter plot from above:\n\nNote the `type` that is returned -- `matplotlib.axes._subplots.AxesSubplot`!\nAll this is doing is sending some predefined commands to `pyplot`.\nIf you find this syntax helpful you are more than welcome to use it.\nI don't simply because I don't always use `DataFrame` objects to store my data.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    z = ctx.get('tensors', {}).get('z')\n    \n    \n    x.hist()\n    \n    data.plot.bar('Symbol', 'Vacancy Formation Energy (eV)')\n    \n    data.plot.scatter(x.name, y.name, c=z.name)"
+}

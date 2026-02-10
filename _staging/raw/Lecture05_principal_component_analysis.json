@@ -1,0 +1,93 @@
+{
+  "id": "Lecture05_principal_component_analysis",
+  "markdown_content": "## Principal Component Analysis\n\nWe are often faced with higher-dimensional data like in these alloy compositions and properties.\nUnfortunately there is not much we can do about our eyes being wired to understand 2D images.\nThis makes it difficult to interpret information in higher dimensions like 3D scatter plots, unless the trends are very clear.\n\n[Principal Component Analysis](https://en.wikipedia.org/wiki/Principal_component_analysis) is a method to \"project\" the higher-dimensional data down to only a few dimensions so we can visualize or analyze it with methods that we are more comfortable with.\nIf you prefer the nuts and bolts, you should know PCA is based on a spectral decomposition of the covariance matrix (it's pretty straightfoward linear algebra and not really \"machine learning\").\n\nFor example, consider these data:\n\n<img src=\"../lectures/assets/pca_3d_to_2d.jpg\" width=800 alt=\"Diagram illustrating Principal Component Analysis projecting 3D data onto a 2D principal component plane\">\n\nHere we have 3 spatial dimensions plus a color.\nThe PCA shows clear groupings in a 2D space which is a plane through the original 3D space.\n\nPCA is based on the eigenvectors of the covariance matrix.\nYou are probably familiar with the concept of covariance in 2D, like the following:\n\n<img src=\"../lectures/assets/covariance_types.jpg\" width=600 alt=\"Visual representation of different spatial covariance structures in data\">\n\nThis readily extends to higher dimensions, and can be calculated with builtins such as with `numpy.cov`:\n> The transpose is needed because `numpy.cov` assumes \"Each row of m represents a variable, and each column a single observation of all those variables\" -- the transpose of our `DataFrame`\n\nIf we take the eigenvectors of this covariance matrix, we will get something special:\n\n`w` are the eigenvalues while `v` are the eigenvectors of the covariance matrix (each column is one eigenvector).\nWhat is the use of these?\nLet's start with the eigenvalues:\n\nThe eigenvalues decay over the column index from 4e-1 to 3e-8.\nThis is proportional to the variance in that dimension, so the first eigenvector will be associated with 10 million times greater variance than the last one.\nWith this in mind, we can investigate the eigenvectors.\n\nFrom this we see that something like `+Cr, +Mo, -Mn, -Ceq` is the dominant direction of variance.\nIn other words, alloys with high `Cr` and `Mo` have low `Mn` and vice versa.\nAs shown above, this is the direction of maximal variance.\n\nWe can project the `x` values onto the first two eigenvectors.\nYou should think of this like rotating your viewpoint to view the maximally varying directions in the plane (just like the example above).\n\nSo what is the point of this trick?\nLet's plot the above with the original alloy code labels.\n\nUnlike above where we searched for a suitable 3D representation (with only moderate success), here we have constructed a rotation using analysis of the dataset.\nThe resulting projection reveals the ground truth labeling clearly (existing almost exclusively in the PC1 direction).",
+  "code_block": "\n\nnp.cov(x.T).shape\n\nw, v = np.linalg.eig(np.cov(x.T))\nprint(w.shape, v.shape)\n\nfig, ax = plt.subplots()\nax.plot(np.real(w), '.')\nax.set_yscale('log')\n\nfig, ax = plt.subplots()\n_ = ax.bar(x.columns, v[:, 0])\n\nprojected = (x.values @ v)\nprint( projected.shape )\n\nfig, ax = plt.subplots()\n_ = ax.scatter(projected[:, 0], projected[:, 1])\n\nfig, ax = plt.subplots()\n_ = ax.scatter(projected[:, 0], projected[:, 1], c=y)\n_ = ax.set_xlabel('Principal Component 1')\n_ = ax.set_ylabel('Principal Component 2')",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Principal Component Analysis\n\nWe are often faced with higher-dimensional data like in these alloy compositions and properties.\nUnfortunately there is not much we can do about our eyes being wired to understand 2D images.\nThis makes it difficult to interpret information in higher dimensions like 3D scatter plots, unless the trends are very clear.\n\n[Principal Component Analysis](https://en.wikipedia.org/wiki/Principal_component_analysis) is a method to \"project\" the higher-dimensional data down to only a few dimensions so we can visualize or analyze it with methods that we are more comfortable with.\nIf you prefer the nuts and bolts, you should know PCA is based on a spectral decomposition of the covariance matrix (it's pretty straightfoward linear algebra and not really \"machine learning\").\n\nFor example, consider these data:\n\n<img src=\"../lectures/assets/pca_3d_to_2d.jpg\" width=800 alt=\"Diagram illustrating Principal Component Analysis projecting 3D data onto a 2D principal component plane\">\n\nHere we have 3 spatial dimensions plus a color.\nThe PCA shows clear groupings in a 2D space which is a plane through the original 3D space.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "PCA is based on the eigenvectors of the covariance matrix.\nYou are probably familiar with the concept of covariance in 2D, like the following:\n\n<img src=\"../lectures/assets/covariance_types.jpg\" width=600 alt=\"Visual representation of different spatial covariance structures in data\">\n\nThis readily extends to higher dimensions, and can be calculated with builtins such as with `numpy.cov`:\n> The transpose is needed because `numpy.cov` assumes \"Each row of m represents a variable, and each column a single observation of all those variables\" -- the transpose of our `DataFrame`",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "np.cov(x.T).shape",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "If we take the eigenvectors of this covariance matrix, we will get something special:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "w, v = np.linalg.eig(np.cov(x.T))\nprint(w.shape, v.shape)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "`w` are the eigenvalues while `v` are the eigenvectors of the covariance matrix (each column is one eigenvector).\nWhat is the use of these?\nLet's start with the eigenvalues:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.plot(np.real(w), '.')\nax.set_yscale('log')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "The eigenvalues decay over the column index from 4e-1 to 3e-8.\nThis is proportional to the variance in that dimension, so the first eigenvector will be associated with 10 million times greater variance than the last one.\nWith this in mind, we can investigate the eigenvectors.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\n_ = ax.bar(x.columns, v[:, 0])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "From this we see that something like `+Cr, +Mo, -Mn, -Ceq` is the dominant direction of variance.\nIn other words, alloys with high `Cr` and `Mo` have low `Mn` and vice versa.\nAs shown above, this is the direction of maximal variance.\n\nWe can project the `x` values onto the first two eigenvectors.\nYou should think of this like rotating your viewpoint to view the maximally varying directions in the plane (just like the example above).",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "projected = (x.values @ v)\nprint( projected.shape )\n\nfig, ax = plt.subplots()\n_ = ax.scatter(projected[:, 0], projected[:, 1])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "So what is the point of this trick?\nLet's plot the above with the original alloy code labels.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\n_ = ax.scatter(projected[:, 0], projected[:, 1], c=y)\n_ = ax.set_xlabel('Principal Component 1')\n_ = ax.set_ylabel('Principal Component 2')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Unlike above where we searched for a suitable 3D representation (with only moderate success), here we have constructed a rotation using analysis of the dataset.\nThe resulting projection reveals the ground truth labeling clearly (existing almost exclusively in the PC1 direction).",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 15,
+  "parent_lecture": "Lecture05"
+}

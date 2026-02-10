@@ -1,0 +1,78 @@
+{
+  "id": "Lecture02_central_tendency",
+  "markdown_content": "## Central tendency\n\nThere are a few key quantities we might calculate for a single `Series`.\nThe first category would be \"central tendency\" like `mean` and `median`:\n\nWe can get these same values using the `mean()` and `median` methods of the `Series` object:\n\nNote this is just a wrapper for the `numpy` function that utilizes the data stored in the `Series`.\nWe can even see this by accessing the `values` attribute of the `Series`:\n\nThere it is -- `Series` is just wrapping a `numpy.ndarray` object under the hood!\n\nWhat about on the whole `DataFrame`?\n\nAgain, `DataFrame` is storing a bunch of `numpy.ndarray` objects.\n\nAnyways, we can continue to perform calculations with either the `numpy` functions directly or using the wrapper methods:\n\n> The warning is telling us that \"nuisance columns\" (non-numerical data) are being ignored but that future versions of `pandas` will not follow this behavior.",
+  "code_block": "\n\nprint(np.mean(x), np.median(x))\n\nprint(x.mean(), x.median())\n\nprint(type(x.values))\nprint(x.values)\n\nprint(type(data.values))\n\nnp.mean(data, axis=0)\n\ndata.mean(axis=0)",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Central tendency\n\nThere are a few key quantities we might calculate for a single `Series`.\nThe first category would be \"central tendency\" like `mean` and `median`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(np.mean(x), np.median(x))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can get these same values using the `mean()` and `median` methods of the `Series` object:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(x.mean(), x.median())",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Note this is just a wrapper for the `numpy` function that utilizes the data stored in the `Series`.\nWe can even see this by accessing the `values` attribute of the `Series`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(type(x.values))\nprint(x.values)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "There it is -- `Series` is just wrapping a `numpy.ndarray` object under the hood!\n\nWhat about on the whole `DataFrame`?",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(type(data.values))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Again, `DataFrame` is storing a bunch of `numpy.ndarray` objects.\n\nAnyways, we can continue to perform calculations with either the `numpy` functions directly or using the wrapper methods:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "np.mean(data, axis=0)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "> The warning is telling us that \"nuisance columns\" (non-numerical data) are being ignored but that future versions of `pandas` will not follow this behavior.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data.mean(axis=0)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 30,
+  "parent_lecture": "Lecture02"
+}

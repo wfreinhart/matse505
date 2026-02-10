@@ -1,0 +1,48 @@
+{
+  "id": "Lecture02_fitting",
+  "markdown_content": "## Fitting\n\nPearson R tells us about the strength of correlation but does not give us a model. Let's use `stats.linregress` to do a proper linear regression:\n\nWhat does this `result` mean? We can see that it is a special data structure called `LinregressResult`. The fields can be accessed using the `.` notation. Let's take a look at the model using these fields:\n\nNote that the `rvalue` is the same as the one we found with `pearsonr`. Also note that the slope is negative, which matches the outcome of the fitted `slope` being negative.\n\nNow let's try plotting this result:",
+  "code_block": "\n\ny_clean = xyz_data.loc[:, y.name]\nz_clean = xyz_data.loc[:, z.name]\n\nresult = stats.linregress(y_clean, z_clean)\nprint(result)\n\nprint(f'linear model is y = {result.slope} x + {result.intercept}')\nprint(f'measured correlation is {result.rvalue}')\n\nz_model = result.slope * y + result.intercept\n\nfig, ax = plt.subplots()\n\nax.plot(y, z, '.', label='Observations')\nax.plot(y, z_model, label='Regression')\nax.legend()  # add the legend from labels\n\nax.set_xlabel(y.name)  # a shortcut to get the axis label!\nax.set_ylabel(z.name)",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Fitting\n\nPearson R tells us about the strength of correlation but does not give us a model. Let's use `stats.linregress` to do a proper linear regression:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "y_clean = xyz_data.loc[:, y.name]\nz_clean = xyz_data.loc[:, z.name]\n\nresult = stats.linregress(y_clean, z_clean)\nprint(result)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "What does this `result` mean? We can see that it is a special data structure called `LinregressResult`. The fields can be accessed using the `.` notation. Let's take a look at the model using these fields:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(f'linear model is y = {result.slope} x + {result.intercept}')\nprint(f'measured correlation is {result.rvalue}')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Note that the `rvalue` is the same as the one we found with `pearsonr`. Also note that the slope is negative, which matches the outcome of the fitted `slope` being negative.\n\nNow let's try plotting this result:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "z_model = result.slope * y + result.intercept\n\nfig, ax = plt.subplots()\n\nax.plot(y, z, '.', label='Observations')\nax.plot(y, z_model, label='Regression')\nax.legend()  # add the legend from labels\n\nax.set_xlabel(y.name)  # a shortcut to get the axis label!\nax.set_ylabel(z.name)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 37,
+  "parent_lecture": "Lecture02"
+}

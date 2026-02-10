@@ -1,0 +1,12 @@
+{
+  "id": "Lecture03_implementation_in_`sklearn`",
+  "markdown_content": "## Implementation in `sklearn`\n\n[scikit learn](https://scikit-learn.org/stable/index.html), which has the package name `sklearn`, is our go-to Python package for ML implementations. It has modules for:\n* Classification\n* Regression\n* Clustering\n* Dimensionality reduction\n* Model selection\n* Preprocessing\n\n...and more.\nEssentially all standard ML algorithms are available in this package.\nFor deep learning I recommend [pytorch](https://pytorch.org/).",
+  "code_block": "",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Implementation in `sklearn`\n\n[scikit learn](https://scikit-learn.org/stable/index.html), which has the package name `sklearn`, is our go-to Python package for ML implementations. It has modules for:\n* Classification\n* Regression\n* Clustering\n* Dimensionality reduction\n* Model selection\n* Preprocessing\n\n...and more.\nEssentially all standard ML algorithms are available in this package.\nFor deep learning I recommend [pytorch](https://pytorch.org/).",
+      "metadata": "# %% [markdown]"
+    }
+  ]
+}

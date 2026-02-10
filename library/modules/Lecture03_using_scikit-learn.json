@@ -1,0 +1,12 @@
+{
+  "id": "Lecture03_using_scikit-learn",
+  "type": "Foundational",
+  "sequence": 0,
+  "parent_lecture": "",
+  "requirements": [
+    "tensors['x']",
+    "tensors['y']"
+  ],
+  "markdown_content": "## Using scikit-learn\n\nThe advantage of using `sklearn` is that we have access to many regression models with a common interface.\nLet's repeat our multiple linear regression using scikit-learn.\n\n`sklearn` is (heavily) object-oriented, so we need to first create a `LinearRegression` object:\n\nModel \"fitting\" (i.e., parameter optimization) is performed with the `fit()` method:\n\nNote how the `fit()` method returns the fitted model object. In the future, we can just write something like\n\n> `model = linear_model.LinearRegression().fit(x, y)`\n\nNow let's use the `predict()` method to evalute the model:\n\nAs you can see, the result is exactly the same as with our manual approach.\nOnly the interface for fitting and predicting is different.\nHowever, you can see a difference between the Statistical way of thinking (where we compute `y_model` using the model equation itself) and the Machine Learning way of thinking (where we call a method called `predict` that computes the result for us).\nIf you can adapt to thinking of these functions in the abstract, rather than needing to write down the formulas by hand all the time, you will be able to generalize your workflows much more.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    \n    \n    from sklearn import linear_model\n    \n    model = linear_model.LinearRegression()\n    print(model)\n    \n    model.fit(x, y)\n    \n    y_pred = model.predict(x)\n    residuals = y_pred - y\n    \n    r2 = 1 - np.var(residuals) / np.var(y - y.mean())\n    \n    print(f'Rsq = {r2:.3f}')\n    ctx['model'] = model\n    ctx['tensors']['residuals'] = residuals\n    ctx['tensors']['y_pred'] = y_pred"
+}

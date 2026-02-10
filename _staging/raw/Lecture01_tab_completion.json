@@ -1,0 +1,25 @@
+{
+  "id": "Lecture01_tab_completion",
+  "markdown_content": "## Tab completion\n\nA handy feature of the Colab interpreter is the use of auto-complete.\nYou can use `<Tab>` to complete a partial statement based on functions or variables the interpreter is already aware of.\nTry typing `pri` and wait a second for the auto-complete menu to pop up.\nThen press `<Tab>` to complete the statement to `print`:",
+  "code_block": "\n\n",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Tab completion\n\nA handy feature of the Colab interpreter is the use of auto-complete.\nYou can use `<Tab>` to complete a partial statement based on functions or variables the interpreter is already aware of.\nTry typing `pri` and wait a second for the auto-complete menu to pop up.\nThen press `<Tab>` to complete the statement to `print`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 7,
+  "parent_lecture": "Lecture01"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "Lecture03_check_your_understanding",
+  "markdown_content": "## [Check your understanding]\n\n* Make a model for the Concrete Compressive Strength using a nonlinear regression model from `sklearn` **that was not covered here**.\nYou can refer to the [documentation](https://scikit-learn.org/stable/supervised_learning.html) to find a suitable method.\n* Train the model on a suitable train/test split.\n* Evaluate the R-squared, RMSE, and MAE on train and test data.\n* Make a plot of the predicted vs observed data with train and test data as separate series.",
+  "code_block": "\n\n",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\n* Make a model for the Concrete Compressive Strength using a nonlinear regression model from `sklearn` **that was not covered here**.\nYou can refer to the [documentation](https://scikit-learn.org/stable/supervised_learning.html) to find a suitable method.\n* Train the model on a suitable train/test split.\n* Evaluate the R-squared, RMSE, and MAE on train and test data.\n* Make a plot of the predicted vs observed data with train and test data as separate series.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 26,
+  "parent_lecture": "Lecture03"
+}

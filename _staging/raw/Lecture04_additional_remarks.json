@@ -1,0 +1,30 @@
+{
+  "id": "Lecture04_additional_remarks",
+  "markdown_content": "# Additional remarks",
+  "code_block": "",
+  "imports": [
+    "import numpy as np",
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "from matplotlib import pyplot as plt",
+    "import os",
+    "from plotly import express as px",
+    "from sklearn import svm",
+    "from sklearn import tree",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn import linear_model",
+    "from sklearn import neighbors",
+    "from sklearn import naive_bayes",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Additional remarks",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 14,
+  "parent_lecture": "Lecture04"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "Lecture02_bar_charts",
+  "markdown_content": "## Bar charts\n\n**Bar charts** look like histograms but show labeled values instead of the distribution of values.\nThe `plt.bar` function takes arguments `(labels, values)` like so:\n\nThis is a little crammed so let's expand the width of the figure to read the symbols more clearly.\n\nWhat happened?\nGreen checkmark means the code executed.\nBut we didn't ask for it to show us anything -- we need to render the figure again:",
+  "code_block": "\n\nsym = data['Symbol']\n\nfig, ax = plt.subplots()\nax.bar(sym, y)\nax.set_xlabel(sym.name)\nax.set_ylabel(y.name)\n\nfig.set_figwidth(12)\n\nfig",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Bar charts\n\n**Bar charts** look like histograms but show labeled values instead of the distribution of values.\nThe `plt.bar` function takes arguments `(labels, values)` like so:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "sym = data['Symbol']\n\nfig, ax = plt.subplots()\nax.bar(sym, y)\nax.set_xlabel(sym.name)\nax.set_ylabel(y.name)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This is a little crammed so let's expand the width of the figure to read the symbols more clearly.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig.set_figwidth(12)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "What happened?\nGreen checkmark means the code executed.\nBut we didn't ask for it to show us anything -- we need to render the figure again:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 24,
+  "parent_lecture": "Lecture02"
+}

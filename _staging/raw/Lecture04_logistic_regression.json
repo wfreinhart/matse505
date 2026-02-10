@@ -1,0 +1,100 @@
+{
+  "id": "Lecture04_logistic_regression",
+  "markdown_content": "## Logistic regression\n\nDespite its name, logistic regression is a linear classification algorithm.\n\n<img src=\"../lectures/assets/lecture04_logistic_regression.jpg\" alt=\"Illustration of a logistic regression curve\" width=400>\n\nIt looks like the `LogisticRegression` gets a perfect score on the test data.\nWhat does this look like?\nAs a reminder, the model is predicting one of 4 classes, `C, L, M, V`:\n\nHow does it work?\nThis is a linear model that assigns a class label based on the class with the largest predicted probability.\nFor a binary problem, the probability is computed based on a softmax function (from `scikit-learn` documentation):\n\n$\\hat{p}(X_i) = \\mathrm{expit}(X_i w + w_0) = [1 + \\mathrm{exp}(-X_i w - w_0)]^{-1}$\n\nFor a multinomial problem, we need something more complicated (that we won't bother computing here).\n\nJust to show you how they are stored, here are the actual intercept and coefficients from the fitted model:\n\nAnd here are the raw probabilities predicted by the model:\n\nWe can manually convert this to class labels using the `numpy.argmax` function, which returns the index of the greatest value (with `axis=1` it's the greatest value in each row):\n\nFinally we can convert this back to labels manually using the `numpy.unique` function:\n\nFinally, just to prove it to you:\n\nYou can note here how `scikit-learn` conveniently handles conversion between integer labels and categorical label codes for us.",
+  "code_block": "\n\nfrom sklearn import linear_model\n\nmodel = linear_model.LogisticRegression(random_state=0).fit(xtrain, ytrain)\nmodel.score(xtest, ytest)\n\nmodel.predict(xtest)\n\nprint( model.intercept_ )\nprint( model.coef_ )\n\nmodel.predict_proba(xtest)\n\nimport numpy as np\n\np = model.predict_proba(xtest)\npred_label = np.argmax(p, axis=1)\nprint(pred_label)\n\nnp.unique(y)[pred_label]\n\nnp.unique(y)[pred_label] == model.predict(xtest)",
+  "imports": [
+    "import numpy as np",
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "from matplotlib import pyplot as plt",
+    "import os",
+    "from plotly import express as px",
+    "from sklearn import svm",
+    "from sklearn import tree",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn import linear_model",
+    "from sklearn import neighbors",
+    "from sklearn import naive_bayes",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Logistic regression\n\nDespite its name, logistic regression is a linear classification algorithm.\n\n<img src=\"../lectures/assets/lecture04_logistic_regression.jpg\" alt=\"Illustration of a logistic regression curve\" width=400>",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import linear_model\n\nmodel = linear_model.LogisticRegression(random_state=0).fit(xtrain, ytrain)\nmodel.score(xtest, ytest)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "It looks like the `LogisticRegression` gets a perfect score on the test data.\nWhat does this look like?\nAs a reminder, the model is predicting one of 4 classes, `C, L, M, V`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model.predict(xtest)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "How does it work?\nThis is a linear model that assigns a class label based on the class with the largest predicted probability.\nFor a binary problem, the probability is computed based on a softmax function (from `scikit-learn` documentation):\n\n$\\hat{p}(X_i) = \\mathrm{expit}(X_i w + w_0) = [1 + \\mathrm{exp}(-X_i w - w_0)]^{-1}$\n\nFor a multinomial problem, we need something more complicated (that we won't bother computing here).\n\nJust to show you how they are stored, here are the actual intercept and coefficients from the fitted model:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print( model.intercept_ )\nprint( model.coef_ )",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "And here are the raw probabilities predicted by the model:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model.predict_proba(xtest)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can manually convert this to class labels using the `numpy.argmax` function, which returns the index of the greatest value (with `axis=1` it's the greatest value in each row):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import numpy as np\n\np = model.predict_proba(xtest)\npred_label = np.argmax(p, axis=1)\nprint(pred_label)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Finally we can convert this back to labels manually using the `numpy.unique` function:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "np.unique(y)[pred_label]",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Finally, just to prove it to you:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "np.unique(y)[pred_label] == model.predict(xtest)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "You can note here how `scikit-learn` conveniently handles conversion between integer labels and categorical label codes for us.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 3,
+  "parent_lecture": "Lecture04"
+}

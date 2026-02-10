@@ -1,0 +1,45 @@
+{
+  "id": "Lecture01_getting_help",
+  "markdown_content": "## Getting help\n\nYou can get information about functions using `help`:\n\nAnother option is to use the `?` symbol, which will open a tab in the Colab interpreter (look for a `Help` tab to the right \u27a1)\n\nNote that this output might not be helpful to *you* until you learn more about how Python works...\nYou can always refer to online documentation for a more human-readable version (often including examples, etc...)",
+  "code_block": "\n\nhelp(print)\n\n# print?",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Getting help",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "You can get information about functions using `help`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "help(print)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Another option is to use the `?` symbol, which will open a tab in the Colab interpreter (look for a `Help` tab to the right \u27a1)",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# print?",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Note that this output might not be helpful to *you* until you learn more about how Python works...\nYou can always refer to online documentation for a more human-readable version (often including examples, etc...)",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 6,
+  "parent_lecture": "Lecture01"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "Lecture03_introduction_to_machine_learning",
+  "markdown_content": "# Introduction to Machine Learning\n\nMachine Learning (ML) has become a household term in the last 10 years. One definition that I like is this:\n\n> \"Machine learning is a method of data analysis that automates analytical model building.\"\n\nThis graphic gives a good illustration of how ML relates to the overall field of Data Science:\n\n<img src=\"../lectures/assets/lecture03_data_science_ml_venn.jpg\" height=400>\n\nML is an essential a key part of practical Data Science workflows because it enables us to generate standardized models that can explain a very large class of problems. In turn this enables us to share the models broadly because there is a robust set of common models that the broader community can understand, implement, and use.\n\nNow let's get into the details of what ML is and how to use it.\nML is often broken down into three categories:\n* Supervised learning\n* Unsupervised learning\n* Reinforcement learning\n\nWe will cover Supervised and Unsupervised learning with hands-on examples and discuss applications of Reinforcement learning at the end.",
+  "code_block": "",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Introduction to Machine Learning\n\nMachine Learning (ML) has become a household term in the last 10 years. One definition that I like is this:\n\n> \"Machine learning is a method of data analysis that automates analytical model building.\"\n\nThis graphic gives a good illustration of how ML relates to the overall field of Data Science:\n\n<img src=\"../lectures/assets/lecture03_data_science_ml_venn.jpg\" height=400>\n\nML is an essential a key part of practical Data Science workflows because it enables us to generate standardized models that can explain a very large class of problems. In turn this enables us to share the models broadly because there is a robust set of common models that the broader community can understand, implement, and use.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "Now let's get into the details of what ML is and how to use it.\nML is often broken down into three categories:\n* Supervised learning\n* Unsupervised learning\n* Reinforcement learning\n\nWe will cover Supervised and Unsupervised learning with hands-on examples and discuss applications of Reinforcement learning at the end.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 1,
+  "parent_lecture": "Lecture03"
+}

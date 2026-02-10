@@ -1,0 +1,11 @@
+{
+  "id": "Lecture05_evaluating_the_projection",
+  "type": "Foundational",
+  "sequence": 17,
+  "parent_lecture": "Lecture05",
+  "requirements": [
+    "tensors['pca']"
+  ],
+  "markdown_content": "## Evaluating the projection\n\nSo far we have only looked at the first two of 14 components.\nWhat components should we choose?\nMaybe the 14th one is the best?\nIt turns out we have a very systematic way of evaluating these projections using \"explained variance\":\n\nThe explained variance tells us how much of the overall variance in data can be captured by each component.\nFrom the chart we see that `sklearn` already orders the components by decreasing explained variance.\nFurthermore, the first few components capture most of the variance.\nWe can also plot the cumulative explained variance ratio to make it a little easier to decide:\n\nNow we can see that the first 2 components capture 85% of the variance, and the first 3 capture 95%!",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from scipy.cluster.hierarchy import dendrogram\n    from sklearn import cluster\n    from sklearn import decomposition\n    from sklearn import metrics\n    from sklearn import preprocessing\n    from sklearn.mixture import GaussianMixture\n    import numpy as np\n    import os\n    import pandas as pd\n    import tqdm  # a very useful package for progress bars\n    pca = ctx.get('tensors', {}).get('pca')\n    \n    \n    fig, ax = plt.subplots()\n    ax.plot(pca.explained_variance_, '.-')\n    ax.set_xlabel('Component #')\n    ax.set_ylabel('Explained variance')\n    \n    fig, ax = plt.subplots()\n    ax.plot(np.cumsum(pca.explained_variance_ratio_), '.-')\n    ax.set_xlabel('Component #')\n    ax.set_ylabel('Cumulative explained variance')"
+}

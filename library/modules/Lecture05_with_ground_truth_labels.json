@@ -1,0 +1,14 @@
+{
+  "id": "Lecture05_with_ground_truth_labels",
+  "type": "Foundational",
+  "sequence": 11,
+  "parent_lecture": "Lecture05",
+  "requirements": [
+    "tensors['report_cluster_scores']",
+    "tensors['y']",
+    "tensors['x']",
+    "model"
+  ],
+  "markdown_content": "## With ground truth labels\n\n...or can we?\n\nIf we have labels (like in this case) we could check how well the chosen clustering method reflects these.\nThe `adjusted_rand_score` evaluates something like accuracy while accounting for the fact that cluster indices can be in any order.\nMeanwhile the `normalized_mutual_info_score` is a measure of [mutual information](https://en.wikipedia.org/wiki/Mutual_information) (something kind of like a correlation) between the two labeling schemes.\nIn either case, higher values are better (indicating greater correlation between the obtained labels and the ground truth).\n\nHere we see very similar performance between all 3 model classes, with a slight edge to GMM and KMeans (tied).",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from scipy.cluster.hierarchy import dendrogram\n    from sklearn import cluster\n    from sklearn import decomposition\n    from sklearn import metrics\n    from sklearn import preprocessing\n    from sklearn.mixture import GaussianMixture\n    import numpy as np\n    import os\n    import pandas as pd\n    import tqdm  # a very useful package for progress bars\n    model = ctx.get('model')\n    report_cluster_scores = ctx.get('tensors', {}).get('report_cluster_scores')\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    \n    \n    from sklearn import metrics\n    \n    def report_cluster_scores(labels):\n        \"Compare labels predicted by a clustering algorithm to ground truth.\"\n        ars = metrics.adjusted_rand_score(y, labels)\n        amis = metrics.adjusted_mutual_info_score(y, labels)\n    \n        print(f'{str(model):40s}: ARS = {ars:.3f}, AMIS = {amis:.3f}')\n    \n    \n    # apply the function to several clustering models...\n    \n    model = GaussianMixture(n_components=4).fit(x)\n    labels = model.predict(x)\n    report_cluster_scores(labels)\n    \n    model = cluster.KMeans(n_clusters=4).fit(x)\n    labels = model.predict(x)\n    report_cluster_scores(labels)\n    \n    model = cluster.AgglomerativeClustering(n_clusters=4)\n    labels = model.fit_predict(x)\n    report_cluster_scores(labels)\n    ctx['model'] = model\n    ctx['tensors']['labels'] = labels"
+}

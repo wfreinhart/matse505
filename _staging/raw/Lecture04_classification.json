@@ -1,0 +1,35 @@
+{
+  "id": "Lecture04_classification",
+  "markdown_content": "# Classification\n\nWith regression we are predicting *continuous* labels, basically floating point numbers. However, some problems have *categorical* labels, which correspond to discrete groups rather than numbers.\n\n<img src=\"../lectures/assets/lecture04_regression_vs_classification.jpg\" width=600>\n\nAt first glance you might think we could just do regression with `int` in place of `float`. For instance, consider data falling in 3 groups: `Apple, Banana, Orange`. If we convert these to `int` so they are discrete, we would get `0, 1, 2`. Technically we can then use a regressor to predict the values.\n\nAside from having to round off the outputs, this simple strategy makes a HUGE assumption in the math: that `Apple` is closer to `Banana` than it is to `Orange`, since they are represented by `0, 1, 2`. This will lead to systematic bias in the predictions and reward the wrong types of predictions, while having no basis in reality for the problem.",
+  "code_block": "",
+  "imports": [
+    "import numpy as np",
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "from matplotlib import pyplot as plt",
+    "import os",
+    "from plotly import express as px",
+    "from sklearn import svm",
+    "from sklearn import tree",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn import linear_model",
+    "from sklearn import neighbors",
+    "from sklearn import naive_bayes",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Classification\n\nWith regression we are predicting *continuous* labels, basically floating point numbers. However, some problems have *categorical* labels, which correspond to discrete groups rather than numbers.\n\n<img src=\"../lectures/assets/lecture04_regression_vs_classification.jpg\" width=600>",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "At first glance you might think we could just do regression with `int` in place of `float`. For instance, consider data falling in 3 groups: `Apple, Banana, Orange`. If we convert these to `int` so they are discrete, we would get `0, 1, 2`. Technically we can then use a regressor to predict the values.\n\nAside from having to round off the outputs, this simple strategy makes a HUGE assumption in the math: that `Apple` is closer to `Banana` than it is to `Orange`, since they are represented by `0, 1, 2`. This will lead to systematic bias in the predictions and reward the wrong types of predictions, while having no basis in reality for the problem.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 1,
+  "parent_lecture": "Lecture04"
+}

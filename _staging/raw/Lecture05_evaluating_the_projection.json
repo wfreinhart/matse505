@@ -1,0 +1,48 @@
+{
+  "id": "Lecture05_evaluating_the_projection",
+  "markdown_content": "## Evaluating the projection\n\nSo far we have only looked at the first two of 14 components.\nWhat components should we choose?\nMaybe the 14th one is the best?\nIt turns out we have a very systematic way of evaluating these projections using \"explained variance\":\n\nThe explained variance tells us how much of the overall variance in data can be captured by each component.\nFrom the chart we see that `sklearn` already orders the components by decreasing explained variance.\nFurthermore, the first few components capture most of the variance.\nWe can also plot the cumulative explained variance ratio to make it a little easier to decide:\n\nNow we can see that the first 2 components capture 85% of the variance, and the first 3 capture 95%!",
+  "code_block": "\n\nfig, ax = plt.subplots()\nax.plot(pca.explained_variance_, '.-')\nax.set_xlabel('Component #')\nax.set_ylabel('Explained variance')\n\nfig, ax = plt.subplots()\nax.plot(np.cumsum(pca.explained_variance_ratio_), '.-')\nax.set_xlabel('Component #')\nax.set_ylabel('Cumulative explained variance')",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Evaluating the projection\n\nSo far we have only looked at the first two of 14 components.\nWhat components should we choose?\nMaybe the 14th one is the best?\nIt turns out we have a very systematic way of evaluating these projections using \"explained variance\":",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.plot(pca.explained_variance_, '.-')\nax.set_xlabel('Component #')\nax.set_ylabel('Explained variance')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "The explained variance tells us how much of the overall variance in data can be captured by each component.\nFrom the chart we see that `sklearn` already orders the components by decreasing explained variance.\nFurthermore, the first few components capture most of the variance.\nWe can also plot the cumulative explained variance ratio to make it a little easier to decide:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.plot(np.cumsum(pca.explained_variance_ratio_), '.-')\nax.set_xlabel('Component #')\nax.set_ylabel('Cumulative explained variance')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now we can see that the first 2 components capture 85% of the variance, and the first 3 capture 95%!",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 17,
+  "parent_lecture": "Lecture05"
+}

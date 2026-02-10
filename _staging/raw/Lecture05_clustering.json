@@ -1,0 +1,28 @@
+{
+  "id": "Lecture05_clustering",
+  "markdown_content": "## Clustering\n\nAs discussed earlier, clustering is a ML scheme where we try to identify discrete groups of data points without having any labels associated.\nThis stands in contrast to both flavors of supervised learning (regression and classification) which always have target labels.\n\n<img src=\"../lectures/assets/kmeans_diagram.jpg\" height=300 alt=\"Schematic diagram of the K-Means clustering algorithm steps\">\n\nThis can be helpful for understanding:\n* patterns in the data,\n* outlier detection, or\n* even generating classification labels for a supervised classification task.\n\n**Note: clustering is not classification!**\n\nAt first glance clustering seems a lot like classification.\nIt's worth taking a moment to make sure you understand the difference -- there are no predefined labels here!\nThis graphic may help make the point:\n\n<img src=\"../lectures/assets/classification_vs_clustering.jpg\" width=600 alt=\"Comparison between supervised classification (with labels) and unsupervised clustering (without labels)\">",
+  "code_block": "",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Clustering\n\nAs discussed earlier, clustering is a ML scheme where we try to identify discrete groups of data points without having any labels associated.\nThis stands in contrast to both flavors of supervised learning (regression and classification) which always have target labels.\n\n<img src=\"../lectures/assets/kmeans_diagram.jpg\" height=300 alt=\"Schematic diagram of the K-Means clustering algorithm steps\">\n\nThis can be helpful for understanding:\n* patterns in the data,\n* outlier detection, or\n* even generating classification labels for a supervised classification task.\n\n**Note: clustering is not classification!**\n\nAt first glance clustering seems a lot like classification.\nIt's worth taking a moment to make sure you understand the difference -- there are no predefined labels here!\nThis graphic may help make the point:\n\n<img src=\"../lectures/assets/classification_vs_clustering.jpg\" width=600 alt=\"Comparison between supervised classification (with labels) and unsupervised clustering (without labels)\">",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 2,
+  "parent_lecture": "Lecture05"
+}

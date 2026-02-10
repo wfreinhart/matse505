@@ -1,0 +1,35 @@
+{
+  "id": "Lecture01_importing_modules",
+  "markdown_content": "## Importing modules\n\n\nYou can access modules using the `import` keyword followed by the module name.\nColab has a bunch of modules available by default.\nLet's try importing NumPy:\n\n**Note** modules are supposed to have short, lower-case names.\nNumpy was imported using `numpy` rather than NumPy.\n\nThe `print` function gives us some information about the module that indicates it loaded successfully.\nNote that just calling `import` doesn't give any output unless there's an error.\nLet's observe this behavior using Matplotlib:",
+  "code_block": "\n\nimport numpy\nprint(numpy)\n\nimport matplotlib",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Importing modules\n\n\nYou can access modules using the `import` keyword followed by the module name.\nColab has a bunch of modules available by default.\nLet's try importing NumPy:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import numpy\nprint(numpy)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "**Note** modules are supposed to have short, lower-case names.\nNumpy was imported using `numpy` rather than NumPy.\n\nThe `print` function gives us some information about the module that indicates it loaded successfully.\nNote that just calling `import` doesn't give any output unless there's an error.\nLet's observe this behavior using Matplotlib:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import matplotlib",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 14,
+  "parent_lecture": "Lecture01"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "Lecture05_unsupervised_learning",
+  "type": "Foundational",
+  "sequence": 1,
+  "parent_lecture": "Lecture05",
+  "requirements": [],
+  "markdown_content": "# Unsupervised learning\n\nUnsupervised learning means we have only $X$ features with  no $y$ labels.\nThis is focused on understanding the data without trying to predict something directly.\nWe'll discuss two flavors of unsupervised learning:\n* *Clustering* - dividing data into categorical groups\n* *Dimensionality reduction* - mapping data from high dimension to low dimension\n  * this can sometimes be referred to as \"representation learning\"",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from scipy.cluster.hierarchy import dendrogram\n    from sklearn import cluster\n    from sklearn import decomposition\n    from sklearn import metrics\n    from sklearn import preprocessing\n    from sklearn.mixture import GaussianMixture\n    import numpy as np\n    import os\n    import pandas as pd\n    import tqdm  # a very useful package for progress bars\n    pass"
+}

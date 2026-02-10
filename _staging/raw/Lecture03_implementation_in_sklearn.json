@@ -1,0 +1,31 @@
+{
+  "id": "Lecture03_implementation_in_sklearn",
+  "markdown_content": "## Implementation in `sklearn`\n\n[scikit learn](https://scikit-learn.org/stable/index.html), which has the package name `sklearn`, is our go-to Python package for ML implementations. It has modules for:\n* Classification\n* Regression\n* Clustering\n* Dimensionality reduction\n* Model selection\n* Preprocessing\n\n...and more.\nEssentially all standard ML algorithms are available in this package.\nFor deep learning I recommend [pytorch](https://pytorch.org/).",
+  "code_block": "",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Implementation in `sklearn`\n\n[scikit learn](https://scikit-learn.org/stable/index.html), which has the package name `sklearn`, is our go-to Python package for ML implementations. It has modules for:\n* Classification\n* Regression\n* Clustering\n* Dimensionality reduction\n* Model selection\n* Preprocessing\n\n...and more.\nEssentially all standard ML algorithms are available in this package.\nFor deep learning I recommend [pytorch](https://pytorch.org/).",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 5,
+  "parent_lecture": "Lecture03"
+}

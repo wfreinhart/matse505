@@ -1,0 +1,17 @@
+{
+  "id": "Lecture03_[check_your_understanding]",
+  "markdown_content": "## [Check your understanding]\n\n* Make a model for the `Age (day)` instead of `Concrete compressive strength` using multiple linear regression. Include all the other components in the feature vector.\n> You will have to index carefully to separate the labels since they are in an interior column.\n\n* Evaluate the R-squared, RMSE, and MAE.",
+  "code_block": "\n\n",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\n* Make a model for the `Age (day)` instead of `Concrete compressive strength` using multiple linear regression. Include all the other components in the feature vector.\n> You will have to index carefully to separate the labels since they are in an interior column.\n\n* Evaluate the R-squared, RMSE, and MAE.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ]
+}

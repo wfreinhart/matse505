@@ -1,0 +1,31 @@
+{
+  "id": "Lecture03_training_versus_testing",
+  "markdown_content": "# Training versus Testing\n\nOne of the big differences between ML and statistical modeling is the intended use. We have used linear regression to evaluate how variables are related to each other. With ML we often want to make *predictions*, or *extrapolations*. This requires a change to our workflow.\n\nIn order to evaluate the performance of the model on unseen data (i.e., a prediction), we need to *hold out* some data to emulate the effect of the model encountering data it hasn't been fitted to. This will be called the **test** data.\nThe data used to fit will be called the **training** data.\n\nAs we start using more sophisticated models which are less grounded in physical reality and more on statistical trends, it is vitally important that we evaluate our models in this way to avoid *overfitting*.\nRemember that a model with enough degrees of freedom can perfectly fit any data, but it won't have any predictive power!",
+  "code_block": "",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Training versus Testing\n\nOne of the big differences between ML and statistical modeling is the intended use. We have used linear regression to evaluate how variables are related to each other. With ML we often want to make *predictions*, or *extrapolations*. This requires a change to our workflow.\n\nIn order to evaluate the performance of the model on unseen data (i.e., a prediction), we need to *hold out* some data to emulate the effect of the model encountering data it hasn't been fitted to. This will be called the **test** data.\nThe data used to fit will be called the **training** data.\n\nAs we start using more sophisticated models which are less grounded in physical reality and more on statistical trends, it is vitally important that we evaluate our models in this way to avoid *overfitting*.\nRemember that a model with enough degrees of freedom can perfectly fit any data, but it won't have any predictive power!",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 16,
+  "parent_lecture": "Lecture03"
+}

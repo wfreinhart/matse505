@@ -1,0 +1,11 @@
+{
+  "id": "Lecture02_indexing_practice",
+  "type": "Foundational",
+  "sequence": 6,
+  "parent_lecture": "Lecture02",
+  "requirements": [
+    "data"
+  ],
+  "markdown_content": "## Indexing practice\n\nAs we said earlier, in addition to accessing single values, `loc` can access ranges of values.\nThis is done with `:` as we saw with `lists`.\nWhen we use `:`, we get the elements starting with the number to the left and ending with one less than the number on the right.\nSo `0:3` accesses elements at indices `[0, 1, 2]`.\nLet's try it out:\n\nWe could get all the elements in either a row or column by not specifying any numbers to the side of the `:`:\n\nWe can also use `:` with the index and column names, which is more intuitive -- in this case pandas actually includes the ending entry too:\n\n**IMPORTANT:**\nNote that in this case pandas actually returns a `DataFrame` object which is a subset of the larger `ele_data` `DataFrame`.\n\nPandas formats this nicely if we drop the `print` statement:",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot  # import the pyplot submodule\n    from matplotlib import pyplot as plt  # use an alias\n    from scipy import stats\n    import numpy as np\n    import os\n    import pandas as pd\n    import requests\n    ele_data = ctx.get('data')\n    \n    \n    print(ele_data.iloc[0, 0:3])\n    \n    print(ele_data.iloc[0, :])  # access a whole column by specifying a row only\n    print('')  # give a line break between print statements\n    print(ele_data.iloc[:, 0])  # access a whole row by specifying a column only\n    \n    print(ele_data.loc['Al':'Cu', 'Atomic Number':'STP Phase'])\n    \n    sub_data = ele_data.loc['Al':'Cu', 'Atomic Number':'STP Phase']\n    print(type(sub_data))\n    sub_data\n    ctx['tensors']['sub_data'] = sub_data"
+}

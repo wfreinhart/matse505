@@ -1,0 +1,31 @@
+{
+  "id": "Lecture03_quantifying_model_performance",
+  "markdown_content": "# Quantifying model performance",
+  "code_block": "",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Quantifying model performance",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 12,
+  "parent_lecture": "Lecture03"
+}

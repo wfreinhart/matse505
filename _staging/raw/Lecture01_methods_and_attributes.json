@@ -1,0 +1,35 @@
+{
+  "id": "Lecture01_methods_and_attributes",
+  "markdown_content": "## Methods and attributes\n\nLet's build our vocabulary up a bit more.\nAt a basic level, objects can have two types of \"things\" -- methods and attributes.\n\n* **methods** are functions that belong to the object and can access variables inside it\n* **attributes** are variables that belong to the object\n\nUsing our `list` example, `append` and `sort` are methods. `list` does not have any attributes. `np.array` does, however:\n\nWe can access methods and attributes inside an object using the same `.` notation. The only difference is what is returned: a callable in the case of methods and an object in the case of attributes. If we want to use the `mean` method, for instance, we need to add the `()` as we do for any function.",
+  "code_block": "\n\nimport numpy as np  # this is a module, with an alias\n\nmy_arr = np.array(my_list)\nprint(my_arr)\n\nprint(my_arr.mean)   # this is a method\nprint(my_arr.shape)  # this is an attribute\n\nprint(my_arr.mean())\nprint(np.mean(my_arr))",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Methods and attributes\n\nLet's build our vocabulary up a bit more.\nAt a basic level, objects can have two types of \"things\" -- methods and attributes.\n\n* **methods** are functions that belong to the object and can access variables inside it\n* **attributes** are variables that belong to the object\n\nUsing our `list` example, `append` and `sort` are methods. `list` does not have any attributes. `np.array` does, however:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import numpy as np  # this is a module, with an alias\n\nmy_arr = np.array(my_list)\nprint(my_arr)\n\nprint(my_arr.mean)   # this is a method\nprint(my_arr.shape)  # this is an attribute",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can access methods and attributes inside an object using the same `.` notation. The only difference is what is returned: a callable in the case of methods and an object in the case of attributes. If we want to use the `mean` method, for instance, we need to add the `()` as we do for any function.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(my_arr.mean())\nprint(np.mean(my_arr))",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 18,
+  "parent_lecture": "Lecture01"
+}

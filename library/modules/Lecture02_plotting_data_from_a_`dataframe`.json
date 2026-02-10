@@ -1,0 +1,9 @@
+{
+  "id": "Lecture02_plotting_data_from_a_`dataframe`",
+  "type": "Foundational",
+  "sequence": 0,
+  "parent_lecture": "",
+  "requirements": [],
+  "markdown_content": "# Plotting data from a `DataFrame`",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+}

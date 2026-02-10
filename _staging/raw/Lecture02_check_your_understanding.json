@@ -1,0 +1,28 @@
+{
+  "id": "Lecture02_check_your_understanding",
+  "markdown_content": "## [Check your understanding]\n\nPerform a linear regression for `Cohesive Energy (eV)` versus `Vacancy Formation Energy (eV)` and compute the $R^2$ manually. Then compare to the result of `linregress`.",
+  "code_block": "\n\n",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\nPerform a linear regression for `Cohesive Energy (eV)` versus `Vacancy Formation Energy (eV)` and compute the $R^2$ manually. Then compare to the result of `linregress`.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 39,
+  "parent_lecture": "Lecture02"
+}

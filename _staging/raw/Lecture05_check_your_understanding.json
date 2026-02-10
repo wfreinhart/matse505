@@ -1,0 +1,33 @@
+{
+  "id": "Lecture05_check_your_understanding",
+  "markdown_content": "## [Check your understanding]\n\nKeep identifying and removing outliers from the dataset until you are satisfied with the point cloud produced by the projection.\n\nCan you automate this process (i.e., determine a cutoff distance and automatically terminate the pruning once that cutoff is reached)?",
+  "code_block": "\n\nfig, ax = plt.subplots()\n_ = ax.bar(x.columns, pca.components_[:, 1])",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\nKeep identifying and removing outliers from the dataset until you are satisfied with the point cloud produced by the projection.\n\nCan you automate this process (i.e., determine a cutoff distance and automatically terminate the pruning once that cutoff is reached)?",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\n_ = ax.bar(x.columns, pca.components_[:, 1])",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 19,
+  "parent_lecture": "Lecture05"
+}

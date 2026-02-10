@@ -1,0 +1,76 @@
+{
+  "id": "Lecture03_mse_mae_and_regularization",
+  "markdown_content": "## MSE, MAE, and regularization\n\nTo get around this problem when evaluating residuals, we discussed several alternate metrics.\nThese include the Mean Squared Error (MSE) and Root-MSE (RMSE), which are straightforward to compute:\n\nThe RMSE has the same units as $y$, so this means the \"typical\" residual for the model is about 10 MPa.\n\n> Note that the RMSE formula is actually the same as the standard deviation of the residuals. The difference is just the intent behind the calculation (model error versus variation in a population).\n\nWe can compare the RMSE to Mean Absolute Error (MAE):\n\nThe MAE applies a power of 1 to the residuals while the RMSE applies a power of 2.\nYou can observe that the RMSE leads to a larger value than MAE.\nThese normalizations are called $L_1$ and $L_2$ **norms**. Let's make a histogram of the residuals to see what this means visually:\n\nBasically, the L1 residuals are more compact than the L2 residuals (less skewed).\nThis means that when fitting the model, the residuals out on the tail will carry much more weight than those close to zero when using L2 regularization.",
+  "code_block": "\n\nmse = np.mean(residual**2)\nrmse = np.sqrt(mse)\n\nprint('MSE: ', mse)\nprint('RMSE:', rmse)\n\nprint(np.std(residual))\n\nmae = np.mean(np.abs(residual))\nprint(f'MAE  = {mae}')\n\nres_l1 = np.abs(y - y_model)\nres_l2 = (y - y_model)**2\n\nfig, axes = plt.subplots(1, 2)\n\nax = axes[0]\n_ = ax.hist(res_l1)\nax.set_xlabel('L1 residual')\n\nax = axes[1]\n_ = ax.hist(res_l2)\nax.set_xlabel('L2 residual')",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## MSE, MAE, and regularization",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "To get around this problem when evaluating residuals, we discussed several alternate metrics.\nThese include the Mean Squared Error (MSE) and Root-MSE (RMSE), which are straightforward to compute:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "mse = np.mean(residual**2)\nrmse = np.sqrt(mse)\n\nprint('MSE: ', mse)\nprint('RMSE:', rmse)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "The RMSE has the same units as $y$, so this means the \"typical\" residual for the model is about 10 MPa.\n\n> Note that the RMSE formula is actually the same as the standard deviation of the residuals. The difference is just the intent behind the calculation (model error versus variation in a population).",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(np.std(residual))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can compare the RMSE to Mean Absolute Error (MAE):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "mae = np.mean(np.abs(residual))\nprint(f'MAE  = {mae}')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "The MAE applies a power of 1 to the residuals while the RMSE applies a power of 2.\nYou can observe that the RMSE leads to a larger value than MAE.\nThese normalizations are called $L_1$ and $L_2$ **norms**. Let's make a histogram of the residuals to see what this means visually:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "res_l1 = np.abs(y - y_model)\nres_l2 = (y - y_model)**2\n\nfig, axes = plt.subplots(1, 2)\n\nax = axes[0]\n_ = ax.hist(res_l1)\nax.set_xlabel('L1 residual')\n\nax = axes[1]\n_ = ax.hist(res_l2)\nax.set_xlabel('L2 residual')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Basically, the L1 residuals are more compact than the L2 residuals (less skewed).\nThis means that when fitting the model, the residuals out on the tail will carry much more weight than those close to zero when using L2 regularization.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 14,
+  "parent_lecture": "Lecture03"
+}

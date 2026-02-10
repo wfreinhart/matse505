@@ -1,0 +1,46 @@
+{
+  "id": "Lecture03_investigating_features",
+  "markdown_content": "## Investigating features\n\nOne additional thing we can do is check which features dominate the response by looking at the coefficients, stored in the `coef_` attribute:\n\nBased on this, we see that `Superplasticizer` has the strongest effect per kg, then `Water` and `Cement`.\n`Age` is also near the top of the list, but it's measured in days, not kg, so it's hard to compare it to the others.",
+  "code_block": "\n\nmodel.coef_\n\nfor i, col in enumerate(xtrain.columns):\n    print(f'{col:55s} {model.coef_[i]:10.4f}')",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Investigating features\n\nOne additional thing we can do is check which features dominate the response by looking at the coefficients, stored in the `coef_` attribute:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model.coef_",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "for i, col in enumerate(xtrain.columns):\n    print(f'{col:55s} {model.coef_[i]:10.4f}')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Based on this, we see that `Superplasticizer` has the strongest effect per kg, then `Water` and `Cement`.\n`Age` is also near the top of the list, but it's measured in days, not kg, so it's hard to compare it to the others.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 18,
+  "parent_lecture": "Lecture03"
+}

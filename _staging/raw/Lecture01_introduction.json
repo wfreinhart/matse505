@@ -1,0 +1,25 @@
+{
+  "id": "Lecture01_introduction",
+  "markdown_content": "# Introduction\n\n<img src=\"../lectures/assets/lecture01_xkcd_python.jpg\" alt=\"XKCD comic #353 about Python: a character learns Python in minutes and realizes they can fly.\" height=500/>\n\n(image credit [the XKCD website](https://xkcd.com/353/))",
+  "code_block": "",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Introduction",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "<img src=\"../lectures/assets/lecture01_xkcd_python.jpg\" alt=\"XKCD comic #353 about Python: a character learns Python in minutes and realizes they can fly.\" height=500/>\n\n(image credit [the XKCD website](https://xkcd.com/353/))",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 0,
+  "parent_lecture": "Lecture01"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "Lecture02_plotting_with_pyplot",
+  "markdown_content": "# Plotting with `pyplot`\n\nLet's start with the basics:",
+  "code_block": "\n\nfrom matplotlib import pyplot  # import the pyplot submodule\n\npyplot.plot()  # create an empty plot",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Plotting with `pyplot`\n\nLet's start with the basics:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from matplotlib import pyplot  # import the pyplot submodule\n\npyplot.plot()  # create an empty plot",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 8,
+  "parent_lecture": "Lecture02"
+}

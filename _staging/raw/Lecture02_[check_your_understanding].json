@@ -1,0 +1,17 @@
+{
+  "id": "Lecture02_[check_your_understanding]",
+  "markdown_content": "## [Check your understanding]\n\nPerform a linear regression for `Cohesive Energy (eV)` versus `Vacancy Formation Energy (eV)` and compute the $R^2$ manually. Then compare to the result of `linregress`.",
+  "code_block": "\n\n",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\nPerform a linear regression for `Cohesive Energy (eV)` versus `Vacancy Formation Energy (eV)` and compute the $R^2$ manually. Then compare to the result of `linregress`.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ]
+}

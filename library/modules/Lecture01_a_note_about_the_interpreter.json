@@ -1,0 +1,9 @@
+{
+  "id": "Lecture01_a_note_about_the_interpreter",
+  "type": "Foundational",
+  "sequence": 10,
+  "parent_lecture": "Lecture01",
+  "requirements": [],
+  "markdown_content": "## A note about the interpreter\n\nThere's something important to know about the messages Python gives us after we write commands.\nIn the cells up above, we were using `print` to get the values of our variables.\nThen when we were looking at `type`, we just wrote `type(x)` and got some output.\nBut we will only get to see the **last** thing that happened if we don't use `print`.\nLet's take a look:\n\nWe called the `type` function twice, but we only got one output.\nNotice that the `type` that got written out is the latest one, from `y='a'`.\nNow let's use `print()` to record each thing that happened:\n\nNot only do we get the output from both `type` calls, but `print` also automatically adds some additional information to the output.\nHere it tells us that the variable belongs to certain builtin `classes`.\nMore on that in a minute...\n\n",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    import matplotlib\n    import numpy\n    import numpy as np\n    import numpy as np  # this is a module, with an alias\n    \n    \n    y = 1.0  # set y to a floating point number\n    type(y)  # write out the type of y\n    y = 'a'  # reset y to a string\n    type(y)  # write out the type of y\n    \n    y = 1.0         # set y to a floating point number\n    print(type(y))  # explicitly print out the type of y\n    y = 'a'         # reset y to a string\n    print(type(y))  # explicitly print out the type of y\n    ctx['tensors']['y'] = y"
+}

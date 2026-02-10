@@ -1,0 +1,38 @@
+{
+  "id": "Lecture02_scatter",
+  "markdown_content": "## Scatter\n\nWe can add color to our charts with `scatter`, by specifying a `c` keyword argument (short for \"color\").\n\nThis isn't helpful without a colorbar indicating the values of the colors and a label to describe it:",
+  "code_block": "\n\nfig, ax = plt.subplots()\n\nax.scatter(x, y, c=z)\n\nax.set_xlabel(x.name)\nax.set_ylabel(y.name)\n\nfig, ax = plt.subplots()\n\nim = ax.scatter(x, y, c=z)  # save the output here (scatter object)\n\ncb = plt.colorbar(im)  # save the output again (colorbar object)\ncb.set_label(z.name)   # label the colorbar\n\nax.set_xlabel(x.name)\nax.set_ylabel(y.name)",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Scatter\n\nWe can add color to our charts with `scatter`, by specifying a `c` keyword argument (short for \"color\").",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\n\nax.scatter(x, y, c=z)\n\nax.set_xlabel(x.name)\nax.set_ylabel(y.name)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This isn't helpful without a colorbar indicating the values of the colors and a label to describe it:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\n\nim = ax.scatter(x, y, c=z)  # save the output here (scatter object)\n\ncb = plt.colorbar(im)  # save the output again (colorbar object)\ncb.set_label(z.name)   # label the colorbar\n\nax.set_xlabel(x.name)\nax.set_ylabel(y.name)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 25,
+  "parent_lecture": "Lecture02"
+}

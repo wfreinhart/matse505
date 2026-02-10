@@ -1,0 +1,45 @@
+{
+  "id": "Lecture01_a_note_about_the_interpreter",
+  "markdown_content": "## A note about the interpreter\n\nThere's something important to know about the messages Python gives us after we write commands.\nIn the cells up above, we were using `print` to get the values of our variables.\nThen when we were looking at `type`, we just wrote `type(x)` and got some output.\nBut we will only get to see the **last** thing that happened if we don't use `print`.\nLet's take a look:\n\nWe called the `type` function twice, but we only got one output.\nNotice that the `type` that got written out is the latest one, from `y='a'`.\nNow let's use `print()` to record each thing that happened:\n\nNot only do we get the output from both `type` calls, but `print` also automatically adds some additional information to the output.\nHere it tells us that the variable belongs to certain builtin `classes`.\nMore on that in a minute...\n\n",
+  "code_block": "\n\ny = 1.0  # set y to a floating point number\ntype(y)  # write out the type of y\ny = 'a'  # reset y to a string\ntype(y)  # write out the type of y\n\ny = 1.0         # set y to a floating point number\nprint(type(y))  # explicitly print out the type of y\ny = 'a'         # reset y to a string\nprint(type(y))  # explicitly print out the type of y",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## A note about the interpreter\n\nThere's something important to know about the messages Python gives us after we write commands.\nIn the cells up above, we were using `print` to get the values of our variables.\nThen when we were looking at `type`, we just wrote `type(x)` and got some output.\nBut we will only get to see the **last** thing that happened if we don't use `print`.\nLet's take a look:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "y = 1.0  # set y to a floating point number\ntype(y)  # write out the type of y\ny = 'a'  # reset y to a string\ntype(y)  # write out the type of y",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We called the `type` function twice, but we only got one output.\nNotice that the `type` that got written out is the latest one, from `y='a'`.\nNow let's use `print()` to record each thing that happened:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "y = 1.0         # set y to a floating point number\nprint(type(y))  # explicitly print out the type of y\ny = 'a'         # reset y to a string\nprint(type(y))  # explicitly print out the type of y",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Not only do we get the output from both `type` calls, but `print` also automatically adds some additional information to the output.\nHere it tells us that the variable belongs to certain builtin `classes`.\nMore on that in a minute...",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 10,
+  "parent_lecture": "Lecture01"
+}

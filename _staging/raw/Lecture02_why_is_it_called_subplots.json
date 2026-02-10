@@ -1,0 +1,43 @@
+{
+  "id": "Lecture02_why_is_it_called_subplots",
+  "markdown_content": "## Why is it called subplots?\n\n`subplots` is meant for making multiple plots in a single `figure`.\nWe specify `nrows` and `ncols`:\n\nFor now we'll just use it with the default `nrows=1` and `ncols=1` to make simple charts.",
+  "code_block": "\n\nfig, ax = plt.subplots(nrows=2, ncols=3)\n\n# plt.subplots?\n\nfig, ax = plt.subplots()",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Why is it called subplots?\n\n`subplots` is meant for making multiple plots in a single `figure`.\nWe specify `nrows` and `ncols`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots(nrows=2, ncols=3)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "For now we'll just use it with the default `nrows=1` and `ncols=1` to make simple charts.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# plt.subplots?",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 14,
+  "parent_lecture": "Lecture02"
+}

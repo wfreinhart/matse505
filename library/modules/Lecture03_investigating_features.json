@@ -1,0 +1,12 @@
+{
+  "id": "Lecture03_investigating_features",
+  "type": "Foundational",
+  "sequence": 18,
+  "parent_lecture": "Lecture03",
+  "requirements": [
+    "tensors['xtrain']",
+    "model"
+  ],
+  "markdown_content": "## Investigating features\n\nOne additional thing we can do is check which features dominate the response by looking at the coefficients, stored in the `coef_` attribute:\n\nBased on this, we see that `Superplasticizer` has the strongest effect per kg, then `Water` and `Cement`.\n`Age` is also near the top of the list, but it's measured in days, not kg, so it's hard to compare it to the others.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from scipy import optimize\n    from scipy import stats\n    from sklearn import ensemble\n    from sklearn import linear_model\n    from sklearn import neighbors\n    from sklearn import neural_network\n    from sklearn import tree\n    from sklearn.model_selection import train_test_split\n    from sklearn.preprocessing import PolynomialFeatures\n    import numpy as np\n    import os\n    import pandas as pd\n    import requests\n    model = ctx.get('model')\n    xtrain = ctx.get('tensors', {}).get('xtrain')\n    \n    \n    model.coef_\n    \n    for i, col in enumerate(xtrain.columns):\n        print(f'{col:55s} {model.coef_[i]:10.4f}')"
+}

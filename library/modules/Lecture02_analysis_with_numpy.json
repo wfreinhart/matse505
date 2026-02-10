@@ -1,0 +1,9 @@
+{
+  "id": "Lecture02_analysis_with_numpy",
+  "type": "Foundational",
+  "sequence": 28,
+  "parent_lecture": "Lecture02",
+  "requirements": [],
+  "markdown_content": "# Analysis with `numpy`\n\nNumPy is a popular library for scientific computing that contains fast and convenient functions for linear algebra.\nLet's start by importing the [`numpy` module](https://numpy.org/doc/stable/).\nThis will give access to all the features the `numpy` authors have implemented for us.\nLet's use the `as` keyword to keep the module name short again.\nTrust me, this will be worth it -- we are going to reference `numpy` in almost every line!",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot  # import the pyplot submodule\n    from matplotlib import pyplot as plt  # use an alias\n    from scipy import stats\n    import numpy as np\n    import os\n    import pandas as pd\n    import requests\n    \n    \n    import numpy as np"
+}

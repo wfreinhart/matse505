@@ -1,0 +1,33 @@
+{
+  "id": "Lecture02_a_note_on_aliasing",
+  "markdown_content": "## A note on aliasing\n\nBefore we go any further, let's talk about `aliases` again.\nAs you can see from our very first code cell, accessing the functions of the `pyplot` submodule will require us to type `pyplot.<function>` every time.\nIn practice, people have all agreed that it's easier to type `plt` instead:\n\nNow we can always use `plt` instead of `pyplot`.\nI bring this up because all the tutorials I link to use this notation!\nYou can even see it being done this way on the [official pyplot documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot)!",
+  "code_block": "\n\nfrom matplotlib import pyplot as plt  # use an alias\n\nplt.plot()  # create an empty plot",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## A note on aliasing\n\nBefore we go any further, let's talk about `aliases` again.\nAs you can see from our very first code cell, accessing the functions of the `pyplot` submodule will require us to type `pyplot.<function>` every time.\nIn practice, people have all agreed that it's easier to type `plt` instead:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from matplotlib import pyplot as plt  # use an alias\n\nplt.plot()  # create an empty plot",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now we can always use `plt` instead of `pyplot`.\nI bring this up because all the tutorials I link to use this notation!\nYou can even see it being done this way on the [official pyplot documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot)!",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 9,
+  "parent_lecture": "Lecture02"
+}

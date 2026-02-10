@@ -1,0 +1,28 @@
+{
+  "id": "Lecture05_density_based_methods",
+  "markdown_content": "## Density-based methods\n\nWe can instead specify a minimum density of points that constitutes a continuous cluster.\nThis avoids penalizing non-convex shapes (which are completely plausible for some data distributions).\nThis has important consequences for the resulting shape of clusters:\n\n<img src=\"../lectures/assets/dbscan_vs_others.jpg\" width=600 alt=\"Comparison of DBSCAN clustering performance on non-spherical datasets compared to K-Means\">",
+  "code_block": "",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Density-based methods\n\nWe can instead specify a minimum density of points that constitutes a continuous cluster.\nThis avoids penalizing non-convex shapes (which are completely plausible for some data distributions).\nThis has important consequences for the resulting shape of clusters:\n\n<img src=\"../lectures/assets/dbscan_vs_others.jpg\" width=600 alt=\"Comparison of DBSCAN clustering performance on non-spherical datasets compared to K-Means\">",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 7,
+  "parent_lecture": "Lecture05"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "Lecture02_evaluating_goodness_of_fit",
+  "markdown_content": "## Evaluating goodness of fit\n\nA common metric for goodness of fit is the $R^2$:\n\n$R^2 = 1 - \\frac{SS_\\mathrm{residual}}{SS_\\mathrm{total}}$\n\nwhere $SS_\\mathrm{residual} = \\sum_i (y_i - \\hat{y}_i)^2$ and $SS_\\mathrm{total} = \\sum_i (y_i - \\mu)^2$ with $\\hat{y}$ being the model prediction and $\\mu$ being the data mean.\n\nThis is also sometimes called \"explained variance\" because you can use this alternative formulation:\n\n$R^2 = 1 - \\frac{ \\mathrm{Var}(y_\\mathrm{residual}) } { \\mathrm{Var}(y_\\mathrm{data}) }$\n\nWe can check that we get the same answer as provided by `stats.linregress`:",
+  "code_block": "\n\nresidual = z - z_model\nRsquare = 1 - np.var(residual) / np.var(z)\nprint(Rsquare)\n\nprint(result.rvalue**2)",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Evaluating goodness of fit\n\nA common metric for goodness of fit is the $R^2$:\n\n$R^2 = 1 - \\frac{SS_\\mathrm{residual}}{SS_\\mathrm{total}}$\n\nwhere $SS_\\mathrm{residual} = \\sum_i (y_i - \\hat{y}_i)^2$ and $SS_\\mathrm{total} = \\sum_i (y_i - \\mu)^2$ with $\\hat{y}$ being the model prediction and $\\mu$ being the data mean.\n\nThis is also sometimes called \"explained variance\" because you can use this alternative formulation:\n\n$R^2 = 1 - \\frac{ \\mathrm{Var}(y_\\mathrm{residual}) } { \\mathrm{Var}(y_\\mathrm{data}) }$",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "residual = z - z_model\nRsquare = 1 - np.var(residual) / np.var(z)\nprint(Rsquare)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can check that we get the same answer as provided by `stats.linregress`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(result.rvalue**2)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 38,
+  "parent_lecture": "Lecture02"
+}

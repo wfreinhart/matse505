@@ -1,0 +1,80 @@
+{
+  "id": "Lecture01_a_builtin_example",
+  "markdown_content": "## A builtin example\n\nConsider the `list` data type:\n\nAt first glance, we may think of `list` as this series of numbers. But we can ask `list` to do things:\n\nNotice how `append` isn't a Python builtin function, but instead it actually comes after `my_list` plus a `.` (dot)\n\nWhat does this mean?\nIt means that `list` is more than just a series of numbers, it is an **object**. That object is capable of *doing things* and it also *knows information about itself*.\n\nHere's an example: `sort`\n\nWeird, it looks like nothing happened...let's check on `my_list` again:\n\nThe `list` is sorted now! What happened?\n\nWell, we asked `my_list` to sort its entries using `sort()`.\nIn fact, `sort` is something that all `list` objects know how to do to their own data. Let's see what else `my_list` can do using `dir`:\n\nWoah, `my_list` can do a lot of things!\n\nWhat's up with all those `__` entries? Those are `builtins`, and they are named that way deliberately to \"hide\" them from you as a user. Notice that one of them is called `__len__`, which is suspiciously similar to the `len()` builtin function.\nIt turns out that the builtin `len()` simply calls `list.__len__()`, and we can demonstrate that here:",
+  "code_block": "\n\nmy_list = [5, 4, 3, 2, 1]\nprint(my_list)\n\nmy_list.append(6)\nprint(my_list)\n\nmy_list.sort()\n\nprint(my_list)\n\ndir(my_list)\n\nmy_list.__len__()\n\nlen(my_list)",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## A builtin example\n\nConsider the `list` data type:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "my_list = [5, 4, 3, 2, 1]\nprint(my_list)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "At first glance, we may think of `list` as this series of numbers. But we can ask `list` to do things:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "my_list.append(6)\nprint(my_list)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Notice how `append` isn't a Python builtin function, but instead it actually comes after `my_list` plus a `.` (dot)\n\nWhat does this mean?\nIt means that `list` is more than just a series of numbers, it is an **object**. That object is capable of *doing things* and it also *knows information about itself*.\n\nHere's an example: `sort`",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "my_list.sort()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Weird, it looks like nothing happened...let's check on `my_list` again:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(my_list)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "The `list` is sorted now! What happened?\n\nWell, we asked `my_list` to sort its entries using `sort()`.\nIn fact, `sort` is something that all `list` objects know how to do to their own data. Let's see what else `my_list` can do using `dir`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "dir(my_list)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Woah, `my_list` can do a lot of things!\n\nWhat's up with all those `__` entries? Those are `builtins`, and they are named that way deliberately to \"hide\" them from you as a user. Notice that one of them is called `__len__`, which is suspiciously similar to the `len()` builtin function.\nIt turns out that the builtin `len()` simply calls `list.__len__()`, and we can demonstrate that here:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "my_list.__len__()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "len(my_list)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 17,
+  "parent_lecture": "Lecture01"
+}

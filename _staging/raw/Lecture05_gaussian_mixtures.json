@@ -1,0 +1,58 @@
+{
+  "id": "Lecture05_gaussian_mixtures",
+  "markdown_content": "## Gaussian mixtures\n\nThe first clustering model we consider is the Gaussian Mixture Model (GMM).\nThis name is pretty literal, as you can see in this image:\n\n<img src=\"../lectures/assets/gmm_distribution_mixture.jpg\" width=500 alt=\"A Gaussian Mixture Model representing a probability distribution as a sum of multiple Gaussian components\">\n\nThe idea is that each cluster of data represents a distribution with different parameters.\nWe can fit the mixture of Gaussians to represent these clusters, perhaps accounting for some overlapping at the edges.\nIt will look like this in 2D:\n\n<img src=\"../lectures/assets/gmm_2d_clusters.jpg\" width=500 alt=\"2D visualization of clusters identified by a Gaussian Mixture Model\">\n\nThe GMM is a parametric model with each distribution having a mean $\\mu_i$ and vector of covariance $\\sigma_{ij}$ (i.e., each pair of distributions has a covariance).\nDepending on how the assumptions, the model can behave quite differently:\n\n<img src=\"../lectures/assets/gmm_covariances.jpg\" width=500 alt=\"Visualization of different Gaussian Mixture Model covariance types: spherical, tied, diag, and full\">\n\nThe implementation in `scikit-learn` is very straightforward to use.\nThe interface is pretty similar to the supervised models: `fit()` and `predict()`.\nThe only difference is `fit` takes only one argument: `x` (since again, there are no labels).\n\nThis output is similar to the classification problems, but obviously we have no target labels to compare to.\nWe can visualize this result in a 3D space:\n\nSome of the clusters intersect in this view.\nIt's important to remember this is only 3 of 8 dimensions in the space -- and all 8 are considered by the GMM.\nWe can view it in another slice to see a clearer picture:",
+  "code_block": "\n\nfrom sklearn.mixture import GaussianMixture\n\ngmm = GaussianMixture(n_components=4).fit(x)  # no y labels!\nlabels = gmm.predict(x)\nprint(labels)\n\nfrom plotly import express as px\n\npx.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)\n\npx.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Gaussian mixtures\n\nThe first clustering model we consider is the Gaussian Mixture Model (GMM).\nThis name is pretty literal, as you can see in this image:\n\n<img src=\"../lectures/assets/gmm_distribution_mixture.jpg\" width=500 alt=\"A Gaussian Mixture Model representing a probability distribution as a sum of multiple Gaussian components\">\n\nThe idea is that each cluster of data represents a distribution with different parameters.\nWe can fit the mixture of Gaussians to represent these clusters, perhaps accounting for some overlapping at the edges.\nIt will look like this in 2D:\n\n<img src=\"../lectures/assets/gmm_2d_clusters.jpg\" width=500 alt=\"2D visualization of clusters identified by a Gaussian Mixture Model\">\n\nThe GMM is a parametric model with each distribution having a mean $\\mu_i$ and vector of covariance $\\sigma_{ij}$ (i.e., each pair of distributions has a covariance).\nDepending on how the assumptions, the model can behave quite differently:\n\n<img src=\"../lectures/assets/gmm_covariances.jpg\" width=500 alt=\"Visualization of different Gaussian Mixture Model covariance types: spherical, tied, diag, and full\">",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "The implementation in `scikit-learn` is very straightforward to use.\nThe interface is pretty similar to the supervised models: `fit()` and `predict()`.\nThe only difference is `fit` takes only one argument: `x` (since again, there are no labels).",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn.mixture import GaussianMixture\n\ngmm = GaussianMixture(n_components=4).fit(x)  # no y labels!\nlabels = gmm.predict(x)\nprint(labels)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This output is similar to the classification problems, but obviously we have no target labels to compare to.\nWe can visualize this result in a 3D space:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from plotly import express as px\n\npx.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Some of the clusters intersect in this view.\nIt's important to remember this is only 3 of 8 dimensions in the space -- and all 8 are considered by the GMM.\nWe can view it in another slice to see a clearer picture:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 4,
+  "parent_lecture": "Lecture05"
+}

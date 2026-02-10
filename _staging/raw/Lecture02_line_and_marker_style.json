@@ -1,0 +1,48 @@
+{
+  "id": "Lecture02_line_and_marker_style",
+  "markdown_content": "## Line and marker style\n\nWe can also switch the type of line and/or marker we use in our chart:\n\nWe can also use both lines and markers by specifying their style with keyword arguments `linestyle` and `marker`:\n\nYou may have noticed above that we changed the linestyle two different ways:\n* `ax.plot([1, 2, 3], '--')`\n* `ax.plot([1, 2, 3], linestyle='--')`\n\nThis is because python supports two different kind of function arguments: **positional** and **keyword** arguments.\nPositional means the variable to set is determined by the position in the list, while keyword indicates this explicitly using `value=`.\nHere's an example of a function signature from `numpy`:\n> `numpy.mean(a, axis=None, dtype=None, out=None, keepdims=<no value>, *, where=<no value>)`",
+  "code_block": "\n\nfig, ax = plt.subplots()\nax.plot([1, 2, 3, 4], '--')  # use dashed line\nax.plot([2, 5, 6, 10], '.')  # use dots instead of line\nax.plot([3, 4, 5, 4], 's')  # use squares instead of line\n\n# i want the chart to have a red line\nfig, ax = plt.subplots()\nax.plot([1, 2, 3, 4], 'r--')\n\nfig, ax = plt.subplots()\nax.plot([1, 2, 3, 4], linestyle='-.', marker='d')  # dash-dot linesyle with diamond markers",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Line and marker style\n\nWe can also switch the type of line and/or marker we use in our chart:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.plot([1, 2, 3, 4], '--')  # use dashed line\nax.plot([2, 5, 6, 10], '.')  # use dots instead of line\nax.plot([3, 4, 5, 4], 's')  # use squares instead of line",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "# i want the chart to have a red line\nfig, ax = plt.subplots()\nax.plot([1, 2, 3, 4], 'r--')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can also use both lines and markers by specifying their style with keyword arguments `linestyle` and `marker`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.plot([1, 2, 3, 4], linestyle='-.', marker='d')  # dash-dot linesyle with diamond markers",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "You may have noticed above that we changed the linestyle two different ways:\n* `ax.plot([1, 2, 3], '--')`\n* `ax.plot([1, 2, 3], linestyle='--')`\n\nThis is because python supports two different kind of function arguments: **positional** and **keyword** arguments.\nPositional means the variable to set is determined by the position in the list, while keyword indicates this explicitly using `value=`.\nHere's an example of a function signature from `numpy`:\n> `numpy.mean(a, axis=None, dtype=None, out=None, keepdims=<no value>, *, where=<no value>)`",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 16,
+  "parent_lecture": "Lecture02"
+}

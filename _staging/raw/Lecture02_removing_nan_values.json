@@ -1,0 +1,98 @@
+{
+  "id": "Lecture02_removing_nan_values",
+  "markdown_content": "## Removing NaN values\n\nWhat happened? The error message says:\n> `ValueError: array must not contain infs or NaNs`\n\nIf you look back at the table above, you will see some entries with `NaN`.\nThis stands for \"**N**ot **a** **N**umber\".\nHere it means there was no entry for this cell in the original data file.\nIf there is no entry, the `pearsonr` function cannot include it in the calculation and it returns a `ValueError` for the user to deal with.\n\nWe can use the `np.isfinite` function to find these problematic entries (returns `False` for `nan` and `inf` values, as requested by `pearsonr`).\n\nYou can see here we dropped 10 rows from the `DataFrame`.\nNow we can resume our calculations of correlation:\n\nWe see that the numerical values agree with our qualitative assessment from the top:\n\nIt looks like `Bulk Static Energy` and `Vacancy Formation Energy` have a strong negative correlation, but `Atomic Mass` does not correlate strongly with either of these.\n\nActually now we can also see that the level of correlation is similar for `Atomic Mass` with both the other properties, though the sign is opposite.\n\nWe can do something similar using the `dropna` method of the `DataFrame`.\nThis is designed to \"drop\" (remove) the \"na\" (NaN) values from the `DataFrame`.\nLet's try it:\n\nWait, we only have 9 rows. What happened?\nWell, `dropna` drops rows with *any NaN value*.\nThere must have been NaN in other columns besides the `'Bulk Static Energy (eV)'` that got dropped.\n\nLet's try a different strategy: first create a subset of our data, then use `dropna` on that.\n\nWe can see that we have downselected from 52 rows to 42 rows, and only kept 3 columns.\nThis number of rows corresponds to the result from earlier using `np.isfinite`.\nNow we can repeat our previous calculation:\n\nOf course we don't always have to make a new `DataFrame` with only a few columns.\nThe other option is to use the `subset` keyword, indicating which columns should be considered when looking for `NaN`.\nAll the columns will be kept, and only rows with `NaN` in the `subset` will be dropped.\n\nWe can check that we get the same value using `pearsonr`:",
+  "code_block": "\n\nindices = np.isfinite( data.loc[:, 'Bulk Static Energy (eV)'] )\ndata_filtered = data.loc[indices, :]\nprint(data.shape, '->', data_filtered.shape)\n\nx = data_filtered[x.name]\ny = data_filtered[y.name]\nz = data_filtered[z.name]\n\nr, p = stats.pearsonr(x, y)\nprint(r)\n\nr, p = stats.pearsonr(x, z)\nprint(r)\n\nr, p = stats.pearsonr(y, z)\nprint(r)\n\ndata_drop = data.dropna()\nprint(data_drop.shape)\n\n# create a DataFrame with 3 columns:\nxyz_data = data.loc[:, [x.name, y.name, z.name]]\n\n# drop NaN from this smaller DataFrame:\nxyz_data = xyz_data.dropna()\n\n# print the shape of the resulting DataFrame:\nprint(data.shape, '->', xyz_data.shape)\n\nr, p = stats.pearsonr(xyz_data.loc[:, x.name], xyz_data.loc[:, y.name])\nprint(r)\n\ndata_drop = data.dropna(subset=[x.name, y.name, z.name])\nprint(data_drop.shape)\n\nr, p = stats.pearsonr(data_drop.loc[:, x.name], data_drop.loc[:, y.name])\nprint(r)",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Removing NaN values",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "What happened? The error message says:\n> `ValueError: array must not contain infs or NaNs`\n\nIf you look back at the table above, you will see some entries with `NaN`.\nThis stands for \"**N**ot **a** **N**umber\".\nHere it means there was no entry for this cell in the original data file.\nIf there is no entry, the `pearsonr` function cannot include it in the calculation and it returns a `ValueError` for the user to deal with.\n\nWe can use the `np.isfinite` function to find these problematic entries (returns `False` for `nan` and `inf` values, as requested by `pearsonr`).",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "indices = np.isfinite( data.loc[:, 'Bulk Static Energy (eV)'] )\ndata_filtered = data.loc[indices, :]\nprint(data.shape, '->', data_filtered.shape)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "You can see here we dropped 10 rows from the `DataFrame`.\nNow we can resume our calculations of correlation:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = data_filtered[x.name]\ny = data_filtered[y.name]\nz = data_filtered[z.name]\n\nr, p = stats.pearsonr(x, y)\nprint(r)\n\nr, p = stats.pearsonr(x, z)\nprint(r)\n\nr, p = stats.pearsonr(y, z)\nprint(r)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We see that the numerical values agree with our qualitative assessment from the top:\n\nIt looks like `Bulk Static Energy` and `Vacancy Formation Energy` have a strong negative correlation, but `Atomic Mass` does not correlate strongly with either of these.\n\nActually now we can also see that the level of correlation is similar for `Atomic Mass` with both the other properties, though the sign is opposite.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "We can do something similar using the `dropna` method of the `DataFrame`.\nThis is designed to \"drop\" (remove) the \"na\" (NaN) values from the `DataFrame`.\nLet's try it:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data_drop = data.dropna()\nprint(data_drop.shape)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Wait, we only have 9 rows. What happened?\nWell, `dropna` drops rows with *any NaN value*.\nThere must have been NaN in other columns besides the `'Bulk Static Energy (eV)'` that got dropped.\n\nLet's try a different strategy: first create a subset of our data, then use `dropna` on that.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# create a DataFrame with 3 columns:\nxyz_data = data.loc[:, [x.name, y.name, z.name]]\n\n# drop NaN from this smaller DataFrame:\nxyz_data = xyz_data.dropna()\n\n# print the shape of the resulting DataFrame:\nprint(data.shape, '->', xyz_data.shape)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can see that we have downselected from 52 rows to 42 rows, and only kept 3 columns.\nThis number of rows corresponds to the result from earlier using `np.isfinite`.\nNow we can repeat our previous calculation:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "r, p = stats.pearsonr(xyz_data.loc[:, x.name], xyz_data.loc[:, y.name])\nprint(r)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Of course we don't always have to make a new `DataFrame` with only a few columns.\nThe other option is to use the `subset` keyword, indicating which columns should be considered when looking for `NaN`.\nAll the columns will be kept, and only rows with `NaN` in the `subset` will be dropped.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data_drop = data.dropna(subset=[x.name, y.name, z.name])\nprint(data_drop.shape)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can check that we get the same value using `pearsonr`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "r, p = stats.pearsonr(data_drop.loc[:, x.name], data_drop.loc[:, y.name])\nprint(r)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 34,
+  "parent_lecture": "Lecture02"
+}

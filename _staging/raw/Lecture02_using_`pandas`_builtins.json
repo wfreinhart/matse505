@@ -1,0 +1,42 @@
+{
+  "id": "Lecture02_using_`pandas`_builtins",
+  "markdown_content": "## Using `pandas` builtins\n\nI personally don't use `pandas` for plotting, but you should know its objects include handy wrappers for `pyplot`.\n\nFor example, a method of the `Series` object:\n\nWe can plot multiple `Series` using a method of the `DataFrame`:\n\nAnd finally we can introduce the (x,y)+color scatter plot from above:\n\nNote the `type` that is returned -- `matplotlib.axes._subplots.AxesSubplot`!\nAll this is doing is sending some predefined commands to `pyplot`.\nIf you find this syntax helpful you are more than welcome to use it.\nI don't simply because I don't always use `DataFrame` objects to store my data.",
+  "code_block": "\n\nx.hist()\n\ndata.plot.bar('Symbol', 'Vacancy Formation Energy (eV)')\n\ndata.plot.scatter(x.name, y.name, c=z.name)",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Using `pandas` builtins\n\nI personally don't use `pandas` for plotting, but you should know its objects include handy wrappers for `pyplot`.\n\nFor example, a method of the `Series` object:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x.hist()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can plot multiple `Series` using a method of the `DataFrame`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data.plot.bar('Symbol', 'Vacancy Formation Energy (eV)')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "And finally we can introduce the (x,y)+color scatter plot from above:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data.plot.scatter(x.name, y.name, c=z.name)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Note the `type` that is returned -- `matplotlib.axes._subplots.AxesSubplot`!\nAll this is doing is sending some predefined commands to `pyplot`.\nIf you find this syntax helpful you are more than welcome to use it.\nI don't simply because I don't always use `DataFrame` objects to store my data.",
+      "metadata": "# %% [markdown]"
+    }
+  ]
+}

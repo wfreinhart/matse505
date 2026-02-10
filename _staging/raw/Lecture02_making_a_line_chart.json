@@ -1,0 +1,48 @@
+{
+  "id": "Lecture02_making_a_line_chart",
+  "markdown_content": "## Making a line chart\n\nWe should start be referencing the documentation for `plt.plot`:\n\nLet's create a line plot by manually defining a `list` of $y$ values.\nThe $x$ values will be implicit if not provided (as indicated by the `[x]` above).\n\nWe can also provide both $x$ and $y$ values:",
+  "code_block": "\n\nhelp(plt.plot)\n\ny = [1, 2, 4, 8]\nplt.plot( y )  # we provide 4 y values, x will go from 0 to 3\n\nplt.plot([1, 2, 3, 10], [2, 4, 6, 10])",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Making a line chart\n\nWe should start be referencing the documentation for `plt.plot`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "help(plt.plot)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Let's create a line plot by manually defining a `list` of $y$ values.\nThe $x$ values will be implicit if not provided (as indicated by the `[x]` above).",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "y = [1, 2, 4, 8]\nplt.plot( y )  # we provide 4 y values, x will go from 0 to 3",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can also provide both $x$ and $y$ values:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "plt.plot([1, 2, 3, 10], [2, 4, 6, 10])",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 10,
+  "parent_lecture": "Lecture02"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "Lecture02_dataframes",
+  "markdown_content": "## DataFrames\n\n*What is `type` of this variable that Pandas created?*\n\nLet's learn more about how this is stored using the `type` builtin function:\n\nAlright, it looks like this is a `pandas DataFrame`.\nIf you Google this it will take you to the [documentation](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).\nThis lists all the `Attributes` and `Methods` that are built into the `DataFrame` object type.\nFor instance, we can see that there are several different `Attributes` that let us access specific data elements:\n\n* `at`: Access a single value for a row/column label pair.\n* `loc`: Access a group of rows and columns by label(s) or a boolean array.\n* `iat`: Access a single value for a row/column pair by integer position.\n* `iloc`: Purely integer-location based indexing for selection by position.\n\nIt turns out that `loc` can basically act as `at` by just specifying a single element while the reverse is not true, so we'll just stick to `loc`.\n> Note: it's very common to find multiple different ways to achieve an outcome! Use whichever method you prefer.\n\nNow that we know to use `loc`, we can achieve the result we were looking for:\n\nInside this `0` index is an entire row (vector) of data (making the entire `data` table above a matrix).\nIt turns out we can also use slices just as we did with `list`:",
+  "code_block": "\n\nprint(type(data))\n\ndata.loc[0]\n\ndata.loc[:5]\n\ndata.loc[0:10:2]",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## DataFrames\n\n*What is `type` of this variable that Pandas created?*\n\nLet's learn more about how this is stored using the `type` builtin function:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(type(data))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Alright, it looks like this is a `pandas DataFrame`.\nIf you Google this it will take you to the [documentation](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).\nThis lists all the `Attributes` and `Methods` that are built into the `DataFrame` object type.\nFor instance, we can see that there are several different `Attributes` that let us access specific data elements:\n\n* `at`: Access a single value for a row/column label pair.\n* `loc`: Access a group of rows and columns by label(s) or a boolean array.\n* `iat`: Access a single value for a row/column pair by integer position.\n* `iloc`: Purely integer-location based indexing for selection by position.\n\nIt turns out that `loc` can basically act as `at` by just specifying a single element while the reverse is not true, so we'll just stick to `loc`.\n> Note: it's very common to find multiple different ways to achieve an outcome! Use whichever method you prefer.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "Now that we know to use `loc`, we can achieve the result we were looking for:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data.loc[0]",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Inside this `0` index is an entire row (vector) of data (making the entire `data` table above a matrix).\nIt turns out we can also use slices just as we did with `list`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data.loc[:5]",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "data.loc[0:10:2]",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 4,
+  "parent_lecture": "Lecture02"
+}

@@ -1,0 +1,60 @@
+{
+  "id": "Lecture04_a_more_challenging_dataset",
+  "markdown_content": "## A more challenging dataset\n\nInstead of using the alloy compositions, let's try to predict the family based on the properties. This corresponds to the columns `0.2% Proof Stress (MPa)` through `Reduction in Area (%)`.\n\nNow we can test our `DecisionTreeClassifier` again.\n\nWe see here the model accuracy is less than perfect. Does this hold up for the `KNeighborsClassifier`?\n\nYes -- we are no longer dealing with a \"definition\" of the `Alloy code`.",
+  "code_block": "\n\nx = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']\ny = data['Alloy family']\n\nxtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)\nprint(xtrain.shape)\n\nfrom sklearn import tree\n\nmodel = tree.DecisionTreeClassifier().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)\n\nfrom sklearn import neighbors\n\nmodel = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)",
+  "imports": [
+    "import numpy as np",
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "from matplotlib import pyplot as plt",
+    "import os",
+    "from plotly import express as px",
+    "from sklearn import svm",
+    "from sklearn import tree",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn import linear_model",
+    "from sklearn import neighbors",
+    "from sklearn import naive_bayes",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## A more challenging dataset\n\nInstead of using the alloy compositions, let's try to predict the family based on the properties. This corresponds to the columns `0.2% Proof Stress (MPa)` through `Reduction in Area (%)`.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']\ny = data['Alloy family']\n\nxtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)\nprint(xtrain.shape)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now we can test our `DecisionTreeClassifier` again.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import tree\n\nmodel = tree.DecisionTreeClassifier().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We see here the model accuracy is less than perfect. Does this hold up for the `KNeighborsClassifier`?",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import neighbors\n\nmodel = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Yes -- we are no longer dealing with a \"definition\" of the `Alloy code`.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 9,
+  "parent_lecture": "Lecture04"
+}

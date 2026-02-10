@@ -1,0 +1,25 @@
+{
+  "id": "Lecture01_comments",
+  "markdown_content": "## Comments\n\nThe `#` symbol creates a [comment](https://www.w3schools.com/python/python_comments.asp) in the code.\nA comment is text that does not get interpreted by the language.\nInstead, it improves readability by providing an explanation or reference for a particular line of code.\n\nComments are incredibly helpful and it is actually standard practice to include them to guide other people in using your code.\nBecause everyone thinks and codes a little differently, it can really help communicate ideas.\nHere's another example:",
+  "code_block": "\n\n# comments can be on just one line\n\"\"\"\ncomments can also be on multiple lines\njust use the triple \" sign to switch to comment mode\n(and again to switch back)\n\"\"\"\nx = 5\nprint(x)",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Comments\n\nThe `#` symbol creates a [comment](https://www.w3schools.com/python/python_comments.asp) in the code.\nA comment is text that does not get interpreted by the language.\nInstead, it improves readability by providing an explanation or reference for a particular line of code.\n\nComments are incredibly helpful and it is actually standard practice to include them to guide other people in using your code.\nBecause everyone thinks and codes a little differently, it can really help communicate ideas.\nHere's another example:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# comments can be on just one line\n\"\"\"\ncomments can also be on multiple lines\njust use the triple \" sign to switch to comment mode\n(and again to switch back)\n\"\"\"\nx = 5\nprint(x)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 5,
+  "parent_lecture": "Lecture01"
+}

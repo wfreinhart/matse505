@@ -1,0 +1,43 @@
+{
+  "id": "Lecture02_multiple_series",
+  "markdown_content": "## Multiple series\n\nWe can plot multiple series by calling `plot` twice:\n\nHowever, watch what happens if we don't call this in the same cell:",
+  "code_block": "\n\nplt.plot([2, 4, 6, 10], [1, 2, 3, 10])\nplt.plot([1, 2, 3, 10], [2, 4, 6, 10])\n\nplt.plot([2, 4, 6, 10], [1, 2, 3, 10])\n\nplt.plot([1, 2, 3, 10], [2, 4, 6, 10])",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Multiple series\n\nWe can plot multiple series by calling `plot` twice:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "plt.plot([2, 4, 6, 10], [1, 2, 3, 10])\nplt.plot([1, 2, 3, 10], [2, 4, 6, 10])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "However, watch what happens if we don't call this in the same cell:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "plt.plot([2, 4, 6, 10], [1, 2, 3, 10])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "plt.plot([1, 2, 3, 10], [2, 4, 6, 10])",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 11,
+  "parent_lecture": "Lecture02"
+}

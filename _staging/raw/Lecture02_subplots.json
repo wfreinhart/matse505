@@ -1,0 +1,48 @@
+{
+  "id": "Lecture02_subplots",
+  "markdown_content": "## Subplots\n\nIn order to access the elements of our chart again later, we need to store the `Figure` and/or `Axes` as a variable rather than letting `pyplot` do this with its state machine.\nWe can do this using the [`pyplot.subplots`](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html) command:\n\nNow we have a persistent chart object that we can modify as we go.\nLet's try repeating the examples we've already seen, except this time by calling the same methods on `axes` instead of using the default `pyplot`:\n\n*Where's our figure?*\n\nBecause the `Figure` is being stored persistently, `pyplot` doesn't show it to us every time we call a command on it.\nInstead, we can call our variable to show the figure again.",
+  "code_block": "\n\nfigure, axes = plt.subplots()\nprint(figure)\nprint(axes)\n\naxes.plot([1, 2, 3, 5], [2, 4, 6, 10])\n\nfigure",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Subplots\n\nIn order to access the elements of our chart again later, we need to store the `Figure` and/or `Axes` as a variable rather than letting `pyplot` do this with its state machine.\nWe can do this using the [`pyplot.subplots`](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html) command:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "figure, axes = plt.subplots()\nprint(figure)\nprint(axes)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now we have a persistent chart object that we can modify as we go.\nLet's try repeating the examples we've already seen, except this time by calling the same methods on `axes` instead of using the default `pyplot`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "axes.plot([1, 2, 3, 5], [2, 4, 6, 10])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "*Where's our figure?*\n\nBecause the `Figure` is being stored persistently, `pyplot` doesn't show it to us every time we call a command on it.\nInstead, we can call our variable to show the figure again.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "figure",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 13,
+  "parent_lecture": "Lecture02"
+}

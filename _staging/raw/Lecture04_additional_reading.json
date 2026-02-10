@@ -1,0 +1,30 @@
+{
+  "id": "Lecture04_additional_reading",
+  "markdown_content": "## Additional reading\n\nI **highly** suggest reading Chapter 2 of the textbook, \"Introduction to Machine Learning with Python: A Guide for Data Scientists.\"\nMany detailed examples are given with more exposition about the algorithms and ways to analyze them.",
+  "code_block": "",
+  "imports": [
+    "import numpy as np",
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "from matplotlib import pyplot as plt",
+    "import os",
+    "from plotly import express as px",
+    "from sklearn import svm",
+    "from sklearn import tree",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn import linear_model",
+    "from sklearn import neighbors",
+    "from sklearn import naive_bayes",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Additional reading\n\nI **highly** suggest reading Chapter 2 of the textbook, \"Introduction to Machine Learning with Python: A Guide for Data Scientists.\"\nMany detailed examples are given with more exposition about the algorithms and ways to analyze them.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 16,
+  "parent_lecture": "Lecture04"
+}

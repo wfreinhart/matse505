@@ -1,0 +1,93 @@
+{
+  "id": "Lecture02_math_with_arrays",
+  "markdown_content": "## Math with arrays\n\nIn addition to math functions, NumPy can compute all sorts of statistics as well.\nLet's take a look:\n\nHowever, one common use case for these functions will be computing statistics for each column in a `DataFrame`.\nRather than compute them all individually or even using a `for` loop, we can use the `axis` keyword argument.\nLet's start by making `my_data` into a matrix using `reshape`:\n\nWe can verify that calling `np.mean` on the whole matrix returns the same value, `0.1815`:\n\nWe can also take these statistics over rows or columns with `axis`.\nThis keyword argument indicates which *direction* the mean should be taken over.\nSo `axis=0` indicates taking the mean over a column (i.e., collect values from the up-down direction):\n\nNote that `axis=0` returns 5 values while `axis=1` returns 4 values, consistent with the 5 columns and 4 rows of the matrix:\n\nYou can think of this operation as eliminating the shape in that spot of `shape`.\nFor instance, with `axis=0`, we get a `(,5)`-shaped object (eliminating `shape[0]` which is 4):\n\nWhereas for `axis=1` we get a `(4,)`-shaped object (eliminating `shape[1]` which is 5):",
+  "code_block": "\n\n# I generated this list of random numbers ahead of time\nmy_data = np.array([-0.44,  0.77,  0.6 ,  0.94,  2.1 , -0.74,  0.52, -0.67,  0.18, -0.24, -1.45, -1.55,  1.52, -0.21,  0.3 ,  0.38,  0.82,  0.57, -0.49,  0.72])\nprint(my_data)\nprint(f'Mean:   {np.mean(my_data)}')  # the f is called f-string\nprint(f'Median: {np.median(my_data):.4f}')  # :.4f gives 4 digits after decimal\nprint(f'StDev:  {np.std(my_data):.4f}')\n\nmy_matrix = np.reshape(my_data, [4, 5])\nprint(my_matrix)\n\nprint(f'The matrix mean is: {np.mean(my_matrix)}')\nprint(f'mean(my_matrix) == mean(my_data): {np.mean(my_matrix) == np.mean(my_data)}')\n\nprint(f'Column mean: {np.mean(my_matrix, axis=0)}')\nprint(f'Row mean: {np.mean(my_matrix, axis=1)}')\n\nprint(my_matrix.shape)\n\nprint(np.mean(my_matrix, axis=0).shape)\n\nprint(np.mean(my_matrix, axis=1).shape)",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Math with arrays",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "In addition to math functions, NumPy can compute all sorts of statistics as well.\nLet's take a look:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# I generated this list of random numbers ahead of time\nmy_data = np.array([-0.44,  0.77,  0.6 ,  0.94,  2.1 , -0.74,  0.52, -0.67,  0.18, -0.24, -1.45, -1.55,  1.52, -0.21,  0.3 ,  0.38,  0.82,  0.57, -0.49,  0.72])\nprint(my_data)\nprint(f'Mean:   {np.mean(my_data)}')  # the f is called f-string\nprint(f'Median: {np.median(my_data):.4f}')  # :.4f gives 4 digits after decimal\nprint(f'StDev:  {np.std(my_data):.4f}')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "However, one common use case for these functions will be computing statistics for each column in a `DataFrame`.\nRather than compute them all individually or even using a `for` loop, we can use the `axis` keyword argument.\nLet's start by making `my_data` into a matrix using `reshape`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "my_matrix = np.reshape(my_data, [4, 5])\nprint(my_matrix)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can verify that calling `np.mean` on the whole matrix returns the same value, `0.1815`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(f'The matrix mean is: {np.mean(my_matrix)}')\nprint(f'mean(my_matrix) == mean(my_data): {np.mean(my_matrix) == np.mean(my_data)}')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can also take these statistics over rows or columns with `axis`.\nThis keyword argument indicates which *direction* the mean should be taken over.\nSo `axis=0` indicates taking the mean over a column (i.e., collect values from the up-down direction):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(f'Column mean: {np.mean(my_matrix, axis=0)}')\nprint(f'Row mean: {np.mean(my_matrix, axis=1)}')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Note that `axis=0` returns 5 values while `axis=1` returns 4 values, consistent with the 5 columns and 4 rows of the matrix:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(my_matrix.shape)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "You can think of this operation as eliminating the shape in that spot of `shape`.\nFor instance, with `axis=0`, we get a `(,5)`-shaped object (eliminating `shape[0]` which is 4):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(np.mean(my_matrix, axis=0).shape)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Whereas for `axis=1` we get a `(4,)`-shaped object (eliminating `shape[1]` which is 5):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(np.mean(my_matrix, axis=1).shape)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 29,
+  "parent_lecture": "Lecture02"
+}

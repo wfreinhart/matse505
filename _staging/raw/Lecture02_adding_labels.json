@@ -1,0 +1,28 @@
+{
+  "id": "Lecture02_adding_labels",
+  "markdown_content": "## Adding labels\n\nWe can specify labels, titles, and other formatting elements by reading the [documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot) or following a [tutorial](https://matplotlib.org/stable/tutorials/introductory/pyplot.html):",
+  "code_block": "\n\nfig, ax = plt.subplots()\nax.plot([1, 2, 3, 5], [2, 4, 6, 10])\nax.set_title('An example pyplot chart')\nax.set_xlabel('x')\nax.set_ylabel('y')",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Adding labels\n\nWe can specify labels, titles, and other formatting elements by reading the [documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot) or following a [tutorial](https://matplotlib.org/stable/tutorials/introductory/pyplot.html):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.plot([1, 2, 3, 5], [2, 4, 6, 10])\nax.set_title('An example pyplot chart')\nax.set_xlabel('x')\nax.set_ylabel('y')",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 17,
+  "parent_lecture": "Lecture02"
+}

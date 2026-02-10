@@ -1,0 +1,23 @@
+{
+  "id": "Lecture02_linear_regression",
+  "markdown_content": "# Linear regression",
+  "code_block": "",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Linear regression",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 36,
+  "parent_lecture": "Lecture02"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "Lecture03_0",
+  "type": "Foundational",
+  "sequence": 0,
+  "parent_lecture": "Lecture03",
+  "requirements": [],
+  "markdown_content": "\n\n> Homework 2 posted\n\nToday's topics:\n* Introduction to Machine Learning\n* Linear regression and optimization\n* Multivariate linear regression as ML\n* Nonlinear regression models",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from scipy import optimize\n    from scipy import stats\n    from sklearn import ensemble\n    from sklearn import linear_model\n    from sklearn import neighbors\n    from sklearn import neural_network\n    from sklearn import tree\n    from sklearn.model_selection import train_test_split\n    from sklearn.preprocessing import PolynomialFeatures\n    import numpy as np\n    import os\n    import pandas as pd\n    import requests\n    pass"
+}

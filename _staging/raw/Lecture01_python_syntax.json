@@ -1,0 +1,35 @@
+{
+  "id": "Lecture01_python_syntax",
+  "markdown_content": "# Python syntax\n\nWith the basics out of the way, let's talk about how to actually write and run Python code!\n\n[Python syntax](https://www.w3schools.com/python/python_syntax.asp) will follow a recipe like `variable_name = value` to create or modify variables, `function(variable)` to run functions or methods, or `#` to leave a comment.\nHere's an example with all three elements:\n\n**Note:** The grey box indicates a *Code Cell* as opposed to the *Text Cell* that we've been using so far.\nIt's actual Python code and can be run directly in your browser (thanks to Google Colab) to see the result.\n\nGo ahead and run the code above by clicking the arrow that appears inside the brackets `[ ]` on the left side of the cell or by pressing `Shift + Enter` with the cell selected.\nIt should just give the same answer again because we stored the output.",
+  "code_block": "\n\n# let's print a number:\nx = 5\nprint(x)",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Python syntax",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "With the basics out of the way, let's talk about how to actually write and run Python code!\n\n[Python syntax](https://www.w3schools.com/python/python_syntax.asp) will follow a recipe like `variable_name = value` to create or modify variables, `function(variable)` to run functions or methods, or `#` to leave a comment.\nHere's an example with all three elements:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# let's print a number:\nx = 5\nprint(x)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "**Note:** The grey box indicates a *Code Cell* as opposed to the *Text Cell* that we've been using so far.\nIt's actual Python code and can be run directly in your browser (thanks to Google Colab) to see the result.\n\nGo ahead and run the code above by clicking the arrow that appears inside the brackets `[ ]` on the left side of the cell or by pressing `Shift + Enter` with the cell selected.\nIt should just give the same answer again because we stored the output.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 4,
+  "parent_lecture": "Lecture01"
+}

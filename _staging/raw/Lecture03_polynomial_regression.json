@@ -1,0 +1,86 @@
+{
+  "id": "Lecture03_polynomial_regression",
+  "markdown_content": "## Polynomial regression\n\nWhat recourse do we have when linear regression isn't enough?\n\n\nConsider the following function: $f(x) = a x^2 + b x + c$.\n\nFitting this with `minimize` would actually be the same as using our new multiple linear regression approach on an array with columns $(x, x^2)$.\n\nWe can use `sklearn.preprocessing.PolynomialFeatures` to generate these features automatically from a feature vector.\nIt takes the maximum polynomial degree `degree` as a keyword argument.\n\nConsider some 2D features $(x_0, x_1)$:\n* `PolynomialFeatures` with `degree=2` would generate the following features: $(x_0, x_1, x_0^2, x_0 x_1, x_1^2)$.\n* From these, $(x_0, x_1)$ are of degree 1 and $(x_0^2, x_0 x_1, x_1^2)$ are degree 2.\n\nWhere did we get 45 features?!?!?\n\nThey are basically the combinations of all the 8 features we put into the preprocessor.\n\nWe can see their names with the `get_feature_names_out()` method:\n\nWe can now use these 45 features in a `LinearRegression` just as if they were any other features:\n\nThe results from our regular linear regression were:\n\n```\ntrain: Rsq = 0.611, RMSE = 10.553\ntest:  Rsq = 0.623, RMSE = 9.793\n```\n\nSo this polynomial preprocessing has given us a significant boost in performance.\n\nWe can also check if the `Age` problem is resolved:\n\nHere we see that the systematic deviation of `Age` is at least partially removed by using polynomial features (though perhaps the green points at intermediate Age now drift higher).",
+  "code_block": "\n\nfrom sklearn.preprocessing import PolynomialFeatures\n\nprint('Shape of X:       ', x.shape)\n\npoly = PolynomialFeatures(degree=2)\n\npoly = poly.fit(x)\nprint('Shape of poly(X): ', poly.transform(x).shape)\nprint(poly.transform(x))\n\nprint(poly.get_feature_names_out()[4:14])\n\nfrom sklearn.preprocessing import PolynomialFeatures\n\npoly = PolynomialFeatures(degree=2).fit(x)\nxptrain = poly.transform(xtrain)\nxptest = poly.transform(xtest)\n\n# fit on the transformed features!\nmodel = linear_model.LinearRegression().fit(xptrain, ytrain)\n\ny_pred = model.predict(xptrain)\nresiduals = y_pred - ytrain\nr2 = 1 - np.var(residuals) / np.var(ytrain - ytrain.mean())\nrmse = np.sqrt(np.mean(residuals**2))\nprint(f'train:  Rsq = {r2:.3f}, RMSE = {rmse:.3f}')\n\ny_pred = model.predict(xptest)\nresiduals = y_pred - ytest\nr2 = 1 - np.var(residuals) / np.var(ytest - ytest.mean())\nrmse = np.sqrt(np.mean(residuals**2))\nprint(f'test:  Rsq = {r2:.3f}, RMSE = {rmse:.3f}')\n\nfig, ax = plt.subplots(figsize=(5, 5))\n\n# plot the results\nax.plot(ytrain, model.predict(xptrain), '.', label='Train')\nax.plot(ytest, model.predict(xptest), '.', label='Test')\n\n# create reference line along y = x to show the desired behavior\nmin_max = np.array([y.min(), y.max()])\nax.plot(min_max, min_max, 'k--', label='Reference')\nax.set_aspect('equal')  # very helpful to show y = x relationship\n\n# add labels and legend\nax.set_title('Multiple linear regression model of concrete strength')\nax.set_xlabel('Observation')\nax.set_ylabel('Prediction')\nax.legend()\n\nfig, ax = plt.subplots(figsize=(5, 5))\n\n# plot the results\ny_pred = model.predict(poly.transform(x))\nim = ax.scatter(y, y_pred, s=16, c=x['Age (day)'], label='Data')\ncb = plt.colorbar(im, ax=ax)\ncb.set_label('Age (day)')\n\n# create reference line along y = x to show the desired behavior\nmin_max = np.array([y.min(), y.max()])\nax.plot(min_max, min_max, 'k--', label='Reference')\nax.set_aspect('equal')  # very helpful to show y = x relationship\n\n# add labels and legend\nax.set_title('Linear regression of concrete strength')\nax.set_xlabel('Observation')\nax.set_ylabel('Prediction')\nax.legend()",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Polynomial regression\n\nWhat recourse do we have when linear regression isn't enough?\n\n\nConsider the following function: $f(x) = a x^2 + b x + c$.\n\nFitting this with `minimize` would actually be the same as using our new multiple linear regression approach on an array with columns $(x, x^2)$.\n\nWe can use `sklearn.preprocessing.PolynomialFeatures` to generate these features automatically from a feature vector.\nIt takes the maximum polynomial degree `degree` as a keyword argument.\n\nConsider some 2D features $(x_0, x_1)$:\n* `PolynomialFeatures` with `degree=2` would generate the following features: $(x_0, x_1, x_0^2, x_0 x_1, x_1^2)$.\n* From these, $(x_0, x_1)$ are of degree 1 and $(x_0^2, x_0 x_1, x_1^2)$ are degree 2.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn.preprocessing import PolynomialFeatures\n\nprint('Shape of X:       ', x.shape)\n\npoly = PolynomialFeatures(degree=2)\n\npoly = poly.fit(x)\nprint('Shape of poly(X): ', poly.transform(x).shape)\nprint(poly.transform(x))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Where did we get 45 features?!?!?\n\nThey are basically the combinations of all the 8 features we put into the preprocessor.\n\nWe can see their names with the `get_feature_names_out()` method:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(poly.get_feature_names_out()[4:14])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can now use these 45 features in a `LinearRegression` just as if they were any other features:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn.preprocessing import PolynomialFeatures\n\npoly = PolynomialFeatures(degree=2).fit(x)\nxptrain = poly.transform(xtrain)\nxptest = poly.transform(xtest)\n\n# fit on the transformed features!\nmodel = linear_model.LinearRegression().fit(xptrain, ytrain)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "y_pred = model.predict(xptrain)\nresiduals = y_pred - ytrain\nr2 = 1 - np.var(residuals) / np.var(ytrain - ytrain.mean())\nrmse = np.sqrt(np.mean(residuals**2))\nprint(f'train:  Rsq = {r2:.3f}, RMSE = {rmse:.3f}')\n\ny_pred = model.predict(xptest)\nresiduals = y_pred - ytest\nr2 = 1 - np.var(residuals) / np.var(ytest - ytest.mean())\nrmse = np.sqrt(np.mean(residuals**2))\nprint(f'test:  Rsq = {r2:.3f}, RMSE = {rmse:.3f}')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "The results from our regular linear regression were:\n\n```\ntrain: Rsq = 0.611, RMSE = 10.553\ntest:  Rsq = 0.623, RMSE = 9.793\n```\n\nSo this polynomial preprocessing has given us a significant boost in performance.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots(figsize=(5, 5))\n\n# plot the results\nax.plot(ytrain, model.predict(xptrain), '.', label='Train')\nax.plot(ytest, model.predict(xptest), '.', label='Test')\n\n# create reference line along y = x to show the desired behavior\nmin_max = np.array([y.min(), y.max()])\nax.plot(min_max, min_max, 'k--', label='Reference')\nax.set_aspect('equal')  # very helpful to show y = x relationship\n\n# add labels and legend\nax.set_title('Multiple linear regression model of concrete strength')\nax.set_xlabel('Observation')\nax.set_ylabel('Prediction')\nax.legend()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can also check if the `Age` problem is resolved:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots(figsize=(5, 5))\n\n# plot the results\ny_pred = model.predict(poly.transform(x))\nim = ax.scatter(y, y_pred, s=16, c=x['Age (day)'], label='Data')\ncb = plt.colorbar(im, ax=ax)\ncb.set_label('Age (day)')\n\n# create reference line along y = x to show the desired behavior\nmin_max = np.array([y.min(), y.max()])\nax.plot(min_max, min_max, 'k--', label='Reference')\nax.set_aspect('equal')  # very helpful to show y = x relationship\n\n# add labels and legend\nax.set_title('Linear regression of concrete strength')\nax.set_xlabel('Observation')\nax.set_ylabel('Prediction')\nax.legend()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Here we see that the systematic deviation of `Age` is at least partially removed by using polynomial features (though perhaps the green points at intermediate Age now drift higher).",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 20,
+  "parent_lecture": "Lecture03"
+}

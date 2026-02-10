@@ -1,0 +1,58 @@
+{
+  "id": "Lecture02_correlation",
+  "markdown_content": "## Correlation\n\nLet's quantify the relationship between several variables using the [Pearson correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient).\nWe can compute this in Python with `scipy.stats.pearsonr`.\nIf we look at the docstring for `pearsonr`, we see the following:\n\nThis means we should expect two outputs: `r` and `p-value`.\nWe can assign these like we do `figure` and `axis` from `plt.subplots`, using a `,` to separate the two variable assignments:\n\nIf we don't do this, we'll get a `tuple` of outputs (like when we defined our own function with multiple variables after the `return` statement):\n\nNow let's try computing the Pearson R between all pairs of these variables:",
+  "code_block": "\n\nfrom scipy import stats\n\nhelp(stats.pearsonr)\n\nr, p = stats.pearsonr(x, y)\nprint(r)\n\nout = stats.pearsonr(x, y)\nprint(out)\nprint(type(out))\n\nr, p = stats.pearsonr(x, y)\nprint(r)\n\nr, p = stats.pearsonr(x, z)\nprint(r)\n\nr, p = stats.pearsonr(y, z)\nprint(r)",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Correlation\n\nLet's quantify the relationship between several variables using the [Pearson correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient).\nWe can compute this in Python with `scipy.stats.pearsonr`.\nIf we look at the docstring for `pearsonr`, we see the following:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from scipy import stats\n\nhelp(stats.pearsonr)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This means we should expect two outputs: `r` and `p-value`.\nWe can assign these like we do `figure` and `axis` from `plt.subplots`, using a `,` to separate the two variable assignments:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "r, p = stats.pearsonr(x, y)\nprint(r)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "If we don't do this, we'll get a `tuple` of outputs (like when we defined our own function with multiple variables after the `return` statement):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "out = stats.pearsonr(x, y)\nprint(out)\nprint(type(out))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now let's try computing the Pearson R between all pairs of these variables:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "r, p = stats.pearsonr(x, y)\nprint(r)\n\nr, p = stats.pearsonr(x, z)\nprint(r)\n\nr, p = stats.pearsonr(y, z)\nprint(r)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 33,
+  "parent_lecture": "Lecture02"
+}

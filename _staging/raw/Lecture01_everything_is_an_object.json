@@ -1,0 +1,20 @@
+{
+  "id": "Lecture01_everything_is_an_object",
+  "markdown_content": "# Everything is an object\n\nIn Python, every variable is an **object**.\nThis is not the case in all languages, but only in \"object-oriented\" languages.\n\nWhat does it mean?\nIt means that variables in Python aren't just numbers, a lot of additional information is attached to them.",
+  "code_block": "",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Everything is an object\n\nIn Python, every variable is an **object**.\nThis is not the case in all languages, but only in \"object-oriented\" languages.\n\nWhat does it mean?\nIt means that variables in Python aren't just numbers, a lot of additional information is attached to them.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 16,
+  "parent_lecture": "Lecture01"
+}

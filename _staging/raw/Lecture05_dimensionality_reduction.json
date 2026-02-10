@@ -1,0 +1,28 @@
+{
+  "id": "Lecture05_dimensionality_reduction",
+  "markdown_content": "# Dimensionality reduction\n\nHere we will try to find a new representation for our data in a lower dimensional space.\nAs such, we can also call this \"representation learning.\"",
+  "code_block": "",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Dimensionality reduction\n\nHere we will try to find a new representation for our data in a lower dimensional space.\nAs such, we can also call this \"representation learning.\"",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 14,
+  "parent_lecture": "Lecture05"
+}

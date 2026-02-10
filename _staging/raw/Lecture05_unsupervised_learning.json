@@ -1,0 +1,28 @@
+{
+  "id": "Lecture05_unsupervised_learning",
+  "markdown_content": "# Unsupervised learning\n\nUnsupervised learning means we have only $X$ features with  no $y$ labels.\nThis is focused on understanding the data without trying to predict something directly.\nWe'll discuss two flavors of unsupervised learning:\n* *Clustering* - dividing data into categorical groups\n* *Dimensionality reduction* - mapping data from high dimension to low dimension\n  * this can sometimes be referred to as \"representation learning\"",
+  "code_block": "",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Unsupervised learning\n\nUnsupervised learning means we have only $X$ features with  no $y$ labels.\nThis is focused on understanding the data without trying to predict something directly.\nWe'll discuss two flavors of unsupervised learning:\n* *Clustering* - dividing data into categorical groups\n* *Dimensionality reduction* - mapping data from high dimension to low dimension\n  * this can sometimes be referred to as \"representation learning\"",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 1,
+  "parent_lecture": "Lecture05"
+}

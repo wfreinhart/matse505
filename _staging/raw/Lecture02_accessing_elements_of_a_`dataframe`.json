@@ -1,0 +1,47 @@
+{
+  "id": "Lecture02_accessing_elements_of_a_`dataframe`",
+  "markdown_content": "## Accessing elements of a `DataFrame`\n\nWhat if we want to access only one of these columns instead of the whole row?\nWe can stack indices together using `,` to index on each dimension: first row, then column.\n\nWe can also use the `iloc` command to reference the rows and columns by number instead of by name.\nNote that the columns are (0: `Symbol`, 1: `Bulk Static Energy (eV)`, 2: `Reference Energy (eV)`, ...) and so on.\n\nThe difference between `loc` and `iloc` is a little confusing because the `index` in our `DataFrame` is numerical.\nLet's try loading it again with the `index_col` keyword of `read_csv`.\nFrom the documentation, we can see the following information about `index_col`:\n\n> `index_col`: Column(s) to use as the row labels of the DataFrame, either given as string name or column index ...\n\nIn this case it makes the most sense to use the `Element` symbols as the index.\nLet's try it out and see what happens:\n\nNow if we want to access information about **Ag** we can use its symbol instead of looking at the table to find its `index`.\nThis is often much more convenient.\nLet's try it out:",
+  "code_block": "\n\n# using `loc[]` with [index, column]\nprint(data.loc[0, 'Symbol'])         # <- the elemental Symbol in row 0\nprint(data.loc[2, 'Atomic Number'])  # <- the Atomic Number in row 2 (for Al)\n\n# using `iloc[]` with [index_integer, column_integer]\nprint(data.iloc[0, 0])\nprint(data.iloc[0, 1])\nprint(data.iloc[0, 2])\n\n# Load again with index_col using the same smart path logic\nif os.path.exists(local_path):\n    ele_data = pd.read_csv(local_path, index_col='Symbol')\nelse:\n    ele_data = pd.read_csv(github_url, index_col='Symbol')\n\nele_data                                                # show a view of the data file\n\n# using `loc[]` with [index][column]\nprint(ele_data.loc['Ag', 'Atomic Number'])\n\n# using `iloc[]` with [index_integer, column_integer]\nprint(ele_data.iloc[1, 5])",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Accessing elements of a `DataFrame`\n\nWhat if we want to access only one of these columns instead of the whole row?\nWe can stack indices together using `,` to index on each dimension: first row, then column.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# using `loc[]` with [index, column]\nprint(data.loc[0, 'Symbol'])         # <- the elemental Symbol in row 0\nprint(data.loc[2, 'Atomic Number'])  # <- the Atomic Number in row 2 (for Al)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can also use the `iloc` command to reference the rows and columns by number instead of by name.\nNote that the columns are (0: `Symbol`, 1: `Bulk Static Energy (eV)`, 2: `Reference Energy (eV)`, ...) and so on.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# using `iloc[]` with [index_integer, column_integer]\nprint(data.iloc[0, 0])\nprint(data.iloc[0, 1])\nprint(data.iloc[0, 2])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "The difference between `loc` and `iloc` is a little confusing because the `index` in our `DataFrame` is numerical.\nLet's try loading it again with the `index_col` keyword of `read_csv`.\nFrom the documentation, we can see the following information about `index_col`:\n\n> `index_col`: Column(s) to use as the row labels of the DataFrame, either given as string name or column index ...\n\nIn this case it makes the most sense to use the `Element` symbols as the index.\nLet's try it out and see what happens:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# Load again with index_col using the same smart path logic\nif os.path.exists(local_path):\n    ele_data = pd.read_csv(local_path, index_col='Symbol')\nelse:\n    ele_data = pd.read_csv(github_url, index_col='Symbol')\n\nele_data                                                # show a view of the data file",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now if we want to access information about **Ag** we can use its symbol instead of looking at the table to find its `index`.\nThis is often much more convenient.\nLet's try it out:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# using `loc[]` with [index][column]\nprint(ele_data.loc['Ag', 'Atomic Number'])\n\n# using `iloc[]` with [index_integer, column_integer]\nprint(ele_data.iloc[1, 5])",
+      "metadata": "# %%"
+    }
+  ]
+}

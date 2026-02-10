@@ -1,0 +1,12 @@
+{
+  "id": "Lecture03_contrasting_vocabulary:_unsupervised_learning",
+  "markdown_content": "## Contrasting vocabulary: Unsupervised learning\n\nNow consider that we have only a collection of $(X)_i$ without corresponding $(y)_i$.\nIn other words, we have **unlabeled** data.\nHowever, we may still want to learn something about the data.\nFor instance, do any of the data stick out as outliers?\nAre there discrete groups which can be discerned?\nThis is the objective of unsupervised learning.\nThe problem can be stated mathematically as $f(X) = \\ell$, where $\\ell$ is a categorical label belonging to a **class** or **cluster**. Graphically, the problem looks like this:\n\n<img src=\"../lectures/assets/lecture03_classification_groups.jpg\" height=400>\n\nWe'll do some unsupervised learning in a future lecture.",
+  "code_block": "",
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Contrasting vocabulary: Unsupervised learning\n\nNow consider that we have only a collection of $(X)_i$ without corresponding $(y)_i$.\nIn other words, we have **unlabeled** data.\nHowever, we may still want to learn something about the data.\nFor instance, do any of the data stick out as outliers?\nAre there discrete groups which can be discerned?\nThis is the objective of unsupervised learning.\nThe problem can be stated mathematically as $f(X) = \\ell$, where $\\ell$ is a categorical label belonging to a **class** or **cluster**. Graphically, the problem looks like this:\n\n<img src=\"../lectures/assets/lecture03_classification_groups.jpg\" height=400>\n\nWe'll do some unsupervised learning in a future lecture.",
+      "metadata": "# %% [markdown]"
+    }
+  ]
+}

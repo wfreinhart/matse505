@@ -1,0 +1,9 @@
+{
+  "id": "Lecture02_a_note_on_aliasing",
+  "type": "Foundational",
+  "sequence": 9,
+  "parent_lecture": "Lecture02",
+  "requirements": [],
+  "markdown_content": "## A note on aliasing\n\nBefore we go any further, let's talk about `aliases` again.\nAs you can see from our very first code cell, accessing the functions of the `pyplot` submodule will require us to type `pyplot.<function>` every time.\nIn practice, people have all agreed that it's easier to type `plt` instead:\n\nNow we can always use `plt` instead of `pyplot`.\nI bring this up because all the tutorials I link to use this notation!\nYou can even see it being done this way on the [official pyplot documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot)!",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot  # import the pyplot submodule\n    from matplotlib import pyplot as plt  # use an alias\n    from scipy import stats\n    import numpy as np\n    import os\n    import pandas as pd\n    import requests\n    \n    \n    from matplotlib import pyplot as plt  # use an alias\n    \n    plt.plot()  # create an empty plot"
+}

@@ -1,0 +1,63 @@
+{
+  "id": "Lecture02_back_to_plotting",
+  "markdown_content": "## Back to plotting\n\nWhat are the axes of this chart?\nIt's useless without them.\n\nNow it's properly labeled, but does it actually communicate anything?\nThe $x$ axis is just the row in the `data` variable, but doesn't correspond to anything real.\nLet's check if there is a trend between $x$ (`Atomic Mass`) and $y$ (`Vacancy Formation Energy (eV)`) instead.\n\nThis does look like it shows a positive trend between the data, but it's hard to read because the points are connected by lines.\nA line chart is not appropriate for this data because there is no ordering to these points!\nLet's switch to markers instead:\n\nFinally, we get a meaningful chart that shows a weak positive correlation between these two elemental properties.",
+  "code_block": "\n\nfig, ax = plt.subplots()  # create a blank figure\nax.plot(x)\n\nax.set_ylabel(x.name)  # a nice shortcut using Series attributes!\nax.set_xlabel('Index')\n\nfig  # show the updated figure\n\nfig, ax = plt.subplots()  # create a blank figure\nax.plot(x, y)\nax.set_xlabel(x.name)\nax.set_ylabel(y.name)\n\nfig, ax = plt.subplots()  # create a blank figure\nax.plot(x, y, linestyle='none',  # you can break to a new line!\n              marker='*')        # this sometimes improves readability\nax.set_xlabel(x.name)\nax.set_ylabel(y.name)",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Back to plotting",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()  # create a blank figure\nax.plot(x)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "What are the axes of this chart?\nIt's useless without them.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "ax.set_ylabel(x.name)  # a nice shortcut using Series attributes!\nax.set_xlabel('Index')\n\nfig  # show the updated figure",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now it's properly labeled, but does it actually communicate anything?\nThe $x$ axis is just the row in the `data` variable, but doesn't correspond to anything real.\nLet's check if there is a trend between $x$ (`Atomic Mass`) and $y$ (`Vacancy Formation Energy (eV)`) instead.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()  # create a blank figure\nax.plot(x, y)\nax.set_xlabel(x.name)\nax.set_ylabel(y.name)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This does look like it shows a positive trend between the data, but it's hard to read because the points are connected by lines.\nA line chart is not appropriate for this data because there is no ordering to these points!\nLet's switch to markers instead:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()  # create a blank figure\nax.plot(x, y, linestyle='none',  # you can break to a new line!\n              marker='*')        # this sometimes improves readability\nax.set_xlabel(x.name)\nax.set_ylabel(y.name)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Finally, we get a meaningful chart that shows a weak positive correlation between these two elemental properties.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 22,
+  "parent_lecture": "Lecture02"
+}

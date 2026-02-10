@@ -1,0 +1,28 @@
+{
+  "id": "Lecture02_histograms",
+  "markdown_content": "## Histograms\n\nLet's quickly add some additional plot styles to our repertoire.\n**Histograms** can be created using `plt.hist`.\nRemember that histograms visualize distributions of a single variable, so it takes only one variable as input:",
+  "code_block": "\n\nfig, ax = plt.subplots()\nax.hist(x)\nax.set_xlabel(x.name)\nax.set_ylabel('Frequency')",
+  "imports": [
+    "import requests",
+    "import pandas as pd",
+    "import numpy as np",
+    "import os",
+    "from matplotlib import pyplot as plt  # use an alias",
+    "from matplotlib import pyplot  # import the pyplot submodule",
+    "from scipy import stats"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Histograms\n\nLet's quickly add some additional plot styles to our repertoire.\n**Histograms** can be created using `plt.hist`.\nRemember that histograms visualize distributions of a single variable, so it takes only one variable as input:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.hist(x)\nax.set_xlabel(x.name)\nax.set_ylabel('Frequency')",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 23,
+  "parent_lecture": "Lecture02"
+}

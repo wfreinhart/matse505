@@ -1,0 +1,40 @@
+{
+  "id": "Lecture04_k_neighbors",
+  "markdown_content": "## K Neighbors\n\nBased on these results, we can imagine that K Neighbors will also work fairly well. Let's try it:\n\nIndeed, K Neighbors correctly votes 100% of the time (*on unseen test data!*).\nThis means our problem is too easy -- we'll now make it harder to learn more about how the models work.",
+  "code_block": "\n\nfrom sklearn import neighbors\n\nmodel = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)",
+  "imports": [
+    "import numpy as np",
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "from matplotlib import pyplot as plt",
+    "import os",
+    "from plotly import express as px",
+    "from sklearn import svm",
+    "from sklearn import tree",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn import linear_model",
+    "from sklearn import neighbors",
+    "from sklearn import naive_bayes",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## K Neighbors\n\nBased on these results, we can imagine that K Neighbors will also work fairly well. Let's try it:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import neighbors\n\nmodel = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Indeed, K Neighbors correctly votes 100% of the time (*on unseen test data!*).\nThis means our problem is too easy -- we'll now make it harder to learn more about how the models work.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 8,
+  "parent_lecture": "Lecture04"
+}

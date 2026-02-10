@@ -1,0 +1,20 @@
+{
+  "id": "Lecture01_modules",
+  "markdown_content": "# Modules\n\n*What are modules?*\n\nWe've gone over some basic Python functionality, but so far it doesn't seem that powerful.\nWe can:\n* define variables\n* perform basic math on them (multiply, divide, add, subtract)\n* convert them to different types\n* print their values\n\nThis is less than your graphing calculator can do, so what's the big deal?\nBasically, the answer is **modules**.\nPython modules are pieces of code that other people have written and posted on the internet for free distribution.\nBy accessing those modules, you can expand Python's functionality to do nearly anything you can think of.\n\n*What are some commonly used modules?*\n\n**NumPy**\n\n[`numpy`](https://numpy.org/) is so widespread it might as well be considered part of the Python language.\nBasically any program with mathematical equations or data manipulation uses NumPy.\nThis includes the other modules we're about to look at!\n\n**Matplotlib**\n\n[`matplotlib`](https://matplotlib.org/) is one of the most popular visualization libraries for Python (although there are others).\nIts name comes from its inspiration from the MATLAB plotting library.\nIf you've used MATLAB, this will look familiar.\n\n**SciPy**\n\n[`scipy`](https://docs.scipy.org/doc/scipy/reference/) is a more specialized package for scientific computing.\nIt includes things like integration, optimization, and statistical distributions.\n\n**Pandas**\n\n[`pandas`](https://pandas.pydata.org/docs/) is a library for reading, writing, and analyzing data.\nIt contains wrappers to do a lot of the things these other libraries do (by calling their functions behind the scenes).\nWhile we will use all four of these in class, you may end up mostly relying on Pandas \"in the wild.\"",
+  "code_block": "",
+  "imports": [
+    "import numpy as np  # this is a module, with an alias",
+    "import numpy",
+    "import matplotlib",
+    "import numpy as np"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Modules\n\n*What are modules?*\n\nWe've gone over some basic Python functionality, but so far it doesn't seem that powerful.\nWe can:\n* define variables\n* perform basic math on them (multiply, divide, add, subtract)\n* convert them to different types\n* print their values\n\nThis is less than your graphing calculator can do, so what's the big deal?\nBasically, the answer is **modules**.\nPython modules are pieces of code that other people have written and posted on the internet for free distribution.\nBy accessing those modules, you can expand Python's functionality to do nearly anything you can think of.\n\n*What are some commonly used modules?*\n\n**NumPy**\n\n[`numpy`](https://numpy.org/) is so widespread it might as well be considered part of the Python language.\nBasically any program with mathematical equations or data manipulation uses NumPy.\nThis includes the other modules we're about to look at!\n\n**Matplotlib**\n\n[`matplotlib`](https://matplotlib.org/) is one of the most popular visualization libraries for Python (although there are others).\nIts name comes from its inspiration from the MATLAB plotting library.\nIf you've used MATLAB, this will look familiar.\n\n**SciPy**\n\n[`scipy`](https://docs.scipy.org/doc/scipy/reference/) is a more specialized package for scientific computing.\nIt includes things like integration, optimization, and statistical distributions.\n\n**Pandas**\n\n[`pandas`](https://pandas.pydata.org/docs/) is a library for reading, writing, and analyzing data.\nIt contains wrappers to do a lot of the things these other libraries do (by calling their functions behind the scenes).\nWhile we will use all four of these in class, you may end up mostly relying on Pandas \"in the wild.\"",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 13,
+  "parent_lecture": "Lecture01"
+}

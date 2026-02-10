@@ -1,0 +1,1046 @@
+{
+  "modules": [
+    {
+      "id": "Lecture02_evaluating_goodness_of_fit",
+      "requirements": [
+        "tensors['z_model']",
+        "tensors['result']",
+        "tensors['z']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_evaluating_goodness_of_fit.json"
+    },
+    {
+      "id": "Lecture03_neural_networks",
+      "requirements": [
+        "tensors['ytrain']",
+        "tensors['xtrain']",
+        "tensors['plot_model']",
+        "tensors['evaluate_model']",
+        "tensors['ytest']",
+        "tensors['neural_network']",
+        "tensors['xtest']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_neural_networks.json"
+    },
+    {
+      "id": "Lecture05_pca_with_scikit_learn",
+      "requirements": [
+        "tensors['y']",
+        "tensors['x']",
+        "model_artifacts['encoder']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_pca_with_scikit_learn.json"
+    },
+    {
+      "id": "Lecture05_0",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_0.json"
+    },
+    {
+      "id": "Lecture02_basic_pyplot_formatting",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_basic_pyplot_formatting.json"
+    },
+    {
+      "id": "Lecture01_google_colaboratory",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_google_colaboratory.json"
+    },
+    {
+      "id": "Lecture02_reading_data_with_pandas",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_reading_data_with_pandas.json"
+    },
+    {
+      "id": "Lecture03_challenges_with_measuring_residuals",
+      "requirements": [
+        "tensors['y_pred']",
+        "tensors['y']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_challenges_with_measuring_residuals.json"
+    },
+    {
+      "id": "Lecture04_additional_reading",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_additional_reading.json"
+    },
+    {
+      "id": "Lecture02_scatter",
+      "requirements": [
+        "tensors['x']",
+        "tensors['y']",
+        "tensors['z']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_scatter.json"
+    },
+    {
+      "id": "Lecture02_correlation",
+      "requirements": [
+        "tensors['x']",
+        "tensors['z']",
+        "tensors['y']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_correlation.json"
+    },
+    {
+      "id": "Lecture03_contrasting_vocabulary_unsupervised_learning",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_contrasting_vocabulary_unsupervised_learning.json"
+    },
+    {
+      "id": "Lecture04_classification",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_classification.json"
+    },
+    {
+      "id": "Lecture03_training_versus_testing",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_training_versus_testing.json"
+    },
+    {
+      "id": "Lecture04_decision_tree",
+      "requirements": [
+        "tensors['ytrain']",
+        "tensors['xtest']",
+        "tensors['x']",
+        "tensors['ytest']",
+        "tensors['xtrain']",
+        "tensors['y']",
+        "tensors['px']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_decision_tree.json"
+    },
+    {
+      "id": "Lecture03_contrasting_vocabulary:_unsupervised_learning",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_contrasting_vocabulary:_unsupervised_learning.json"
+    },
+    {
+      "id": "Lecture02_adding_legends",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_adding_legends.json"
+    },
+    {
+      "id": "Lecture01_a_builtin_example",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_a_builtin_example.json"
+    },
+    {
+      "id": "Lecture02_accessing_elements_of_a_`dataframe`",
+      "requirements": [
+        "data",
+        "tensors['os']",
+        "tensors['local_path']",
+        "tensors['github_url']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_accessing_elements_of_a_`dataframe`.json"
+    },
+    {
+      "id": "Lecture04_support_vector_machines",
+      "requirements": [
+        "tensors['ytrain']",
+        "tensors['ytest']",
+        "tensors['xtrain']",
+        "tensors['xtest']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_support_vector_machines.json"
+    },
+    {
+      "id": "Lecture03_k_nearest_neighbors",
+      "requirements": [
+        "tensors['xtrain']",
+        "tensors['evaluate_model']",
+        "tensors['plot_model']",
+        "tensors['ytrain']",
+        "tensors['ytest']",
+        "tensors['xtest']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_k_nearest_neighbors.json"
+    },
+    {
+      "id": "Lecture02_why_is_it_called_subplots?",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_why_is_it_called_subplots?.json"
+    },
+    {
+      "id": "Lecture03_implementation_in_sklearn",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_implementation_in_sklearn.json"
+    },
+    {
+      "id": "Lecture02_central_tendency",
+      "requirements": [
+        "tensors['x']",
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_central_tendency.json"
+    },
+    {
+      "id": "Lecture03_random_forest",
+      "requirements": [
+        "tensors['xtrain']",
+        "tensors['ytrain']",
+        "tensors['ytest']",
+        "tensors['xtest']",
+        "tensors['plot_model']",
+        "tensors['evaluate_model']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_random_forest.json"
+    },
+    {
+      "id": "Lecture02_removing_nan_values",
+      "requirements": [
+        "tensors['z']",
+        "tensors['x']",
+        "tensors['y']",
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_removing_nan_values.json"
+    },
+    {
+      "id": "Lecture05_implementation_in_sklearn",
+      "requirements": [
+        "tensors['os']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_implementation_in_sklearn.json"
+    },
+    {
+      "id": "Lecture02_a_note_on_aliasing",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_a_note_on_aliasing.json"
+    },
+    {
+      "id": "Lecture05_gaussian_mixtures",
+      "requirements": [
+        "tensors['px']",
+        "tensors['x']",
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_gaussian_mixtures.json"
+    },
+    {
+      "id": "Lecture03_supervised_learning",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_supervised_learning.json"
+    },
+    {
+      "id": "Lecture02_with_pandas_builtins",
+      "requirements": [
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_with_pandas_builtins.json"
+    },
+    {
+      "id": "Lecture02_statistical_moments",
+      "requirements": [
+        "tensors['x']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_statistical_moments.json"
+    },
+    {
+      "id": "Lecture02_making_persistent_figures",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_making_persistent_figures.json"
+    },
+    {
+      "id": "Lecture02_dataframes",
+      "requirements": [
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_dataframes.json"
+    },
+    {
+      "id": "Lecture02_line_and_marker_style",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_line_and_marker_style.json"
+    },
+    {
+      "id": "Lecture03_decision_trees",
+      "requirements": [
+        "tensors['ytrain']",
+        "tensors['plot_model']",
+        "tensors['ytest']",
+        "tensors['xtest']",
+        "tensors['evaluate_model']",
+        "tensors['xtrain']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_decision_trees.json"
+    },
+    {
+      "id": "Lecture04_classification_metrics",
+      "requirements": [
+        "tensors['xtest']",
+        "model",
+        "tensors['ytest']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_classification_metrics.json"
+    },
+    {
+      "id": "Lecture05_outlier_detection",
+      "requirements": [
+        "model_artifacts['encoder']",
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_outlier_detection.json"
+    },
+    {
+      "id": "Lecture03_introduction_to_machine_learning",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_introduction_to_machine_learning.json"
+    },
+    {
+      "id": "Lecture05_k_means",
+      "requirements": [
+        "tensors['x']",
+        "data",
+        "tensors['px']",
+        "tensors['it']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_k_means.json"
+    },
+    {
+      "id": "Lecture01_introduction",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_introduction.json"
+    },
+    {
+      "id": "Lecture02_variance",
+      "requirements": [
+        "data",
+        "tensors['x']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_variance.json"
+    },
+    {
+      "id": "Lecture05_density_based_methods",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_density_based_methods.json"
+    },
+    {
+      "id": "Lecture01_defining_functions",
+      "requirements": [
+        "tensors['my_function']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_defining_functions.json"
+    },
+    {
+      "id": "Lecture04_k_neighbors",
+      "requirements": [
+        "tensors['xtrain']",
+        "tensors['xtest']",
+        "tensors['ytest']",
+        "tensors['ytrain']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_k_neighbors.json"
+    },
+    {
+      "id": "Lecture01_python_syntax",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_python_syntax.json"
+    },
+    {
+      "id": "Lecture01_everything_is_an_object",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_everything_is_an_object.json"
+    },
+    {
+      "id": "Lecture02_reading_with_pandas",
+      "requirements": [
+        "tensors['os']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_reading_with_pandas.json"
+    },
+    {
+      "id": "Lecture03_implementation_in_`sklearn`",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_implementation_in_`sklearn`.json"
+    },
+    {
+      "id": "Lecture02_basic_`pyplot`_formatting",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_basic_`pyplot`_formatting.json"
+    },
+    {
+      "id": "Lecture03_linear_regression_as_an_optimization_problem",
+      "requirements": [
+        "tensors['optimize']",
+        "data",
+        "tensors['least_squares_objective']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_linear_regression_as_an_optimization_problem.json"
+    },
+    {
+      "id": "Lecture03_some_convenience_functions",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_some_convenience_functions.json"
+    },
+    {
+      "id": "Lecture01_modules",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_modules.json"
+    },
+    {
+      "id": "Lecture02_back_to_plotting",
+      "requirements": [
+        "tensors['y']",
+        "tensors['x']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_back_to_plotting.json"
+    },
+    {
+      "id": "Lecture03_mse_mae_and_regularization",
+      "requirements": [
+        "tensors['residual']",
+        "tensors['y']",
+        "tensors['y_model']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_mse_mae_and_regularization.json"
+    },
+    {
+      "id": "Lecture03_mse,_mae,_and_regularization",
+      "requirements": [
+        "tensors['y_model']",
+        "tensors['residual']",
+        "tensors['y']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_mse,_mae,_and_regularization.json"
+    },
+    {
+      "id": "Lecture02_a_shortcut",
+      "requirements": [
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_a_shortcut.json"
+    },
+    {
+      "id": "Lecture03_0",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_0.json"
+    },
+    {
+      "id": "Lecture02_making_persistent_`figures`",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_making_persistent_`figures`.json"
+    },
+    {
+      "id": "Lecture01_importing_modules",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_importing_modules.json"
+    },
+    {
+      "id": "Lecture05_other_methods",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_other_methods.json"
+    },
+    {
+      "id": "Lecture02_[check_your_understanding]",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_[check_your_understanding].json"
+    },
+    {
+      "id": "Lecture03_investigating_features",
+      "requirements": [
+        "tensors['xtrain']",
+        "model"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_investigating_features.json"
+    },
+    {
+      "id": "Lecture05_unsupervised_learning",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_unsupervised_learning.json"
+    },
+    {
+      "id": "Lecture01_functions",
+      "requirements": [
+        "tensors['my_variable']",
+        "tensors['x']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_functions.json"
+    },
+    {
+      "id": "Lecture03_nonlinear_regression_models",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_nonlinear_regression_models.json"
+    },
+    {
+      "id": "Lecture05_principal_component_analysis",
+      "requirements": [
+        "tensors['x']",
+        "tensors['y']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_principal_component_analysis.json"
+    },
+    {
+      "id": "Lecture02_math_with_arrays",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_math_with_arrays.json"
+    },
+    {
+      "id": "Lecture03_supervised_learning_with_real-world_data",
+      "requirements": [
+        "tensors['os']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_supervised_learning_with_real-world_data.json"
+    },
+    {
+      "id": "Lecture03_using_scikit_learn",
+      "requirements": [
+        "tensors['y']",
+        "tensors['x']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_using_scikit_learn.json"
+    },
+    {
+      "id": "Lecture01_variables",
+      "requirements": [
+        "tensors['mymixedcasevariable']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_variables.json"
+    },
+    {
+      "id": "Lecture02_why_is_it_called_subplots",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_why_is_it_called_subplots.json"
+    },
+    {
+      "id": "Lecture04_additional_remarks",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_additional_remarks.json"
+    },
+    {
+      "id": "Lecture05_without_labels",
+      "requirements": [
+        "data",
+        "tensors['x']",
+        "tensors['tqdm']",
+        "tensors['px']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_without_labels.json"
+    },
+    {
+      "id": "Lecture02_using_pandas_builtins",
+      "requirements": [
+        "tensors['y']",
+        "tensors['z']",
+        "data",
+        "tensors['x']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_using_pandas_builtins.json"
+    },
+    {
+      "id": "Lecture03_using_scikit-learn",
+      "requirements": [
+        "tensors['x']",
+        "tensors['y']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_using_scikit-learn.json"
+    },
+    {
+      "id": "Lecture03_visualizing_model_performance",
+      "requirements": [
+        "tensors['y']",
+        "tensors['px']",
+        "tensors['y_pred']",
+        "tensors['residuals']",
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_visualizing_model_performance.json"
+    },
+    {
+      "id": "Lecture01_getting_help",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_getting_help.json"
+    },
+    {
+      "id": "Lecture04_dataset",
+      "requirements": [
+        "tensors['x']",
+        "tensors['os']",
+        "tensors['train_test_split']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_dataset.json"
+    },
+    {
+      "id": "Lecture02_using_`pandas`_builtins",
+      "requirements": [
+        "data",
+        "tensors['y']",
+        "tensors['z']",
+        "tensors['x']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_using_`pandas`_builtins.json"
+    },
+    {
+      "id": "Lecture04_naive_bayes",
+      "requirements": [
+        "tensors['ytest']",
+        "tensors['xtest']",
+        "tensors['xtrain']",
+        "tensors['naive_bayes']",
+        "tensors['ytrain']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_naive_bayes.json"
+    },
+    {
+      "id": "Lecture02_linear_regression",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_linear_regression.json"
+    },
+    {
+      "id": "Lecture02_indexing_practice",
+      "requirements": [
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_indexing_practice.json"
+    },
+    {
+      "id": "Lecture02_accessing_elements_of_a_dataframe",
+      "requirements": [
+        "tensors['os']",
+        "data",
+        "tensors['github_url']",
+        "tensors['local_path']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_accessing_elements_of_a_dataframe.json"
+    },
+    {
+      "id": "Lecture03_polynomial_regression",
+      "requirements": [
+        "tensors['ytest']",
+        "tensors['xtrain']",
+        "tensors['y']",
+        "tensors['xtest']",
+        "tensors['ytrain']",
+        "tensors['x']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_polynomial_regression.json"
+    },
+    {
+      "id": "Lecture05_check_your_understanding",
+      "requirements": [
+        "tensors['pca']",
+        "tensors['x']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_check_your_understanding.json"
+    },
+    {
+      "id": "Lecture03_train_test_split",
+      "requirements": [
+        "tensors['train_test_split']",
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_train_test_split.json"
+    },
+    {
+      "id": "Lecture05_cutoff_based_methods",
+      "requirements": [
+        "tensors['x']",
+        "tensors['px']",
+        "data",
+        "tensors['plot_dendrogram']",
+        "tensors['dendrogram']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_cutoff_based_methods.json"
+    },
+    {
+      "id": "Lecture04_0",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_0.json"
+    },
+    {
+      "id": "Lecture02_subplots",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_subplots.json"
+    },
+    {
+      "id": "Lecture02_analysis_with_numpy",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_analysis_with_numpy.json"
+    },
+    {
+      "id": "Lecture05_dimensionality_reduction",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_dimensionality_reduction.json"
+    },
+    {
+      "id": "Lecture03_quantifying_model_performance",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_quantifying_model_performance.json"
+    },
+    {
+      "id": "Lecture01_aliases",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_aliases.json"
+    },
+    {
+      "id": "Lecture01_arguments",
+      "requirements": [
+        "tensors['my_function']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_arguments.json"
+    },
+    {
+      "id": "Lecture01_python_language",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_python_language.json"
+    },
+    {
+      "id": "Lecture02_plotting_with_`pyplot`",
+      "requirements": [
+        "tensors['pyplot']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_plotting_with_`pyplot`.json"
+    },
+    {
+      "id": "Lecture02_check_your_understanding",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_check_your_understanding.json"
+    },
+    {
+      "id": "Lecture02_plotting_with_pyplot",
+      "requirements": [
+        "tensors['pyplot']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_plotting_with_pyplot.json"
+    },
+    {
+      "id": "Lecture03_[check_your_understanding]",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_[check_your_understanding].json"
+    },
+    {
+      "id": "Lecture01_a_note_about_the_interpreter",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_a_note_about_the_interpreter.json"
+    },
+    {
+      "id": "Lecture02_adding_labels",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_adding_labels.json"
+    },
+    {
+      "id": "Lecture02_multiple_series",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_multiple_series.json"
+    },
+    {
+      "id": "Lecture02_0",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_0.json"
+    },
+    {
+      "id": "Lecture02_histograms",
+      "requirements": [
+        "tensors['x']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_histograms.json"
+    },
+    {
+      "id": "Lecture03_multivariate_linear_regression",
+      "requirements": [
+        "data",
+        "tensors['multiple_linear_model']",
+        "tensors['optimize']",
+        "tensors['objective']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_multivariate_linear_regression.json"
+    },
+    {
+      "id": "Lecture04_check_your_understanding",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_check_your_understanding.json"
+    },
+    {
+      "id": "Lecture05_clustering",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_clustering.json"
+    },
+    {
+      "id": "Lecture05_evaluating_clustering_methods",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_evaluating_clustering_methods.json"
+    },
+    {
+      "id": "Lecture02_analysis_with_`numpy`",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_analysis_with_`numpy`.json"
+    },
+    {
+      "id": "Lecture04_a_more_challenging_dataset",
+      "requirements": [
+        "data",
+        "tensors['train_test_split']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_a_more_challenging_dataset.json"
+    },
+    {
+      "id": "Lecture02_reading_data_with_`pandas`",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_reading_data_with_`pandas`.json"
+    },
+    {
+      "id": "Lecture04_logistic_regression",
+      "requirements": [
+        "tensors['xtrain']",
+        "tensors['xtest']",
+        "tensors['y']",
+        "tensors['ytrain']",
+        "tensors['ytest']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_logistic_regression.json"
+    },
+    {
+      "id": "Lecture05_with_ground_truth_labels",
+      "requirements": [
+        "tensors['report_cluster_scores']",
+        "tensors['y']",
+        "tensors['x']",
+        "model"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_with_ground_truth_labels.json"
+    },
+    {
+      "id": "Lecture02_downloading_from_a_url",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_downloading_from_a_url.json"
+    },
+    {
+      "id": "Lecture04_important_reminders_about_classification_vs_regression",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_important_reminders_about_classification_vs_regression.json"
+    },
+    {
+      "id": "Lecture04_confusion_matrix",
+      "requirements": [
+        "tensors['ytest']",
+        "tensors['xtest']",
+        "model"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture04_confusion_matrix.json"
+    },
+    {
+      "id": "Lecture05_evaluating_the_projection",
+      "requirements": [
+        "tensors['pca']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture05_evaluating_the_projection.json"
+    },
+    {
+      "id": "Lecture02_making_a_line_chart",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_making_a_line_chart.json"
+    },
+    {
+      "id": "Lecture02_bar_charts",
+      "requirements": [
+        "data",
+        "tensors['y']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_bar_charts.json"
+    },
+    {
+      "id": "Lecture01_tab_completion",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_tab_completion.json"
+    },
+    {
+      "id": "Lecture03_statistical_modeling_versus_supervised_ml",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_statistical_modeling_versus_supervised_ml.json"
+    },
+    {
+      "id": "Lecture02_with_`pandas`_builtins",
+      "requirements": [
+        "data"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_with_`pandas`_builtins.json"
+    },
+    {
+      "id": "Lecture03_check_your_understanding",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_check_your_understanding.json"
+    },
+    {
+      "id": "",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/.json"
+    },
+    {
+      "id": "Lecture01_methods_and_attributes",
+      "requirements": [
+        "tensors['my_list']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_methods_and_attributes.json"
+    },
+    {
+      "id": "Lecture02_plotting_data_from_a_dataframe",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_plotting_data_from_a_dataframe.json"
+    },
+    {
+      "id": "Lecture02_fitting",
+      "requirements": [
+        "tensors['z']",
+        "data",
+        "tensors['y']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_fitting.json"
+    },
+    {
+      "id": "Lecture03_supervised_learning_with_real_world_data",
+      "requirements": [
+        "tensors['os']"
+      ],
+      "type": "Foundational",
+      "path": "library/modules/Lecture03_supervised_learning_with_real_world_data.json"
+    },
+    {
+      "id": "Lecture02_plotting_data_from_a_`dataframe`",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture02_plotting_data_from_a_`dataframe`.json"
+    },
+    {
+      "id": "Lecture01_jupyter_notebooks",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_jupyter_notebooks.json"
+    },
+    {
+      "id": "Lecture01_comments",
+      "requirements": [],
+      "type": "Foundational",
+      "path": "library/modules/Lecture01_comments.json"
+    }
+  ],
+  "datasets": []
+}

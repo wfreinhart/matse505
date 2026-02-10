@@ -1,0 +1,16 @@
+{
+  "id": "Lecture03_k_nearest_neighbors",
+  "type": "Foundational",
+  "sequence": 22,
+  "parent_lecture": "Lecture03",
+  "requirements": [
+    "tensors['xtrain']",
+    "tensors['evaluate_model']",
+    "tensors['plot_model']",
+    "tensors['ytrain']",
+    "tensors['ytest']",
+    "tensors['xtest']"
+  ],
+  "markdown_content": "## K-Nearest Neighbors\n\nK-Nearest Neighbors, abbreviated KNN, or called K Neighbors, is a voting algorithm. Essentially we just look at the values of the $k$ nearest points to the unlabeled observation in question $X_i$ in feature space and use the neighbors' labels $\\{ y \\}_k$ to predict $y_i$. It would look something like this:\n\n<img src=\"../lectures/assets/lecture03_knn_concept.jpg\" alt=\"K-Nearest Neighbors concept diagram\" height=300>\n\nThis is a relatively simple idea but it can work quite well for some problems, especially with a lot of training data.\nIn some sense it is just an interpolation scheme, but it may work in very high dimensions.\n\n> Note: in contrast to linear regression (a **parametric** or **model-based** scheme), this is an **instance-based** learning scheme.\nModel-based learning involves fitting parameters that can be used to predict new outcomes, while instance-based learning involves comparing new observations to previous ones.\n\nThis model performs slightly worse than the polynomial `LinearRegression` on the test set, though in training it appears reasonable. This is a clear case of overfitting, which demonstrates the need for train/test split.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from scipy import optimize\n    from scipy import stats\n    from sklearn import ensemble\n    from sklearn import linear_model\n    from sklearn import neighbors\n    from sklearn import neural_network\n    from sklearn import tree\n    from sklearn.model_selection import train_test_split\n    from sklearn.preprocessing import PolynomialFeatures\n    import numpy as np\n    import os\n    import pandas as pd\n    import requests\n    evaluate_model = ctx.get('tensors', {}).get('evaluate_model')\n    plot_model = ctx.get('tensors', {}).get('plot_model')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    xtrain = ctx.get('tensors', {}).get('xtrain')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    ytrain = ctx.get('tensors', {}).get('ytrain')\n    \n    \n    from sklearn import neighbors\n    \n    model = neighbors.KNeighborsRegressor()\n    model = model.fit(xtrain, ytrain)\n    \n    from sklearn import neighbors\n    \n    model = neighbors.KNeighborsRegressor().fit(xtrain, ytrain)\n    \n    evaluate_model(model, xtrain, xtest, ytrain, ytest)\n    \n    plot_model(model, xtrain, xtest, ytrain, ytest)\n    ctx['model'] = model"
+}

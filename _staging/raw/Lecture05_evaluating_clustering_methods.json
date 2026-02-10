@@ -1,0 +1,28 @@
+{
+  "id": "Lecture05_evaluating_clustering_methods",
+  "markdown_content": "# Evaluating clustering methods\n\nThere are many clustering methods implemented in `scikit-learn`, but which should we choose?\nAnd how many clusters should we use for a chosen model anyways?\nUnlike in supervised learning, we can't simply check how often we get the right answer...",
+  "code_block": "",
+  "imports": [
+    "from plotly import express as px",
+    "from sklearn import metrics",
+    "from sklearn import preprocessing",
+    "from sklearn.mixture import GaussianMixture",
+    "import os",
+    "import numpy as np",
+    "from sklearn import cluster",
+    "import tqdm  # a very useful package for progress bars",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import decomposition",
+    "from scipy.cluster.hierarchy import dendrogram"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Evaluating clustering methods\n\nThere are many clustering methods implemented in `scikit-learn`, but which should we choose?\nAnd how many clusters should we use for a chosen model anyways?\nUnlike in supervised learning, we can't simply check how often we get the right answer...",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 10,
+  "parent_lecture": "Lecture05"
+}

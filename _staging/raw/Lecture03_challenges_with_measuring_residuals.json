@@ -1,0 +1,51 @@
+{
+  "id": "Lecture03_challenges_with_measuring_residuals",
+  "markdown_content": "## Challenges with measuring residuals\n\nRemember that when we fit a linear regression, the residuals will sum to zero.\nThis also means necessarily that the mean will be zero since the mean is just the sum normalized by the count:\n\nWe can visualize the distribution of these residuals around zero by creating a histogram:\n\nFrom this historgram, you can see a generally Normal distribution around the zero mean.\nWe need to measure the deviations instead of the central tendency.",
+  "code_block": "\n\nresidual = y - y_pred\n\nprint('sum: ', np.sum(residual))\nprint('mean:', np.mean(residual))\n\nfig, ax = plt.subplots()\n_ = ax.hist(residual)\nax.set_xlabel('Model residual (eV)')\nax.set_ylabel('Frequency')\nax.set_title('Residuals from linear model of concrete strength')",
+  "imports": [
+    "from sklearn import tree",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neural_network",
+    "from sklearn import neighbors",
+    "from sklearn.model_selection import train_test_split",
+    "from scipy import optimize",
+    "import numpy as np",
+    "from sklearn.preprocessing import PolynomialFeatures",
+    "import requests",
+    "from sklearn import linear_model",
+    "from plotly import express as px",
+    "from sklearn import ensemble",
+    "from scipy import stats",
+    "import os",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Challenges with measuring residuals\n\nRemember that when we fit a linear regression, the residuals will sum to zero.\nThis also means necessarily that the mean will be zero since the mean is just the sum normalized by the count:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "residual = y - y_pred\n\nprint('sum: ', np.sum(residual))\nprint('mean:', np.mean(residual))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can visualize the distribution of these residuals around zero by creating a histogram:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\n_ = ax.hist(residual)\nax.set_xlabel('Model residual (eV)')\nax.set_ylabel('Frequency')\nax.set_title('Residuals from linear model of concrete strength')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "From this historgram, you can see a generally Normal distribution around the zero mean.\nWe need to measure the deviations instead of the central tendency.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 13,
+  "parent_lecture": "Lecture03"
+}
