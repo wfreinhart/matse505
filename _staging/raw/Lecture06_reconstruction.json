@@ -1,0 +1,28 @@
+{
+  "id": "Lecture06_reconstruction",
+  "markdown_content": "# Reconstruction\n\nSomething we haven't discussed with these dimensionality reduction approaches is the concept of reconstructing the high-dimensional object from the low-dimensional embedding.\nIt's important to understand how this works, its limitations, and how it might be applied.",
+  "code_block": "",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Reconstruction\n\nSomething we haven't discussed with these dimensionality reduction approaches is the concept of reconstructing the high-dimensional object from the low-dimensional embedding.\nIt's important to understand how this works, its limitations, and how it might be applied.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 6,
+  "parent_lecture": "Lecture06"
+}

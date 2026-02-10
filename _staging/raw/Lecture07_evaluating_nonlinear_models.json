@@ -1,0 +1,35 @@
+{
+  "id": "Lecture07_evaluating_nonlinear_models",
+  "markdown_content": "# Evaluating nonlinear models\n\nLet's investigate how this works on nonlinear models (really, any model that's not `LinearRegression`).\nBefore we get into it let's make some convenience functions for our repeated operations:",
+  "code_block": "\n\ndef permutation_importance(model, x, y, metric=calc_rmse):\n    \"\"\"Compute the permutation importance on a trained model.\"\"\"\n    baseline = metric(y, model.predict(x))\n\n    permuted = np.zeros_like(x.columns)\n    for i, col in enumerate(x.columns):\n        x_permuted = x.copy()\n        x_permuted[col] = np.random.permutation(x[col])\n        permuted[i] = metric(y, model.predict(x_permuted))\n\n    return baseline, permuted",
+  "imports": [
+    "from sklearn import neighbors, tree, neural_network",
+    "import os",
+    "from sklearn import svm",
+    "from sklearn import metrics, preprocessing",
+    "import copy",
+    "from sklearn import model_selection",
+    "from sklearn import linear_model",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "from sklearn import ensemble",
+    "from sklearn import metrics",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Evaluating nonlinear models\n\nLet's investigate how this works on nonlinear models (really, any model that's not `LinearRegression`).\nBefore we get into it let's make some convenience functions for our repeated operations:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "def permutation_importance(model, x, y, metric=calc_rmse):\n    \"\"\"Compute the permutation importance on a trained model.\"\"\"\n    baseline = metric(y, model.predict(x))\n\n    permuted = np.zeros_like(x.columns)\n    for i, col in enumerate(x.columns):\n        x_permuted = x.copy()\n        x_permuted[col] = np.random.permutation(x[col])\n        permuted[i] = metric(y, model.predict(x_permuted))\n\n    return baseline, permuted",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 8,
+  "parent_lecture": "Lecture07"
+}

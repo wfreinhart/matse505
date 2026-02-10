@@ -1,0 +1,40 @@
+{
+  "id": "Lecture09_k_fold",
+  "markdown_content": "## K-Fold\n\nThe basic implementation of cross-fold validation is the k-fold scheme.\nHere we divide the data directly into $k$ number of evenly sized folds like so:\n\n<img src=\"../lectures/assets/kfold_cv.jpg\" width=600 alt=\"Schematic of K-Fold Cross-Validation showing the data split into k folds for iterative training and testing\">\n\nWhat is the problem with this scheme?\n\nLet's explore this on the cement dataset:\n\nHere we see that the `Age (day)` variable has high and low values distributed throughout the folds.\nWhat if the data were entered in ascending order (such as in a spreadsheet or lab notebook while the cement was curing)?",
+  "code_block": "\n\n# define the fold splitting strategy\nfolds = model_selection.KFold(n_splits=5)\n\nin_fold = np.zeros([x.shape[0], folds.n_splits])\nthis_fold = np.zeros(x.shape[0])\nfor i, (train_index, test_index) in enumerate(folds.split(x)):\n    in_fold[test_index, i] = 1\n    this_fold[test_index] = i\n\norder = np.argsort(this_fold)\nx_sort_local = x.iloc[order]\nin_fold = in_fold[order]\n\nfig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)\nax = axes[0]\n_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_ylabel('Age')\nax = axes[1]\n_ = ax.imshow(in_fold.T, interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_xlabel('Observation')\n_ = ax.set_ylabel('Fold')\nplt.subplots_adjust(hspace=0.05)\n\n# create a sorted dataset to illustrate the pathological cases\nx_sort = x.sort_values(by='Age (day)')\n\n# define the fold splitting strategy\nfolds = model_selection.KFold(n_splits=5)\n\nin_fold = np.zeros([x_sort.shape[0], folds.n_splits])\nthis_fold = np.zeros(x_sort.shape[0])\nfor i, (train_index, test_index) in enumerate(folds.split(x_sort)):\n    in_fold[test_index, i] = 1\n    this_fold[test_index] = i\n\norder = np.argsort(this_fold)\nx_sort_local = x_sort.iloc[order]\nin_fold = in_fold[order]\n\nfig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)\nax = axes[0]\n_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_ylabel('Age')\nax = axes[1]\n_ = ax.imshow(in_fold.T, interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_xlabel('Observation')\n_ = ax.set_ylabel('Fold')\nplt.subplots_adjust(hspace=0.05)",
+  "imports": [
+    "from sklearn import ensemble",
+    "import pandas as pd",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import os",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## K-Fold\n\nThe basic implementation of cross-fold validation is the k-fold scheme.\nHere we divide the data directly into $k$ number of evenly sized folds like so:\n\n<img src=\"../lectures/assets/kfold_cv.jpg\" width=600 alt=\"Schematic of K-Fold Cross-Validation showing the data split into k folds for iterative training and testing\">\n\nWhat is the problem with this scheme?\n\nLet's explore this on the cement dataset:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# define the fold splitting strategy\nfolds = model_selection.KFold(n_splits=5)\n\nin_fold = np.zeros([x.shape[0], folds.n_splits])\nthis_fold = np.zeros(x.shape[0])\nfor i, (train_index, test_index) in enumerate(folds.split(x)):\n    in_fold[test_index, i] = 1\n    this_fold[test_index] = i\n\norder = np.argsort(this_fold)\nx_sort_local = x.iloc[order]\nin_fold = in_fold[order]\n\nfig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)\nax = axes[0]\n_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_ylabel('Age')\nax = axes[1]\n_ = ax.imshow(in_fold.T, interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_xlabel('Observation')\n_ = ax.set_ylabel('Fold')\nplt.subplots_adjust(hspace=0.05)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Here we see that the `Age (day)` variable has high and low values distributed throughout the folds.\nWhat if the data were entered in ascending order (such as in a spreadsheet or lab notebook while the cement was curing)?",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# create a sorted dataset to illustrate the pathological cases\nx_sort = x.sort_values(by='Age (day)')\n\n# define the fold splitting strategy\nfolds = model_selection.KFold(n_splits=5)\n\nin_fold = np.zeros([x_sort.shape[0], folds.n_splits])\nthis_fold = np.zeros(x_sort.shape[0])\nfor i, (train_index, test_index) in enumerate(folds.split(x_sort)):\n    in_fold[test_index, i] = 1\n    this_fold[test_index] = i\n\norder = np.argsort(this_fold)\nx_sort_local = x_sort.iloc[order]\nin_fold = in_fold[order]\n\nfig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)\nax = axes[0]\n_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_ylabel('Age')\nax = axes[1]\n_ = ax.imshow(in_fold.T, interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_xlabel('Observation')\n_ = ax.set_ylabel('Fold')\nplt.subplots_adjust(hspace=0.05)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 14,
+  "parent_lecture": "Lecture09"
+}

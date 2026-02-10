@@ -1,0 +1,12 @@
+{
+  "id": "Lecture07_a_new_dataset",
+  "type": "Foundational",
+  "sequence": 15,
+  "parent_lecture": "Lecture07",
+  "requirements": [
+    "tensors['x']",
+    "tensors['os']"
+  ],
+  "markdown_content": "## A new dataset",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from sklearn import decomposition\n    from sklearn import ensemble\n    from sklearn import linear_model\n    from sklearn import metrics\n    from sklearn import metrics, preprocessing\n    from sklearn import model_selection\n    from sklearn import neighbors, tree, neural_network\n    from sklearn import preprocessing\n    from sklearn import svm\n    import copy\n    import numpy as np\n    import os\n    import pandas as pd\n    os = ctx.get('tensors', {}).get('os')\n    x = ctx.get('tensors', {}).get('x')\n    \n    \n    # Set the path to the second data file\n    filename_cl = 'steels.csv'\n    local_path_cl = f'../datasets/{filename_cl}'\n    github_url_cl = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename_cl}'\n    \n    # Load the data: try local path first, fallback to GitHub for Colab\n    if os.path.exists(local_path_cl):\n        data_cl = pd.read_csv(local_path_cl)\n    else:\n        data_cl = pd.read_csv(github_url_cl)\n    data_cl['Alloy family'] = [x[0] for x in data_cl['Alloy code']]\n    data_cl\n    ctx['tensors']['data_cl'] = data_cl\n    ctx['tensors']['filename_cl'] = filename_cl\n    ctx['tensors']['github_url_cl'] = github_url_cl\n    ctx['tensors']['local_path_cl'] = local_path_cl"
+}

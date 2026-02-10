@@ -1,0 +1,35 @@
+{
+  "id": "Lecture09_a_naiive_approach_to_hyperparameter_tuning",
+  "markdown_content": "## A naiive approach to hyperparameter tuning\n\nNow that we have things well under control, let's just try all the possible values of `n_neighbors`!\n\nWe can see from this that there is a non-monotonic relationship with `n_neighbors` and an optimal value lies in the middle of the range.\nSo is that all there is to it?",
+  "code_block": "\n\nfor k in range(1, 20):\n    print(f'k = {k:2d}: ', end='')\n    train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance'),\n                             xtrain, ytrain, xtest, ytest)",
+  "imports": [
+    "from sklearn import ensemble",
+    "import pandas as pd",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import os",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## A naiive approach to hyperparameter tuning\n\nNow that we have things well under control, let's just try all the possible values of `n_neighbors`!",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "for k in range(1, 20):\n    print(f'k = {k:2d}: ', end='')\n    train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance'),\n                             xtrain, ytrain, xtest, ytest)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can see from this that there is a non-monotonic relationship with `n_neighbors` and an optimal value lies in the middle of the range.\nSo is that all there is to it?",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 4,
+  "parent_lecture": "Lecture09"
+}

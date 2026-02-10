@@ -4,8 +4,8 @@
   "sequence": 37,
   "parent_lecture": "Lecture02",
   "requirements": [
-    "tensors['z']",
     "data",
+    "tensors['z']",
     "tensors['y']"
   ],
   "markdown_content": "## Fitting\n\nPearson R tells us about the strength of correlation but does not give us a model. Let's use `stats.linregress` to do a proper linear regression:\n\nWhat does this `result` mean? We can see that it is a special data structure called `LinregressResult`. The fields can be accessed using the `.` notation. Let's take a look at the model using these fields:\n\nNote that the `rvalue` is the same as the one we found with `pearsonr`. Also note that the slope is negative, which matches the outcome of the fitted `slope` being negative.\n\nNow let's try plotting this result:",

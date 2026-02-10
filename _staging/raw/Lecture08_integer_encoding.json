@@ -1,0 +1,73 @@
+{
+  "id": "Lecture08_integer_encoding",
+  "markdown_content": "## Integer encoding\n\nLet's take a look at the first categorical column, `STP Phase`:\n\nSince there are only two possible values, we can represent this with a binary label using .\n\nHere's another way to achieve this result using `scikit-learn` functions:\n\nOnce the `LabelEncoder` is fitted, you can obtain the original `str` with the `inverse_transform`:\n\nFinally, you can use the `numpy.unique` function to achieve a similar result:",
+  "code_block": "\n\ndata['STP Phase'].value_counts()\n\ndata['STP Phase'].astype(\"category\").cat.codes\n\nfrom sklearn import preprocessing\n\nencoder = preprocessing.LabelEncoder()\nlabels = encoder.fit_transform(data['STP Phase'])\n\nprint(labels)\n\nprint(encoder.inverse_transform(labels))\n\nimport numpy as np\n\ncat, labels = np.unique(data['STP Phase'], return_inverse=True)\n\nprint(cat)\nprint(labels)\nprint(cat[labels])",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Integer encoding\n\nLet's take a look at the first categorical column, `STP Phase`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data['STP Phase'].value_counts()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Since there are only two possible values, we can represent this with a binary label using .",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data['STP Phase'].astype(\"category\").cat.codes",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Here's another way to achieve this result using `scikit-learn` functions:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import preprocessing\n\nencoder = preprocessing.LabelEncoder()\nlabels = encoder.fit_transform(data['STP Phase'])\n\nprint(labels)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Once the `LabelEncoder` is fitted, you can obtain the original `str` with the `inverse_transform`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print(encoder.inverse_transform(labels))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Finally, you can use the `numpy.unique` function to achieve a similar result:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import numpy as np\n\ncat, labels = np.unique(data['STP Phase'], return_inverse=True)\n\nprint(cat)\nprint(labels)\nprint(cat[labels])",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 2,
+  "parent_lecture": "Lecture08"
+}

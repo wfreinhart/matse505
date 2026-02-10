@@ -1,0 +1,38 @@
+{
+  "id": "Lecture08_0",
+  "markdown_content": "\n\nToday's topics:\n* Feature representation\n* Feature augmentation\n* Feature selection\n\nLoading a dataset:\n\nimport pandas as pd\nimport os\n\nSet the path to the data file\nfilename = 'elements.csv'\nlocal_path = f'../datasets/{filename}'\ngithub_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\nLoad the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path):\n    data = pd.read_csv(local_path, index_col=0)\nelse:\n    data = pd.read_csv(github_url, index_col=0)\ndata.head()\n\nThis dataset has a combination of continuous labels and categorical features which will help us explore some nuances of feature representation.\nIt also contains some missing values that we will have to deal with.",
+  "code_block": "",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "Today's topics:\n* Feature representation\n* Feature augmentation\n* Feature selection",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "Loading a dataset:\n\nimport pandas as pd\nimport os\n\nSet the path to the data file\nfilename = 'elements.csv'\nlocal_path = f'../datasets/{filename}'\ngithub_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\nLoad the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path):\n    data = pd.read_csv(local_path, index_col=0)\nelse:\n    data = pd.read_csv(github_url, index_col=0)\ndata.head()",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "This dataset has a combination of continuous labels and categorical features which will help us explore some nuances of feature representation.\nIt also contains some missing values that we will have to deal with.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 0,
+  "parent_lecture": "Lecture08"
+}

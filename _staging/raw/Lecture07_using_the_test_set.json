@@ -1,0 +1,50 @@
+{
+  "id": "Lecture07_using_the_test_set",
+  "markdown_content": "## Using the test set\n\nIf you were paying attention last week, all these `model.fit(x, y)` calls should be bothering you.\nInstead, we should be using `train_test_split` to assess the performance on only data not seen during train time.\nLet's fix this now.\n\nOf course we'll visualize this result like we did above:\n\nThe validation set doesn't change much compared to our analysis on the train set, which is good.\nIn this case, the test performance is incidentally better than training.\nThis doesn't usually happen, but the model is pretty poor ($R^2 \\approx 0.6$) so there is plenty of room for some random fluctutations depending on the particular data in each set.",
+  "code_block": "\n\nfrom sklearn import model_selection\n\nxtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)\n\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)  # train on train data\nbase_train = calc_rmse(ytrain, model.predict(xtrain))\nbase_test = calc_rmse(ytest, model.predict(xtest))  # evaluations will be on test data\nprint(f'baseline rmse is {base_train} / {base_test}')\n\npermuted = np.zeros_like(x.columns)  # create empty array to store values\nfor i, col in enumerate(x.columns):\n    x_permuted = xtest.copy()  # don't scramble the original dataframe!\n    x_permuted[col] = np.random.permutation(xtest[col])\n    permuted[i] = calc_rmse(ytest, model.predict(x_permuted))  # score on the permuted column\nprint('rmse on permuted columns is:', permuted)\n\nfig, ax = plt.subplots()\nax.bar(x.columns, permuted, label='Permuted')\nax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\nax.hlines(base_train, 0, len(x.columns)-1, linestyles='dashed', label='Base, Train')\nax.hlines(base_test, 0, len(x.columns)-1, linestyles='dotted', label='Base, Test')\nax.set_ylabel('Model RMSE')\nax.legend()",
+  "imports": [
+    "from sklearn import neighbors, tree, neural_network",
+    "import os",
+    "from sklearn import svm",
+    "from sklearn import metrics, preprocessing",
+    "import copy",
+    "from sklearn import model_selection",
+    "from sklearn import linear_model",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "from sklearn import ensemble",
+    "from sklearn import metrics",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Using the test set\n\nIf you were paying attention last week, all these `model.fit(x, y)` calls should be bothering you.\nInstead, we should be using `train_test_split` to assess the performance on only data not seen during train time.\nLet's fix this now.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import model_selection\n\nxtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)\n\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)  # train on train data\nbase_train = calc_rmse(ytrain, model.predict(xtrain))\nbase_test = calc_rmse(ytest, model.predict(xtest))  # evaluations will be on test data\nprint(f'baseline rmse is {base_train} / {base_test}')\n\npermuted = np.zeros_like(x.columns)  # create empty array to store values\nfor i, col in enumerate(x.columns):\n    x_permuted = xtest.copy()  # don't scramble the original dataframe!\n    x_permuted[col] = np.random.permutation(xtest[col])\n    permuted[i] = calc_rmse(ytest, model.predict(x_permuted))  # score on the permuted column\nprint('rmse on permuted columns is:', permuted)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Of course we'll visualize this result like we did above:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.bar(x.columns, permuted, label='Permuted')\nax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\nax.hlines(base_train, 0, len(x.columns)-1, linestyles='dashed', label='Base, Train')\nax.hlines(base_test, 0, len(x.columns)-1, linestyles='dotted', label='Base, Test')\nax.set_ylabel('Model RMSE')\nax.legend()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "The validation set doesn't change much compared to our analysis on the train set, which is good.\nIn this case, the test performance is incidentally better than training.\nThis doesn't usually happen, but the model is pretty poor ($R^2 \\approx 0.6$) so there is plenty of room for some random fluctutations depending on the particular data in each set.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 6,
+  "parent_lecture": "Lecture07"
+}

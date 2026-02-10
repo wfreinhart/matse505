@@ -1,0 +1,53 @@
+{
+  "id": "Lecture06_unsupervised_umap",
+  "markdown_content": "## Unsupervised UMAP\n\nUniform Manifold APproximation uses more sophisticated machinery to compute something like the spectral embedding.\nIt ends up being able to resolve irregularly space data like [this visualization of UMAP topology](https://umap-learn.readthedocs.io/en/latest/how_umap_works.html):\n\n<img src=\"../lectures/assets/umap_graph.jpg\" width=600 alt=\"Visualization of a high-dimensional dataset projected into 2D using the UMAP manifold learning algorithm\">\n\nTo use the package, we first need to install the UMAP package using `pip`:\n\nNow we can import the `umap` module and fit a `UMAP` object.\nIt has an interface just like `sklearn`:\n\nWe can see here the result looks quite different from PCA -- instead of a few contiguous clusters there are many discrete clusters spread across the space.\nWe can investigate this result using `plotly.express`:",
+  "code_block": "\n\n# !pip install umap-learn\n\nimport umap\n\nZ = umap.UMAP(random_state=0).fit_transform(x)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=y)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')\n\npx.scatter(x=Z[:, 0], y=Z[:, 1], color=y, hover_name=data['Alloy code'])",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Unsupervised UMAP\n\nUniform Manifold APproximation uses more sophisticated machinery to compute something like the spectral embedding.\nIt ends up being able to resolve irregularly space data like [this visualization of UMAP topology](https://umap-learn.readthedocs.io/en/latest/how_umap_works.html):\n\n<img src=\"../lectures/assets/umap_graph.jpg\" width=600 alt=\"Visualization of a high-dimensional dataset projected into 2D using the UMAP manifold learning algorithm\">\n\nTo use the package, we first need to install the UMAP package using `pip`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# !pip install umap-learn",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now we can import the `umap` module and fit a `UMAP` object.\nIt has an interface just like `sklearn`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import umap\n\nZ = umap.UMAP(random_state=0).fit_transform(x)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=y)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can see here the result looks quite different from PCA -- instead of a few contiguous clusters there are many discrete clusters spread across the space.\nWe can investigate this result using `plotly.express`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "px.scatter(x=Z[:, 0], y=Z[:, 1], color=y, hover_name=data['Alloy code'])",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 19,
+  "parent_lecture": "Lecture06"
+}

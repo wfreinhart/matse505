@@ -1,0 +1,103 @@
+{
+  "id": "Lecture08_one_hot_encoding",
+  "markdown_content": "## One-hot encoding\n\nLet's take a look at the next categorical column, `Natural Crystal Structure`:\n\nThis presents a problem because there are many labels.\nIn principle, we can convert them to `int` codes like so:\n\nHowever, this will be a problem when we use these features in a prediction task because it assumes *ordinality* (recall our discussion on classification labels).\nWe can investigate this problem below:\n\nWhat you can see is that some pairs of crystal structures have large distances while others have small distances.\nHere's another way to visualize this problem:\n\nImagine using this space for a k-Neighbors regression problem.\nThe BCC and CUB phases would be grouped together while being far away from TET.\nIt is possible that there is some structure to this space, but we haven't provided it here.\n\nThe solution is to use *one-hot encoding*:\n\n<img src=\"../lectures/assets/one_hot_encoding_diagram.jpg\" width=600 alt=\"Diagram showing the transformation of a categorical 'Color' feature into multiple binary 'One-Hot' feature vectors\">\n\nIn this scheme, each category gets its own \"dummy feature\" which is a binary vector indicating whether the observation falls into that category or not.\nLet's see how to achieve this transformation and then look at the advantages.\n\nHere we have a bunch of columns concatenated onto the end that contain the one-hot encodings for each categorical variable.\nLet's focus on only the `Natural Crystal Structure` features for now:\n\nNow let's evaluate how this is different from the above `int`-based scheme:\n\nNote that there are only two distances between different rows: 0 or $\\sqrt{2}$.\nThis is because the features now live in a k-dimensional space where each label is equidistant from the others.\nHere's a visualization:",
+  "code_block": "\n\ndata['Natural Crystal Structure'].value_counts()\n\ncat, labels = np.unique(data['Natural Crystal Structure'], return_inverse=True)\n\nprint(cat)\nprint(labels)\nprint(cat[labels])\n\nfrom scipy.spatial import distance\nfrom matplotlib import pyplot as plt\n\nn = len(labels)\ndist = np.zeros([n, n])\nfor i in range(n):\n    for j in range(n):\n        dist[i, j] = np.abs(labels[i] - labels[j])\n\nfig, ax = plt.subplots()\n_ = ax.hist(dist.flatten())\n_ = ax.set_xlabel('Distance')\n_ = ax.set_ylabel('Frequency')\n\nfrom plotly import express as px\n\ncat, labels = np.unique(data['Natural Crystal Structure'], return_inverse=True)\n\npx.scatter(x=labels, y=np.random.rand(n), color=labels, hover_name=cat[labels])\n\npd.get_dummies(data)\n\n# get the augmented DataFrame\ndata_one_hot = pd.get_dummies(data, columns=['Natural Crystal Structure'])\n\n# drop the original features\nn_features = data.shape[1]\ndata_one_hot = data_one_hot.iloc[:, n_features-1:]\ndata_one_hot\n\n# convert to numpy array\nfeatures = data_one_hot.values.astype(int)\n\nn = len(features)\ndist = np.zeros([n, n])\nfor i in range(n):\n    for j in range(n):\n        dist[i, j] = np.linalg.norm(features[i] - features[j])\n\nfig, ax = plt.subplots()\n_ = ax.hist(dist.flatten())\n_ = ax.set_xlabel('Distance')\n_ = ax.set_ylabel('Frequency')\n\npx.scatter_3d(x=features[:, 0], y=features[:, 3], z=features[:, 4], color=labels, hover_name=cat[labels])",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## One-hot encoding\n\nLet's take a look at the next categorical column, `Natural Crystal Structure`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data['Natural Crystal Structure'].value_counts()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This presents a problem because there are many labels.\nIn principle, we can convert them to `int` codes like so:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "cat, labels = np.unique(data['Natural Crystal Structure'], return_inverse=True)\n\nprint(cat)\nprint(labels)\nprint(cat[labels])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "However, this will be a problem when we use these features in a prediction task because it assumes *ordinality* (recall our discussion on classification labels).\nWe can investigate this problem below:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from scipy.spatial import distance\nfrom matplotlib import pyplot as plt\n\nn = len(labels)\ndist = np.zeros([n, n])\nfor i in range(n):\n    for j in range(n):\n        dist[i, j] = np.abs(labels[i] - labels[j])\n\nfig, ax = plt.subplots()\n_ = ax.hist(dist.flatten())\n_ = ax.set_xlabel('Distance')\n_ = ax.set_ylabel('Frequency')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "What you can see is that some pairs of crystal structures have large distances while others have small distances.\nHere's another way to visualize this problem:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from plotly import express as px\n\ncat, labels = np.unique(data['Natural Crystal Structure'], return_inverse=True)\n\npx.scatter(x=labels, y=np.random.rand(n), color=labels, hover_name=cat[labels])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Imagine using this space for a k-Neighbors regression problem.\nThe BCC and CUB phases would be grouped together while being far away from TET.\nIt is possible that there is some structure to this space, but we haven't provided it here.\n\nThe solution is to use *one-hot encoding*:\n\n<img src=\"../lectures/assets/one_hot_encoding_diagram.jpg\" width=600 alt=\"Diagram showing the transformation of a categorical 'Color' feature into multiple binary 'One-Hot' feature vectors\">\n\nIn this scheme, each category gets its own \"dummy feature\" which is a binary vector indicating whether the observation falls into that category or not.\nLet's see how to achieve this transformation and then look at the advantages.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "pd.get_dummies(data)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Here we have a bunch of columns concatenated onto the end that contain the one-hot encodings for each categorical variable.\nLet's focus on only the `Natural Crystal Structure` features for now:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# get the augmented DataFrame\ndata_one_hot = pd.get_dummies(data, columns=['Natural Crystal Structure'])\n\n# drop the original features\nn_features = data.shape[1]\ndata_one_hot = data_one_hot.iloc[:, n_features-1:]\ndata_one_hot",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now let's evaluate how this is different from the above `int`-based scheme:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# convert to numpy array\nfeatures = data_one_hot.values.astype(int)\n\nn = len(features)\ndist = np.zeros([n, n])\nfor i in range(n):\n    for j in range(n):\n        dist[i, j] = np.linalg.norm(features[i] - features[j])\n\nfig, ax = plt.subplots()\n_ = ax.hist(dist.flatten())\n_ = ax.set_xlabel('Distance')\n_ = ax.set_ylabel('Frequency')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Note that there are only two distances between different rows: 0 or $\\sqrt{2}$.\nThis is because the features now live in a k-dimensional space where each label is equidistant from the others.\nHere's a visualization:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "px.scatter_3d(x=features[:, 0], y=features[:, 3], z=features[:, 4], color=labels, hover_name=cat[labels])",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 3,
+  "parent_lecture": "Lecture08"
+}

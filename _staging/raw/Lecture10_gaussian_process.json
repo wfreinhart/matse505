@@ -1,0 +1,28 @@
+{
+  "id": "Lecture10_gaussian_process",
+  "markdown_content": "## Gaussian process\n\n<img src=\"../lectures/assets/gp_noise_gp.jpg\" width=600 alt=\"Visualization of a Gaussian Process regression with confidence intervals and noisy data points\">\n\n<img src=\"../lectures/assets/kernel_types.jpg\" width=600 alt=\"Visual gallery of different Gaussian Process kernels and their resulting functions\">",
+  "code_block": "",
+  "imports": [
+    "from sklearn import model_selection",
+    "from ax.utils.notebook.plotting import render",
+    "from sklearn import ensemble",
+    "from plotly import express as px",
+    "from sklearn import linear_model",
+    "from ax.service.managed_loop import optimize",
+    "from ax.plot.contour import plot_contour",
+    "from sklearn import neural_network",
+    "import pygad",
+    "import numpy as np",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Gaussian process\n\n<img src=\"../lectures/assets/gp_noise_gp.jpg\" width=600 alt=\"Visualization of a Gaussian Process regression with confidence intervals and noisy data points\">\n\n<img src=\"../lectures/assets/kernel_types.jpg\" width=600 alt=\"Visual gallery of different Gaussian Process kernels and their resulting functions\">",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 2,
+  "parent_lecture": "Lecture10"
+}

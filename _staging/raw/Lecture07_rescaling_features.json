@@ -1,0 +1,70 @@
+{
+  "id": "Lecture07_rescaling_features",
+  "markdown_content": "## Rescaling features\n\nLet's rescale the features and see how it compares to PCA (or any other dimensionality reduction approach).\nFirst, the original (unscaled) data:\n\nHere we see that Cement is the dominant feature in the input data.\nWhy?\n\nVery simply, that column had the largest absolute variance.\nThus it was the dominant column in the first component of the PCA.\n\nNow we can move on to the rescaled data for comparison:\n\nOnce the columns are normalized, the variance in every column is 1 and the PCA becomes more balanced.\nFinally, we can see what effect this has on the permutation importance:\n\nWe can see here that aside from some minor fluctuations (possibly due to uncontrolled random seed in `np.random.permutation`), there is no difference in the permutation feature importance before and after scaling.\nThis illustrates an important difference between unsupervised learning and supervised learning!",
+  "code_block": "\n\nfrom sklearn import decomposition\n\n# do pca\npca = decomposition.PCA()\nz = pca.fit_transform(x)\n\n# plot the result\nfig, ax = plt.subplots()\n_ = ax.scatter(*z[:, :2].T)\n\n# plot the components\nfig, ax = plt.subplots()\n_ = ax.bar(x.columns, pca.components_[0])\n_ = ax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\n\nprint( x.std(axis=0) )\n\nfrom sklearn import preprocessing\n\n# use a scaler to normalize the feature magnitude\nx_sc = preprocessing.StandardScaler().fit_transform( x.values )\nx_sc = pd.DataFrame( x_sc, columns=x.columns )  # make it back into a DataFrame\npca = decomposition.PCA()\nz = pca.fit_transform(x_sc)\n\n# plot the result\nfig, ax = plt.subplots()\n_ = ax.scatter(*z[:, :2].T)\n\n# plot the components\nfig, ax = plt.subplots()\n_ = ax.bar(x_sc.columns, pca.components_[0])\n_ = ax.set_xticklabels([it.split('(')[0].strip() for it in x_sc.columns], rotation=90)\n\n# compute baseline\nmodel = linear_model.LinearRegression().fit(x_sc, y)\nbaseline = calc_rmse(y, model.predict(x_sc))  # first score the baseline model with all columns\n\n# compute permutation importance\npermuted_sc = np.zeros_like(x_sc.columns)  # create empty array to store values\nfor i, col in enumerate(x_sc.columns):\n    x_permuted = x_sc.copy()  # don't scramble the original dataframe!\n    x_permuted[col] = np.random.permutation(x_sc[col])\n    permuted_sc[i] = calc_rmse(y, model.predict(x_permuted))  # score on the permuted column\n\n# plot result\nfig, ax = plt.subplots()\nax.bar(x.columns, permuted, label='Permuted')\nax.bar(x_sc.columns, permuted_sc, label='Permuted (S)', edgecolor='tab:orange', facecolor='none')\nax.set_xticklabels([it.split('(')[0].strip() for it in x_sc.columns], rotation=90)\nax.hlines(baseline, 0, len(x_sc.columns)-1, linestyles='dashed', label='Baseline')\nax.set_ylabel('Model RMSE')\nax.legend()",
+  "imports": [
+    "from sklearn import neighbors, tree, neural_network",
+    "import os",
+    "from sklearn import svm",
+    "from sklearn import metrics, preprocessing",
+    "import copy",
+    "from sklearn import model_selection",
+    "from sklearn import linear_model",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "from sklearn import ensemble",
+    "from sklearn import metrics",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Rescaling features\n\nLet's rescale the features and see how it compares to PCA (or any other dimensionality reduction approach).\nFirst, the original (unscaled) data:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import decomposition\n\n# do pca\npca = decomposition.PCA()\nz = pca.fit_transform(x)\n\n# plot the result\nfig, ax = plt.subplots()\n_ = ax.scatter(*z[:, :2].T)\n\n# plot the components\nfig, ax = plt.subplots()\n_ = ax.bar(x.columns, pca.components_[0])\n_ = ax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Here we see that Cement is the dominant feature in the input data.\nWhy?",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print( x.std(axis=0) )",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Very simply, that column had the largest absolute variance.\nThus it was the dominant column in the first component of the PCA.\n\nNow we can move on to the rescaled data for comparison:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import preprocessing\n\n# use a scaler to normalize the feature magnitude\nx_sc = preprocessing.StandardScaler().fit_transform( x.values )\nx_sc = pd.DataFrame( x_sc, columns=x.columns )  # make it back into a DataFrame\npca = decomposition.PCA()\nz = pca.fit_transform(x_sc)\n\n# plot the result\nfig, ax = plt.subplots()\n_ = ax.scatter(*z[:, :2].T)\n\n# plot the components\nfig, ax = plt.subplots()\n_ = ax.bar(x_sc.columns, pca.components_[0])\n_ = ax.set_xticklabels([it.split('(')[0].strip() for it in x_sc.columns], rotation=90)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Once the columns are normalized, the variance in every column is 1 and the PCA becomes more balanced.\nFinally, we can see what effect this has on the permutation importance:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# compute baseline\nmodel = linear_model.LinearRegression().fit(x_sc, y)\nbaseline = calc_rmse(y, model.predict(x_sc))  # first score the baseline model with all columns\n\n# compute permutation importance\npermuted_sc = np.zeros_like(x_sc.columns)  # create empty array to store values\nfor i, col in enumerate(x_sc.columns):\n    x_permuted = x_sc.copy()  # don't scramble the original dataframe!\n    x_permuted[col] = np.random.permutation(x_sc[col])\n    permuted_sc[i] = calc_rmse(y, model.predict(x_permuted))  # score on the permuted column\n\n# plot result\nfig, ax = plt.subplots()\nax.bar(x.columns, permuted, label='Permuted')\nax.bar(x_sc.columns, permuted_sc, label='Permuted (S)', edgecolor='tab:orange', facecolor='none')\nax.set_xticklabels([it.split('(')[0].strip() for it in x_sc.columns], rotation=90)\nax.hlines(baseline, 0, len(x_sc.columns)-1, linestyles='dashed', label='Baseline')\nax.set_ylabel('Model RMSE')\nax.legend()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can see here that aside from some minor fluctuations (possibly due to uncontrolled random seed in `np.random.permutation`), there is no difference in the permutation feature importance before and after scaling.\nThis illustrates an important difference between unsupervised learning and supervised learning!",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 3,
+  "parent_lecture": "Lecture07"
+}

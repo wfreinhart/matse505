@@ -1,0 +1,53 @@
+{
+  "id": "Lecture06_quick_review_of_pca",
+  "markdown_content": "## Quick review of PCA\n\nLet's review how the PCA projection works.\nWe'll go back to the alloy compositions data for this exercise.\n\nNow that we have this $z$ embedding, we can evaluate the data in this low-dimensional space.\n\nRemember these projections are nothing more than the product of the original array (shifted to have zero mean) with the principal component vectors:",
+  "code_block": "\n\nfrom sklearn import decomposition\n\nx = data.loc[:, ' C':'Nb + Ta']\n\npca = decomposition.PCA().fit(x)\nz = pca.transform(x)\nprint(z.shape)\n\nfrom matplotlib import pyplot as plt\n\nfig, ax = plt.subplots()\nax.scatter(*z[:, :2].T)  # shorthand way to plot the columns (1, 2) as (x, y)\nax.set_xlabel('PC1')\nax.set_ylabel('PC2')\n\n# we use x.values because x is actually a DataFrame! .values converts to array\nx_shift = x.values - np.mean(x.values, axis=0)\n# we use the transpose of pca.components_ based on the implementation in sklearn\nz_manual = np.dot(x_shift, pca.components_.T)\n\nfig, ax = plt.subplots()\nax.scatter(*z_manual[:, :2].T)  # shorthand way to plot the columns (1, 2) as (x, y)\nax.set_xlabel('PC1')\nax.set_ylabel('PC2')",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Quick review of PCA\n\nLet's review how the PCA projection works.\nWe'll go back to the alloy compositions data for this exercise.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import decomposition\n\nx = data.loc[:, ' C':'Nb + Ta']\n\npca = decomposition.PCA().fit(x)\nz = pca.transform(x)\nprint(z.shape)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now that we have this $z$ embedding, we can evaluate the data in this low-dimensional space.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from matplotlib import pyplot as plt\n\nfig, ax = plt.subplots()\nax.scatter(*z[:, :2].T)  # shorthand way to plot the columns (1, 2) as (x, y)\nax.set_xlabel('PC1')\nax.set_ylabel('PC2')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Remember these projections are nothing more than the product of the original array (shifted to have zero mean) with the principal component vectors:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# we use x.values because x is actually a DataFrame! .values converts to array\nx_shift = x.values - np.mean(x.values, axis=0)\n# we use the transpose of pca.components_ based on the implementation in sklearn\nz_manual = np.dot(x_shift, pca.components_.T)\n\nfig, ax = plt.subplots()\nax.scatter(*z_manual[:, :2].T)  # shorthand way to plot the columns (1, 2) as (x, y)\nax.set_xlabel('PC1')\nax.set_ylabel('PC2')",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 7,
+  "parent_lecture": "Lecture06"
+}

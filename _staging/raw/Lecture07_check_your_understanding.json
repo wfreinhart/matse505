@@ -1,0 +1,35 @@
+{
+  "id": "Lecture07_check_your_understanding",
+  "markdown_content": "## [Check your understanding]\n\n(a) It turns our `scikit-learn` has these built into the `inspection` submodule: [inspection.permutation_importance](https://scikit-learn.org/stable/modules/permutation_importance.html).\nUse this function to create a plot like the one above for the `RandomForestClassifier`.\n\n(b) Repeat this analysis for one or more additional classifiers.\nDoes the trend hold up?\nWhat can you learn about the dataset if the classifiers are consistent or inconsistent?",
+  "code_block": "\n\n",
+  "imports": [
+    "from sklearn import neighbors, tree, neural_network",
+    "import os",
+    "from sklearn import svm",
+    "from sklearn import metrics, preprocessing",
+    "import copy",
+    "from sklearn import model_selection",
+    "from sklearn import linear_model",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "from sklearn import ensemble",
+    "from sklearn import metrics",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\n(a) It turns our `scikit-learn` has these built into the `inspection` submodule: [inspection.permutation_importance](https://scikit-learn.org/stable/modules/permutation_importance.html).\nUse this function to create a plot like the one above for the `RandomForestClassifier`.\n\n(b) Repeat this analysis for one or more additional classifiers.\nDoes the trend hold up?\nWhat can you learn about the dataset if the classifiers are consistent or inconsistent?",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 18,
+  "parent_lecture": "Lecture07"
+}

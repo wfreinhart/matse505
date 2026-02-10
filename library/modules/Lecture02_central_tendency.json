@@ -4,8 +4,8 @@
   "sequence": 30,
   "parent_lecture": "Lecture02",
   "requirements": [
-    "tensors['x']",
-    "data"
+    "data",
+    "tensors['x']"
   ],
   "markdown_content": "## Central tendency\n\nThere are a few key quantities we might calculate for a single `Series`.\nThe first category would be \"central tendency\" like `mean` and `median`:\n\nWe can get these same values using the `mean()` and `median` methods of the `Series` object:\n\nNote this is just a wrapper for the `numpy` function that utilizes the data stored in the `Series`.\nWe can even see this by accessing the `values` attribute of the `Series`:\n\nThere it is -- `Series` is just wrapping a `numpy.ndarray` object under the hood!\n\nWhat about on the whole `DataFrame`?\n\nAgain, `DataFrame` is storing a bunch of `numpy.ndarray` objects.\n\nAnyways, we can continue to perform calculations with either the `numpy` functions directly or using the wrapper methods:\n\n> The warning is telling us that \"nuisance columns\" (non-numerical data) are being ignored but that future versions of `pandas` will not follow this behavior.",
   "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot  # import the pyplot submodule\n    from matplotlib import pyplot as plt  # use an alias\n    from scipy import stats\n    import numpy as np\n    import os\n    import pandas as pd\n    import requests\n    data = ctx.get('data')\n    x = ctx.get('tensors', {}).get('x')\n    \n    \n    print(np.mean(x), np.median(x))\n    \n    print(x.mean(), x.median())\n    \n    print(type(x.values))\n    print(x.values)\n    \n    print(type(data.values))\n    \n    np.mean(data, axis=0)\n    \n    data.mean(axis=0)"

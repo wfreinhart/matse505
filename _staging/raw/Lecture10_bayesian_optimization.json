@@ -1,0 +1,28 @@
+{
+  "id": "Lecture10_bayesian_optimization",
+  "markdown_content": "# Bayesian optimization\n\n<img src=\"../lectures/assets/bayesian_optimization_workflow.jpg\" width=600 alt=\"Flowchart of the Bayesian Optimization process: surrogate model, acquisition function, and objective evaluation\">",
+  "code_block": "",
+  "imports": [
+    "from sklearn import model_selection",
+    "from ax.utils.notebook.plotting import render",
+    "from sklearn import ensemble",
+    "from plotly import express as px",
+    "from sklearn import linear_model",
+    "from ax.service.managed_loop import optimize",
+    "from ax.plot.contour import plot_contour",
+    "from sklearn import neural_network",
+    "import pygad",
+    "import numpy as np",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Bayesian optimization\n\n<img src=\"../lectures/assets/bayesian_optimization_workflow.jpg\" width=600 alt=\"Flowchart of the Bayesian Optimization process: surrogate model, acquisition function, and objective evaluation\">",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 1,
+  "parent_lecture": "Lecture10"
+}

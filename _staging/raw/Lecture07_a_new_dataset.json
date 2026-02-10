@@ -1,0 +1,35 @@
+{
+  "id": "Lecture07_a_new_dataset",
+  "markdown_content": "## A new dataset",
+  "code_block": "\n\n# Set the path to the second data file\nfilename_cl = 'steels.csv'\nlocal_path_cl = f'../datasets/{filename_cl}'\ngithub_url_cl = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename_cl}'\n\n# Load the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path_cl):\n    data_cl = pd.read_csv(local_path_cl)\nelse:\n    data_cl = pd.read_csv(github_url_cl)\ndata_cl['Alloy family'] = [x[0] for x in data_cl['Alloy code']]\ndata_cl",
+  "imports": [
+    "from sklearn import neighbors, tree, neural_network",
+    "import os",
+    "from sklearn import svm",
+    "from sklearn import metrics, preprocessing",
+    "import copy",
+    "from sklearn import model_selection",
+    "from sklearn import linear_model",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "from sklearn import ensemble",
+    "from sklearn import metrics",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## A new dataset",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# Set the path to the second data file\nfilename_cl = 'steels.csv'\nlocal_path_cl = f'../datasets/{filename_cl}'\ngithub_url_cl = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename_cl}'\n\n# Load the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path_cl):\n    data_cl = pd.read_csv(local_path_cl)\nelse:\n    data_cl = pd.read_csv(github_url_cl)\ndata_cl['Alloy family'] = [x[0] for x in data_cl['Alloy code']]\ndata_cl",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 15,
+  "parent_lecture": "Lecture07"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "Lecture06_min_max_scaler",
+  "markdown_content": "## Min-Max scaler\n\nThis is the most straightforward preprocesser you could imagine -- it simply rescales each column to have a min value of 0 and max value of 1.\n\n$x' = \\frac{x - \\min(x)}{\\max(x) - \\min(x)}$\n\nOne interesting consequence of the `MinMaxScaler` is the mitigation of the outlier in `Tensile Strength (MPa)`.",
+  "code_block": "\n\nscaler = preprocessing.MinMaxScaler().fit(x)\nxs = scaler.transform(x)\n\npca = decomposition.PCA().fit(xs)\nP = pca.transform(xs)\n\nfig, ax = plt.subplots()\nim = ax.scatter(P[:, 0], P[:, 1], c=clean_data['V'])\nplt.colorbar(im)",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Min-Max scaler\n\nThis is the most straightforward preprocesser you could imagine -- it simply rescales each column to have a min value of 0 and max value of 1.\n\n$x' = \\frac{x - \\min(x)}{\\max(x) - \\min(x)}$",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "scaler = preprocessing.MinMaxScaler().fit(x)\nxs = scaler.transform(x)\n\npca = decomposition.PCA().fit(xs)\nP = pca.transform(xs)\n\nfig, ax = plt.subplots()\nim = ax.scatter(P[:, 0], P[:, 1], c=clean_data['V'])\nplt.colorbar(im)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "One interesting consequence of the `MinMaxScaler` is the mitigation of the outlier in `Tensile Strength (MPa)`.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 3,
+  "parent_lecture": "Lecture06"
+}

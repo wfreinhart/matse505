@@ -4,10 +4,10 @@
   "sequence": 22,
   "parent_lecture": "Lecture03",
   "requirements": [
-    "tensors['xtrain']",
     "tensors['evaluate_model']",
     "tensors['plot_model']",
     "tensors['ytrain']",
+    "tensors['xtrain']",
     "tensors['ytest']",
     "tensors['xtest']"
   ],

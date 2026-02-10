@@ -1,0 +1,9 @@
+{
+  "id": "Lecture09_0",
+  "type": "Foundational",
+  "sequence": 0,
+  "parent_lecture": "Lecture09",
+  "requirements": [],
+  "markdown_content": "\n\n> Reminder: detailed presentation plan due 3/14 for discussion.\nPresentations should be 8 minutes + 2 minutes for Q&A.\nDetailed instructions will be posted to Canvas soon.\n\nToday's topics:\n* Hyperparameter tuning\n* Cross-fold validation\n* Flavors of cross-validation",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from sklearn import ensemble\n    from sklearn import model_selection\n    from sklearn import neighbors\n    from sklearn import preprocessing\n    import numpy as np\n    import os\n    import pandas as pd\n    pass"
+}

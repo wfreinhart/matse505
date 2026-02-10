@@ -1,0 +1,55 @@
+{
+  "id": "Lecture09_stratified_cv",
+  "markdown_content": "## Stratified CV\n\nWe may want to take care to get a similar distribution in each fold.\nHere's what it looks like:\n\n<img src=\"../lectures/assets/stratified_cv.jpg\" width=600 alt=\"Schematic of Stratified K-Fold CV ensuring each fold has the same class distribution as the original data\">\n\nThis can improve model performance but is not always a good assumption.\nWhy would this be a problem?\n\nLet's see what it looks like on the cement data.\n\nNote this error message:\n\n`The least populated class in y has only 2 members, which is less than n_splits=5.`\n\nThis is an indication that the `StratifiedKFold` object is trying to split the observations according to unique `Age (day)` values, but because those values are continuous, it is having trouble performing even splits.\nIf we want to use stratification for continuous values, we should first transform the values to discrete bins.\nWe did this before using the `KBinsDiscretizer`:\n\nNow we try again to implement the `StratifiedKFold` but reference the `classes` instead of the `Age (day)`:\n\nAs you can see, the high and low values are more evenly distributed between different folds.\nThis will reduce variance between *replicas* (repeated splits).",
+  "code_block": "\n\n# define the fold splitting strategy\nfolds = model_selection.StratifiedKFold(n_splits=5)\n\nin_fold = np.zeros([x_sort.shape[0], folds.n_splits])\nthis_fold = np.zeros(x_sort.shape[0])\nfor i, (train_index, test_index) in enumerate(folds.split(x_sort, x_sort['Age (day)'])):\n    in_fold[test_index, i] = 1\n    this_fold[test_index] = i\n\norder = np.argsort(this_fold)\nx_sort_local = x_sort.iloc[order]\nin_fold = in_fold[order]\n\nfig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)\nax = axes[0]\n_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_ylabel('Age')\nax = axes[1]\n_ = ax.imshow(in_fold.T, interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_xlabel('Observation')\n_ = ax.set_ylabel('Fold')\nplt.subplots_adjust(hspace=0.05)\n\nfrom sklearn import preprocessing\n\n# create the discretizer object\ndiscretizer = preprocessing.KBinsDiscretizer(n_bins=4, encode='ordinal', strategy='uniform')\nclasses = discretizer.fit_transform(x_sort['Age (day)'].values.reshape(-1, 1))\n\nfig, ax = plt.subplots()\n_ = ax.plot(x_sort['Age (day)'], classes, '.')\n_ = ax.set_xlabel('Age (day)')\n_ = ax.set_ylabel('Discrete bin')\n\n# define the fold splitting strategy\nfolds = model_selection.StratifiedKFold(n_splits=5)\n\nin_fold = np.zeros([x_sort.shape[0], folds.n_splits])\nthis_fold = np.zeros(x_sort.shape[0])\nfor i, (train_index, test_index) in enumerate(folds.split(x_sort, classes)):\n    in_fold[test_index, i] = 1\n    this_fold[test_index] = i\n\norder = np.argsort(this_fold)\nx_sort_local = x_sort.iloc[order]\nin_fold = in_fold[order]\n\nfig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)\nax = axes[0]\n_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_ylabel('Age')\nax = axes[1]\n_ = ax.imshow(in_fold.T, interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_xlabel('Observation')\n_ = ax.set_ylabel('Fold')\nplt.subplots_adjust(hspace=0.05)",
+  "imports": [
+    "from sklearn import ensemble",
+    "import pandas as pd",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import os",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Stratified CV\n\nWe may want to take care to get a similar distribution in each fold.\nHere's what it looks like:\n\n<img src=\"../lectures/assets/stratified_cv.jpg\" width=600 alt=\"Schematic of Stratified K-Fold CV ensuring each fold has the same class distribution as the original data\">\n\nThis can improve model performance but is not always a good assumption.\nWhy would this be a problem?\n\nLet's see what it looks like on the cement data.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# define the fold splitting strategy\nfolds = model_selection.StratifiedKFold(n_splits=5)\n\nin_fold = np.zeros([x_sort.shape[0], folds.n_splits])\nthis_fold = np.zeros(x_sort.shape[0])\nfor i, (train_index, test_index) in enumerate(folds.split(x_sort, x_sort['Age (day)'])):\n    in_fold[test_index, i] = 1\n    this_fold[test_index] = i\n\norder = np.argsort(this_fold)\nx_sort_local = x_sort.iloc[order]\nin_fold = in_fold[order]\n\nfig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)\nax = axes[0]\n_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_ylabel('Age')\nax = axes[1]\n_ = ax.imshow(in_fold.T, interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_xlabel('Observation')\n_ = ax.set_ylabel('Fold')\nplt.subplots_adjust(hspace=0.05)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Note this error message:\n\n`The least populated class in y has only 2 members, which is less than n_splits=5.`\n\nThis is an indication that the `StratifiedKFold` object is trying to split the observations according to unique `Age (day)` values, but because those values are continuous, it is having trouble performing even splits.\nIf we want to use stratification for continuous values, we should first transform the values to discrete bins.\nWe did this before using the `KBinsDiscretizer`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import preprocessing\n\n# create the discretizer object\ndiscretizer = preprocessing.KBinsDiscretizer(n_bins=4, encode='ordinal', strategy='uniform')\nclasses = discretizer.fit_transform(x_sort['Age (day)'].values.reshape(-1, 1))\n\nfig, ax = plt.subplots()\n_ = ax.plot(x_sort['Age (day)'], classes, '.')\n_ = ax.set_xlabel('Age (day)')\n_ = ax.set_ylabel('Discrete bin')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now we try again to implement the `StratifiedKFold` but reference the `classes` instead of the `Age (day)`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# define the fold splitting strategy\nfolds = model_selection.StratifiedKFold(n_splits=5)\n\nin_fold = np.zeros([x_sort.shape[0], folds.n_splits])\nthis_fold = np.zeros(x_sort.shape[0])\nfor i, (train_index, test_index) in enumerate(folds.split(x_sort, classes)):\n    in_fold[test_index, i] = 1\n    this_fold[test_index] = i\n\norder = np.argsort(this_fold)\nx_sort_local = x_sort.iloc[order]\nin_fold = in_fold[order]\n\nfig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)\nax = axes[0]\n_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_ylabel('Age')\nax = axes[1]\n_ = ax.imshow(in_fold.T, interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_xlabel('Observation')\n_ = ax.set_ylabel('Fold')\nplt.subplots_adjust(hspace=0.05)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "As you can see, the high and low values are more evenly distributed between different folds.\nThis will reduce variance between *replicas* (repeated splits).",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 18,
+  "parent_lecture": "Lecture09"
+}

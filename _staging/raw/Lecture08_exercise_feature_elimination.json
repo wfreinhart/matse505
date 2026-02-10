@@ -1,0 +1,38 @@
+{
+  "id": "Lecture08_exercise_feature_elimination",
+  "markdown_content": "## [Exercise: feature elimination]\n\nTry iteratively (automatically) removing features using drop-column feature importance until a specific $k$ number of features are left.\nEvaluate the performance each time.\nCreate a chart showing the performance with each number of features.\n\nAugment the features with polynomial interaction terms.\nThen repeat the exercise above.\n> If done correctly, you should be able to use the same code!\nJust change the input variable (features).",
+  "code_block": "\n\ndef choose_worst_feature(model, x, y):\n    baseline, dropped = drop_column_importance(model, x, y)\n    return baseline, dropped, np.argmin(dropped)\n\ndef make_plot(x, dropped):\n    fig, ax = plt.subplots()\n    ax.bar(x.columns, dropped, label='Dropped')\n    ax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\n    ax.hlines(baseline, 0, len(x.columns)-1, linestyles='dashed', label='Baseline')\n    ax.set_ylabel('Model RMSE')\n    ax.legend(loc='lower center')\n\n    return fig\n\nx_trim = x.copy()\nrmse = []\n\nmodel = linear_model.LinearRegression()\n\nfor k in range(x_trim.shape[1]-1):\n    baseline, dropped, worst = choose_worst_feature(model, x_trim, y)\n    fig = make_plot(x_trim, dropped)\n    rmse.append(baseline)\n    print(x_trim.columns[worst])\n    x_trim = x_trim.drop(columns=[x_trim.columns[worst]])\n\n# print( x_trim.columns )\n\nfig, ax = plt.subplots()\n_ = ax.plot(rmse)",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Exercise: feature elimination]\n\nTry iteratively (automatically) removing features using drop-column feature importance until a specific $k$ number of features are left.\nEvaluate the performance each time.\nCreate a chart showing the performance with each number of features.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "def choose_worst_feature(model, x, y):\n    baseline, dropped = drop_column_importance(model, x, y)\n    return baseline, dropped, np.argmin(dropped)\n\ndef make_plot(x, dropped):\n    fig, ax = plt.subplots()\n    ax.bar(x.columns, dropped, label='Dropped')\n    ax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\n    ax.hlines(baseline, 0, len(x.columns)-1, linestyles='dashed', label='Baseline')\n    ax.set_ylabel('Model RMSE')\n    ax.legend(loc='lower center')\n\n    return fig\n\nx_trim = x.copy()\nrmse = []\n\nmodel = linear_model.LinearRegression()\n\nfor k in range(x_trim.shape[1]-1):\n    baseline, dropped, worst = choose_worst_feature(model, x_trim, y)\n    fig = make_plot(x_trim, dropped)\n    rmse.append(baseline)\n    print(x_trim.columns[worst])\n    x_trim = x_trim.drop(columns=[x_trim.columns[worst]])\n\n# print( x_trim.columns )\n\nfig, ax = plt.subplots()\n_ = ax.plot(rmse)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Augment the features with polynomial interaction terms.\nThen repeat the exercise above.\n> If done correctly, you should be able to use the same code!\nJust change the input variable (features).",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 11,
+  "parent_lecture": "Lecture08"
+}

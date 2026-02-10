@@ -1,0 +1,38 @@
+{
+  "id": "Lecture08_exercise_expert_knowledge",
+  "markdown_content": "## [Exercise: Expert knowledge]\n\nIn the above case, we are using binning to approximate something like the group and period information in the periodic table.\nThere are often cases where \"expert knowledge\" can be infused to greatly improve the result.\nTry introducing group and period information from [this periodic table dataset](https://gist.github.com/GoodmanSciences/c2dd862cd38f21b0ad36b8f96b4bf1ee) to improve the performance of the Linear Regression model.\n\nFollow these steps:\n* Either download the file or fetch it with `requests`\n* Load it with `pandas`\n* Create new columns in our `data` DataFrame that include Period and Group\n* Try fitting a Linear Regression model with this new data",
+  "code_block": "\n\nelements = pd.read_csv('../datasets/elements.csv', index_col='Symbol')\nelements\n\ndata['Period'] = [elements.loc[it, 'Period'] for it in data.index]\ndata['Group'] = [elements.loc[it, 'Group'] for it in data.index]\n\nclean_data = data.dropna(subset=['Atomic Mass', 'Period', 'Group', 'Ionization Energies (eV)'])\nx = clean_data.loc[:, ['Atomic Mass', 'Period', 'Group']]\ny = clean_data.dropna(subset=['Atomic Mass', 'Period', 'Group', 'Ionization Energies (eV)']).loc[:, 'Ionization Energies (eV)']\n\nfig, ax = plt.subplots()\n_ = ax.plot(x['Atomic Mass'], y, '.')\n\nmodel = linear_model.LinearRegression().fit(x, y)\ny_hat = model.predict(x)\nprint( 'R2 = ', model.score(x, y) )\n\n_ = ax.plot(x['Atomic Mass'], y_hat, '.')",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Exercise: Expert knowledge]\n\nIn the above case, we are using binning to approximate something like the group and period information in the periodic table.\nThere are often cases where \"expert knowledge\" can be infused to greatly improve the result.\nTry introducing group and period information from [this periodic table dataset](https://gist.github.com/GoodmanSciences/c2dd862cd38f21b0ad36b8f96b4bf1ee) to improve the performance of the Linear Regression model.\n\nFollow these steps:\n* Either download the file or fetch it with `requests`\n* Load it with `pandas`\n* Create new columns in our `data` DataFrame that include Period and Group\n* Try fitting a Linear Regression model with this new data",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "elements = pd.read_csv('../datasets/elements.csv', index_col='Symbol')\nelements",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "data['Period'] = [elements.loc[it, 'Period'] for it in data.index]\ndata['Group'] = [elements.loc[it, 'Group'] for it in data.index]\n\nclean_data = data.dropna(subset=['Atomic Mass', 'Period', 'Group', 'Ionization Energies (eV)'])\nx = clean_data.loc[:, ['Atomic Mass', 'Period', 'Group']]\ny = clean_data.dropna(subset=['Atomic Mass', 'Period', 'Group', 'Ionization Energies (eV)']).loc[:, 'Ionization Energies (eV)']\n\nfig, ax = plt.subplots()\n_ = ax.plot(x['Atomic Mass'], y, '.')\n\nmodel = linear_model.LinearRegression().fit(x, y)\ny_hat = model.predict(x)\nprint( 'R2 = ', model.score(x, y) )\n\n_ = ax.plot(x['Atomic Mass'], y_hat, '.')",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 7,
+  "parent_lecture": "Lecture08"
+}

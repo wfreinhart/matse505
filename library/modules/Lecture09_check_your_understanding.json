@@ -1,0 +1,9 @@
+{
+  "id": "Lecture09_check_your_understanding",
+  "type": "Foundational",
+  "sequence": 21,
+  "parent_lecture": "Lecture09",
+  "requirements": [],
+  "markdown_content": "## [Check your understanding]\n\nApply Group K-Fold CV to split the data by `Age (day)` feature groups.\nThis will allow you to test the performance when exposed to new values not seen in training.\nEvaluate the model validation performance on interpolation and extrapolation tasks.\n\n> Note: the [`scikit-learn` documentation](https://scikit-learn.org/stable/modules/cross_validation.html) has a great resource explaning different kinds of CV.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from sklearn import ensemble\n    from sklearn import model_selection\n    from sklearn import neighbors\n    from sklearn import preprocessing\n    import numpy as np\n    import os\n    import pandas as pd\n    pass"
+}

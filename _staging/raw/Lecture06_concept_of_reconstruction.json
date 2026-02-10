@@ -1,0 +1,43 @@
+{
+  "id": "Lecture06_concept_of_reconstruction",
+  "markdown_content": "## Concept of reconstruction\n\nWe can also take these embeddings and \"un-project\" them back to the originals.\n(Remember this embedding operation was basically a rotation).\nLet's evaluate these in the 2D plane that corresponds to the greatest variance in the data:",
+  "code_block": "\n\nascending = np.argsort(pca.components_[0])\ndescending = ascending[::-1]\ntop2 = descending[:2]\nprint(top2)\nprint(x.columns[top2])\n\nx_recon = np.dot(z_manual, pca.components_) + np.mean(x.values, axis=0)\n\nfig, ax = plt.subplots()\nax.scatter(*x_recon[:, top2].T, label='Reconstruction')\nax.scatter(*x.values[:, top2].T, label='Original',\n           marker='s', edgecolor='tab:orange', facecolor='none')\nax.legend()",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Concept of reconstruction",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "We can also take these embeddings and \"un-project\" them back to the originals.\n(Remember this embedding operation was basically a rotation).\nLet's evaluate these in the 2D plane that corresponds to the greatest variance in the data:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "ascending = np.argsort(pca.components_[0])\ndescending = ascending[::-1]\ntop2 = descending[:2]\nprint(top2)\nprint(x.columns[top2])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "x_recon = np.dot(z_manual, pca.components_) + np.mean(x.values, axis=0)\n\nfig, ax = plt.subplots()\nax.scatter(*x_recon[:, top2].T, label='Reconstruction')\nax.scatter(*x.values[:, top2].T, label='Original',\n           marker='s', edgecolor='tab:orange', facecolor='none')\nax.legend()",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 8,
+  "parent_lecture": "Lecture06"
+}

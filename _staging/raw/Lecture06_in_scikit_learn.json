@@ -1,0 +1,73 @@
+{
+  "id": "Lecture06_in_scikit_learn",
+  "markdown_content": "## In `scikit-learn`\n\nLet's try out one of the `sklearn.semi_supervised` builtins:\n\nLet's remove 99% of the data by replacing the class labels with `-1` (per the instructions in the [documentation](https://scikit-learn.org/stable/modules/generated/sklearn.semi_supervised.LabelSpreading.html#sklearn.semi_supervised.LabelSpreading)):\n\nWe can visualize the result of this \"un-labeling\" by splitting the dataset up in the scatter plot:\n\nNow we fit the model and check its performance against the full labeled dataset:\n\nThis performance may surprise you.\nLet's look at the result:",
+  "code_block": "\n\nfrom sklearn import semi_supervised\n\nx = data.loc[:, ' C':'Nb + Ta']\np = decomposition.PCA().fit_transform(x)\n\nimport numpy as np\n\nremove_n = int(0.99 * x.shape[0])  # remove 98% of the labels!\n\nsparse_y = np.array(y)  # create a copy of the labels\n\nrng = np.random.RandomState(0)  # set random state so we always get same result\nremove_idx = rng.choice(np.arange(y.shape[0]), remove_n, replace=False)\n\nsparse_y[remove_idx] = -1  # remove some labels\n\nidx = sparse_y > 0  # separate the plotted points into labeled/unlabeled\n\nfig, ax = plt.subplots()\nax.scatter(p[idx, 0], p[idx, 1], c=sparse_y[idx])\nax.plot(p[~idx, 0], p[~idx, 1], '.', color=np.ones(3)*0.8, zorder=0)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')\n\nmodel = semi_supervised.LabelSpreading().fit(p, sparse_y)\nprint(model.score(p, y))\n\npredicted_class = model.predict(p)\nincorrect = (predicted_class^y).astype(bool)\n\nfig, ax = plt.subplots()\nax.scatter(p[:, 0], p[:, 1], c=predicted_class)\nax.plot(p[incorrect, 0], p[incorrect, 1], 'rx')\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## In `scikit-learn`\n\nLet's try out one of the `sklearn.semi_supervised` builtins:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import semi_supervised\n\nx = data.loc[:, ' C':'Nb + Ta']\np = decomposition.PCA().fit_transform(x)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Let's remove 99% of the data by replacing the class labels with `-1` (per the instructions in the [documentation](https://scikit-learn.org/stable/modules/generated/sklearn.semi_supervised.LabelSpreading.html#sklearn.semi_supervised.LabelSpreading)):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import numpy as np\n\nremove_n = int(0.99 * x.shape[0])  # remove 98% of the labels!\n\nsparse_y = np.array(y)  # create a copy of the labels\n\nrng = np.random.RandomState(0)  # set random state so we always get same result\nremove_idx = rng.choice(np.arange(y.shape[0]), remove_n, replace=False)\n\nsparse_y[remove_idx] = -1  # remove some labels",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can visualize the result of this \"un-labeling\" by splitting the dataset up in the scatter plot:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "idx = sparse_y > 0  # separate the plotted points into labeled/unlabeled\n\nfig, ax = plt.subplots()\nax.scatter(p[idx, 0], p[idx, 1], c=sparse_y[idx])\nax.plot(p[~idx, 0], p[~idx, 1], '.', color=np.ones(3)*0.8, zorder=0)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now we fit the model and check its performance against the full labeled dataset:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model = semi_supervised.LabelSpreading().fit(p, sparse_y)\nprint(model.score(p, y))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This performance may surprise you.\nLet's look at the result:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "predicted_class = model.predict(p)\nincorrect = (predicted_class^y).astype(bool)\n\nfig, ax = plt.subplots()\nax.scatter(p[:, 0], p[:, 1], c=predicted_class)\nax.plot(p[incorrect, 0], p[incorrect, 1], 'rx')\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 18,
+  "parent_lecture": "Lecture06"
+}

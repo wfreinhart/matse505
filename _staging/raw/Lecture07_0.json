@@ -1,0 +1,30 @@
+{
+  "id": "Lecture07_0",
+  "markdown_content": "\n\nToday's topics:\n* Feature importance\n  * Concept\n  * Permutation\n  * Drop column\n  * Regressors versus classifiers",
+  "code_block": "",
+  "imports": [
+    "from sklearn import neighbors, tree, neural_network",
+    "import os",
+    "from sklearn import svm",
+    "from sklearn import metrics, preprocessing",
+    "import copy",
+    "from sklearn import model_selection",
+    "from sklearn import linear_model",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "from sklearn import ensemble",
+    "from sklearn import metrics",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "Today's topics:\n* Feature importance\n  * Concept\n  * Permutation\n  * Drop column\n  * Regressors versus classifiers",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 0,
+  "parent_lecture": "Lecture07"
+}

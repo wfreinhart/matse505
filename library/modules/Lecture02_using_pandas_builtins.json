@@ -5,8 +5,8 @@
   "parent_lecture": "Lecture02",
   "requirements": [
     "tensors['y']",
-    "tensors['z']",
     "data",
+    "tensors['z']",
     "tensors['x']"
   ],
   "markdown_content": "## Using `pandas` builtins\n\nI personally don't use `pandas` for plotting, but you should know its objects include handy wrappers for `pyplot`.\n\nFor example, a method of the `Series` object:\n\nWe can plot multiple `Series` using a method of the `DataFrame`:\n\nAnd finally we can introduce the (x,y)+color scatter plot from above:\n\nNote the `type` that is returned -- `matplotlib.axes._subplots.AxesSubplot`!\nAll this is doing is sending some predefined commands to `pyplot`.\nIf you find this syntax helpful you are more than welcome to use it.\nI don't simply because I don't always use `DataFrame` objects to store my data.",

@@ -1,0 +1,9 @@
+{
+  "id": "Lecture07_0",
+  "type": "Foundational",
+  "sequence": 0,
+  "parent_lecture": "Lecture07",
+  "requirements": [],
+  "markdown_content": "\n\nToday's topics:\n* Feature importance\n  * Concept\n  * Permutation\n  * Drop column\n  * Regressors versus classifiers",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from sklearn import decomposition\n    from sklearn import ensemble\n    from sklearn import linear_model\n    from sklearn import metrics\n    from sklearn import metrics, preprocessing\n    from sklearn import model_selection\n    from sklearn import neighbors, tree, neural_network\n    from sklearn import preprocessing\n    from sklearn import svm\n    import copy\n    import numpy as np\n    import os\n    import pandas as pd\n    pass"
+}

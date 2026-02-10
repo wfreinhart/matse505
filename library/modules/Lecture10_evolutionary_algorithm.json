@@ -1,0 +1,9 @@
+{
+  "id": "Lecture10_evolutionary_algorithm",
+  "type": "Foundational",
+  "sequence": 8,
+  "parent_lecture": "Lecture10",
+  "requirements": [],
+  "markdown_content": "# Evolutionary algorithm",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from ax.plot.contour import plot_contour\n    from ax.service.managed_loop import optimize\n    from ax.utils.notebook.plotting import render\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from sklearn import ensemble\n    from sklearn import linear_model\n    from sklearn import model_selection\n    from sklearn import neighbors\n    from sklearn import neural_network\n    import numpy as np\n    import pygad\n    pass"
+}

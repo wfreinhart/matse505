@@ -1,0 +1,30 @@
+{
+  "id": "Lecture09_0",
+  "markdown_content": "\n\n> Reminder: detailed presentation plan due 3/14 for discussion.\nPresentations should be 8 minutes + 2 minutes for Q&A.\nDetailed instructions will be posted to Canvas soon.\n\nToday's topics:\n* Hyperparameter tuning\n* Cross-fold validation\n* Flavors of cross-validation",
+  "code_block": "",
+  "imports": [
+    "from sklearn import ensemble",
+    "import pandas as pd",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import os",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "> Reminder: detailed presentation plan due 3/14 for discussion.\nPresentations should be 8 minutes + 2 minutes for Q&A.\nDetailed instructions will be posted to Canvas soon.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "Today's topics:\n* Hyperparameter tuning\n* Cross-fold validation\n* Flavors of cross-validation",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 0,
+  "parent_lecture": "Lecture09"
+}

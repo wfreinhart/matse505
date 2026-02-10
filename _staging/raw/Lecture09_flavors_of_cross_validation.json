@@ -1,0 +1,25 @@
+{
+  "id": "Lecture09_flavors_of_cross_validation",
+  "markdown_content": "# Flavors of cross-validation\n\nThere are many more sophisticated schemes that can be applied when the situation calls for it.\nLet's review some of these variations.",
+  "code_block": "",
+  "imports": [
+    "from sklearn import ensemble",
+    "import pandas as pd",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import os",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Flavors of cross-validation\n\nThere are many more sophisticated schemes that can be applied when the situation calls for it.\nLet's review some of these variations.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 13,
+  "parent_lecture": "Lecture09"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "Lecture06_power_transformer",
+  "markdown_content": "## Power transformer\n\nThe power transformer is a scheme to make a non-Gaussian distribution look more Gaussian.\nHere's a visual example:\n\n<img src=\"../lectures/assets/power_transformer.jpg\" width=600 alt=\"Effect of PowerTransformer on skewed data distributions to make them more Gaussian-like\">\n\nWhy would we do this?\nThis is an attempt to avoid the long tails dominating the reduced space.\n\nHere the power transformer provides a middle ground between the standard scaler and min-max scaler.\nNote that all three of these preprocessing methods make the point cloud more isotropic and portray additional features compared to the PCA on raw data.\n\nA quick note on the inverse transform:",
+  "code_block": "\n\nscaler = preprocessing.PowerTransformer().fit(x)\nxs = scaler.transform(x)\n\npca = decomposition.PCA().fit(xs)\nP = pca.transform(xs)\n\nfig, ax = plt.subplots()\nim = ax.scatter(P[:, 0], P[:, 1], c=clean_data['V'])\nplt.colorbar(im)\n\nprint( 'original', x.values[0] )\nscaler = preprocessing.StandardScaler().fit(x)\nxs = scaler.transform(x)\nprint( 'scaled', xs[0] )\nprint( 'reconstructed', scaler.inverse_transform(xs)[0] )",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Power transformer\n\nThe power transformer is a scheme to make a non-Gaussian distribution look more Gaussian.\nHere's a visual example:\n\n<img src=\"../lectures/assets/power_transformer.jpg\" width=600 alt=\"Effect of PowerTransformer on skewed data distributions to make them more Gaussian-like\">\n\nWhy would we do this?\nThis is an attempt to avoid the long tails dominating the reduced space.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "scaler = preprocessing.PowerTransformer().fit(x)\nxs = scaler.transform(x)\n\npca = decomposition.PCA().fit(xs)\nP = pca.transform(xs)\n\nfig, ax = plt.subplots()\nim = ax.scatter(P[:, 0], P[:, 1], c=clean_data['V'])\nplt.colorbar(im)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Here the power transformer provides a middle ground between the standard scaler and min-max scaler.\nNote that all three of these preprocessing methods make the point cloud more isotropic and portray additional features compared to the PCA on raw data.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "A quick note on the inverse transform:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print( 'original', x.values[0] )\nscaler = preprocessing.StandardScaler().fit(x)\nxs = scaler.transform(x)\nprint( 'scaled', xs[0] )\nprint( 'reconstructed', scaler.inverse_transform(xs)[0] )",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 4,
+  "parent_lecture": "Lecture06"
+}

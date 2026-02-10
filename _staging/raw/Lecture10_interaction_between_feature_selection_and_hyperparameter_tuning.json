@@ -1,0 +1,28 @@
+{
+  "id": "Lecture10_interaction_between_feature_selection_and_hyperparameter_tuning",
+  "markdown_content": "## Interaction between feature selection and hyperparameter tuning\n\nThis feature selection scheme is only half of a complete workflow -- each of these feature subsets will have different optimal hyperparameters!\nFor instance, imagine the extreme cases where we prune all but one feature.\nOf course the optimal $k$ could be different here than in the case where we include all the features.\nLikewise with distance weighting.\nTo be sure you have the best possible model, you need to optimize features and hyperparameters together.\nThis often requires training thousands of models!\n\nFor this reason, there is always a balance between practicality and performance.\nIf you will spend hundreds or thousands of compute hours and gain only 1% improved performance you are probably wasting your time and resources.\nAs a result, it's best to start small and work your way up in complexity if you are seeing improvement.",
+  "code_block": "",
+  "imports": [
+    "from sklearn import model_selection",
+    "from ax.utils.notebook.plotting import render",
+    "from sklearn import ensemble",
+    "from plotly import express as px",
+    "from sklearn import linear_model",
+    "from ax.service.managed_loop import optimize",
+    "from ax.plot.contour import plot_contour",
+    "from sklearn import neural_network",
+    "import pygad",
+    "import numpy as np",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Interaction between feature selection and hyperparameter tuning\n\nThis feature selection scheme is only half of a complete workflow -- each of these feature subsets will have different optimal hyperparameters!\nFor instance, imagine the extreme cases where we prune all but one feature.\nOf course the optimal $k$ could be different here than in the case where we include all the features.\nLikewise with distance weighting.\nTo be sure you have the best possible model, you need to optimize features and hyperparameters together.\nThis often requires training thousands of models!\n\nFor this reason, there is always a balance between practicality and performance.\nIf you will spend hundreds or thousands of compute hours and gain only 1% improved performance you are probably wasting your time and resources.\nAs a result, it's best to start small and work your way up in complexity if you are seeing improvement.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 11,
+  "parent_lecture": "Lecture10"
+}

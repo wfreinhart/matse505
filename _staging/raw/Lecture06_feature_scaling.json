@@ -1,0 +1,33 @@
+{
+  "id": "Lecture06_feature_scaling",
+  "markdown_content": "# Feature scaling\n\nOne thing to watch out for when doing unsupervised representation learning is features with different units. If one of the features has magnitudes of $10^6$ and another has $10^1$, the big one will completely dominate the embedding. We can get around this using **feature scaling**.\n\n<img src=\"../lectures/assets/feature_scaling.jpg\" width=600 alt=\"Comparison of data distribution before and after different scaling methods: StandardScaler, MinMaxScaler, and RobustScaler\">\n\nMaking sure the data are roughly isotropic really helps us capture more information in the embedding.",
+  "code_block": "",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Feature scaling",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "One thing to watch out for when doing unsupervised representation learning is features with different units. If one of the features has magnitudes of $10^6$ and another has $10^1$, the big one will completely dominate the embedding. We can get around this using **feature scaling**.\n\n<img src=\"../lectures/assets/feature_scaling.jpg\" width=600 alt=\"Comparison of data distribution before and after different scaling methods: StandardScaler, MinMaxScaler, and RobustScaler\">\n\nMaking sure the data are roughly isotropic really helps us capture more information in the embedding.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 1,
+  "parent_lecture": "Lecture06"
+}

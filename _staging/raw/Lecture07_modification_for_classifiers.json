@@ -1,0 +1,80 @@
+{
+  "id": "Lecture07_modification_for_classifiers",
+  "markdown_content": "## Modification for classifiers\n\nWe need to use new `constructors_cl` and specify `metric=metrics.accuracy_score` as a kwarg of `permutation_importance`:\n\nAgain, let's check the baseline accuracy of our models:\n\nHere all the models perform at nearly 100% accuracy -- even on test data.\nRemember this was a trivial classification problem.\n\nAnd now we can visualize the change in performance with permuted columns:\n\nWe can see that Mn, Ni, Cr, and Mo are the key elements that control the classification decisions for most of the models.\nDecision Tree picks up V and K-Neighbors picks up Mn, but the others don't.\n\nLet's repeat this with drop column importance:\n\nPlotting the drop-column feature importance:\n\nOverall this looks similar to the results from permutation importance, except much of the noise for elements other than Cr and Mo is removed.\nIn other words, none of the models mistakenly attribute much weight to elements other than Cr and Mo.",
+  "code_block": "\n\nfrom sklearn import metrics, preprocessing\n\nx_cl = data_cl.loc[:, ' C':'Nb + Ta']\ny_cl = preprocessing.LabelEncoder().fit_transform(data_cl['Alloy family'])\n\nxtrain_cl, xtest_cl, ytrain_cl, ytest_cl = model_selection.train_test_split(x_cl, y_cl, test_size=0.20, shuffle=True, random_state=0)\n\n# make a list of model constructors that can be called like constructor().fit(x, y)\nconstructors_cl = [ensemble.RandomForestClassifier,\n                  neighbors.KNeighborsClassifier,\n                  tree.DecisionTreeClassifier,\n                  neural_network.MLPClassifier,\n                  ]\n\nresults = {}\nfor constructor in constructors_cl:\n    try:\n        model = constructor(random_state=0).fit(xtrain_cl, ytrain_cl)\n    except:\n        model = constructor().fit(xtrain_cl, ytrain_cl)\n    b, p = permutation_importance(model, xtest_cl, ytest_cl, metric=metrics.accuracy_score)\n    # save the results to a dictionary for later:\n    results[str(constructor)] = {'baseline': b, 'permuted': p}\n\nbaseline = []\nnames = []\nfor model_name, scores in results.items():\n    baseline.append( scores['baseline'] )\n    short_model_name = model_name.split('.')[3][:-2]  # cleans up the names\n    names.append( short_model_name )\n\nxticks = np.arange(len(constructors_cl))\n\nfig, ax = plt.subplots()\nax.bar(xticks, baseline)\nax.set_xticks(xticks)\nax.set_xticklabels(names, rotation=45, horizontalalignment='right')\nax.set_ylabel('Baseline Accuracy')\n\nfig, ax = plt.subplots()\n\nxticks = np.arange(x_cl.columns.shape[0])\nfor model_name, scores in results.items():\n    delta = scores['permuted'] - scores['baseline']\n    short_model_name = model_name.split('.')[3][:-2]  # cleans up the names\n    ax.plot(xticks, delta, 's-', label=short_model_name)\n\nax.set_xticks(xticks)\nax.set_xticklabels([it for it in x_cl.columns], rotation=90)\nax.set_ylabel('Delta Model Accuracy')\nax.legend()\n\nresults = {}\nfor constructor in constructors_cl:\n    try:\n        model = constructor(random_state=0)  # instantiate the model object from class name\n    except:\n        model = constructor()\n    b, d = drop_column_importance(model, x_cl, y_cl, metric=metrics.accuracy_score)\n    # save the results to a dictionary for later:\n    results[str(constructor)] = {'baseline': b, 'dropped': d}\n\nfig, ax = plt.subplots()\n\nxticks = np.arange(x_cl.columns.shape[0])\nfor model_name, scores in results.items():\n    delta = scores['dropped'] - scores['baseline']\n    short_model_name = model_name.split('.')[3][:-2]  # cleans up the names\n    ax.plot(xticks, delta, 's-', label=short_model_name)\n\nax.set_xticks(xticks)\nax.set_xticklabels([it for it in x_cl.columns], rotation=90)\nax.set_ylabel('Delta Model Accuracy')\nax.legend()",
+  "imports": [
+    "from sklearn import neighbors, tree, neural_network",
+    "import os",
+    "from sklearn import svm",
+    "from sklearn import metrics, preprocessing",
+    "import copy",
+    "from sklearn import model_selection",
+    "from sklearn import linear_model",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "from sklearn import ensemble",
+    "from sklearn import metrics",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Modification for classifiers\n\nWe need to use new `constructors_cl` and specify `metric=metrics.accuracy_score` as a kwarg of `permutation_importance`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import metrics, preprocessing\n\nx_cl = data_cl.loc[:, ' C':'Nb + Ta']\ny_cl = preprocessing.LabelEncoder().fit_transform(data_cl['Alloy family'])\n\nxtrain_cl, xtest_cl, ytrain_cl, ytest_cl = model_selection.train_test_split(x_cl, y_cl, test_size=0.20, shuffle=True, random_state=0)\n\n# make a list of model constructors that can be called like constructor().fit(x, y)\nconstructors_cl = [ensemble.RandomForestClassifier,\n                  neighbors.KNeighborsClassifier,\n                  tree.DecisionTreeClassifier,\n                  neural_network.MLPClassifier,\n                  ]\n\nresults = {}\nfor constructor in constructors_cl:\n    try:\n        model = constructor(random_state=0).fit(xtrain_cl, ytrain_cl)\n    except:\n        model = constructor().fit(xtrain_cl, ytrain_cl)\n    b, p = permutation_importance(model, xtest_cl, ytest_cl, metric=metrics.accuracy_score)\n    # save the results to a dictionary for later:\n    results[str(constructor)] = {'baseline': b, 'permuted': p}",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Again, let's check the baseline accuracy of our models:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "baseline = []\nnames = []\nfor model_name, scores in results.items():\n    baseline.append( scores['baseline'] )\n    short_model_name = model_name.split('.')[3][:-2]  # cleans up the names\n    names.append( short_model_name )\n\nxticks = np.arange(len(constructors_cl))\n\nfig, ax = plt.subplots()\nax.bar(xticks, baseline)\nax.set_xticks(xticks)\nax.set_xticklabels(names, rotation=45, horizontalalignment='right')\nax.set_ylabel('Baseline Accuracy')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Here all the models perform at nearly 100% accuracy -- even on test data.\nRemember this was a trivial classification problem.\n\nAnd now we can visualize the change in performance with permuted columns:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\n\nxticks = np.arange(x_cl.columns.shape[0])\nfor model_name, scores in results.items():\n    delta = scores['permuted'] - scores['baseline']\n    short_model_name = model_name.split('.')[3][:-2]  # cleans up the names\n    ax.plot(xticks, delta, 's-', label=short_model_name)\n\nax.set_xticks(xticks)\nax.set_xticklabels([it for it in x_cl.columns], rotation=90)\nax.set_ylabel('Delta Model Accuracy')\nax.legend()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can see that Mn, Ni, Cr, and Mo are the key elements that control the classification decisions for most of the models.\nDecision Tree picks up V and K-Neighbors picks up Mn, but the others don't.\n\nLet's repeat this with drop column importance:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "results = {}\nfor constructor in constructors_cl:\n    try:\n        model = constructor(random_state=0)  # instantiate the model object from class name\n    except:\n        model = constructor()\n    b, d = drop_column_importance(model, x_cl, y_cl, metric=metrics.accuracy_score)\n    # save the results to a dictionary for later:\n    results[str(constructor)] = {'baseline': b, 'dropped': d}",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Plotting the drop-column feature importance:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\n\nxticks = np.arange(x_cl.columns.shape[0])\nfor model_name, scores in results.items():\n    delta = scores['dropped'] - scores['baseline']\n    short_model_name = model_name.split('.')[3][:-2]  # cleans up the names\n    ax.plot(xticks, delta, 's-', label=short_model_name)\n\nax.set_xticks(xticks)\nax.set_xticklabels([it for it in x_cl.columns], rotation=90)\nax.set_ylabel('Delta Model Accuracy')\nax.legend()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Overall this looks similar to the results from permutation importance, except much of the noise for elements other than Cr and Mo is removed.\nIn other words, none of the models mistakenly attribute much weight to elements other than Cr and Mo.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 16,
+  "parent_lecture": "Lecture07"
+}
