@@ -25,7 +25,10 @@ class MockEnvironment:
             'plotly', 'plotly.express', 'plotly.graph_objects',
             'requests', 'urllib', 'urllib.request',
             'ax', 'ax.service', 'ax.service.ax_client', 'ax.service.managed_loop', 'ax.plot', 'ax.plot.contour', 'ax.plot.trace', 'ax.utils', 'ax.utils.notebook', 'ax.utils.notebook.plotting',
-            'tqdm', 'umap', 'pygad'
+            'tqdm', 'umap', 'pygad',
+            'rdkit', 'rdkit.Chem', 'rdkit.Chem.AllChem', 'rdkit.Chem.Draw',
+            'torch_geometric', 'torch_geometric.data', 'torch_geometric.nn', 'torch_geometric.nn.conv',
+            'sdv', 'missforest', 'nflows', 'pytorch_lightning', 'IPython'
         ]
         self.patchers = []
 
