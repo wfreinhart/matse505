@@ -1,0 +1,48 @@
+{
+  "id": "Lecture06_supervised_umap",
+  "markdown_content": "## Supervised UMAP\n\nWe can also do supervised and semi-supervised learning with UMAP, to create clusters that are informed by the labels.\nHere's the fully supervised case:\n\nIn this particular case, it doesn't change much (if at all).\nFor completeness, here's the semi-supervised case, where we artificially hide some of the labels:",
+  "code_block": "\n\nZ = umap.UMAP(random_state=0).fit_transform(x, y=y)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=y)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')\n\nsparse_y = np.array(y)  # create a copy of the labels\n\nremove_n = int(0.90 * x.shape[0])  # remove 90% of the labels!\n\nrng = np.random.RandomState(0)  # set random state so we always get same result\nremove_idx = rng.choice(np.arange(y.shape[0]), remove_n, replace=False)\n\nsparse_y[remove_idx] = -1  # this indicates \"missing\" label\n\nZ = umap.UMAP(random_state=0).fit_transform(x, y=sparse_y)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=y)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')\n\n",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Supervised UMAP\n\nWe can also do supervised and semi-supervised learning with UMAP, to create clusters that are informed by the labels.\nHere's the fully supervised case:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "Z = umap.UMAP(random_state=0).fit_transform(x, y=y)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=y)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "In this particular case, it doesn't change much (if at all).\nFor completeness, here's the semi-supervised case, where we artificially hide some of the labels:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "sparse_y = np.array(y)  # create a copy of the labels\n\nremove_n = int(0.90 * x.shape[0])  # remove 90% of the labels!\n\nrng = np.random.RandomState(0)  # set random state so we always get same result\nremove_idx = rng.choice(np.arange(y.shape[0]), remove_n, replace=False)\n\nsparse_y[remove_idx] = -1  # this indicates \"missing\" label\n\nZ = umap.UMAP(random_state=0).fit_transform(x, y=sparse_y)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=y)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 20,
+  "parent_lecture": "Lecture06"
+}

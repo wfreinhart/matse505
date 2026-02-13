@@ -1,0 +1,28 @@
+{
+  "id": "Lecture10_architecture_optimization",
+  "markdown_content": "## Architecture optimization\n\nDeep learning models may have very complex architecture with many hyperparameters to choose:\n\n<img src=\"../lectures/assets/neural_network_architecture.jpg\" width=600 alt=\"Schematic diagram of a multi-layer perceptron neural network with input, hidden, and output layers\">\n\nIn this case, we need to be clever in how to encode the many possible options.\nHere are some common shapes for NNs:\n\n<img src=\"../lectures/assets/neural_network_zoo.jpg\" width=400 alt=\"Graphic showing various neural network architecture types beyond simple feed-forward networks\">\n\nYou will see that NNs do not typically have wildly oscillating sizes between layers.\nInstead, they vary smoothly and the typical shapes are flat or trapezoidal.\nThis means we can reduce the number of parameters from choosing every number of neurons independently to only choosing the \"shape\" of the network.",
+  "code_block": "",
+  "imports": [
+    "from sklearn import model_selection",
+    "from ax.utils.notebook.plotting import render",
+    "from sklearn import ensemble",
+    "from plotly import express as px",
+    "from sklearn import linear_model",
+    "from ax.service.managed_loop import optimize",
+    "from ax.plot.contour import plot_contour",
+    "from sklearn import neural_network",
+    "import pygad",
+    "import numpy as np",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Architecture optimization\n\nDeep learning models may have very complex architecture with many hyperparameters to choose:\n\n<img src=\"../lectures/assets/neural_network_architecture.jpg\" width=600 alt=\"Schematic diagram of a multi-layer perceptron neural network with input, hidden, and output layers\">\n\nIn this case, we need to be clever in how to encode the many possible options.\nHere are some common shapes for NNs:\n\n<img src=\"../lectures/assets/neural_network_zoo.jpg\" width=400 alt=\"Graphic showing various neural network architecture types beyond simple feed-forward networks\">\n\nYou will see that NNs do not typically have wildly oscillating sizes between layers.\nInstead, they vary smoothly and the typical shapes are flat or trapezoidal.\nThis means we can reduce the number of parameters from choosing every number of neurons independently to only choosing the \"shape\" of the network.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 6,
+  "parent_lecture": "Lecture10"
+}

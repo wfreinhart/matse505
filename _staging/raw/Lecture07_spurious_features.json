@@ -1,0 +1,60 @@
+{
+  "id": "Lecture07_spurious_features",
+  "markdown_content": "## Spurious features\n\nLet's add a fake feature to the data and compare results between PCA and feature importance:\n\nJust to make this totally unambiguous, let's take a look at the resulting PCA decomposition:\n\nAs you can see the Random feature totally dominates the space due to its large magnitude.\nNow let's pass this augmented data through permutation importance:\n\nYou'll see here that the Random feature is assigned practically no importance in terms of changing the model score.",
+  "code_block": "\n\nx_aug = x.copy()\nx_aug['Random'] = np.random.rand(x_aug.shape[0]) * 1e6\nx_aug\n\n# do pca\npca = decomposition.PCA()\nz = pca.fit_transform(x_aug)\n\n# plot the result\nfig, ax = plt.subplots()\n_ = ax.scatter(*z[:, :2].T)\n\n# plot the components\nfig, ax = plt.subplots()\n_ = ax.bar(x_aug.columns, pca.components_[0])\n_ = ax.set_xticklabels([it.split('(')[0].strip() for it in x_aug.columns], rotation=90)\n\n# compute baseline\nmodel = linear_model.LinearRegression().fit(x_aug, y)\nbaseline = calc_rmse(y, model.predict(x_aug))  # first score the baseline model with all columns\n\n# compute permutation importance\npermuted_aug = np.zeros_like(x_aug.columns)  # create empty array to store values\nfor i, col in enumerate(x_aug.columns):\n    x_permuted = x_aug.copy()  # don't scramble the original dataframe!\n    x_permuted[col] = np.random.permutation(x_aug[col])\n    permuted_aug[i] = calc_rmse(y, model.predict(x_permuted))  # score on the permuted column\n\n# plot result\nfig, ax = plt.subplots()\nax.bar(x_aug.columns, permuted_aug, label='Permuted')\nax.set_xticklabels([it.split('(')[0].strip() for it in x_aug.columns], rotation=90)\nax.hlines(baseline, 0, len(x_aug.columns)-1, linestyles='dashed', label='Baseline')\nax.set_ylabel('Model RMSE')\nax.legend()",
+  "imports": [
+    "from sklearn import neighbors, tree, neural_network",
+    "import os",
+    "from sklearn import svm",
+    "from sklearn import metrics, preprocessing",
+    "import copy",
+    "from sklearn import model_selection",
+    "from sklearn import linear_model",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "from sklearn import ensemble",
+    "from sklearn import metrics",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Spurious features\n\nLet's add a fake feature to the data and compare results between PCA and feature importance:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x_aug = x.copy()\nx_aug['Random'] = np.random.rand(x_aug.shape[0]) * 1e6\nx_aug",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Just to make this totally unambiguous, let's take a look at the resulting PCA decomposition:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# do pca\npca = decomposition.PCA()\nz = pca.fit_transform(x_aug)\n\n# plot the result\nfig, ax = plt.subplots()\n_ = ax.scatter(*z[:, :2].T)\n\n# plot the components\nfig, ax = plt.subplots()\n_ = ax.bar(x_aug.columns, pca.components_[0])\n_ = ax.set_xticklabels([it.split('(')[0].strip() for it in x_aug.columns], rotation=90)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "As you can see the Random feature totally dominates the space due to its large magnitude.\nNow let's pass this augmented data through permutation importance:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# compute baseline\nmodel = linear_model.LinearRegression().fit(x_aug, y)\nbaseline = calc_rmse(y, model.predict(x_aug))  # first score the baseline model with all columns\n\n# compute permutation importance\npermuted_aug = np.zeros_like(x_aug.columns)  # create empty array to store values\nfor i, col in enumerate(x_aug.columns):\n    x_permuted = x_aug.copy()  # don't scramble the original dataframe!\n    x_permuted[col] = np.random.permutation(x_aug[col])\n    permuted_aug[i] = calc_rmse(y, model.predict(x_permuted))  # score on the permuted column\n\n# plot result\nfig, ax = plt.subplots()\nax.bar(x_aug.columns, permuted_aug, label='Permuted')\nax.set_xticklabels([it.split('(')[0].strip() for it in x_aug.columns], rotation=90)\nax.hlines(baseline, 0, len(x_aug.columns)-1, linestyles='dashed', label='Baseline')\nax.set_ylabel('Model RMSE')\nax.legend()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "You'll see here that the Random feature is assigned practically no importance in terms of changing the model score.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 4,
+  "parent_lecture": "Lecture07"
+}

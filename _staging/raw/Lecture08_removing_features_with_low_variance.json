@@ -1,0 +1,43 @@
+{
+  "id": "Lecture08_removing_features_with_low_variance",
+  "markdown_content": "## Removing features with low variance\n\nThe most obvious thing to try is removing features that don't vary much.\nYou can imagine a corner case where a feature has zero variance (all the same value), where it obviously would not affect the output.\n\nRead the [documentation](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.GenericUnivariateSelect.html) to try deploying this on the regression problem above.",
+  "code_block": "\n\nfrom sklearn.feature_selection import GenericUnivariateSelect\n\nselector = GenericUnivariateSelect(score_func='f_regression', mode='k_best', param=5)\n\n",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Removing features with low variance\n\nThe most obvious thing to try is removing features that don't vary much.\nYou can imagine a corner case where a feature has zero variance (all the same value), where it obviously would not affect the output.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn.feature_selection import GenericUnivariateSelect\n\nselector = GenericUnivariateSelect(score_func='f_regression', mode='k_best', param=5)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Read the [documentation](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.GenericUnivariateSelect.html) to try deploying this on the regression problem above.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 12,
+  "parent_lecture": "Lecture08"
+}

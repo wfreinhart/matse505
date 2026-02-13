@@ -1,0 +1,28 @@
+{
+  "id": "Lecture06_semi_supervised_learning",
+  "markdown_content": "# Semi-supervised learning\n\nAs a final comment on unsupervised learning, we should note that it is possible to come across problems that are best solved with hybrid unsupervised + supervised learning schemes.\nIn these cases, we might have a few labeled points (e.g., from a very expensive experiment or simulation) while the vast majority are unlabeled.\nMore than either supervised or unsupervised, this can require a lot of expert knowledge to work well.",
+  "code_block": "",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Semi-supervised learning\n\nAs a final comment on unsupervised learning, we should note that it is possible to come across problems that are best solved with hybrid unsupervised + supervised learning schemes.\nIn these cases, we might have a few labeled points (e.g., from a very expensive experiment or simulation) while the vast majority are unlabeled.\nMore than either supervised or unsupervised, this can require a lot of expert knowledge to work well.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 17,
+  "parent_lecture": "Lecture06"
+}

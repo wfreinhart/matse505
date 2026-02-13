@@ -1,0 +1,53 @@
+{
+  "id": "Lecture06_spectral_methods",
+  "markdown_content": "## Spectral methods\n\nThe Spectral Embedding (Laplacian Eigenmaps) algorithm comprises three stages:\n\n**Weighted Graph Construction.**\nTransform the raw input data into graph representation using affinity (adjacency) matrix representation.\n\n**Graph Laplacian Construction.**\nThe unnormalized Graph Laplacian is constructed as $L = D - A$ and normalized as\n\n$L = D^{-1/2} (D-A) D^{-1/2}$\n\n**Partial Eigenvalue Decomposition.**\nEigenvalue decomposition is done on graph Laplacian\n\nThis is very similar to the idea of PCA, except we will use a nonlinear, graph-based construction for $A$ instead of the covariance matrix.\nAfter constructing the matrix, the spectral decomposition (eigenvalue problem) is the same.\n\nOne of the main decisions here is what constitutes adjacency.\nThe default in `sklearn` is to build the nearest neighbors graph.\n\nThe default for `affinity` is the nearest neighbor graph, which does not appear to work well.\nWhat if we try the `rbf` option like we did above for the kernel PCA?\n\nThis actually works pretty well!\nNote that the curvature in $Z_1$ is entirely spurious and the discovered manifold is entirely 1D.\nThis is a common feature of manifold learning approaches when there are extra dimensions.",
+  "code_block": "\n\nfrom sklearn import manifold\n\nZ = manifold.SpectralEmbedding().fit_transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=t)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')\n\nZ = manifold.SpectralEmbedding(affinity='rbf').fit_transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=t)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Spectral methods\n\nThe Spectral Embedding (Laplacian Eigenmaps) algorithm comprises three stages:\n\n**Weighted Graph Construction.**\nTransform the raw input data into graph representation using affinity (adjacency) matrix representation.\n\n**Graph Laplacian Construction.**\nThe unnormalized Graph Laplacian is constructed as $L = D - A$ and normalized as\n\n$L = D^{-1/2} (D-A) D^{-1/2}$\n\n**Partial Eigenvalue Decomposition.**\nEigenvalue decomposition is done on graph Laplacian\n\nThis is very similar to the idea of PCA, except we will use a nonlinear, graph-based construction for $A$ instead of the covariance matrix.\nAfter constructing the matrix, the spectral decomposition (eigenvalue problem) is the same.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "One of the main decisions here is what constitutes adjacency.\nThe default in `sklearn` is to build the nearest neighbors graph.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import manifold\n\nZ = manifold.SpectralEmbedding().fit_transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=t)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "The default for `affinity` is the nearest neighbor graph, which does not appear to work well.\nWhat if we try the `rbf` option like we did above for the kernel PCA?",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "Z = manifold.SpectralEmbedding(affinity='rbf').fit_transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=t)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "This actually works pretty well!\nNote that the curvature in $Z_1$ is entirely spurious and the discovered manifold is entirely 1D.\nThis is a common feature of manifold learning approaches when there are extra dimensions.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 13,
+  "parent_lecture": "Lecture06"
+}

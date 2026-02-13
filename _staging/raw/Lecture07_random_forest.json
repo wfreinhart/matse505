@@ -1,0 +1,50 @@
+{
+  "id": "Lecture07_random_forest",
+  "markdown_content": "## Random Forest\n\nNow we can start with the best go-to model, the Random Forest.\n\nIt looks like these have a lot more variance compared to our linear result.\n\nWe see that Cement and Age continue to play important roles in this new model, although there are appear to be some stronger influences from the other features compared to the linear model.\nLet's check...",
+  "code_block": "\n\nfrom sklearn import ensemble\n\nmodel = ensemble.RandomForestRegressor(random_state=0)\nmodel.fit(xtrain, ytrain)\n\nbaseline_rf, permuted_rf = permutation_importance(model, xtest, ytest)\nprint('rmse on baseline data is:', baseline_rf)\nprint('rmse on permuted columns is:', permuted_rf)\n\nfig, ax = plt.subplots()\nax.bar(x.columns, permuted_rf, label='Random Forest')\nax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\nax.hlines(baseline_rf, 0, len(x.columns)-1, linestyles='dashed', label='Baseline (RF)')\nax.set_ylabel('Model RMSE')\nax.legend()",
+  "imports": [
+    "from sklearn import neighbors, tree, neural_network",
+    "import os",
+    "from sklearn import svm",
+    "from sklearn import metrics, preprocessing",
+    "import copy",
+    "from sklearn import model_selection",
+    "from sklearn import linear_model",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "from sklearn import ensemble",
+    "from sklearn import metrics",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Random Forest\n\nNow we can start with the best go-to model, the Random Forest.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import ensemble\n\nmodel = ensemble.RandomForestRegressor(random_state=0)\nmodel.fit(xtrain, ytrain)\n\nbaseline_rf, permuted_rf = permutation_importance(model, xtest, ytest)\nprint('rmse on baseline data is:', baseline_rf)\nprint('rmse on permuted columns is:', permuted_rf)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "It looks like these have a lot more variance compared to our linear result.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.bar(x.columns, permuted_rf, label='Random Forest')\nax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\nax.hlines(baseline_rf, 0, len(x.columns)-1, linestyles='dashed', label='Baseline (RF)')\nax.set_ylabel('Model RMSE')\nax.legend()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We see that Cement and Age continue to play important roles in this new model, although there are appear to be some stronger influences from the other features compared to the linear model.\nLet's check...",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 9,
+  "parent_lecture": "Lecture07"
+}

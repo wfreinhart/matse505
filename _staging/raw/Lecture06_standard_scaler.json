@@ -1,0 +1,88 @@
+{
+  "id": "Lecture06_standard_scaler",
+  "markdown_content": "## Standard scaler\n\nHere we'll use the `StandardScaler`, which normalizes everything according to its standard deviation:\n\n$X_s = \\frac{X - \\mu}{\\sigma}$\n\nThis way all the values should end up with comparable magnitudes. Let's see how it affects the manifold structure:\n\nWe can try looking at this manifold through the lens of different compositions.\n\nRemember - this was fitted to the properties! The fact that there are correlations with the compositions tells us something about how the chemistry influences properties -- for instance, we should look at V-containing steels to get properties like those on the left hand side.\n\nJust to show that feature scaling achieved something, this was the original projection:\n\nWe can confirm that part of the space got smashed together along the center.",
+  "code_block": "\n\nfrom sklearn import decomposition\nfrom matplotlib import pyplot as plt\n\n# compute the pca embedding\npca = decomposition.PCA().fit(x)\nPo = pca.transform(x)\n\n# plot the result\nfig, ax = plt.subplots()\nax.scatter(Po[:, 0], Po[:, 1])\n\nfrom sklearn import preprocessing\n\n# rescale the data\nscaler = preprocessing.StandardScaler().fit(x)\nxs = scaler.transform(x)\n\n# compute the pca embedding\npca = decomposition.PCA().fit(xs)\nP = pca.transform(xs)\n\n# plot the result\nfig, ax = plt.subplots(1, 2)\nax[0].scatter(P[:, 0], P[:, 1])\nax[1].scatter(Po[:, 0], Po[:, 1])\n\nfig, ax = plt.subplots()\nim = ax.scatter(P[:, 0], P[:, 1], c=clean_data[' Al'])\nplt.colorbar(im)\n\nfig, ax = plt.subplots()\nim = ax.scatter(P[:, 0], P[:, 1], c=clean_data['V'])\nplt.colorbar(im)\n\nfig, ax = plt.subplots()\nax.bar(x.columns, pca.components_[0])\n\nfig, ax = plt.subplots()\nax.bar(x.columns, pca.components_[1])\n\npca = decomposition.PCA().fit(x)\nP = pca.transform(x)\n\nfig, ax = plt.subplots()\nim = ax.scatter(Po[:, 0], Po[:, 1], c=clean_data['V'])\nplt.colorbar(im)\n\npca = decomposition.PCA().fit(x)\nPo = pca.transform(x)\n\nfig, ax = plt.subplots()\nax.bar(x.columns, pca.components_[0])\n\nfig, ax = plt.subplots()\nax.bar(x.columns, pca.components_[1])\n\nx.mean(axis=0)",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Standard scaler\n\nHere we'll use the `StandardScaler`, which normalizes everything according to its standard deviation:\n\n$X_s = \\frac{X - \\mu}{\\sigma}$\n\nThis way all the values should end up with comparable magnitudes. Let's see how it affects the manifold structure:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import decomposition\nfrom matplotlib import pyplot as plt\n\n# compute the pca embedding\npca = decomposition.PCA().fit(x)\nPo = pca.transform(x)\n\n# plot the result\nfig, ax = plt.subplots()\nax.scatter(Po[:, 0], Po[:, 1])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import preprocessing\n\n# rescale the data\nscaler = preprocessing.StandardScaler().fit(x)\nxs = scaler.transform(x)\n\n# compute the pca embedding\npca = decomposition.PCA().fit(xs)\nP = pca.transform(xs)\n\n# plot the result\nfig, ax = plt.subplots(1, 2)\nax[0].scatter(P[:, 0], P[:, 1])\nax[1].scatter(Po[:, 0], Po[:, 1])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can try looking at this manifold through the lens of different compositions.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nim = ax.scatter(P[:, 0], P[:, 1], c=clean_data[' Al'])\nplt.colorbar(im)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nim = ax.scatter(P[:, 0], P[:, 1], c=clean_data['V'])\nplt.colorbar(im)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Remember - this was fitted to the properties! The fact that there are correlations with the compositions tells us something about how the chemistry influences properties -- for instance, we should look at V-containing steels to get properties like those on the left hand side.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.bar(x.columns, pca.components_[0])\n\nfig, ax = plt.subplots()\nax.bar(x.columns, pca.components_[1])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Just to show that feature scaling achieved something, this was the original projection:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "pca = decomposition.PCA().fit(x)\nP = pca.transform(x)\n\nfig, ax = plt.subplots()\nim = ax.scatter(Po[:, 0], Po[:, 1], c=clean_data['V'])\nplt.colorbar(im)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can confirm that part of the space got smashed together along the center.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "pca = decomposition.PCA().fit(x)\nPo = pca.transform(x)\n\nfig, ax = plt.subplots()\nax.bar(x.columns, pca.components_[0])\n\nfig, ax = plt.subplots()\nax.bar(x.columns, pca.components_[1])",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "x.mean(axis=0)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 2,
+  "parent_lecture": "Lecture06"
+}

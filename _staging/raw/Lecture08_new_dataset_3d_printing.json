@@ -1,0 +1,53 @@
+{
+  "id": "Lecture08_new_dataset_3d_printing",
+  "markdown_content": "## New dataset: 3d printing\n\nWe'll set up a regression problem to predict the surface roughness:\n\nHere is our baseline performance:",
+  "code_block": "\n\ndata = pd.read_csv('../datasets/3dprinting.csv')\ndata\n\nx = data.loc[:, :'fan_speed (%)']\nx = pd.get_dummies(x)  # convert categorical to one-hot!\n\ny = data.loc[:, 'roughness (microns)']\n\nmodel = linear_model.LinearRegression().fit(x, y)\nprint( 'R2 = ', model.score(x, y) )",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## New dataset: 3d printing",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data = pd.read_csv('../datasets/3dprinting.csv')\ndata",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We'll set up a regression problem to predict the surface roughness:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = data.loc[:, :'fan_speed (%)']\nx = pd.get_dummies(x)  # convert categorical to one-hot!\n\ny = data.loc[:, 'roughness (microns)']",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Here is our baseline performance:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model = linear_model.LinearRegression().fit(x, y)\nprint( 'R2 = ', model.score(x, y) )",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 8,
+  "parent_lecture": "Lecture08"
+}

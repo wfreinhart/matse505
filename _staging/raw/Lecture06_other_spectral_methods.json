@@ -1,0 +1,48 @@
+{
+  "id": "Lecture06_other_spectral_methods",
+  "markdown_content": "## Other spectral methods\n\nHere are a few other methods from the `manifold` module in no particular order.\nYou can read about their assumptions in the `scikit-learn` documentation or on other websites.",
+  "code_block": "\n\nfrom sklearn import manifold\n\nZ = manifold.Isomap().fit_transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=t)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')\n\nZ = manifold.LocallyLinearEmbedding().fit_transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=t)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')\n\nZ = manifold.MDS().fit_transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=t)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Other spectral methods",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "Here are a few other methods from the `manifold` module in no particular order.\nYou can read about their assumptions in the `scikit-learn` documentation or on other websites.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import manifold\n\nZ = manifold.Isomap().fit_transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=t)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "Z = manifold.LocallyLinearEmbedding().fit_transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=t)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "Z = manifold.MDS().fit_transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=t)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 15,
+  "parent_lecture": "Lecture06"
+}

@@ -1,8 +1,9 @@
 {
   "id": "Lecture09_in_theory",
   "type": "Foundational",
+  "sequence": 10,
   "parent_lecture": "Lecture09",
   "requirements": [],
   "markdown_content": "## In theory\n\nThe solution is to use \"cross-fold validation.\"\nIn this scheme, we separate the data into some $k$ number of \"folds\" and then train $k$ different models using different sub-splits:\n\n<img src=\"../lectures/assets/hyperparameter_validation_set.jpg\" width=600 alt=\"Diagram of the Train, Validation, and Test set split strategy\">\n\nThis has the great advantage of not needing to remove any more data from the training set while averaging out some of the variance in the test performance.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from sklearn import ensemble\n    from sklearn import model_selection\n    from sklearn import neighbors\n    from sklearn import preprocessing\n    import numpy as np\n    import os\n    import pandas as pd\n    pass"
 }

@@ -1,0 +1,30 @@
+{
+  "id": "Lecture07_classification",
+  "markdown_content": "# Classification\n\nThe great thing about these feature importance schemes is they work exactly the same way with classification problems as regression problems.\nWe just need to choose a suitable metric (e.g., accuracy) and perform the same procedure.\nLet's try it on the dataset from last time:",
+  "code_block": "",
+  "imports": [
+    "from sklearn import neighbors, tree, neural_network",
+    "import os",
+    "from sklearn import svm",
+    "from sklearn import metrics, preprocessing",
+    "import copy",
+    "from sklearn import model_selection",
+    "from sklearn import linear_model",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "from sklearn import ensemble",
+    "from sklearn import metrics",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import pandas as pd"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Classification\n\nThe great thing about these feature importance schemes is they work exactly the same way with classification problems as regression problems.\nWe just need to choose a suitable metric (e.g., accuracy) and perform the same procedure.\nLet's try it on the dataset from last time:",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 14,
+  "parent_lecture": "Lecture07"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "Lecture08_recursive_feature_elimination",
+  "markdown_content": "## Recursive feature elimination\n\nRecursive Feature Elimination (RFE) is a backward elimination algorithm that removes the least important features recursively.\nThis type of algorithm is best for parametric models where features can interact.\n\nRead the [documentation](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFE.html) to try deploying this on the regression problem above.",
+  "code_block": "\n\nfrom sklearn.feature_selection import RFE\n\nmodel = linear_model.LinearRegression()\nselector = RFE(model, n_features_to_select=5, step=1)\n\n",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Recursive feature elimination\n\nRecursive Feature Elimination (RFE) is a backward elimination algorithm that removes the least important features recursively.\nThis type of algorithm is best for parametric models where features can interact.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn.feature_selection import RFE\n\nmodel = linear_model.LinearRegression()\nselector = RFE(model, n_features_to_select=5, step=1)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Read the [documentation](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFE.html) to try deploying this on the regression problem above.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 14,
+  "parent_lecture": "Lecture08"
+}

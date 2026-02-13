@@ -1,0 +1,25 @@
+{
+  "id": "Lecture09_cross_fold_validation",
+  "markdown_content": "# Cross-fold validation\n\nHow do we deal with the issue of the validation set being unreliable?\nWe can't keep taking data out of the training set or we won't have any left.",
+  "code_block": "",
+  "imports": [
+    "from sklearn import ensemble",
+    "import pandas as pd",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import os",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Cross-fold validation\n\nHow do we deal with the issue of the validation set being unreliable?\nWe can't keep taking data out of the training set or we won't have any left.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 9,
+  "parent_lecture": "Lecture09"
+}

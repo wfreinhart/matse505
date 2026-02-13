@@ -1,0 +1,28 @@
+{
+  "id": "Lecture08_feature_augmentation",
+  "markdown_content": "# Feature augmentation\n\nSometimes we may benefit from including additional features beyond those in the original dataset.\nThere are a few possible mechanisms that can lead to this being helpful:\n* **Nonlinearity.** This is the main one. We already saw how linear models can learn nonlinear trends through the use of polynomial expansions. Introducing interactions such as products or quotients can lead to nonlinear behaviors in the original space being captured by simple linear relationships in the expanded feature space. We trade feature complexity for algorithmic simplicity.\n* **Reduced dimensionality.** While nonlinear models can learn nonlinear relationships, it may be challenging on small datasets. If we know that the product of two features is an important variable, manually introducing a single feature that is the product of two others can reduce the dimensionality of the input features and therefore reduce the number of parameters that must be learned.",
+  "code_block": "",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Feature augmentation\n\nSometimes we may benefit from including additional features beyond those in the original dataset.\nThere are a few possible mechanisms that can lead to this being helpful:\n* **Nonlinearity.** This is the main one. We already saw how linear models can learn nonlinear trends through the use of polynomial expansions. Introducing interactions such as products or quotients can lead to nonlinear behaviors in the original space being captured by simple linear relationships in the expanded feature space. We trade feature complexity for algorithmic simplicity.\n* **Reduced dimensionality.** While nonlinear models can learn nonlinear relationships, it may be challenging on small datasets. If we know that the product of two features is an important variable, manually introducing a single feature that is the product of two others can reduce the dimensionality of the input features and therefore reduce the number of parameters that must be learned.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 5,
+  "parent_lecture": "Lecture08"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "Lecture09_leave_one_out",
+  "markdown_content": "## Leave-one-out\n\nAn extreme version of the cross-fold validation is to use a number of folds equal to the number of observations.\nThis effectively uses each and every sample as a test set.\nIt would look like so:\n\n<img src=\"../lectures/assets/cross_validation_diagram.jpg\" width=600 alt=\"Generalized flowchart of the cross-validation process\">\n\nWhat are the downsides of this scheme?\n\nLet's see what this looks like on our cement data:",
+  "code_block": "\n\n# define the fold splitting strategy\nfolds = model_selection.LeaveOneOut()\n\nin_fold = np.zeros([x_sort.shape[0], folds.get_n_splits(x_sort)])\nthis_fold = np.zeros(x_sort.shape[0])\nfor i, (train_index, test_index) in enumerate(folds.split(x_sort)):\n    in_fold[test_index, i] = 1\n    this_fold[test_index] = i\n\norder = np.argsort(this_fold)\nx_sort_local = x_sort.iloc[order]\nin_fold = in_fold[order]\n\nfig, axes = plt.subplots(2, 1, figsize=(16, 12), sharex=True)\nax = axes[0]\n_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_ylabel('Age')\nax = axes[1]\n_ = ax.imshow(in_fold.T, interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_xlabel('Observation')\n_ = ax.set_ylabel('Fold')\nplt.subplots_adjust(hspace=0.05)",
+  "imports": [
+    "from sklearn import ensemble",
+    "import pandas as pd",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import os",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Leave-one-out\n\nAn extreme version of the cross-fold validation is to use a number of folds equal to the number of observations.\nThis effectively uses each and every sample as a test set.\nIt would look like so:\n\n<img src=\"../lectures/assets/cross_validation_diagram.jpg\" width=600 alt=\"Generalized flowchart of the cross-validation process\">\n\nWhat are the downsides of this scheme?\n\nLet's see what this looks like on our cement data:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# define the fold splitting strategy\nfolds = model_selection.LeaveOneOut()\n\nin_fold = np.zeros([x_sort.shape[0], folds.get_n_splits(x_sort)])\nthis_fold = np.zeros(x_sort.shape[0])\nfor i, (train_index, test_index) in enumerate(folds.split(x_sort)):\n    in_fold[test_index, i] = 1\n    this_fold[test_index] = i\n\norder = np.argsort(this_fold)\nx_sort_local = x_sort.iloc[order]\nin_fold = in_fold[order]\n\nfig, axes = plt.subplots(2, 1, figsize=(16, 12), sharex=True)\nax = axes[0]\n_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_ylabel('Age')\nax = axes[1]\n_ = ax.imshow(in_fold.T, interpolation='none')\n_ = ax.set_aspect('auto')\n_ = ax.set_xlabel('Observation')\n_ = ax.set_ylabel('Fold')\nplt.subplots_adjust(hspace=0.05)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 17,
+  "parent_lecture": "Lecture09"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "Lecture06_kernel_pca",
+  "markdown_content": "## Kernel PCA\n\nWe can apply the \"kernel trick\" to use PCA for nonlinear data.\nFirst we apply the nonlinear kernel and then we do the linear projection.\nThis is very similar to the example of polynomial features in a linear regression.\n\nHere is a great visual example of the kernel trick at work:\n\n<img src=\"../lectures/assets/kernel_trick.jpg\" width=600 alt=\"Diagram illustrating the kernel trick: projecting linearly inseparable data into a higher dimension where it becomes separable\">\n\nAfter this nonlinear transformation, the decision boundary can be very easily defined by a linear model.\n\nLet's try the `poly` kernel on the nonlinear data above.\nNote that for manifold learning, `sklearn` uses `fit()` and `transform()` just like the PCA interface instead of the `predict()` for supervised learning:\n\nUnfortunately, this result doesn't look any \"better\" than the linear PCA.\nWe might also try the `rbf` option, which stands for Radial Basis Function.\nThis is a localized basis function that links nearby points together, which makes sense when trying to identify this spiral manifold.\n\nNope, the RBF detects the wrong structure in the data.\nThat's fine, there's no guarantee that more complex models will yield better results for any given problem.",
+  "code_block": "\n\n# fit the model\npca = decomposition.KernelPCA(kernel='poly').fit(S)\n\n# project X using PCA\nSt = pca.transform(S)\n\n# plot result\nfig, ax = plt.subplots()\nax.scatter(St[:, 0], St[:, 1], c=t)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')\n\n# fit the model\npca = decomposition.KernelPCA(kernel='rbf').fit(S)\n\n# project X using PCA\nSt = pca.transform(S)\n\n# plot result\nfig, ax = plt.subplots()\nax.scatter(St[:, 0], St[:, 1], c=t)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Kernel PCA\n\nWe can apply the \"kernel trick\" to use PCA for nonlinear data.\nFirst we apply the nonlinear kernel and then we do the linear projection.\nThis is very similar to the example of polynomial features in a linear regression.\n\nHere is a great visual example of the kernel trick at work:\n\n<img src=\"../lectures/assets/kernel_trick.jpg\" width=600 alt=\"Diagram illustrating the kernel trick: projecting linearly inseparable data into a higher dimension where it becomes separable\">\n\nAfter this nonlinear transformation, the decision boundary can be very easily defined by a linear model.\n\nLet's try the `poly` kernel on the nonlinear data above.\nNote that for manifold learning, `sklearn` uses `fit()` and `transform()` just like the PCA interface instead of the `predict()` for supervised learning:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# fit the model\npca = decomposition.KernelPCA(kernel='poly').fit(S)\n\n# project X using PCA\nSt = pca.transform(S)\n\n# plot result\nfig, ax = plt.subplots()\nax.scatter(St[:, 0], St[:, 1], c=t)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Unfortunately, this result doesn't look any \"better\" than the linear PCA.\nWe might also try the `rbf` option, which stands for Radial Basis Function.\nThis is a localized basis function that links nearby points together, which makes sense when trying to identify this spiral manifold.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# fit the model\npca = decomposition.KernelPCA(kernel='rbf').fit(S)\n\n# project X using PCA\nSt = pca.transform(S)\n\n# plot result\nfig, ax = plt.subplots()\nax.scatter(St[:, 0], St[:, 1], c=t)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Nope, the RBF detects the wrong structure in the data.\nThat's fine, there's no guarantee that more complex models will yield better results for any given problem.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 12,
+  "parent_lecture": "Lecture06"
+}

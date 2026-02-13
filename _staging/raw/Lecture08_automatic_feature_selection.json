@@ -1,0 +1,28 @@
+{
+  "id": "Lecture08_automatic_feature_selection",
+  "markdown_content": "# Automatic feature selection",
+  "code_block": "",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Automatic feature selection",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 10,
+  "parent_lecture": "Lecture08"
+}

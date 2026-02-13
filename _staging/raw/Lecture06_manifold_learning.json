@@ -1,0 +1,48 @@
+{
+  "id": "Lecture06_manifold_learning",
+  "markdown_content": "# Manifold learning\n\nManifold learning is another term for nonlinear dimensionality reduction.\nRoughly speaking, a [manifold](https://en.wikipedia.org/wiki/Manifold) is an $n$-dimensional surface that is locally smooth.\nThe term \"manifold learning\" therefore means searching for a smooth, low-dimensional surface in a high-dimensional space.\n\nHere's a nice motivating example that shows the difference between a **linear projection** and a **nonlinear manifold**:\n\n<img src=\"../lectures/assets/manifold_learning_spiral.jpg\" height=400 alt=\"A 3D spiral dataset representing a manifold that can be unrolled into 2D\">\n\nIf we plot the data just based on the $x$ coordinate, we end up with the picture on the left. But if we find patterns in the data using unsupervised learning, we can \"unroll\" the spiral and get a new representation like the one on the right.\n\nLet's try this with a toy dataset before we move to our alloy compositions.\n\nIf we try to apply PCA on this data, we will not get what we want:\n\nWhy?\nBecause PCA is a linear projection and linear methods can never reproduce nonlinear behavior.\nWe need to introduce a nonlinearity in our learning pipeline...",
+  "code_block": "\n\nfrom sklearn import datasets\nfrom plotly import express as px\n\nS, t = datasets.make_swiss_roll(n_samples=400)\n\npx.scatter_3d(x=S[:, 0], y=S[:, 1], z=S[:, 2], color=t)\n\nfrom sklearn import decomposition\nfrom matplotlib import pyplot as plt\n\n# fit the model\npca = decomposition.PCA().fit(S)\nSt = pca.transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(St[:, 0], St[:, 1], c=t)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Manifold learning\n\nManifold learning is another term for nonlinear dimensionality reduction.\nRoughly speaking, a [manifold](https://en.wikipedia.org/wiki/Manifold) is an $n$-dimensional surface that is locally smooth.\nThe term \"manifold learning\" therefore means searching for a smooth, low-dimensional surface in a high-dimensional space.\n\nHere's a nice motivating example that shows the difference between a **linear projection** and a **nonlinear manifold**:\n\n<img src=\"../lectures/assets/manifold_learning_spiral.jpg\" height=400 alt=\"A 3D spiral dataset representing a manifold that can be unrolled into 2D\">\n\nIf we plot the data just based on the $x$ coordinate, we end up with the picture on the left. But if we find patterns in the data using unsupervised learning, we can \"unroll\" the spiral and get a new representation like the one on the right.\n\nLet's try this with a toy dataset before we move to our alloy compositions.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import datasets\nfrom plotly import express as px\n\nS, t = datasets.make_swiss_roll(n_samples=400)\n\npx.scatter_3d(x=S[:, 0], y=S[:, 1], z=S[:, 2], color=t)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "If we try to apply PCA on this data, we will not get what we want:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import decomposition\nfrom matplotlib import pyplot as plt\n\n# fit the model\npca = decomposition.PCA().fit(S)\nSt = pca.transform(S)\n\nfig, ax = plt.subplots()\nax.scatter(St[:, 0], St[:, 1], c=t)\nax.set_xlabel('Principal Component 1')\nax.set_ylabel('Principal Component 2')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Why?\nBecause PCA is a linear projection and linear methods can never reproduce nonlinear behavior.\nWe need to introduce a nonlinearity in our learning pipeline...",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 11,
+  "parent_lecture": "Lecture06"
+}

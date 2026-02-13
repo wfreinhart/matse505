@@ -1,0 +1,38 @@
+{
+  "id": "Lecture10_categorical_hyperparameters",
+  "markdown_content": "## Categorical hyperparameters\n\nWe can also specify discrete options such as the activation functions.\nThese can have a huge effect on the results:\n\n<img src=\"../lectures/assets/activation_functions.jpg\" width=600 alt=\"Plots of common neural network activation functions including Sigmoid, Tanh, and ReLU\">",
+  "code_block": "\n\nbest_parameters, values, experiment, model = optimize(\n    parameters=[\n        {\"name\": \"learning_rate_init\", \"type\": \"range\", \"bounds\": [1e-6, 1e-1], \"log_scale\": True},\n        {\"name\": \"max_iter\", \"type\": \"range\", \"bounds\": [10, 1000]},\n        {\"name\": \"activation\", \"type\": \"choice\", \"values\": [\"identity\", \"logistic\", \"tanh\", \"relu\"]}\n    ],\n    evaluation_function=mlp_fitness,\n    objective_name='r-squared',\n)\n\nprint(best_parameters)",
+  "imports": [
+    "from sklearn import model_selection",
+    "from ax.utils.notebook.plotting import render",
+    "from sklearn import ensemble",
+    "from plotly import express as px",
+    "from sklearn import linear_model",
+    "from ax.service.managed_loop import optimize",
+    "from ax.plot.contour import plot_contour",
+    "from sklearn import neural_network",
+    "import pygad",
+    "import numpy as np",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Categorical hyperparameters\n\nWe can also specify discrete options such as the activation functions.\nThese can have a huge effect on the results:\n\n<img src=\"../lectures/assets/activation_functions.jpg\" width=600 alt=\"Plots of common neural network activation functions including Sigmoid, Tanh, and ReLU\">",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "best_parameters, values, experiment, model = optimize(\n    parameters=[\n        {\"name\": \"learning_rate_init\", \"type\": \"range\", \"bounds\": [1e-6, 1e-1], \"log_scale\": True},\n        {\"name\": \"max_iter\", \"type\": \"range\", \"bounds\": [10, 1000]},\n        {\"name\": \"activation\", \"type\": \"choice\", \"values\": [\"identity\", \"logistic\", \"tanh\", \"relu\"]}\n    ],\n    evaluation_function=mlp_fitness,\n    objective_name='r-squared',\n)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "print(best_parameters)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 4,
+  "parent_lecture": "Lecture10"
+}

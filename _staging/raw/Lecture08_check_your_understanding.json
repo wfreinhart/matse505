@@ -1,0 +1,38 @@
+{
+  "id": "Lecture08_check_your_understanding",
+  "markdown_content": "## [Check your understanding]\n\nTry utilizing the one-hot encodings in a regression model for one of the continuous features.\nCompare the performance to the baseline case of excluding that categorical feature and the (incorrect) case of `int` label encoding.",
+  "code_block": "\n\ndata.columns\n\nfrom sklearn import linear_model, model_selection\n\n\n# baseline without categorical columns\n\nx = data.dropna().drop(columns=['Ionization Energies (eV)'])\ny = data.dropna().loc[:, 'Ionization Energies (eV)']\n\nx = x.drop(columns=['STP Phase', 'Natural Crystal Structure'])\nxtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, random_state=0)\n\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)\nprint('no cat columns', model.score(xtest, ytest))\n\n# with one-hot encodings\nx = pd.get_dummies(data.dropna()).drop(columns=['Ionization Energies (eV)'])\nxtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, random_state=0)\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)\nprint('one-hot', model.score(xtest, ytest))\n\n# with int encodings\nx = data.dropna().drop(columns=['Ionization Energies (eV)'])\ny = data.dropna().loc[:, 'Ionization Energies (eV)']\n\nx['STP Phase'] = x['STP Phase'].astype('category').cat.codes\nx['Natural Crystal Structure'] = x['Natural Crystal Structure'].astype('category').cat.codes\nxtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, random_state=0)\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)\nprint('int', model.score(xtest, ytest))",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\nTry utilizing the one-hot encodings in a regression model for one of the continuous features.\nCompare the performance to the baseline case of excluding that categorical feature and the (incorrect) case of `int` label encoding.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "data.columns",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import linear_model, model_selection\n\n\n# baseline without categorical columns\n\nx = data.dropna().drop(columns=['Ionization Energies (eV)'])\ny = data.dropna().loc[:, 'Ionization Energies (eV)']\n\nx = x.drop(columns=['STP Phase', 'Natural Crystal Structure'])\nxtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, random_state=0)\n\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)\nprint('no cat columns', model.score(xtest, ytest))\n\n# with one-hot encodings\nx = pd.get_dummies(data.dropna()).drop(columns=['Ionization Energies (eV)'])\nxtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, random_state=0)\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)\nprint('one-hot', model.score(xtest, ytest))\n\n# with int encodings\nx = data.dropna().drop(columns=['Ionization Energies (eV)'])\ny = data.dropna().loc[:, 'Ionization Energies (eV)']\n\nx['STP Phase'] = x['STP Phase'].astype('category').cat.codes\nx['Natural Crystal Structure'] = x['Natural Crystal Structure'].astype('category').cat.codes\nxtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, random_state=0)\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)\nprint('int', model.score(xtest, ytest))",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 4,
+  "parent_lecture": "Lecture08"
+}

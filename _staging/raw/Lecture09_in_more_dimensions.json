@@ -1,0 +1,45 @@
+{
+  "id": "Lecture09_in_more_dimensions",
+  "markdown_content": "## In more dimensions\n\nMany models have more than two hyperparameters.\nThe grid search can easily be extended to additional dimensions using nested `for` loops.\nFor instance, consider the `max_depth`, `n_estimators`, and `min_samples_split` hyperparameters of the `RandomForestRegressor`:\n\nNote once again that even though the best validation RMSE is `4.84` at `(10, 40, 4)`, the test RMSE is `5.19` here and as low as `5.08` elsewhere (with validation RMSE slightly higher at `4.89`):",
+  "code_block": "\n\nfrom sklearn import ensemble\n\nresults = []\nfor md in np.arange(10, 31, 10):\n    for ne in np.arange(20, 61, 20):\n        for mss in np.arange(2, 5):\n            print(f'Evaluating ({md}, {ne}, {mss})...')\n            model = ensemble.RandomForestRegressor(max_depth=md, n_estimators=ne, min_samples_split=mss, random_state=0)\n            model.fit(x_train, y_train)\n            # evaluate rmse on all the splits\n            train = calc_rmse(model, x_train, y_train)\n            val = calc_rmse(model, x_val, y_val)\n            test = calc_rmse(model, x_test, y_test)\n            # save results\n            results.append( [md, ne, mss, train, val, test] )\n\ndf = pd.DataFrame(results, columns=['md', 'ne', 'mss', 'Train', 'Validation', 'Test'])\npx.scatter_3d(df, x='md', y='ne', z='mss', color='Validation')\n\ndf",
+  "imports": [
+    "from sklearn import ensemble",
+    "import pandas as pd",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import os",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## In more dimensions\n\nMany models have more than two hyperparameters.\nThe grid search can easily be extended to additional dimensions using nested `for` loops.\nFor instance, consider the `max_depth`, `n_estimators`, and `min_samples_split` hyperparameters of the `RandomForestRegressor`:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import ensemble\n\nresults = []\nfor md in np.arange(10, 31, 10):\n    for ne in np.arange(20, 61, 20):\n        for mss in np.arange(2, 5):\n            print(f'Evaluating ({md}, {ne}, {mss})...')\n            model = ensemble.RandomForestRegressor(max_depth=md, n_estimators=ne, min_samples_split=mss, random_state=0)\n            model.fit(x_train, y_train)\n            # evaluate rmse on all the splits\n            train = calc_rmse(model, x_train, y_train)\n            val = calc_rmse(model, x_val, y_val)\n            test = calc_rmse(model, x_test, y_test)\n            # save results\n            results.append( [md, ne, mss, train, val, test] )",
+      "metadata": "# %%"
+    },
+    {
+      "type": "code",
+      "content": "df = pd.DataFrame(results, columns=['md', 'ne', 'mss', 'Train', 'Validation', 'Test'])\npx.scatter_3d(df, x='md', y='ne', z='mss', color='Validation')",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Note once again that even though the best validation RMSE is `4.84` at `(10, 40, 4)`, the test RMSE is `5.19` here and as low as `5.08` elsewhere (with validation RMSE slightly higher at `4.89`):",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "df",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 7,
+  "parent_lecture": "Lecture09"
+}

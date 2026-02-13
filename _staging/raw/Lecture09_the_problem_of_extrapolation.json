@@ -1,0 +1,25 @@
+{
+  "id": "Lecture09_the_problem_of_extrapolation",
+  "markdown_content": "## The problem of extrapolation\n\nThe schemes we have employed so far are a little idealistic in that they assume the same data distribution in the test set as seen during training.\nActually this can be unusual in the physical sciences and engineering since we are often interested in making discoveries (i.e., exploring new data domains) with our models.\n\nHere's a schematic illustrating the difference between **interpolation** and **extrapolation**:\n\n<img src=\"../lectures/assets/interpolation_vs_extrapolation.jpg\" width=600 alt=\"Plot comparing interpolation (making predictions within the range of training data) versus extrapolation (predicting outside the range)\">\n\nHow can we address this?\nBy using **groups** to investigate how the models perform on data towards the center of the distribution versus the edges!",
+  "code_block": "",
+  "imports": [
+    "from sklearn import ensemble",
+    "import pandas as pd",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import os",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## The problem of extrapolation\n\nThe schemes we have employed so far are a little idealistic in that they assume the same data distribution in the test set as seen during training.\nActually this can be unusual in the physical sciences and engineering since we are often interested in making discoveries (i.e., exploring new data domains) with our models.\n\nHere's a schematic illustrating the difference between **interpolation** and **extrapolation**:\n\n<img src=\"../lectures/assets/interpolation_vs_extrapolation.jpg\" width=600 alt=\"Plot comparing interpolation (making predictions within the range of training data) versus extrapolation (predicting outside the range)\">\n\nHow can we address this?\nBy using **groups** to investigate how the models perform on data towards the center of the distribution versus the edges!",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 20,
+  "parent_lecture": "Lecture09"
+}

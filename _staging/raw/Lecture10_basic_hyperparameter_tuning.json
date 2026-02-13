@@ -1,0 +1,93 @@
+{
+  "id": "Lecture10_basic_hyperparameter_tuning",
+  "markdown_content": "## Basic hyperparameter tuning\n\nWe will use the `ax-platform` package for hyperparameter tuning.\nIt is more convenient than implementing this ourselves.\n\nNow we need to do a train/validation/test split and an objective function.\n\nNow we set up the optimization problem in the format specified by `ax-platform`.\n\nWith Gaussian Process, we can evaluate the results in terms of both mean and variance:\n\nIt is very helpful to visualize the loss surface:\n\nAnd we can also view it as a function of iterations.\n\nNow that we have the optimal result, we should train a model with those hyperparameters.",
+  "code_block": "\n\n# !pip install ax-platform\n\nx_trv, x_test, y_trv, y_test = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)\nx_train, x_val, y_train, y_val = model_selection.train_test_split(x_trv, y_trv, train_size=0.75, shuffle=True, random_state=0)\n\ndef mlp_fitness(parameterization):\n    try:\n        model = neural_network.MLPRegressor(**parameterization, random_state=0).fit(x_train, y_train)\n        score = model.score(x_val, y_val)\n    except:\n        score = -1\n    return score\n\nfrom ax.service.managed_loop import optimize\n\nbest_parameters, values, experiment, model = optimize(\n    parameters=[\n        {\"name\": \"learning_rate_init\", \"type\": \"range\", \"bounds\": [1e-6, 1e-1], \"log_scale\": True},\n        {\"name\": \"max_iter\", \"type\": \"range\", \"bounds\": [10, 1000]},\n    ],\n    evaluation_function=mlp_fitness,\n    objective_name='r-squared',\n)\n\nprint( best_parameters )\nmeans, covariances = values\nprint( means, covariances )\n\nfrom ax.plot.contour import plot_contour\nfrom ax.utils.notebook.plotting import render\n\nrender(plot_contour(model=model, param_x='learning_rate_init', param_y='max_iter', metric_name='r-squared'))\n\nfrom plotly import express as px\nimport numpy as np\n\nbest_objectives = np.array([[trial.objective_mean for trial in experiment.trials.values()]])\nresults = np.maximum.accumulate(best_objectives, axis=1).tolist()\npx.line(y=results)\n\nmodel = neural_network.MLPRegressor(**best_parameters, random_state=0).fit(x_train, y_train)\nprint( 'r-squared, val: ', model.score(x_val, y_val))\nprint( 'r-squared, test:', model.score(x_test, y_test))",
+  "imports": [
+    "from sklearn import model_selection",
+    "from ax.utils.notebook.plotting import render",
+    "from sklearn import ensemble",
+    "from plotly import express as px",
+    "from sklearn import linear_model",
+    "from ax.service.managed_loop import optimize",
+    "from ax.plot.contour import plot_contour",
+    "from sklearn import neural_network",
+    "import pygad",
+    "import numpy as np",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Basic hyperparameter tuning\n\nWe will use the `ax-platform` package for hyperparameter tuning.\nIt is more convenient than implementing this ourselves.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "# !pip install ax-platform",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now we need to do a train/validation/test split and an objective function.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x_trv, x_test, y_trv, y_test = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)\nx_train, x_val, y_train, y_val = model_selection.train_test_split(x_trv, y_trv, train_size=0.75, shuffle=True, random_state=0)\n\ndef mlp_fitness(parameterization):\n    try:\n        model = neural_network.MLPRegressor(**parameterization, random_state=0).fit(x_train, y_train)\n        score = model.score(x_val, y_val)\n    except:\n        score = -1\n    return score",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now we set up the optimization problem in the format specified by `ax-platform`.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from ax.service.managed_loop import optimize\n\nbest_parameters, values, experiment, model = optimize(\n    parameters=[\n        {\"name\": \"learning_rate_init\", \"type\": \"range\", \"bounds\": [1e-6, 1e-1], \"log_scale\": True},\n        {\"name\": \"max_iter\", \"type\": \"range\", \"bounds\": [10, 1000]},\n    ],\n    evaluation_function=mlp_fitness,\n    objective_name='r-squared',\n)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "With Gaussian Process, we can evaluate the results in terms of both mean and variance:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "print( best_parameters )\nmeans, covariances = values\nprint( means, covariances )",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "It is very helpful to visualize the loss surface:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from ax.plot.contour import plot_contour\nfrom ax.utils.notebook.plotting import render\n\nrender(plot_contour(model=model, param_x='learning_rate_init', param_y='max_iter', metric_name='r-squared'))",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "And we can also view it as a function of iterations.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from plotly import express as px\nimport numpy as np\n\nbest_objectives = np.array([[trial.objective_mean for trial in experiment.trials.values()]])\nresults = np.maximum.accumulate(best_objectives, axis=1).tolist()\npx.line(y=results)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Now that we have the optimal result, we should train a model with those hyperparameters.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "model = neural_network.MLPRegressor(**best_parameters, random_state=0).fit(x_train, y_train)\nprint( 'r-squared, val: ', model.score(x_val, y_val))\nprint( 'r-squared, test:', model.score(x_test, y_test))",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 3,
+  "parent_lecture": "Lecture10"
+}

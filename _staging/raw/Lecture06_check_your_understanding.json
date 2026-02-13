@@ -1,0 +1,33 @@
+{
+  "id": "Lecture06_check_your_understanding",
+  "markdown_content": "## [Check your understanding]\n\nTry repeating this reconstruction experiment using rescaled features.\nFollow these steps:\n* Apply a feature scaler to the data\n* Plot the PCA embedding from scaled features\n* Plot the explained variance curve\n* Try reconstructing the original data from the low-dimensional embeddings\n> Note: you will have to invert the feature scaling in addition to the embedding!",
+  "code_block": "\n\n",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\nTry repeating this reconstruction experiment using rescaled features.\nFollow these steps:\n* Apply a feature scaler to the data\n* Plot the PCA embedding from scaled features\n* Plot the explained variance curve\n* Try reconstructing the original data from the low-dimensional embeddings\n> Note: you will have to invert the feature scaling in addition to the embedding!",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 10,
+  "parent_lecture": "Lecture06"
+}

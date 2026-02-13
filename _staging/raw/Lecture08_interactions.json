@@ -1,0 +1,73 @@
+{
+  "id": "Lecture08_interactions",
+  "markdown_content": "## Interactions\n\nWe have already introduced the idea of polynomial features when we first learned about nonlinear regression.\nThese polynomial terms incorporate interactions between variables.\n\nLet's see how these interacting features compare to the original ones:\n\nOf course we're cheating here by not using a test set.\nLet's fix that:\n\nWe can evaluate the importance of these features using functions we developed last time:\n\nAnd of course we should plot them to understand the result:",
+  "code_block": "\n\nfrom sklearn import preprocessing\n\npoly = preprocessing.PolynomialFeatures(degree=2).fit(x)\nprint(poly.get_feature_names_out())\n\nxp = poly.transform(x)\nmodel = linear_model.LinearRegression().fit(xp, y)\nmodel.score(xp, y)\n\nxtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)\n\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)\nprint( model.score(xtest, ytest) )\n\nmodel = linear_model.LinearRegression().fit(poly.transform(xtrain), ytrain)\nprint( model.score(poly.transform(xtest), ytest) )\n\nfrom sklearn import model_selection\n\n\ndef calc_rmse(y, y_pred):\n    residuals = y - y_pred\n    return np.sqrt(np.mean(residuals**2))\n\n\ndef permutation_importance(model, x, y, metric=calc_rmse):\n    \"\"\"Compute the permutation importance on a trained model.\"\"\"\n    baseline = metric(y, model.predict(x))\n\n    permuted = np.zeros_like(x.columns)\n    for i, col in enumerate(x.columns):\n        x_permuted = x.copy()\n        x_permuted[col] = np.random.permutation(x[col])\n        permuted[i] = metric(y, model.predict(x_permuted))\n\n    return baseline, permuted\n\n\ndef drop_column_importance(model, x, y, metric=calc_rmse):\n    \"\"\"Compute the drop-column importance on a trained model.\"\"\"\n    xtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)\n\n    model.fit(xtrain, ytrain)\n    baseline = metric(ytest, model.predict(xtest))\n\n    dropped = np.zeros_like(xtest.columns)\n    for i, col in enumerate(xtest.columns):\n        x_dropped_train = xtrain.copy().drop(columns=col)\n        x_dropped_test = xtest.copy().drop(columns=col)\n        model.fit(x_dropped_train, ytrain)\n        dropped[i] = metric(ytest, model.predict(x_dropped_test))\n\n    return baseline, dropped\n\n\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)\nbaseline, permuted = permutation_importance(model, xtest, ytest)\n\nbaseline, dropped = drop_column_importance(linear_model.LinearRegression(), x, y)\n\nfig, ax = plt.subplots()\nax.bar(x.columns, permuted, label='Permuted')\nax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\nax.hlines(baseline, 0, len(x.columns)-1, linestyles='dashed', label='Baseline')\nax.set_ylabel('Model RMSE')\nax.legend(loc='lower center')\n\nfig, ax = plt.subplots()\nax.bar(x.columns, dropped, label='Dropped')\nax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\nax.hlines(baseline, 0, len(x.columns)-1, linestyles='dashed', label='Baseline')\nax.set_ylabel('Model RMSE')\nax.legend(loc='lower center')",
+  "imports": [
+    "import numpy as np",
+    "from plotly import express as px",
+    "from sklearn.preprocessing import KBinsDiscretizer",
+    "from sklearn.feature_selection import GenericUnivariateSelect",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import linear_model, ensemble",
+    "from sklearn import linear_model, model_selection",
+    "from scipy.spatial import distance",
+    "from sklearn.feature_selection import SequentialFeatureSelector",
+    "from sklearn.feature_selection import RFE"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Interactions\n\nWe have already introduced the idea of polynomial features when we first learned about nonlinear regression.\nThese polynomial terms incorporate interactions between variables.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import preprocessing\n\npoly = preprocessing.PolynomialFeatures(degree=2).fit(x)\nprint(poly.get_feature_names_out())",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Let's see how these interacting features compare to the original ones:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "xp = poly.transform(x)\nmodel = linear_model.LinearRegression().fit(xp, y)\nmodel.score(xp, y)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Of course we're cheating here by not using a test set.\nLet's fix that:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "xtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)\n\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)\nprint( model.score(xtest, ytest) )\n\nmodel = linear_model.LinearRegression().fit(poly.transform(xtrain), ytrain)\nprint( model.score(poly.transform(xtest), ytest) )",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "We can evaluate the importance of these features using functions we developed last time:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from sklearn import model_selection\n\n\ndef calc_rmse(y, y_pred):\n    residuals = y - y_pred\n    return np.sqrt(np.mean(residuals**2))\n\n\ndef permutation_importance(model, x, y, metric=calc_rmse):\n    \"\"\"Compute the permutation importance on a trained model.\"\"\"\n    baseline = metric(y, model.predict(x))\n\n    permuted = np.zeros_like(x.columns)\n    for i, col in enumerate(x.columns):\n        x_permuted = x.copy()\n        x_permuted[col] = np.random.permutation(x[col])\n        permuted[i] = metric(y, model.predict(x_permuted))\n\n    return baseline, permuted\n\n\ndef drop_column_importance(model, x, y, metric=calc_rmse):\n    \"\"\"Compute the drop-column importance on a trained model.\"\"\"\n    xtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)\n\n    model.fit(xtrain, ytrain)\n    baseline = metric(ytest, model.predict(xtest))\n\n    dropped = np.zeros_like(xtest.columns)\n    for i, col in enumerate(xtest.columns):\n        x_dropped_train = xtrain.copy().drop(columns=col)\n        x_dropped_test = xtest.copy().drop(columns=col)\n        model.fit(x_dropped_train, ytrain)\n        dropped[i] = metric(ytest, model.predict(x_dropped_test))\n\n    return baseline, dropped\n\n\nmodel = linear_model.LinearRegression().fit(xtrain, ytrain)\nbaseline, permuted = permutation_importance(model, xtest, ytest)\n\nbaseline, dropped = drop_column_importance(linear_model.LinearRegression(), x, y)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "And of course we should plot them to understand the result:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "fig, ax = plt.subplots()\nax.bar(x.columns, permuted, label='Permuted')\nax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\nax.hlines(baseline, 0, len(x.columns)-1, linestyles='dashed', label='Baseline')\nax.set_ylabel('Model RMSE')\nax.legend(loc='lower center')\n\nfig, ax = plt.subplots()\nax.bar(x.columns, dropped, label='Dropped')\nax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\nax.hlines(baseline, 0, len(x.columns)-1, linestyles='dashed', label='Baseline')\nax.set_ylabel('Model RMSE')\nax.legend(loc='lower center')",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 9,
+  "parent_lecture": "Lecture08"
+}

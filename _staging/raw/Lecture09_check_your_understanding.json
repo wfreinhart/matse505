@@ -1,0 +1,35 @@
+{
+  "id": "Lecture09_check_your_understanding",
+  "markdown_content": "## [Check your understanding]\n\nApply Group K-Fold CV to split the data by `Age (day)` feature groups.\nThis will allow you to test the performance when exposed to new values not seen in training.\nEvaluate the model validation performance on interpolation and extrapolation tasks.\n\n> Note: the [`scikit-learn` documentation](https://scikit-learn.org/stable/modules/cross_validation.html) has a great resource explaning different kinds of CV.",
+  "code_block": "\n\n",
+  "imports": [
+    "from sklearn import ensemble",
+    "import pandas as pd",
+    "from sklearn import preprocessing",
+    "from sklearn import model_selection",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "import numpy as np",
+    "import os",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\nApply Group K-Fold CV to split the data by `Age (day)` feature groups.\nThis will allow you to test the performance when exposed to new values not seen in training.\nEvaluate the model validation performance on interpolation and extrapolation tasks.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "> Note: the [`scikit-learn` documentation](https://scikit-learn.org/stable/modules/cross_validation.html) has a great resource explaning different kinds of CV.",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 21,
+  "parent_lecture": "Lecture09"
+}

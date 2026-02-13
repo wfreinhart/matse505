@@ -1,0 +1,33 @@
+{
+  "id": "Lecture06_diffusion_maps",
+  "markdown_content": "## Diffusion maps\n\nA variant of the spectral embedding is to use a Gaussian kernel to emulate a \"diffusion process\" on the manifold:\n\n$k(x,y) = \\exp \\left( -\\frac{||x-y||^2}{\\epsilon^2} \\right)$\n\nWith this kernel we can compute an affinity matrix $L$ and then solve the eigenvector problem on the normalized diffusion matrix,\n\n$P = D^{-1} K$,\n\nthis can be cast as an eigenvector problem to obtain a mapping in the diffusion space:",
+  "code_block": "\n\nfrom scipy.spatial import distance\n\ndist = distance.squareform(distance.pdist(S))\n\nepsilon = np.percentile(dist, 1)\nL = np.exp(-dist**2/epsilon**2)\n\nD = np.diag(np.sum(L, axis=1))\nP = np.linalg.inv(D) @ L\n\nw, v = np.linalg.eig(P)\nplt.scatter(*v[:, 1:3].T, c=t)",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## Diffusion maps\n\nA variant of the spectral embedding is to use a Gaussian kernel to emulate a \"diffusion process\" on the manifold:\n\n$k(x,y) = \\exp \\left( -\\frac{||x-y||^2}{\\epsilon^2} \\right)$\n\nWith this kernel we can compute an affinity matrix $L$ and then solve the eigenvector problem on the normalized diffusion matrix,\n\n$P = D^{-1} K$,\n\nthis can be cast as an eigenvector problem to obtain a mapping in the diffusion space:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "from scipy.spatial import distance\n\ndist = distance.squareform(distance.pdist(S))\n\nepsilon = np.percentile(dist, 1)\nL = np.exp(-dist**2/epsilon**2)\n\nD = np.diag(np.sum(L, axis=1))\nP = np.linalg.inv(D) @ L\n\nw, v = np.linalg.eig(P)\nplt.scatter(*v[:, 1:3].T, c=t)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 14,
+  "parent_lecture": "Lecture06"
+}

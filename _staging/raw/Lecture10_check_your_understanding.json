@@ -1,0 +1,53 @@
+{
+  "id": "Lecture10_check_your_understanding",
+  "markdown_content": "## [Check your understanding]\n\n(a) Implement cross-fold validation inside the GA fitness function and use the mean validation $R^2$ as the feature fitness.\n\n(b) Alternatively, add an option to perform hyperparameter tuning for the `n_neighbors` and `weighting` of `KNeighborsRegressor` (together with feature selection).\n> You will need to split apart your `features` array into different parts when you get inside the `fitness` function. For instance,\n```\nk = features[0]\nw = features[1]\nsel = features[2:]\n```\n> You may also need to manipulate the values such as rounding to `int`, mapping to discrete options for `str`, etc.\n\n(c) Alternatively, add an option to select both which features will be used and which model.\n> You will need to map an integer index to a model definition. One way is to use a predefined list like so:\n\n```\n# before the fitness function:\npossible_models = [linear_model.LinearRegression(), ensemble.RandomForestRegressor(), neighbors.KNeighborsRegressor(), ...]\n\n# then inside the fitness function:\nmodel = possible_models[i]\n```",
+  "code_block": "\n\n\n\n\n\n",
+  "imports": [
+    "from sklearn import model_selection",
+    "from ax.utils.notebook.plotting import render",
+    "from sklearn import ensemble",
+    "from plotly import express as px",
+    "from sklearn import linear_model",
+    "from ax.service.managed_loop import optimize",
+    "from ax.plot.contour import plot_contour",
+    "from sklearn import neural_network",
+    "import pygad",
+    "import numpy as np",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "## [Check your understanding]\n\n(a) Implement cross-fold validation inside the GA fitness function and use the mean validation $R^2$ as the feature fitness.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "(b) Alternatively, add an option to perform hyperparameter tuning for the `n_neighbors` and `weighting` of `KNeighborsRegressor` (together with feature selection).\n> You will need to split apart your `features` array into different parts when you get inside the `fitness` function. For instance,\n```\nk = features[0]\nw = features[1]\nsel = features[2:]\n```\n> You may also need to manipulate the values such as rounding to `int`, mapping to discrete options for `str`, etc.",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "(c) Alternatively, add an option to select both which features will be used and which model.\n> You will need to map an integer index to a model definition. One way is to use a predefined list like so:\n\n```\n# before the fitness function:\npossible_models = [linear_model.LinearRegression(), ensemble.RandomForestRegressor(), neighbors.KNeighborsRegressor(), ...]\n\n# then inside the fitness function:\nmodel = possible_models[i]\n```",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 12,
+  "parent_lecture": "Lecture10"
+}

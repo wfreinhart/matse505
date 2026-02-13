@@ -1,0 +1,58 @@
+{
+  "id": "Lecture06_0",
+  "markdown_content": "\n\nToday's topics:\n* Feature scaling\n* Reconstruction\n* Manifold learning\n* Semi-supervised learning\n\nLet's load the alloys dataset from before...\n\nDrop the outlier we found last time:\n\nAnd define a space to work in:",
+  "code_block": "\n\nimport pandas as pd\nimport numpy as np\nimport os\n\n# Set the path to the data file\nfilename = 'steels.csv'\nlocal_path = f'../datasets/{filename}'\ngithub_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\n# Load the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path):\n    data = pd.read_csv(local_path)\nelse:\n    data = pd.read_csv(github_url)\ndata                            # show a view of the data file\n\noutlier = np.argmax(data[' Tensile Strength (MPa)'])\nclean_data = data.drop(index=outlier)\n\nx = clean_data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']",
+  "imports": [
+    "import pandas as pd",
+    "import numpy as np",
+    "from sklearn import manifold",
+    "from sklearn import semi_supervised",
+    "from sklearn import preprocessing",
+    "from sklearn import decomposition",
+    "import umap",
+    "import os",
+    "from sklearn import datasets",
+    "from plotly import express as px",
+    "from matplotlib import pyplot as plt",
+    "from scipy.spatial import distance"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "Today's topics:\n* Feature scaling\n* Reconstruction\n* Manifold learning\n* Semi-supervised learning",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "markdown",
+      "content": "Let's load the alloys dataset from before...",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "import pandas as pd\nimport numpy as np\nimport os\n\n# Set the path to the data file\nfilename = 'steels.csv'\nlocal_path = f'../datasets/{filename}'\ngithub_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\n# Load the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path):\n    data = pd.read_csv(local_path)\nelse:\n    data = pd.read_csv(github_url)\ndata                            # show a view of the data file",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Drop the outlier we found last time:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "outlier = np.argmax(data[' Tensile Strength (MPa)'])\nclean_data = data.drop(index=outlier)",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "And define a space to work in:",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "x = clean_data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 0,
+  "parent_lecture": "Lecture06"
+}

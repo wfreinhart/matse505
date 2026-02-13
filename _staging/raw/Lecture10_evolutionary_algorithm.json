@@ -1,0 +1,28 @@
+{
+  "id": "Lecture10_evolutionary_algorithm",
+  "markdown_content": "# Evolutionary algorithm",
+  "code_block": "",
+  "imports": [
+    "from sklearn import model_selection",
+    "from ax.utils.notebook.plotting import render",
+    "from sklearn import ensemble",
+    "from plotly import express as px",
+    "from sklearn import linear_model",
+    "from ax.service.managed_loop import optimize",
+    "from ax.plot.contour import plot_contour",
+    "from sklearn import neural_network",
+    "import pygad",
+    "import numpy as np",
+    "from matplotlib import pyplot as plt",
+    "from sklearn import neighbors"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Evolutionary algorithm",
+      "metadata": "# %% [markdown]"
+    }
+  ],
+  "sequence": 8,
+  "parent_lecture": "Lecture10"
+}
