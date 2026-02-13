@@ -1,9 +1,8 @@
 {
   "id": "Lecture01_getting_help",
   "type": "Foundational",
-  "sequence": 6,
   "parent_lecture": "Lecture01",
   "requirements": [],
   "markdown_content": "## Getting help\n\nYou can get information about functions using `help`:\n\nAnother option is to use the `?` symbol, which will open a tab in the Colab interpreter (look for a `Help` tab to the right \u27a1)\n\nNote that this output might not be helpful to *you* until you learn more about how Python works...\nYou can always refer to online documentation for a more human-readable version (often including examples, etc...)",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    import matplotlib\n    import numpy\n    import numpy as np\n    import numpy as np  # this is a module, with an alias\n    \n    \n    help(print)\n    \n    # print?"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    help(print)\n    \n    # print?"
 }

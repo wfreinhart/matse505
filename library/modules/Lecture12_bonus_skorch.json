@@ -1,0 +1,8 @@
+{
+  "id": "Lecture12_bonus_skorch",
+  "type": "Foundational",
+  "parent_lecture": "Lecture12",
+  "requirements": [],
+  "markdown_content": "# Bonus: `skorch`\n\n[`skorch`](https://skorch.readthedocs.io/en/stable/) is a package that gives `pytorch` models an interface very similar to `sklearn` (thus the name **sk**learn-pyt**orch**).\nIt ends up looking something like this:\n\n```\nclass MyModule(torch.nn.Module):\n    ...\n\nnet = NeuralNet(\n    module=MyModule,\n    criterion=torch.nn.NLLLoss,\n)\nnet.fit(X, y)\ny_pred = net.predict(X_valid)\n```\n\nThis may be helpful when you want to train deep learning models side by side with simpler models like linear regression or trees.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+}

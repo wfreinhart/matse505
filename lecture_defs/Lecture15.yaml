@@ -1,0 +1,14 @@
+id: Lecture15
+title: Lecture15
+modules:
+  - id: Lecture15_0
+  - id: Lecture15_autoencoder
+  - id: Lecture15_concepts
+  - id: Lecture15_a_simple_example
+  - id: Lecture15_implementation
+  - id: Lecture15_latent_spaces
+  - id: Lecture15_evaluation
+  - id: Lecture15_visualization
+  - id: Lecture15_check_your_understanding
+  - id: Lecture15_concept_vectors
+  - id: Lecture15_check_your_understanding

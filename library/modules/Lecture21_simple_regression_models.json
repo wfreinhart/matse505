@@ -1,0 +1,11 @@
+{
+  "id": "Lecture21_simple_regression_models",
+  "type": "Foundational",
+  "parent_lecture": "Lecture21",
+  "requirements": [
+    "tensors['x']",
+    "tensors['y']"
+  ],
+  "markdown_content": "## Simple regression models\n\nWe can also try the regularized linear regression models:",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    from sklearn import linear_model, model_selection\n    \n    train_idx, test_idx = model_selection.train_test_split(np.arange(x.shape[0]), random_state=0)\n    \n    lr = linear_model.LinearRegression().fit(x[train_idx], y[train_idx])\n    print(f'Train R2 = {lr.score(x[train_idx], y[train_idx]):.3f}')\n    print(f'Test  R2 = {lr.score(x[test_idx], y[test_idx]):.3f}')\n    \n    for model in [linear_model.Lasso, linear_model.Ridge]:\n        lr = model().fit(x[train_idx], y[train_idx])\n        print(model)\n        print(f'Train R2 = {lr.score(x[train_idx], y[train_idx]):.3f}')\n        print(f'Test  R2 = {lr.score(x[test_idx], y[test_idx]):.3f}')\n        print()\n    \n    from sklearn import ensemble, neighbors\n    \n    for model in [ensemble.RandomForestRegressor, neighbors.KNeighborsRegressor]:\n        lr = model().fit(x[train_idx], y[train_idx])\n        print(model)\n        print(f'Train R2 = {lr.score(x[train_idx], y[train_idx]):.3f}')\n        print(f'Test  R2 = {lr.score(x[test_idx], y[test_idx]):.3f}')\n        print()"
+}

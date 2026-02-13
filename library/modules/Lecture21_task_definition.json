@@ -1,0 +1,12 @@
+{
+  "id": "Lecture21_task_definition",
+  "type": "Foundational",
+  "parent_lecture": "Lecture21",
+  "requirements": [
+    "tensors['rdMolDescriptors']",
+    "tensors['smiles']",
+    "data"
+  ],
+  "markdown_content": "## Task definition\n\nLet's try a simple example of regression using the molecular fingerprints.\nWe'll try to predict the molecular weight from the fingerprint.\nIt's trivial but will demonstrate some of the challenges.\nIn principle any scalar quantity can be substituted for the molecular weight.\n\nIt is critical to understand that this uses *bits* (which are binary) and so we only know whether or not a fragment is active in a molecule:",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    df = ctx.get('data')\n    rdMolDescriptors = ctx.get('tensors', {}).get('rdMolDescriptors')\n    smiles = ctx.get('tensors', {}).get('smiles')\n    import numpy as np\n    \n    # Generate molecules\n    molecules = [Chem.MolFromSmiles(smiles) for smiles in df['smiles']]\n    \n    all_fp = []\n    all_mw = []\n    for mol in molecules:\n        # Compute fingerprints\n        fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=512)\n        all_fp.append(fp)\n        # Compute molecular weight\n        mw = Descriptors.MolWt(mol)\n        all_mw.append(mw)\n    \n    # create dataset for regression task\n    x = np.array(all_fp)\n    y = np.array(all_mw)\n    \n    print(x.shape, x.max())\n    print(x[0])\n    ctx['tensors']['all_fp'] = all_fp\n    ctx['tensors']['all_mw'] = all_mw\n    ctx['tensors']['molecules'] = molecules\n    ctx['tensors']['x'] = x\n    ctx['tensors']['y'] = y"
+}

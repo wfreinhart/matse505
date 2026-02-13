@@ -1,0 +1,10 @@
+{
+  "id": "Lecture09_leave_one_out",
+  "type": "Foundational",
+  "parent_lecture": "Lecture09",
+  "requirements": [
+    "tensors['x_sort']"
+  ],
+  "markdown_content": "## Leave-one-out\n\nAn extreme version of the cross-fold validation is to use a number of folds equal to the number of observations.\nThis effectively uses each and every sample as a test set.\nIt would look like so:\n\n<img src=\"../lectures/assets/cross_validation_diagram.jpg\" width=600 alt=\"Generalized flowchart of the cross-validation process\">\n\nWhat are the downsides of this scheme?\n\nLet's see what this looks like on our cement data:",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    x_sort = ctx.get('tensors', {}).get('x_sort')\n    # define the fold splitting strategy\n    folds = model_selection.LeaveOneOut()\n    \n    in_fold = np.zeros([x_sort.shape[0], folds.get_n_splits(x_sort)])\n    this_fold = np.zeros(x_sort.shape[0])\n    for i, (train_index, test_index) in enumerate(folds.split(x_sort)):\n        in_fold[test_index, i] = 1\n        this_fold[test_index] = i\n    \n    order = np.argsort(this_fold)\n    x_sort_local = x_sort.iloc[order]\n    in_fold = in_fold[order]\n    \n    fig, axes = plt.subplots(2, 1, figsize=(16, 12), sharex=True)\n    ax = axes[0]\n    _ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')\n    _ = ax.set_aspect('auto')\n    _ = ax.set_ylabel('Age')\n    ax = axes[1]\n    _ = ax.imshow(in_fold.T, interpolation='none')\n    _ = ax.set_aspect('auto')\n    _ = ax.set_xlabel('Observation')\n    _ = ax.set_ylabel('Fold')\n    plt.subplots_adjust(hspace=0.05)\n    ctx['tensors']['folds'] = folds\n    ctx['tensors']['in_fold'] = in_fold\n    ctx['tensors']['order'] = order\n    ctx['tensors']['this_fold'] = this_fold\n    ctx['tensors']['x_sort_local'] = x_sort_local"
+}

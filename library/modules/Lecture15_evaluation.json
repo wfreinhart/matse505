@@ -1,0 +1,12 @@
+{
+  "id": "Lecture15_evaluation",
+  "type": "Foundational",
+  "parent_lecture": "Lecture15",
+  "requirements": [
+    "tensors['a']",
+    "model",
+    "tensors['yt']"
+  ],
+  "markdown_content": "## Evaluation\n\nLet's start by plotting the first two dimensions of our latent space.\nWe'll access it using the `model.encoder` module:\n\n$z$ is more than 2 dimensional, so we can evaluate the entire latent space this way:\n\nOn its own this doesn't tell us much.\nLet's try to relate it back to the coefficients of the polynomials using color in our scatter plot.\n\nWe should see that there is a gradient in the color, indicating that the first coefficient is related to the learned latent space.\n\nIf we look at another coefficient, it won't necessarily share the same correlation:\n\nIt's possible that another combination of $z$ coordinates does correlate with the $a_1$ coefficient though:",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    a = ctx.get('tensors', {}).get('a')\n    model = ctx.get('model')\n    yt = ctx.get('tensors', {}).get('yt')\n    with torch.no_grad():\n        z = model.encoder(yt).detach().numpy()\n    \n    fig, ax = plt.subplots()\n    ax.scatter(z[:, 0], z[:, 1])\n    \n    fig, axes = plt.subplots(z.shape[1], z.shape[1], figsize=(6, 6))\n    for i in range(z.shape[1]):\n        for j in range(z.shape[1]):\n            ax = axes[i, j]\n            if i == j:\n                ax.hist(z[:, i], bins=int(np.sqrt(z.shape[0])))\n            else:\n                ax.scatter(z[:, i], z[:, j], s=2)\n    \n    with torch.no_grad():\n        z = model.encoder(yt).detach().numpy()\n    \n    fig, ax = plt.subplots()\n    ax.scatter(z[:, 0], z[:, 1], c=a[:, 0])\n    \n    fig, ax = plt.subplots()\n    ax.scatter(z[:, 0], z[:, 1], c=a[:, 1])\n    \n    fig, axes = plt.subplots(z.shape[1], z.shape[1], figsize=(6, 6))\n    for i in range(z.shape[1]):\n        for j in range(z.shape[1]):\n            ax = axes[i, j]\n            if i == j:\n                ax.hist(z[:, i], bins=int(np.sqrt(z.shape[0])))\n            else:\n                ax.scatter(z[:, i], z[:, j], s=2, c=a[:, 1])\n    ctx['tensors']['z'] = z"
+}

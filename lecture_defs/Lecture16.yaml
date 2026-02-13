@@ -1,0 +1,17 @@
+id: Lecture16
+title: Lecture16
+modules:
+  - id: Lecture16_0
+  - id: Lecture16_generative_modeling
+  - id: Lecture16_concepts
+  - id: Lecture16_basic_implementation
+  - id: Lecture16_interpolation
+  - id: Lecture16_check_your_understanding
+  - id: Lecture16_using_concept_vectors
+  - id: Lecture16_check_your_understanding
+  - id: Lecture16_variational_autoencoder
+  - id: Lecture16_concept
+  - id: Lecture16_implementation
+  - id: Lecture16_evaluating_the_latent_space
+  - id: Lecture16_check_your_understanding
+  - id: Lecture16_beta_vae

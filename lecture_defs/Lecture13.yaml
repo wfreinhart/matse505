@@ -1,0 +1,23 @@
+id: Lecture13
+title: Lecture13
+modules:
+  - id: Lecture13_0
+  - id: Lecture13_convolutional_neural_networks
+  - id: Lecture13_motivation
+  - id: Lecture13_image_filters
+  - id: Lecture13_building_a_cnn
+  - id: Lecture13_architecture
+  - id: Lecture13_padding
+  - id: Lecture13_kernel_width
+  - id: Lecture13_stride
+  - id: Lecture13_pooling
+  - id: Lecture13_regularization
+  - id: Lecture13_classification_of_defects
+  - id: Lecture13_about_the_data
+  - id: Lecture13_setting_up_the_dataset
+  - id: Lecture13_basic_implementation
+  - id: Lecture13_check_your_understanding
+  - id: Lecture13_evaluating_the_model
+  - id: Lecture13_check_your_understanding
+  - id: Lecture13_batch_normalization
+  - id: Lecture13_check_your_understanding

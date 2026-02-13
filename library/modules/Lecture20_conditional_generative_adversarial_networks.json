@@ -1,0 +1,8 @@
+{
+  "id": "Lecture20_conditional_generative_adversarial_networks",
+  "type": "Foundational",
+  "parent_lecture": "Lecture20",
+  "requirements": [],
+  "markdown_content": "## conditional Generative Adversarial Networks\n\n<img src=\"../lectures/assets/lecture20_generative_models.jpg\" alt=\"Different types of generative models like VAE, GAN, Flow-based\" width=600>\n\nDetails for a future lecture...",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+}

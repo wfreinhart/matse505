@@ -1,0 +1,17 @@
+id: Lecture11
+title: Lecture11
+modules:
+  - id: Lecture11_0
+  - id: Lecture11_preliminaries
+  - id: Lecture11_dataset
+  - id: Lecture11_baseline_with_sklearn
+  - id: Lecture11_pytorch_syntax
+  - id: Lecture11_why_pytorch
+  - id: Lecture11_tensors
+  - id: Lecture11_linear_regression_with_gradient_descent
+  - id: Lecture11_building_a_shallow_nn_with_pytorch
+  - id: Lecture11_the_manual_way_with_autograd
+  - id: Lecture11_check_your_understanding
+  - id: Lecture11_with_pytorch_builtins
+  - id: Lecture11_bonus_a_more_visual_example
+  - id: Lecture11_check_your_understanding

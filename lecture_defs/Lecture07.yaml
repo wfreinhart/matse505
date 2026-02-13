@@ -1,0 +1,22 @@
+id: Lecture07
+title: Lecture07
+modules:
+  - id: Lecture07_0
+  - id: Lecture07_feature_importance
+  - id: Lecture07_permutation_importance
+  - id: Lecture07_rescaling_features
+  - id: Lecture07_spurious_features
+  - id: Lecture07_drop_column_importance
+  - id: Lecture07_using_the_test_set
+  - id: Lecture07_check_your_understanding
+  - id: Lecture07_evaluating_nonlinear_models
+  - id: Lecture07_random_forest
+  - id: Lecture07_comparison_to_linear_regression
+  - id: Lecture07_evaluating_a_bunch_of_models
+  - id: Lecture07_doing_the_same_with_drop_columns
+  - id: Lecture07_check_your_understanding
+  - id: Lecture07_classification
+  - id: Lecture07_a_new_dataset
+  - id: Lecture07_modification_for_classifiers
+  - id: Lecture07_repeatability
+  - id: Lecture07_check_your_understanding

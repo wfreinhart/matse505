@@ -1,0 +1,24 @@
+id: Lecture06
+title: Lecture06
+modules:
+  - id: Lecture06_0
+  - id: Lecture06_feature_scaling
+  - id: Lecture06_standard_scaler
+  - id: Lecture06_min_max_scaler
+  - id: Lecture06_power_transformer
+  - id: Lecture06_check_your_understanding
+  - id: Lecture06_reconstruction
+  - id: Lecture06_quick_review_of_pca
+  - id: Lecture06_concept_of_reconstruction
+  - id: Lecture06_information_loss
+  - id: Lecture06_check_your_understanding
+  - id: Lecture06_manifold_learning
+  - id: Lecture06_kernel_pca
+  - id: Lecture06_spectral_methods
+  - id: Lecture06_diffusion_maps
+  - id: Lecture06_other_spectral_methods
+  - id: Lecture06_where_manifold_learning_fails
+  - id: Lecture06_semi_supervised_learning
+  - id: Lecture06_in_scikit_learn
+  - id: Lecture06_unsupervised_umap
+  - id: Lecture06_supervised_umap

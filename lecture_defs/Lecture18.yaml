@@ -1,0 +1,24 @@
+id: Lecture18
+title: Lecture18
+modules:
+  - id: Lecture18_0
+  - id: Lecture18_interpolation_and_imputation
+  - id: Lecture18_digitizing_charts
+  - id: Lecture18_exercise_using_webplotdigitizer
+  - id: Lecture18_loading_the_result
+  - id: Lecture18_plotting_the_result
+  - id: Lecture18_interpolation
+  - id: Lecture18_linear_interpolation
+  - id: Lecture18_interp1d
+  - id: Lecture18_spline_interpolation
+  - id: Lecture18_when_interpolation_is_not_enough
+  - id: Lecture18_uncertainty_estimation
+  - id: Lecture18_gaussian_process
+  - id: Lecture18_neural_function_representation
+  - id: Lecture18_bootstrap
+  - id: Lecture18_check_your_understanding
+  - id: Lecture18_function_inversion
+  - id: Lecture18_a_simple_example
+  - id: Lecture18_problems_with_real_data
+  - id: Lecture18_multi_valued_functions
+  - id: Lecture18_check_your_understanding

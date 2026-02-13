@@ -15,7 +15,12 @@ class TestRunner:
         modules = []
         for f in self.modules_dir.glob("*.json"):
             with open(f, 'r') as f_in:
-                modules.append(json.load(f_in))
+                try:
+                    mod = json.load(f_in)
+                    mod['_filename'] = str(f)
+                    modules.append(mod)
+                except Exception as e:
+                    print(f"Failed to load {f}: {e}")
         return modules
 
     def run_static_validation(self):
@@ -47,7 +52,7 @@ class TestRunner:
                 
                 passed += 1
             except Exception as e:
-                print(f"FAIL [Static]: {mod_id} ({type(e).__name__}: {e})")
+                print(f"FAIL [Static]: {mod_id} in {mod.get('_filename')} ({type(e).__name__}: {e})")
                 failed += 1
                 
         print(f"Tier 1 Summary: {passed} passed, {failed} failed")

@@ -1,9 +1,8 @@
 {
   "id": "Lecture01_importing_modules",
   "type": "Foundational",
-  "sequence": 14,
   "parent_lecture": "Lecture01",
   "requirements": [],
   "markdown_content": "## Importing modules\n\n\nYou can access modules using the `import` keyword followed by the module name.\nColab has a bunch of modules available by default.\nLet's try importing NumPy:\n\n**Note** modules are supposed to have short, lower-case names.\nNumpy was imported using `numpy` rather than NumPy.\n\nThe `print` function gives us some information about the module that indicates it loaded successfully.\nNote that just calling `import` doesn't give any output unless there's an error.\nLet's observe this behavior using Matplotlib:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    import matplotlib\n    import numpy\n    import numpy as np\n    import numpy as np  # this is a module, with an alias\n    \n    \n    import numpy\n    print(numpy)\n    \n    import matplotlib"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    import numpy\n    print(numpy)\n    \n    import matplotlib"
 }

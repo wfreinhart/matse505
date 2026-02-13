@@ -1,0 +1,8 @@
+{
+  "id": "Lecture17_convolutional_autoencoder",
+  "type": "Foundational",
+  "parent_lecture": "Lecture17",
+  "requirements": [],
+  "markdown_content": "# Convolutional AutoEncoder\n\n<img src=\"../lectures/assets/lecture17_unet_architecture.jpg\" alt=\"Architecture of the U-Net for semantic segmentation\" width=600>",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+}

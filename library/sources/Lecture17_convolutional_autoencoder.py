@@ -1,0 +1,23 @@
+# ---
+# jupyter:
+#   jupytext:
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.16.1
+#   kernelspec:
+#     display_name: Python 3
+#     name: python3
+# ---
+
+# %% [markdown]
+# ---
+# id: Lecture17_convolutional_autoencoder
+# type: Foundational
+# parent_lecture: Lecture17
+# ---
+#
+# # Convolutional AutoEncoder
+#
+# <img src="../lectures/assets/lecture17_unet_architecture.jpg" alt="Architecture of the U-Net for semantic segmentation" width=600>

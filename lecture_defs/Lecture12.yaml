@@ -1,0 +1,23 @@
+id: Lecture12
+title: Lecture12
+modules:
+  - id: Lecture12_0
+  - id: Lecture12_streamlining_pytorch_model_code
+  - id: Lecture12_nn_sequential
+  - id: Lecture12_lazy_layers
+  - id: Lecture12_submodules
+  - id: Lecture12_batches_and_data_i_o
+  - id: Lecture12_dataloader
+  - id: Lecture12_dataset
+  - id: Lecture12_check_your_understanding
+  - id: Lecture12_model_i_o
+  - id: Lecture12_saving_and_loading_the_entire_model
+  - id: Lecture12_state_dict
+  - id: Lecture12_checkpoint_files
+  - id: Lecture12_torchscript
+  - id: Lecture12_onnx
+  - id: Lecture12_pytorch_lightning
+  - id: Lecture12_trainer
+  - id: Lecture12_validation
+  - id: Lecture12_check_your_understanding
+  - id: Lecture12_bonus_skorch

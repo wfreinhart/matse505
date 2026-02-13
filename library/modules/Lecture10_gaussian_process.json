@@ -1,0 +1,8 @@
+{
+  "id": "Lecture10_gaussian_process",
+  "type": "Foundational",
+  "parent_lecture": "Lecture10",
+  "requirements": [],
+  "markdown_content": "## Gaussian process\n\n<img src=\"../lectures/assets/gp_noise_gp.jpg\" width=600 alt=\"Visualization of a Gaussian Process regression with confidence intervals and noisy data points\">\n\n<img src=\"../lectures/assets/kernel_types.jpg\" width=600 alt=\"Visual gallery of different Gaussian Process kernels and their resulting functions\">",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+}

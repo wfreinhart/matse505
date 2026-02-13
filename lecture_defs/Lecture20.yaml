@@ -1,0 +1,23 @@
+id: Lecture20
+title: Lecture20
+modules:
+  - id: Lecture20_0
+  - id: Lecture20_requirements
+  - id: Lecture20_dataset
+  - id: Lecture20_screening_and_search
+  - id: Lecture20_design_space
+  - id: Lecture20_surrogate_modeling
+  - id: Lecture20_screening
+  - id: Lecture20_search
+  - id: Lecture20_synthetic_data_generation
+  - id: Lecture20_data_generation_with_sdv
+  - id: Lecture20_conditional_rejection_sampling
+  - id: Lecture20_a_simple_synthetic_dataset
+  - id: Lecture20_surrogate_modeling
+  - id: Lecture20_screening
+  - id: Lecture20_search
+  - id: Lecture20_rejection_sampling
+  - id: Lecture20_inverse_function_approximation
+  - id: Lecture20_normalizing_flows
+  - id: Lecture20_conditional_normalizing_flows
+  - id: Lecture20_conditional_generative_adversarial_networks

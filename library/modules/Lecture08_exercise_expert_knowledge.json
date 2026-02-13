@@ -1,0 +1,11 @@
+{
+  "id": "Lecture08_exercise_expert_knowledge",
+  "type": "Foundational",
+  "parent_lecture": "Lecture08",
+  "requirements": [
+    "tensors['it']",
+    "data"
+  ],
+  "markdown_content": "## [Exercise: Expert knowledge]\n\nIn the above case, we are using binning to approximate something like the group and period information in the periodic table.\nThere are often cases where \"expert knowledge\" can be infused to greatly improve the result.\nTry introducing group and period information from [this periodic table dataset](https://gist.github.com/GoodmanSciences/c2dd862cd38f21b0ad36b8f96b4bf1ee) to improve the performance of the Linear Regression model.\n\nFollow these steps:\n* Either download the file or fetch it with `requests`\n* Load it with `pandas`\n* Create new columns in our `data` DataFrame that include Period and Group\n* Try fitting a Linear Regression model with this new data",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    it = ctx.get('tensors', {}).get('it')\n    elements = pd.read_csv('../datasets/elements.csv', index_col='Symbol')\n    elements\n    \n    data['Period'] = [elements.loc[it, 'Period'] for it in data.index]\n    data['Group'] = [elements.loc[it, 'Group'] for it in data.index]\n    \n    clean_data = data.dropna(subset=['Atomic Mass', 'Period', 'Group', 'Ionization Energies (eV)'])\n    x = clean_data.loc[:, ['Atomic Mass', 'Period', 'Group']]\n    y = clean_data.dropna(subset=['Atomic Mass', 'Period', 'Group', 'Ionization Energies (eV)']).loc[:, 'Ionization Energies (eV)']\n    \n    fig, ax = plt.subplots()\n    _ = ax.plot(x['Atomic Mass'], y, '.')\n    \n    model = linear_model.LinearRegression().fit(x, y)\n    y_hat = model.predict(x)\n    print( 'R2 = ', model.score(x, y) )\n    \n    _ = ax.plot(x['Atomic Mass'], y_hat, '.')\n    ctx['model'] = model\n    ctx['tensors']['clean_data'] = clean_data\n    ctx['tensors']['elements'] = elements\n    ctx['tensors']['x'] = x\n    ctx['tensors']['y'] = y\n    ctx['tensors']['y_hat'] = y_hat"
+}

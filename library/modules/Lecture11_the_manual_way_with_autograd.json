@@ -1,0 +1,11 @@
+{
+  "id": "Lecture11_the_manual_way_with_autograd",
+  "type": "Foundational",
+  "parent_lecture": "Lecture11",
+  "requirements": [
+    "tensors['x']",
+    "tensors['y']"
+  ],
+  "markdown_content": "## The manual way with autograd\n\nLet's set up a shallow neural network with one hidden layer.\nIt will look like this:\n\n<img src=\"../lectures/assets/lecture11_shallow_nn.jpg\" alt=\"Architecture of a shallow neural network with one hidden layer\" width=600>\n\nFirst we'll set up the inputs again, with `hidden_dim` being the number of neurons in the hidden layer.\n\nNow we'll set up the model parameters:\n\nNote that we need $w$ and $b$ for each of the input and hidden layers.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    # Convert numpy arrays to PyTorch tensors\n    xt = torch.from_numpy(x.values).float()\n    yt = torch.from_numpy(y.values).float().unsqueeze(1)\n    \n    input_dim = xt.shape[1]\n    hidden_dim = 100\n    output_dim = yt.shape[1]\n    \n    # Initialize the weights and bias\n    wi = torch.ones(input_dim, hidden_dim, requires_grad=True)\n    bi = torch.zeros(1, hidden_dim, requires_grad=True)\n    \n    wh = torch.ones(hidden_dim, output_dim, requires_grad=True)\n    bh = torch.ones(1, output_dim, requires_grad=True)\n    \n    # Forward pass\n    xh = torch.relu( xt @ wi + bi )\n    outputs = torch.relu( xh @ wh + bh )\n    \n    print(outputs)\n    ctx['tensors']['hidden_dim'] = hidden_dim\n    ctx['tensors']['input_dim'] = input_dim\n    ctx['tensors']['output_dim'] = output_dim\n    ctx['tensors']['outputs'] = outputs"
+}

@@ -1,0 +1,12 @@
+id: Lecture17
+title: Lecture17
+modules:
+  - id: Lecture17_0
+  - id: Lecture17_peer_review_of_presentation_plan
+  - id: Lecture17_convolutional_autoencoder
+  - id: Lecture17_convolutional_transpose_layer
+  - id: Lecture17_dataset
+  - id: Lecture17_implementation
+  - id: Lecture17_evaluation
+  - id: Lecture17_latent_space
+  - id: Lecture17_final_comments

@@ -1,0 +1,16 @@
+{
+  "id": "Lecture18_interp1d",
+  "type": "Foundational",
+  "parent_lecture": "Lecture18",
+  "requirements": [
+    "tensors['ys']",
+    "tensors['xs']",
+    "tensors['x']",
+    "tensors['light_blue']",
+    "tensors['interpolate']",
+    "tensors['y']",
+    "data"
+  ],
+  "markdown_content": "## `interp1d`\n\nOf course there's an easier way that doing this by hand each time, even easier than using a `for` loop. Let's use `scipy.interpolate.interp1d` for this purpose.\n\nWe get a *function* back from our `interp1d` call. We can pass it x values and it will return y values:\n\nAs we see, this matches our calculation done by hand above. The advantage of this function is we can also pass a whole array at once:\n\nIf we zoom in as we did before, we see the effect of our interpolation in between the observed data points:",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    interpolate = ctx.get('tensors', {}).get('interpolate')\n    light_blue = ctx.get('tensors', {}).get('light_blue')\n    x = ctx.get('tensors', {}).get('x')\n    xs = ctx.get('tensors', {}).get('xs')\n    y = ctx.get('tensors', {}).get('y')\n    ys = ctx.get('tensors', {}).get('ys')\n    from scipy import interpolate\n    \n    linear = interpolate.interp1d(data[xs], data[ys])\n    print(linear)\n    \n    print(linear(0.253))\n    \n    x_hat = np.linspace(data[xs].min(), data[xs].max(), 1000)\n    y_hat = linear(x_hat)\n    \n    fig2, ax2 = plt.subplots()\n    ax2.plot(x, y, 'o', c=light_blue, label='Data')\n    ax2.plot(x_hat, y_hat, '.', c=light_blue, label='Linear')\n    ax2.set_xlabel(xs)\n    ax2.set_ylabel(ys)\n    ax2.set_title('Compression of architected material')\n    ax2.legend()\n    \n    ax2.set_xlim(0.22, 0.28)  # zoom in on 0.22 to 0.28 strain\n    ax2.set_ylim(5, 15)       # zoom in on 5 to 15 MPa stress\n    fig2\n    ctx['tensors']['linear'] = linear\n    ctx['tensors']['x_hat'] = x_hat\n    ctx['tensors']['y_hat'] = y_hat"
+}

@@ -1,16 +1,27 @@
 # ---
 # jupyter:
 #   jupytext:
-#     cell_metadata_filter: -id,-colab,-outputId
 #     text_representation:
 #       extension: .py
 #       format_name: percent
-#       format_version: '1.3'
-#       jupytext_version: 1.19.0
 #   kernelspec:
 #     display_name: Python 3
 #     name: python3
 # ---
+
+# %% [markdown]
+# # Lecture13
+
+# %%
+class Context(dict):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setdefault('data', None)
+        self.setdefault('tensors', {})
+        self.setdefault('model', None)
+        self.setdefault('viz', None)
+
+ctx = Context()
 
 # %% [markdown]
 # Today's topics:
@@ -18,103 +29,47 @@
 # * Building a CNN
 # * Example: classification of steel defects
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
+
 # %% [markdown]
 # # Convolutional Neural Networks
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## Motivation
 #
 # Let me show you a feature of Fully Connected Neural Networks that may not be obvious but has very important consequences.
-
-# %%
-import pandas as pd
-import numpy as np
-import os
-
-# Set the path to the data file
-filename = 'concrete.csv'
-local_path = f'../datasets/{filename}'
-github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
-
-# Load the data: try local path first, fallback to GitHub for Colab
-if os.path.exists(local_path):
-    data = pd.read_csv(local_path)
-else:
-    data = pd.read_csv(github_url)
-data                            # show a view of the data file
-
-# %% [markdown]
+#
 # We can train a simple MLP Regressor using `scikit-learn` on the usual set of features:
-
-# %%
-from sklearn import neural_network
-
-x = data.iloc[:, 0:-1]
-y = data.iloc[:, -1]
-
-model = neural_network.MLPRegressor(max_iter=400, random_state=0).fit(x, y)
-print( f'R2   = {model.score(x, y):.3f}' )
-
-residual = model.predict(x) - y
-rmse = np.sqrt( np.mean( (residual-y)**2 ) )
-print( f'rmse = {rmse:.1f}' )
-
-# %% [markdown]
+#
 # Now we can try permuting the indices of the features randomly:
-
-# %%
-indices = np.arange(0, data.shape[1]-1)
-print('before permutation: ', indices)
-np.random.shuffle(indices)
-print('after permutation: ', indices)
-
-# %% [markdown]
+#
 # And retraining the model...
-
-# %%
-x = data.iloc[:, indices]
-y = data.iloc[:, -1]
-
-model = neural_network.MLPRegressor(max_iter=400, random_state=0).fit(x, y)
-print( f'R2   = {model.score(x, y):.3f}' )
-
-residual = model.predict(x) - y
-rmse = np.sqrt( np.mean( (residual-y)**2 ) )
-print( f'rmse = {rmse:.1f}' )
-
-# %% [markdown]
+#
 # There should be no significant difference in the performance after this permutation since the fully connected layers take information from every input.
 # We can repeat this several times to get a sense for how much this permutation matters.
-
-# %%
-r2 = []
-for _ in range(5):
-    np.random.shuffle(indices)
-    x = data.iloc[:, indices]
-    y = data.iloc[:, -1]
-
-    model = neural_network.MLPRegressor(max_iter=400, random_state=0).fit(x, y)
-    print( f'R2   = {model.score(x, y):.3f}' )
-    r2.append(model.score(x, y))
-
-print(np.mean(r2), np.std(r2))
-
-# %% [markdown]
+#
 # And compare it to the effect of changing the random seed:
-
-# %%
-r2 = []
-for i in range(5):
-    x = data.iloc[:, :-1]
-    y = data.iloc[:, -1]
-
-    model = neural_network.MLPRegressor(max_iter=400, random_state=i).fit(x, y)
-    print( f'R2   = {model.score(x, y):.3f}' )
-    r2.append(model.score(x, y))
-
-print(np.mean(r2), np.std(r2))
-
-# %% [markdown]
+#
 # We should see that these bands overlap, indicating that the effect of permuting he features is insignificant for the model performance.
 #
 # *So what's the point of this exercise?*
@@ -128,12 +83,95 @@ print(np.mean(r2), np.std(r2))
 #
 # *Would you consider these to be the same data artifact?*
 #
-#
-
-# %% [markdown]
 # In contrast, convolutional layers use a set of learnable filters to perform local operations on the input image, which enables them to capture local patterns and structure in the image. The filters are typically small and applied in a sliding window manner across the input image, which allows them to detect patterns regardless of their position in the image. By sharing the filters across the entire image, convolutional layers are also able to reduce the number of parameters in the model and improve computational efficiency.
 #
 # Additionally, convolutional layers are often combined with pooling layers to downsample the output feature maps and reduce the spatial dimensionality of the data. This further reduces the number of parameters and helps to prevent overfitting, while still preserving important spatial features in the input image.
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    neural_network = ctx.get('tensors', {}).get('neural_network')
+    import pandas as pd
+    import numpy as np
+    import os
+
+    # Set the path to the data file
+    filename = 'concrete.csv'
+    local_path = f'../datasets/{filename}'
+    github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
+
+    # Load the data: try local path first, fallback to GitHub for Colab
+    if os.path.exists(local_path):
+        data = pd.read_csv(local_path)
+    else:
+        data = pd.read_csv(github_url)
+    data                            # show a view of the data file
+
+    from sklearn import neural_network
+
+    x = data.iloc[:, 0:-1]
+    y = data.iloc[:, -1]
+
+    model = neural_network.MLPRegressor(max_iter=400, random_state=0).fit(x, y)
+    print( f'R2   = {model.score(x, y):.3f}' )
+
+    residual = model.predict(x) - y
+    rmse = np.sqrt( np.mean( (residual-y)**2 ) )
+    print( f'rmse = {rmse:.1f}' )
+
+    indices = np.arange(0, data.shape[1]-1)
+    print('before permutation: ', indices)
+    np.random.shuffle(indices)
+    print('after permutation: ', indices)
+
+    x = data.iloc[:, indices]
+    y = data.iloc[:, -1]
+
+    model = neural_network.MLPRegressor(max_iter=400, random_state=0).fit(x, y)
+    print( f'R2   = {model.score(x, y):.3f}' )
+
+    residual = model.predict(x) - y
+    rmse = np.sqrt( np.mean( (residual-y)**2 ) )
+    print( f'rmse = {rmse:.1f}' )
+
+    r2 = []
+    for _ in range(5):
+        np.random.shuffle(indices)
+        x = data.iloc[:, indices]
+        y = data.iloc[:, -1]
+
+        model = neural_network.MLPRegressor(max_iter=400, random_state=0).fit(x, y)
+        print( f'R2   = {model.score(x, y):.3f}' )
+        r2.append(model.score(x, y))
+
+    print(np.mean(r2), np.std(r2))
+
+    r2 = []
+    for i in range(5):
+        x = data.iloc[:, :-1]
+        y = data.iloc[:, -1]
+
+        model = neural_network.MLPRegressor(max_iter=400, random_state=i).fit(x, y)
+        print( f'R2   = {model.score(x, y):.3f}' )
+        r2.append(model.score(x, y))
+
+    print(np.mean(r2), np.std(r2))
+    ctx['data'] = data
+    ctx['model'] = model
+    ctx['tensors']['filename'] = filename
+    ctx['tensors']['github_url'] = github_url
+    ctx['tensors']['indices'] = indices
+    ctx['tensors']['local_path'] = local_path
+    ctx['tensors']['residual'] = residual
+    ctx['tensors']['rmse'] = rmse
+    ctx['tensors']['x'] = x
+    ctx['tensors']['y'] = y
+run_module(ctx)
 
 # %% [markdown]
 # ## Image filters
@@ -156,20 +194,39 @@ print(np.mean(r2), np.std(r2))
 # * Laplacian filter: A filter that computes the second derivative of the image, which can be used to enhance edges and details in the image.
 # * Median filter: A filter that replaces each pixel value with the median value of the pixel values in its local neighborhood, which can be used to remove salt-and-pepper noise from the image.
 # * Linear image filters can be implemented using convolutional neural networks (CNNs) in deep learning frameworks such as PyTorch, allowing them to be learned from data and applied to a wide range of computer vision tasks.
-
-# %% [markdown]
+#
 # Here are some schematics to hep you visualize the process of convolution with filters:
 #
 # <img src="../lectures/assets/lecture13_convolution_filters.jpg" alt="Schematics of convolution with filters" width=600>
-
-# %% [markdown]
+#
 # Here are some examples of linear image filters applied to a sample image:
 #
 # <img src="../lectures/assets/lecture13_filter_examples.jpg" alt="Examples of linear image filters applied to a sample image" width=600>
-#
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # # Building a CNN
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## Architecture
@@ -186,8 +243,6 @@ print(np.mean(r2), np.std(r2))
 #
 # <img src="../lectures/assets/lecture13_cnn_architecture.jpg" alt="Basic elements of a Convolutional Neural Network architecture" width=600>
 #
-
-# %% [markdown]
 # In a deep Convolutional Neural Network, the features learned by the filters at different levels of the network become increasingly complex and abstract as the input image is processed through the layers of the network.
 #
 # At the lowest level of the network, the filters are typically designed to detect simple image features such as edges, corners, and blobs of light or dark pixels. These features are represented as combinations of low-level image gradients, and they form the building blocks for more complex features that are learned in higher layers.
@@ -201,6 +256,17 @@ print(np.mean(r2), np.std(r2))
 # Here are example activation maps from different layers in a trained CNN:
 #
 # <img src="../lectures/assets/lecture13_activation_maps.jpg" alt="Example activation maps from different layers in a trained CNN" width=600>
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## Padding
@@ -217,6 +283,17 @@ print(np.mean(r2), np.std(r2))
 #
 # <img src="../lectures/assets/lecture13_padding_same_full.jpg" alt="Illustration of same and full padding in convolution" width=600>
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
+
 # %% [markdown]
 # ## Kernel width
 #
@@ -229,6 +306,17 @@ print(np.mean(r2), np.std(r2))
 # Another factor to consider when choosing the kernel width is the trade-off between local and global information. A small kernel width captures local information in the input image, while a larger kernel width captures more global information. For some tasks, such as image segmentation, it may be important to capture both local and global information, and a combination of different kernel widths may be used.
 #
 # <img src="../lectures/assets/lecture13_kernel_size.jpg" alt="Illustration of different kernel widths in convolution" width=600>
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## Stride
@@ -243,6 +331,17 @@ print(np.mean(r2), np.std(r2))
 #
 # <img src="../lectures/assets/lecture13_stride.jpg" alt="Illustration of stride in convolution" width=400>
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
+
 # %% [markdown]
 # ## Pooling
 #
@@ -255,8 +354,7 @@ print(np.mean(r2), np.std(r2))
 # Other types of pooling include average pooling, which computes the average value of each region instead of the maximum, and L2 pooling, which computes the square root of the sum of squares of each region instead of the maximum.
 #
 # <img src="../lectures/assets/lecture13_maxpool_sample.jpg" width=600>
-
-# %% [markdown]
+#
 # While max pooling and average pooling are common techniques used in Convolutional Neural Networks (CNNs) to downsample feature maps and improve computational efficiency, there are some potential pitfalls to be aware of.
 #
 # One potential issue with max pooling is that it may discard useful information from the input image. By taking only the maximum value within a region of the feature map, max pooling may miss other important features in the region that are not the maximum. This can lead to a loss of detail in the output feature map, which may reduce the performance of the network on certain tasks. Additionally, if the pool size is too large or the stride is too high, the network may lose too much spatial information, which can make it difficult to distinguish between similar objects.
@@ -264,6 +362,17 @@ print(np.mean(r2), np.std(r2))
 # On the other hand, average pooling can smooth out the details in the feature maps and blur out the edges of objects, which can make it harder for the network to distinguish between similar objects. This can reduce the accuracy of the network on certain tasks that require fine-grained detail, such as object detection.
 #
 # <img src="../lectures/assets/lecture13_avgpool_sample.jpg" width=600>
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## Regularization
@@ -279,8 +388,30 @@ print(np.mean(r2), np.std(r2))
 # However, the use of dropout may not always be necessary or effective in certain scenarios.
 # For example, if you have a small dataset or a shallow network, the use of dropout may not be as beneficial. It's also important to note that the effectiveness of dropout can depend on the specific hyperparameters used, such as the dropout rate and the network architecture.
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
+
 # %% [markdown]
 # # Classification of defects
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## About the data
@@ -299,40 +430,46 @@ print(np.mean(r2), np.std(r2))
 # Each type of defect has 300 images. The images are labeled with their corresponding defect type, and the labels are provided in a separate file.
 #
 # The NEU Surface Defect Database is useful for developing and testing image processing and machine learning algorithms for defect detection and classification. It can be used for tasks such as defect detection, classification, segmentation, and recognition.
-
-# %% [markdown]
+#
 # You need to download the `zip` file first:
-
-# %%
-import zipfile, requests
-
-url = 'https://pennstateoffice365-my.sharepoint.com/:u:/g/personal/wfr5091_psu_edu/ERXYsfbOP4dGm7_M4oIh-0gBV3Ix19fKuSndDu4Ui6zHrQ?e=HOCHNN&download=1'
-with requests.get(url, stream=True) as r:
-    r.raise_for_status()
-    with open('data.zip', 'wb') as f:
-        for chunk in r.iter_content(chunk_size=8192):
-            f.write(chunk)
-
-# %% [markdown]
+#
 # Then extract it to individual files with `zipfile`:
-
-# %%
-zip_file = zipfile.ZipFile('data.zip')
-zip_file.extractall('/content/')
-zip_file.close()
-
-# %% [markdown]
+#
 # We can load an image using `PIL`:
 
 # %%
-from PIL import Image
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    zipfile = ctx.get('tensors', {}).get('zipfile')
+    import zipfile, requests
 
-filepath = 'NEU-DET-SP/train/scratches/scratches_1.jpg'
-Image.open(filepath)
+    url = 'https://pennstateoffice365-my.sharepoint.com/:u:/g/personal/wfr5091_psu_edu/ERXYsfbOP4dGm7_M4oIh-0gBV3Ix19fKuSndDu4Ui6zHrQ?e=HOCHNN&download=1'
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        with open('data.zip', 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
 
-# %%
-filepath = 'NEU-DET-SP/train/patches/patches_1.jpg'
-Image.open(filepath)
+    zip_file = zipfile.ZipFile('data.zip')
+    zip_file.extractall('/content/')
+    zip_file.close()
+
+    from PIL import Image
+
+    filepath = 'NEU-DET-SP/train/scratches/scratches_1.jpg'
+    Image.open(filepath)
+
+    filepath = 'NEU-DET-SP/train/patches/patches_1.jpg'
+    Image.open(filepath)
+    ctx['tensors']['filepath'] = filepath
+    ctx['tensors']['url'] = url
+    ctx['tensors']['zip_file'] = zip_file
+run_module(ctx)
 
 # %% [markdown]
 # ## Setting up the `Dataset`
@@ -346,27 +483,9 @@ Image.open(filepath)
 # 3. Images are loaded using `PIL` and are transformed using the provided transform pipeline.
 #
 # You should think of this as a custom `Dataset` object -- you could achieve a similar result by programming your own `__getitem__` method in a `Dataset` subclass that loads images with `PIL` and transforms them to `tensor`.
-
-# %%
-import torchvision.datasets as datasets
-
-dataset = datasets.ImageFolder('NEU-DET-SP/train')
-
-print(f'Number of images: {len(dataset)}')
-print(f'Number of classes: {len(dataset.classes)}')
-
-# %% [markdown]
+#
 # Now we can try to send the `Dataset` to a `DataLoader` as before:
-
-# %%
-from torch.utils.data import DataLoader
-
-dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
-for batch in dataloader:
-    print(batch)
-    break
-
-# %% [markdown]
+#
 # What happened?
 # We got a `TypeError` that indicates we need `tensors` rather than `PIL.Image.Image` type objects.
 # The solution is to use `torchvision.transforms`.
@@ -380,245 +499,264 @@ for batch in dataloader:
 # * `transforms.CenterCrop`: a class that crops the center of an image to a given size.
 # *`transforms.RandomCrop`: a class that randomly crops an image to a given size.
 # * `transforms.Normalize`: a class that normalizes an image tensor with given mean and standard deviation values.
+#
+# Now we are ready to implement and train a model!
 
 # %%
-import torchvision.transforms as transforms
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    datasets = ctx.get('tensors', {}).get('datasets')
+    transforms = ctx.get('tensors', {}).get('transforms')
+    import torchvision.datasets as datasets
 
-transform = transforms.Compose([
-    transforms.Resize(200),  # Resize the image to 200x200 pixels
-    transforms.ToTensor()    # Convert the image to a PyTorch tensor
-])
+    dataset = datasets.ImageFolder('NEU-DET-SP/train')
 
-dataset = datasets.ImageFolder('NEU-DET-SP/train', transform=transform)
-print(f'Number of images (all classes): {len(dataset)}')
+    print(f'Number of images: {len(dataset)}')
+    print(f'Number of classes: {len(dataset.classes)}')
 
-dataloader = DataLoader(dataset, batch_size=1, shuffle=True)
-for batch in dataloader:
-    print(batch)
-    break
+    from torch.utils.data import DataLoader
 
-# %% [markdown]
-# Now we are ready to implement and train a model!
+    dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
+    for batch in dataloader:
+        print(batch)
+        break
+
+    import torchvision.transforms as transforms
+
+    transform = transforms.Compose([
+        transforms.Resize(200),  # Resize the image to 200x200 pixels
+        transforms.ToTensor()    # Convert the image to a PyTorch tensor
+    ])
+
+    dataset = datasets.ImageFolder('NEU-DET-SP/train', transform=transform)
+    print(f'Number of images (all classes): {len(dataset)}')
+
+    dataloader = DataLoader(dataset, batch_size=1, shuffle=True)
+    for batch in dataloader:
+        print(batch)
+        break
+    ctx['tensors']['dataloader'] = dataloader
+    ctx['tensors']['dataset'] = dataset
+    ctx['tensors']['transform'] = transform
+run_module(ctx)
 
 # %% [markdown]
 # ## Basic implementation
 #
 # We'll start by installing `pytorch-lightning` to simplify the training procedure.
-
-# %%
-# !pip install pytorch-lightning
-
-# %% [markdown]
+#
 # Remember that the basic features of a CNN are the convolutions, activations, and pooling, with fully connected layers at the end.
 # We will design a `ConvBlock` object to avoid repeating the first three several times:
 
 # %%
-import torch.nn as nn
-from torch import optim
-import pytorch_lightning as pl
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    nn = ctx.get('tensors', {}).get('nn')
+    optim = ctx.get('tensors', {}).get('optim')
+    pl = ctx.get('tensors', {}).get('pl')
+    # !pip install pytorch-lightning
+
+    import torch.nn as nn
+    from torch import optim
+    import pytorch_lightning as pl
 
 
-class ConvBlock(nn.Module):
-    def __init__(self, out_channels, kernel_size=3, stride=1, padding=1):
-        super(ConvBlock, self).__init__()
-        self.conv = nn.LazyConv2d(out_channels=out_channels, kernel_size=3, stride=1, padding=1)
-        self.relu = nn.LeakyReLU()
-        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
+    class ConvBlock(nn.Module):
+        def __init__(self, out_channels, kernel_size=3, stride=1, padding=1):
+            super(ConvBlock, self).__init__()
+            self.conv = nn.LazyConv2d(out_channels=out_channels, kernel_size=3, stride=1, padding=1)
+            self.relu = nn.LeakyReLU()
+            self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
 
-    def forward(self, x):
-        x = self.conv(x)
-        x = self.relu(x)
-        x = self.pool(x)
-        return x
+        def forward(self, x):
+            x = self.conv(x)
+            x = self.relu(x)
+            x = self.pool(x)
+            return x
 
 
-class ClassifierCNN(pl.LightningModule):
-    def __init__(self, conv_channels, fc_dim, num_classes):
-        super(ClassifierCNN, self).__init__()
+    class ClassifierCNN(pl.LightningModule):
+        def __init__(self, conv_channels, fc_dim, num_classes):
+            super(ClassifierCNN, self).__init__()
 
-        conv_blocks = []
-        for i, c in enumerate(conv_channels):
-            conv_blocks.append( ConvBlock(c) )
+            conv_blocks = []
+            for i, c in enumerate(conv_channels):
+                conv_blocks.append( ConvBlock(c) )
 
-        self.conv = nn.Sequential(*conv_blocks)
-        self.fc = nn.Sequential(nn.LazyLinear(fc_dim),
-                                nn.LeakyReLU(),
-                                nn.LazyLinear(num_classes))
+            self.conv = nn.Sequential(*conv_blocks)
+            self.fc = nn.Sequential(nn.LazyLinear(fc_dim),
+                                    nn.LeakyReLU(),
+                                    nn.LazyLinear(num_classes))
 
-        self.criterion = nn.CrossEntropyLoss()
+            self.criterion = nn.CrossEntropyLoss()
 
-    def forward(self, x):
-        x = self.conv(x)
-        x = x.view(x.shape[0], -1)  # flatten the output for FC layer
-        x = self.fc(x)
-        return x
+        def forward(self, x):
+            x = self.conv(x)
+            x = x.view(x.shape[0], -1)  # flatten the output for FC layer
+            x = self.fc(x)
+            return x
 
-    def training_step(self, batch, batch_idx):
-        x, y = batch
-        out = self(x)
-        loss = self.criterion(out, y)
-        self.log("train_loss", loss)
-        return loss
+        def training_step(self, batch, batch_idx):
+            x, y = batch
+            out = self(x)
+            loss = self.criterion(out, y)
+            self.log("train_loss", loss)
+            return loss
 
-    def configure_optimizers(self):
-        optimizer = optim.Adam(self.parameters(), lr=1e-3)
-        return optimizer
-
+        def configure_optimizers(self):
+            optimizer = optim.Adam(self.parameters(), lr=1e-3)
+            return optimizer
+run_module(ctx)
 
 # %% [markdown]
 # ## [Check your understanding]
 #
-# Try training the model with `pytorch_lightning`.
+# Try manually tuning the hyperparameters of the CNN model and compare the performance on train and validation sets.
+# Which parameters make the greatest difference?
 
 # %%
-import pytorch_lightning as pl
-
-model = ClassifierCNN([8, 8], 32, 2)
-dl_train = DataLoader(dataset, batch_size=32, shuffle=True)
-
-trainer = pl.Trainer(max_epochs=5)
-trainer.fit(model=model, train_dataloaders=dl_train)
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## Evaluating the model
 #
 # Let's evaluate the model predictions on the training set.
-
-# %%
-import torch
-import numpy as np
-
-y_outs = []
-y_true = []
-
-with torch.no_grad():
-    for x, y in dataloader:
-        y_outs += model(x).detach().numpy().tolist()
-        y_true += y.detach().numpy().tolist()
-
-y_outs = np.array(y_outs)
-y_true = np.array(y_true)
-
-# %% [markdown]
+#
 # We can start by investigating this `y_prob` result, the raw model output:
-
-# %%
-from matplotlib import pyplot as plt
-
-fig, axes = plt.subplots(1, 2, figsize=(8, 4))
-ax = axes[0]
-_ = ax.hist(y_outs[y_true==0], density=True)
-ax.set_xlabel('Prediction')
-ax.set_ylabel('Probability density')
-ax.set_title('True Patches')
-ax = axes[1]
-_ = ax.hist(y_outs[y_true==1], density=True)
-ax.set_xlabel('Prediction')
-ax.set_ylabel('Probability density')
-ax.set_title('True Scratches')
-
-# %% [markdown]
+#
 # We can convert these raw outputs to class probabilities using the softmax function.
 # From Wikipedia:
 #
 # The softmax function takes as input a vector $z$ of $K$ real numbers, and normalizes it into a probability distribution consisting of $K$ probabilities proportional to the exponentials of the input numbers. That is, prior to applying softmax, some vector components could be negative, or greater than one; and might not sum to 1; but after applying softmax, each component will be in the interval (0,1), and the components will add up to 1, so that they can be interpreted as probabilities.
 #
 # $\sigma(z)_i = \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}$
-
-# %%
-y_prob = nn.functional.softmax(torch.tensor(y_outs), dim=1).detach().numpy()
-
-fig, ax = plt.subplots()
-_ = ax.hist(y_prob[y_true==0][:, 0])
-_ = ax.hist(y_prob[y_true==1][:, 1])
-
-# %% [markdown]
+#
 # These prediction probabilities can be converted to integer class labels using the `torch.max` function to identify the most likely class:
-
-# %%
-y_pred = []
-y_true = []
-
-with torch.no_grad():
-    for x, y in dataloader:
-        outputs = model(x)
-        _, label = torch.max(outputs.data, 1)
-        y_pred += label.detach().numpy().tolist()
-        y_true += y.detach().numpy().tolist()
-
-y_pred = np.array(y_pred)
-y_true = np.array(y_true)
-
-# %% [markdown]
+#
 # Let's try to turn this into a confusion matrix.
 
 # %%
-confusion = np.zeros([2, 2], dtype=int)
-for i in range(len(y_pred)):
-    row_idx = y_pred[i].round()
-    col_idx = y_true[i].round()
-    confusion[row_idx.astype(int), col_idx.astype(int)] += 1
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    dataloader = ctx.get('tensors', {}).get('dataloader')
+    model = ctx.get('model')
+    nn = ctx.get('tensors', {}).get('nn')
+    import torch
+    import numpy as np
 
-fig, ax = plt.subplots()
-im = ax.imshow(confusion, 'Blues')
-cb = plt.colorbar(im)
-cb.set_label('Frequency')
-_ = ax.set_xlabel('True label')
-_ = ax.set_ylabel('Predicted label')
+    y_outs = []
+    y_true = []
 
-for i in range(2):
-    for j in range(2):
-        if confusion[i, j] > 100:
-            tc = 'w'
-        else:
-            tc = 'k'
-        ax.text(i, j, confusion[i, j], ha='center', color=tc)
+    with torch.no_grad():
+        for x, y in dataloader:
+            y_outs += model(x).detach().numpy().tolist()
+            y_true += y.detach().numpy().tolist()
+
+    y_outs = np.array(y_outs)
+    y_true = np.array(y_true)
+
+    from matplotlib import pyplot as plt
+
+    fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+    ax = axes[0]
+    _ = ax.hist(y_outs[y_true==0], density=True)
+    ax.set_xlabel('Prediction')
+    ax.set_ylabel('Probability density')
+    ax.set_title('True Patches')
+    ax = axes[1]
+    _ = ax.hist(y_outs[y_true==1], density=True)
+    ax.set_xlabel('Prediction')
+    ax.set_ylabel('Probability density')
+    ax.set_title('True Scratches')
+
+    y_prob = nn.functional.softmax(torch.tensor(y_outs), dim=1).detach().numpy()
+
+    fig, ax = plt.subplots()
+    _ = ax.hist(y_prob[y_true==0][:, 0])
+    _ = ax.hist(y_prob[y_true==1][:, 1])
+
+    y_pred = []
+    y_true = []
+
+    with torch.no_grad():
+        for x, y in dataloader:
+            outputs = model(x)
+            _, label = torch.max(outputs.data, 1)
+            y_pred += label.detach().numpy().tolist()
+            y_true += y.detach().numpy().tolist()
+
+    y_pred = np.array(y_pred)
+    y_true = np.array(y_true)
+
+    confusion = np.zeros([2, 2], dtype=int)
+    for i in range(len(y_pred)):
+        row_idx = y_pred[i].round()
+        col_idx = y_true[i].round()
+        confusion[row_idx.astype(int), col_idx.astype(int)] += 1
+
+    fig, ax = plt.subplots()
+    im = ax.imshow(confusion, 'Blues')
+    cb = plt.colorbar(im)
+    cb.set_label('Frequency')
+    _ = ax.set_xlabel('True label')
+    _ = ax.set_ylabel('Predicted label')
+
+    for i in range(2):
+        for j in range(2):
+            if confusion[i, j] > 100:
+                tc = 'w'
+            else:
+                tc = 'k'
+            ax.text(i, j, confusion[i, j], ha='center', color=tc)
+    ctx['tensors']['col_idx'] = col_idx
+    ctx['tensors']['confusion'] = confusion
+    ctx['tensors']['outputs'] = outputs
+    ctx['tensors']['row_idx'] = row_idx
+    ctx['tensors']['y_outs'] = y_outs
+    ctx['tensors']['y_pred'] = y_pred
+    ctx['tensors']['y_prob'] = y_prob
+    ctx['tensors']['y_true'] = y_true
+run_module(ctx)
 
 # %% [markdown]
 # ## [Check your understanding]
 #
-# Create a confusion matrix for the validation set.
+# Try manually tuning the hyperparameters of the CNN model and compare the performance on train and validation sets.
+# Which parameters make the greatest difference?
 
 # %%
-# create the validation dataloader
-val_dataset = datasets.ImageFolder('NEU-DET-SP/validation', transform=transform)
-dl_val = DataLoader(val_dataset, batch_size=32, shuffle=False)
-
-y_pred = []
-y_true = []
-
-with torch.no_grad():
-    for x, y in dl_val:  # modify this to the correct dataloader
-        outputs = model(x)
-        _, label = torch.max(outputs.data, 1)
-        y_pred += label.detach().numpy().tolist()
-        y_true += y.detach().numpy().tolist()
-
-y_pred = np.array(y_pred)
-y_true = np.array(y_true)
-
-# %%
-confusion = np.zeros([2, 2], dtype=int)
-for i in range(len(y_pred)):
-    row_idx = y_pred[i].round()
-    col_idx = y_true[i].round()
-    confusion[row_idx.astype(int), col_idx.astype(int)] += 1
-
-fig, ax = plt.subplots()
-im = ax.imshow(confusion, 'Blues')
-cb = plt.colorbar(im)
-cb.set_label('Frequency')
-_ = ax.set_xlabel('True label')
-_ = ax.set_ylabel('Predicted label')
-
-for i in range(2):
-    for j in range(2):
-        if confusion[i, j] > 50:
-            tc = 'w'
-        else:
-            tc = 'k'
-        ax.text(i, j, confusion[i, j], ha='center', color=tc)
-
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## Batch normalization
@@ -632,27 +770,7 @@ for i in range(2):
 # > A second Batch Normalization diagram is currently unavailable due to access restrictions.
 #
 # The implementation in PyTorch is called `nn.BatchNorm2d`:
-
-# %%
-class ConvBlock(nn.Module):
-    def __init__(self, out_channels, kernel_size=3, stride=1, padding=1):
-        super(ConvBlock, self).__init__()
-        self.conv = nn.LazyConv2d(out_channels=out_channels, kernel_size=3, stride=1, padding=1)
-        self.bn = nn.BatchNorm2d(out_channels)
-        self.relu = nn.LeakyReLU()
-        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-
-    def forward(self, x):
-        x = self.conv(x)
-        x = self.bn(x)
-        x = self.relu(x)
-        x = self.pool(x)
-        return x
-
-# note: no need to redefine the ClassifierCNN model!
-
-
-# %% [markdown]
+#
 # In the forward method, we apply batch normalization after each convolutional layer and fully connected layer.
 # Note that batch normalization should be applied before the activation function.
 #
@@ -661,53 +779,88 @@ class ConvBlock(nn.Module):
 # Additionally, it can act as a regularization technique and prevent overfitting.
 #
 # Let's try training the model again with batch normalization in place:
-
-# %%
-dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
-
-model = ClassifierCNN([8, 8], 32, 2)
-
-trainer = pl.Trainer(max_epochs=5)
-trainer.fit(model=model, train_dataloaders=dataloader)
-
-# %% [markdown]
+#
 # We see right away that the loss is significantly lower than before
 # Let's make the confusion matrix:
 
 # %%
-y_pred = []
-y_true = []
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    dataset = ctx.get('tensors', {}).get('dataset')
+    nn = ctx.get('tensors', {}).get('nn')
+    pl = ctx.get('tensors', {}).get('pl')
+    class ConvBlock(nn.Module):
+        def __init__(self, out_channels, kernel_size=3, stride=1, padding=1):
+            super(ConvBlock, self).__init__()
+            self.conv = nn.LazyConv2d(out_channels=out_channels, kernel_size=3, stride=1, padding=1)
+            self.bn = nn.BatchNorm2d(out_channels)
+            self.relu = nn.LeakyReLU()
+            self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
 
-with torch.no_grad():
-    for x, y in dataloader:
-        outputs = model(x)
-        _, label = torch.max(outputs.data, 1)
-        y_pred += label.detach().numpy().tolist()
-        y_true += y.detach().numpy().tolist()
+        def forward(self, x):
+            x = self.conv(x)
+            x = self.bn(x)
+            x = self.relu(x)
+            x = self.pool(x)
+            return x
 
-y_pred = np.array(y_pred)
-y_true = np.array(y_true)
+    # note: no need to redefine the ClassifierCNN model!
 
-confusion = np.zeros([2, 2], dtype=int)
-for i in range(len(y_pred)):
-    row_idx = y_pred[i].round()
-    col_idx = y_true[i].round()
-    confusion[row_idx.astype(int), col_idx.astype(int)] += 1
+    dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 
-fig, ax = plt.subplots()
-im = ax.imshow(confusion, 'Blues')
-cb = plt.colorbar(im)
-cb.set_label('Frequency')
-_ = ax.set_xlabel('True label')
-_ = ax.set_ylabel('Predicted label')
+    model = ClassifierCNN([8, 8], 32, 2)
 
-for i in range(2):
-    for j in range(2):
-        if confusion[i, j] > 100:
-            tc = 'w'
-        else:
-            tc = 'k'
-        ax.text(i, j, confusion[i, j], ha='center', color=tc)
+    trainer = pl.Trainer(max_epochs=5)
+    trainer.fit(model=model, train_dataloaders=dataloader)
+
+    y_pred = []
+    y_true = []
+
+    with torch.no_grad():
+        for x, y in dataloader:
+            outputs = model(x)
+            _, label = torch.max(outputs.data, 1)
+            y_pred += label.detach().numpy().tolist()
+            y_true += y.detach().numpy().tolist()
+
+    y_pred = np.array(y_pred)
+    y_true = np.array(y_true)
+
+    confusion = np.zeros([2, 2], dtype=int)
+    for i in range(len(y_pred)):
+        row_idx = y_pred[i].round()
+        col_idx = y_true[i].round()
+        confusion[row_idx.astype(int), col_idx.astype(int)] += 1
+
+    fig, ax = plt.subplots()
+    im = ax.imshow(confusion, 'Blues')
+    cb = plt.colorbar(im)
+    cb.set_label('Frequency')
+    _ = ax.set_xlabel('True label')
+    _ = ax.set_ylabel('Predicted label')
+
+    for i in range(2):
+        for j in range(2):
+            if confusion[i, j] > 100:
+                tc = 'w'
+            else:
+                tc = 'k'
+            ax.text(i, j, confusion[i, j], ha='center', color=tc)
+    ctx['model'] = model
+    ctx['tensors']['col_idx'] = col_idx
+    ctx['tensors']['confusion'] = confusion
+    ctx['tensors']['dataloader'] = dataloader
+    ctx['tensors']['outputs'] = outputs
+    ctx['tensors']['row_idx'] = row_idx
+    ctx['tensors']['trainer'] = trainer
+    ctx['tensors']['y_pred'] = y_pred
+    ctx['tensors']['y_true'] = y_true
+run_module(ctx)
 
 # %% [markdown]
 # ## [Check your understanding]
@@ -716,3 +869,12 @@ for i in range(2):
 # Which parameters make the greatest difference?
 
 # %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)

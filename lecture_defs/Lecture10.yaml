@@ -1,0 +1,16 @@
+id: Lecture10
+title: Lecture10
+modules:
+  - id: Lecture10_0
+  - id: Lecture10_bayesian_optimization
+  - id: Lecture10_gaussian_process
+  - id: Lecture10_basic_hyperparameter_tuning
+  - id: Lecture10_categorical_hyperparameters
+  - id: Lecture10_check_your_understanding
+  - id: Lecture10_architecture_optimization
+  - id: Lecture10_check_your_understanding
+  - id: Lecture10_evolutionary_algorithm
+  - id: Lecture10_concepts
+  - id: Lecture10_feature_selection
+  - id: Lecture10_interaction_between_feature_selection_and_hyperparameter_tuning
+  - id: Lecture10_check_your_understanding

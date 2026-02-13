@@ -1,9 +1,8 @@
 {
   "id": "Lecture01_comments",
   "type": "Foundational",
-  "sequence": 5,
   "parent_lecture": "Lecture01",
   "requirements": [],
   "markdown_content": "## Comments\n\nThe `#` symbol creates a [comment](https://www.w3schools.com/python/python_comments.asp) in the code.\nA comment is text that does not get interpreted by the language.\nInstead, it improves readability by providing an explanation or reference for a particular line of code.\n\nComments are incredibly helpful and it is actually standard practice to include them to guide other people in using your code.\nBecause everyone thinks and codes a little differently, it can really help communicate ideas.\nHere's another example:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    import matplotlib\n    import numpy\n    import numpy as np\n    import numpy as np  # this is a module, with an alias\n    \n    \n    # comments can be on just one line\n    \"\"\"\n    comments can also be on multiple lines\n    just use the triple \" sign to switch to comment mode\n    (and again to switch back)\n    \"\"\"\n    x = 5\n    print(x)\n    ctx['tensors']['x'] = x"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    # comments can be on just one line\n    \"\"\"\n    comments can also be on multiple lines\n    just use the triple \" sign to switch to comment mode\n    (and again to switch back)\n    \"\"\"\n    x = 5\n    print(x)\n    ctx['tensors']['x'] = x"
 }

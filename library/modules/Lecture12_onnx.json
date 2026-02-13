@@ -1,0 +1,11 @@
+{
+  "id": "Lecture12_onnx",
+  "type": "Foundational",
+  "parent_lecture": "Lecture12",
+  "requirements": [
+    "model",
+    "tensors['x']"
+  ],
+  "markdown_content": "## ONNX\n\nONNX is another tool that is used to deploy models in different environments. ONNX stands for Open Neural Network Exchange, and it is an open-source format that allows for the exchange of models between different frameworks. ONNX models can be used in environments such as mobile devices, web applications, and cloud services.\n\nTo convert a PyTorch model to the ONNX format, you can use the `torch.onnx.export()` function. This function exports the model's computation graph to an ONNX file that can be loaded and executed in other environments. Here's an example:\n\nThis exports the `MLPRegressor` model's computation graph to an ONNX file named `model.onnx`, and specifies the input and output tensor names.\nHere's the actual content of the file:\n\nThe data stored in this byte string can be read by an ONNX parser to recreate the trained model.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    model = ctx.get('model')\n    x = ctx.get('tensors', {}).get('x')\n    input_tensor = torch.randn_like(x)\n    \n    torch.onnx.export(model, input_tensor, \"model.onnx\", input_names=[\"input\"], output_names=[\"output\"])\n    \n    with open('model.onnx', 'rb') as fid:\n        lines = fid.readlines()\n    \n    for l in lines:\n        print(l)\n    ctx['tensors']['input_tensor'] = input_tensor\n    ctx['tensors']['lines'] = lines"
+}

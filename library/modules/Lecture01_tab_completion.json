@@ -1,9 +1,8 @@
 {
   "id": "Lecture01_tab_completion",
   "type": "Foundational",
-  "sequence": 7,
   "parent_lecture": "Lecture01",
   "requirements": [],
   "markdown_content": "## Tab completion\n\nA handy feature of the Colab interpreter is the use of auto-complete.\nYou can use `<Tab>` to complete a partial statement based on functions or variables the interpreter is already aware of.\nTry typing `pri` and wait a second for the auto-complete menu to pop up.\nThen press `<Tab>` to complete the statement to `print`:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    import matplotlib\n    import numpy\n    import numpy as np\n    import numpy as np  # this is a module, with an alias\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
 }

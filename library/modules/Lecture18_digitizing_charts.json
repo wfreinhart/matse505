@@ -1,0 +1,8 @@
+{
+  "id": "Lecture18_digitizing_charts",
+  "type": "Foundational",
+  "parent_lecture": "Lecture18",
+  "requirements": [],
+  "markdown_content": "# Digitizing charts\n\nA common source of data is images published in journal articles, textbooks, or on the web. We've been relying on prepared `CSV` files to do our data analysis with Python so far, but this isn't representative of the real world. Let's try using [WebPlotDigitizer](https://apps.automeris.io/wpd/) to obtain raw data from the following chart of mechanical performance of an architected material from [mechanical performance of an architected material](https://doi.org/10.1088/1757-899X/433/1/012078):\n\n<img src=\"../lectures/assets/lecture18_chart_to_digitize.jpg\" alt=\"Stress-strain chart of an architected material for digitization exercise\" width=540>",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+}

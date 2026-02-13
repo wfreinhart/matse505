@@ -1,0 +1,30 @@
+id: Lecture03
+title: Lecture03
+modules:
+  - id: Lecture03_0
+  - id: Lecture03_introduction_to_machine_learning
+  - id: Lecture03_supervised_learning
+  - id: Lecture03_statistical_modeling_versus_supervised_ml
+  - id: Lecture03_contrasting_vocabulary_unsupervised_learning
+  - id: Lecture03_implementation_in_sklearn
+  - id: Lecture03_supervised_learning_with_real_world_data
+  - id: Lecture03_linear_regression_as_an_optimization_problem
+  - id: Lecture03_multivariate_linear_regression
+  - id: Lecture03_using_scikit_learn
+  - id: Lecture03_visualizing_model_performance
+  - id: Lecture03_check_your_understanding
+  - id: Lecture03_quantifying_model_performance
+  - id: Lecture03_challenges_with_measuring_residuals
+  - id: Lecture03_mse_mae_and_regularization
+  - id: Lecture03_check_your_understanding
+  - id: Lecture03_training_versus_testing
+  - id: Lecture03_train_test_split
+  - id: Lecture03_investigating_features
+  - id: Lecture03_nonlinear_regression_models
+  - id: Lecture03_polynomial_regression
+  - id: Lecture03_some_convenience_functions
+  - id: Lecture03_k_nearest_neighbors
+  - id: Lecture03_decision_trees
+  - id: Lecture03_random_forest
+  - id: Lecture03_neural_networks
+  - id: Lecture03_check_your_understanding

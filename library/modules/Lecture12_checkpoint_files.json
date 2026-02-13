@@ -1,0 +1,13 @@
+{
+  "id": "Lecture12_checkpoint_files",
+  "type": "Foundational",
+  "parent_lecture": "Lecture12",
+  "requirements": [
+    "model",
+    "tensors['loss']",
+    "tensors['epoch']",
+    "tensors['optimizer']"
+  ],
+  "markdown_content": "## Checkpoint files\n\nA third method is to save and load checkpoint files, which are files that contain not only the model's state_dict but also other information such as the optimizer state, the epoch, and the loss. This method uses the torch.save() function to save a dictionary containing the state_dict, the optimizer state, and other information, and the torch.load() function to load the dictionary.\nFor example, to save a checkpoint file, we can use the following code:\n\nAnd to load the checkpoint file, we can use the following code:\n\nThe benefit of this method is that it allows us to resume training from a saved checkpoint, as it contains the optimizer state and the epoch. However, it can be more complicated to use than the other methods.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    epoch = ctx.get('tensors', {}).get('epoch')\n    loss = ctx.get('tensors', {}).get('loss')\n    model = ctx.get('model')\n    optimizer = ctx.get('tensors', {}).get('optimizer')\n    checkpoint = {'state_dict': model.state_dict(),\n                  'optimizer': optimizer.state_dict(),\n                  'epoch': epoch,\n                  'loss': loss}\n    torch.save(checkpoint, 'checkpoint.pth')\n    \n    checkpoint = torch.load('checkpoint.pth')\n    model.load_state_dict(checkpoint['state_dict'])\n    optimizer.load_state_dict(checkpoint['optimizer'])\n    epoch = checkpoint['epoch']\n    loss = checkpoint['loss']\n    ctx['tensors']['checkpoint'] = checkpoint\n    ctx['tensors']['epoch'] = epoch\n    ctx['tensors']['loss'] = loss"
+}

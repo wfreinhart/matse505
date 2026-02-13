@@ -1,0 +1,20 @@
+id: Lecture04
+title: Lecture04
+modules:
+  - id: Lecture04_0
+  - id: Lecture04_classification
+  - id: Lecture04_dataset
+  - id: Lecture04_logistic_regression
+  - id: Lecture04_support_vector_machines
+  - id: Lecture04_naive_bayes
+  - id: Lecture04_check_your_understanding
+  - id: Lecture04_decision_tree
+  - id: Lecture04_k_neighbors
+  - id: Lecture04_a_more_challenging_dataset
+  - id: Lecture04_check_your_understanding
+  - id: Lecture04_classification_metrics
+  - id: Lecture04_confusion_matrix
+  - id: Lecture04_check_your_understanding
+  - id: Lecture04_additional_remarks
+  - id: Lecture04_important_reminders_about_classification_vs_regression
+  - id: Lecture04_additional_reading

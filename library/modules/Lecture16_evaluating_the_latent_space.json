@@ -1,0 +1,14 @@
+{
+  "id": "Lecture16_evaluating_the_latent_space",
+  "type": "Foundational",
+  "parent_lecture": "Lecture16",
+  "requirements": [
+    "tensors['a']",
+    "tensors['x']",
+    "tensors['yt']",
+    "model",
+    "tensors['y']"
+  ],
+  "markdown_content": "## Evaluating the latent space\n\nThe entire point of the VAE is to force the latent space to be approximately Normal.\nLet's see how it worked:\n\nYou will see here that the distributions are individually Normal-looking.\nIn addition, we still have the expected relationships between $a$ coefficients and the resulting $z$ latent space.\n\nIn addition, we could check the reconstruction:\n\nIn summary, we have given up fidelity for a \"better-behaved\" latent space (or at least one with prescribed statistics).",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    a = ctx.get('tensors', {}).get('a')\n    model = ctx.get('model')\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    yt = ctx.get('tensors', {}).get('yt')\n    with torch.no_grad():\n        zt, _ = model.encode(yt)\n        z = zt.detach().numpy()\n    \n    fig, axes = plt.subplots(z.shape[1], z.shape[1], figsize=(6, 6))\n    for i in range(z.shape[1]):\n        for j in range(z.shape[1]):\n            ax = axes[i, j]\n            if i == j:\n                ax.hist(z[:, i], bins=int(np.sqrt(z.shape[0])))\n            else:\n                ax.scatter(z[:, i], z[:, j], s=2, c=a[:, 0])\n    \n    from sklearn import linear_model\n    \n    lr = linear_model.LinearRegression().fit(z, a[:, [0]])\n    print(f'R2 = {lr.score(z, a[:, 0]):.3f}; coef = {lr.coef_}')\n    \n    close_to_origin = np.argmin(np.linalg.norm(z, axis=1))\n    \n    gen_y = model.decoder(torch.tensor(a[close_to_origin]).unsqueeze(0).float())\n    \n    fig, ax = plt.subplots()\n    _ = ax.plot(x, y[close_to_origin], label='Real')\n    _ = ax.plot(x, gen_y[0].detach().numpy(), label='Generated')\n    _ = ax.legend()\n    ctx['tensors']['close_to_origin'] = close_to_origin\n    ctx['tensors']['gen_y'] = gen_y\n    ctx['tensors']['z'] = z"
+}

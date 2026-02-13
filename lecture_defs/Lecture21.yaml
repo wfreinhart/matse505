@@ -1,0 +1,18 @@
+id: Lecture21
+title: Lecture21
+modules:
+  - id: Lecture21_0
+  - id: Lecture21_working_with_molecules_in_python
+  - id: Lecture21_smiles
+  - id: Lecture21_intro_to_rdkit
+  - id: Lecture21_substructure_searching
+  - id: Lecture21_molecular_fingerprints
+  - id: Lecture21_machine_learning_with_molecular_fingerprints
+  - id: Lecture21_task_definition
+  - id: Lecture21_simple_regression_models
+  - id: Lecture21_tuning_the_representation
+  - id: Lecture21_geometric_deep_learning
+  - id: Lecture21_molecules_as_graphs
+  - id: Lecture21_graph_data_structure
+  - id: Lecture21_pytorch_geometric
+  - id: Lecture21_graph_learning_model

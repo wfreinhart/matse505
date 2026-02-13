@@ -1,0 +1,16 @@
+{
+  "id": "Lecture18_spline_interpolation",
+  "type": "Foundational",
+  "parent_lecture": "Lecture18",
+  "requirements": [
+    "tensors['fig2']",
+    "tensors['xs']",
+    "tensors['ax2']",
+    "tensors['x']",
+    "tensors['interpolate']",
+    "tensors['y']",
+    "data"
+  ],
+  "markdown_content": "## Spline interpolation\n\nIt turns out there are more sophisticated ways to guess the intermediate values than assuming a linear trend. One such method is called \"cubic spline.\" This is actually one of the most common interpolation schemes, and so it can be accessed using the `kind` keyword argument of `interp1d`:\n\nWe can now use it exactly the same way we did with the linear fit:\n\nThere is additional \"curviness\" to the line now, which is calculated by looking at points beyond just the nearest two; the name \"cubic spline\" means that second and third derivatives are also taken into account.\n\nJust for your information, there are also other options for the `kind` keyword argument, including a \"zero-order spline\" which is the same as the very first interpolation strategy we tried, just assuming the same as the nearest value:",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    ax2 = ctx.get('tensors', {}).get('ax2')\n    data = ctx.get('data')\n    fig2 = ctx.get('tensors', {}).get('fig2')\n    interpolate = ctx.get('tensors', {}).get('interpolate')\n    x = ctx.get('tensors', {}).get('x')\n    xs = ctx.get('tensors', {}).get('xs')\n    y = ctx.get('tensors', {}).get('y')\n    spline = interpolate.interp1d(x, y, kind='cubic')\n    print(spline)\n    \n    x_hat = np.linspace(data[xs].min(), data[xs].max(), 1000)\n    y_hat = spline(x_hat)\n    \n    ax2.plot(x_hat, y_hat, '.', c='tab:orange', label='Cubic')\n    ax2.legend()\n    fig2\n    \n    zero = interpolate.interp1d(x, y, kind='zero')\n    y_hat = zero(x_hat)\n    \n    ax2.plot(x_hat, y_hat, '-', c='tab:green', label='Zero')\n    ax2.legend()\n    fig2\n    ctx['tensors']['spline'] = spline\n    ctx['tensors']['x_hat'] = x_hat\n    ctx['tensors']['y_hat'] = y_hat\n    ctx['tensors']['zero'] = zero"
+}

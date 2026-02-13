@@ -1,9 +1,8 @@
 {
   "id": "Lecture03_check_your_understanding",
   "type": "Foundational",
-  "sequence": 26,
   "parent_lecture": "Lecture03",
   "requirements": [],
   "markdown_content": "## [Check your understanding]\n\n* Make a model for the Concrete Compressive Strength using a nonlinear regression model from `sklearn` **that was not covered here**.\nYou can refer to the [documentation](https://scikit-learn.org/stable/supervised_learning.html) to find a suitable method.\n* Train the model on a suitable train/test split.\n* Evaluate the R-squared, RMSE, and MAE on train and test data.\n* Make a plot of the predicted vs observed data with train and test data as separate series.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from scipy import optimize\n    from scipy import stats\n    from sklearn import ensemble\n    from sklearn import linear_model\n    from sklearn import neighbors\n    from sklearn import neural_network\n    from sklearn import tree\n    from sklearn.model_selection import train_test_split\n    from sklearn.preprocessing import PolynomialFeatures\n    import numpy as np\n    import os\n    import pandas as pd\n    import requests\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
 }

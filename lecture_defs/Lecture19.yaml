@@ -1,0 +1,19 @@
+id: Lecture19
+title: Lecture19
+modules:
+  - id: Lecture19_0
+  - id: Lecture19_imputation
+  - id: Lecture19_the_limiting_case_of_supervised_learning
+  - id: Lecture19_missing_at_random_from_multiple_columns
+  - id: Lecture19_pandas_imputation_schemes
+  - id: Lecture19_sklearn_imputers
+  - id: Lecture19_missforest
+  - id: Lecture19_synthetic_data_generation
+  - id: Lecture19_concept
+  - id: Lecture19_implementation
+  - id: Lecture19_augmentation
+  - id: Lecture19_multi_task_learning
+  - id: Lecture19_concepts
+  - id: Lecture19_practical_example
+  - id: Lecture19_regression_in_scikit_learn
+  - id: Lecture19_multi_task_regression_in_pytorch

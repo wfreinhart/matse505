@@ -1,0 +1,14 @@
+{
+  "id": "Lecture18_problems_with_real_data",
+  "type": "Foundational",
+  "parent_lecture": "Lecture18",
+  "requirements": [
+    "tensors['ys']",
+    "tensors['xs']",
+    "tensors['light_blue']",
+    "tensors['interpolate']",
+    "data"
+  ],
+  "markdown_content": "## Problems with real data\n\nThis function will only be well defined when there is a single $y \\to x$ mapping. Let's consider what this means graphically:\n\nIf we ask our function $f^{-1}(y)$ to return $x$ for $y = 30$, which $x$ should it choose? Let's see how `interp1d` behaves here:\n\nOk, that's not what we want at all. If the function is multi-valued, the behavior can be erratic.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    interpolate = ctx.get('tensors', {}).get('interpolate')\n    light_blue = ctx.get('tensors', {}).get('light_blue')\n    xs = ctx.get('tensors', {}).get('xs')\n    ys = ctx.get('tensors', {}).get('ys')\n    x = data[xs]\n    y = data[ys]\n    \n    spline = interpolate.interp1d(x, y, kind='cubic')\n    \n    x_hat = np.linspace(x.min(), x.max(), 1000)\n    y_hat = spline(x_hat)\n    \n    fig, ax = plt.subplots()\n    ax.plot(x_hat, y_hat, '-', c=light_blue)\n    ax.set_xlabel(xs)\n    ax.set_ylabel(ys)\n    ax.set_title('Compression of architected material')\n    \n    y_target = 30  # in MPa\n    ax.plot([data[xs].min(), data[xs].max()], [y_target, y_target],\n            linestyle='--', c='tab:orange')\n    \n    inv_spline = interpolate.interp1d(y, x, kind='cubic')\n    \n    y_hat = np.linspace(y.min(), y.max(), 1000)\n    x_hat = inv_spline(y_hat)\n    \n    fig, ax = plt.subplots()\n    ax.plot(y, x, '.', c=light_blue)\n    ax.plot(y_hat, x_hat, '-', c=light_blue)\n    ax.set_xlabel(ys)\n    ax.set_ylabel(xs)\n    ax.set_title('Compression of architected material')\n    ctx['tensors']['inv_spline'] = inv_spline\n    ctx['tensors']['spline'] = spline\n    ctx['tensors']['x'] = x\n    ctx['tensors']['x_hat'] = x_hat\n    ctx['tensors']['y'] = y\n    ctx['tensors']['y_hat'] = y_hat\n    ctx['tensors']['y_target'] = y_target"
+}

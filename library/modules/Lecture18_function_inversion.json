@@ -1,0 +1,8 @@
+{
+  "id": "Lecture18_function_inversion",
+  "type": "Foundational",
+  "parent_lecture": "Lecture18",
+  "requirements": [],
+  "markdown_content": "# Function inversion\n\nWe have now obtained models of the function $f(x) = y$ in a few different ways. What if we want to find the $x$ value to obtain a given $y$? This could be written as $f^{-1}(y) = x$, as the *inverse function*.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+}

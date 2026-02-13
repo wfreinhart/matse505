@@ -1,0 +1,10 @@
+{
+  "id": "Lecture08_integer_encoding",
+  "type": "Foundational",
+  "parent_lecture": "Lecture08",
+  "requirements": [
+    "data"
+  ],
+  "markdown_content": "## Integer encoding\n\nLet's take a look at the first categorical column, `STP Phase`:\n\nSince there are only two possible values, we can represent this with a binary label using .\n\nHere's another way to achieve this result using `scikit-learn` functions:\n\nOnce the `LabelEncoder` is fitted, you can obtain the original `str` with the `inverse_transform`:\n\nFinally, you can use the `numpy.unique` function to achieve a similar result:",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    data['STP Phase'].value_counts()\n    \n    data['STP Phase'].astype(\"category\").cat.codes\n    \n    from sklearn import preprocessing\n    \n    encoder = preprocessing.LabelEncoder()\n    labels = encoder.fit_transform(data['STP Phase'])\n    \n    print(labels)\n    \n    print(encoder.inverse_transform(labels))\n    \n    import numpy as np\n    \n    cat, labels = np.unique(data['STP Phase'], return_inverse=True)\n    \n    print(cat)\n    print(labels)\n    print(cat[labels])\n    ctx['model_artifacts']['encoder'] = encoder\n    ctx['tensors']['labels'] = labels"
+}

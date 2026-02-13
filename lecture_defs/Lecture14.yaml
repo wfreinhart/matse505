@@ -1,0 +1,21 @@
+id: Lecture14
+title: Lecture14
+modules:
+  - id: Lecture14_0
+  - id: Lecture14_pretrained_models
+  - id: Lecture14_imagenet_dataset
+  - id: Lecture14_resnet
+  - id: Lecture14_exercise
+  - id: Lecture14_feature_extraction
+  - id: Lecture14_concepts
+  - id: Lecture14_in_practice
+  - id: Lecture14_exercise
+  - id: Lecture14_transfer_learning
+  - id: Lecture14_concepts
+  - id: Lecture14_in_practice
+  - id: Lecture14_check_your_understanding
+  - id: Lecture14_fine_tuning
+  - id: Lecture14_concepts
+  - id: Lecture14_in_practice
+  - id: Lecture14_check_your_understanding
+  - id: Lecture14_data_augmentation

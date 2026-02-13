@@ -1,0 +1,11 @@
+{
+  "id": "Lecture06_min_max_scaler",
+  "type": "Foundational",
+  "parent_lecture": "Lecture06",
+  "requirements": [
+    "tensors['clean_data']",
+    "tensors['x']"
+  ],
+  "markdown_content": "## Min-Max scaler\n\nThis is the most straightforward preprocesser you could imagine -- it simply rescales each column to have a min value of 0 and max value of 1.\n\n$x' = \\frac{x - \\min(x)}{\\max(x) - \\min(x)}$\n\nOne interesting consequence of the `MinMaxScaler` is the mitigation of the outlier in `Tensile Strength (MPa)`.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    clean_data = ctx.get('tensors', {}).get('clean_data')\n    x = ctx.get('tensors', {}).get('x')\n    scaler = preprocessing.MinMaxScaler().fit(x)\n    xs = scaler.transform(x)\n    \n    pca = decomposition.PCA().fit(xs)\n    P = pca.transform(xs)\n    \n    fig, ax = plt.subplots()\n    im = ax.scatter(P[:, 0], P[:, 1], c=clean_data['V'])\n    plt.colorbar(im)\n    ctx['model_artifacts']['scaler'] = scaler\n    ctx['tensors']['pca'] = pca"
+}

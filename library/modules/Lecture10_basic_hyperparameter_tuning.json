@@ -1,0 +1,18 @@
+{
+  "id": "Lecture10_basic_hyperparameter_tuning",
+  "type": "Foundational",
+  "parent_lecture": "Lecture10",
+  "requirements": [
+    "tensors['optimize']",
+    "tensors['x']",
+    "tensors['mlp_fitness']",
+    "tensors['px']",
+    "tensors['trial']",
+    "tensors['render']",
+    "tensors['plot_contour']",
+    "tensors['y']",
+    "tensors['neural_network']"
+  ],
+  "markdown_content": "## Basic hyperparameter tuning\n\nWe will use the `ax-platform` package for hyperparameter tuning.\nIt is more convenient than implementing this ourselves.\n\nNow we need to do a train/validation/test split and an objective function.\n\nNow we set up the optimization problem in the format specified by `ax-platform`.\n\nWith Gaussian Process, we can evaluate the results in terms of both mean and variance:\n\nIt is very helpful to visualize the loss surface:\n\nAnd we can also view it as a function of iterations.\n\nNow that we have the optimal result, we should train a model with those hyperparameters.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    mlp_fitness = ctx.get('tensors', {}).get('mlp_fitness')\n    neural_network = ctx.get('tensors', {}).get('neural_network')\n    optimize = ctx.get('tensors', {}).get('optimize')\n    plot_contour = ctx.get('tensors', {}).get('plot_contour')\n    px = ctx.get('tensors', {}).get('px')\n    render = ctx.get('tensors', {}).get('render')\n    trial = ctx.get('tensors', {}).get('trial')\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    # !pip install ax-platform\n    \n    x_trv, x_test, y_trv, y_test = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)\n    x_train, x_val, y_train, y_val = model_selection.train_test_split(x_trv, y_trv, train_size=0.75, shuffle=True, random_state=0)\n    \n    def mlp_fitness(parameterization):\n        try:\n            model = neural_network.MLPRegressor(**parameterization, random_state=0).fit(x_train, y_train)\n            score = model.score(x_val, y_val)\n        except:\n            score = -1\n        return score\n    \n    from ax.service.managed_loop import optimize\n    \n    best_parameters, values, experiment, model = optimize(\n        parameters=[\n            {\"name\": \"learning_rate_init\", \"type\": \"range\", \"bounds\": [1e-6, 1e-1], \"log_scale\": True},\n            {\"name\": \"max_iter\", \"type\": \"range\", \"bounds\": [10, 1000]},\n        ],\n        evaluation_function=mlp_fitness,\n        objective_name='r-squared',\n    )\n    \n    print( best_parameters )\n    means, covariances = values\n    print( means, covariances )\n    \n    from ax.plot.contour import plot_contour\n    from ax.utils.notebook.plotting import render\n    \n    render(plot_contour(model=model, param_x='learning_rate_init', param_y='max_iter', metric_name='r-squared'))\n    \n    from plotly import express as px\n    import numpy as np\n    \n    best_objectives = np.array([[trial.objective_mean for trial in experiment.trials.values()]])\n    results = np.maximum.accumulate(best_objectives, axis=1).tolist()\n    px.line(y=results)\n    \n    model = neural_network.MLPRegressor(**best_parameters, random_state=0).fit(x_train, y_train)\n    print( 'r-squared, val: ', model.score(x_val, y_val))\n    print( 'r-squared, test:', model.score(x_test, y_test))\n    ctx['model'] = model\n    ctx['tensors']['best_objectives'] = best_objectives\n    ctx['tensors']['results'] = results"
+}

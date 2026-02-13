@@ -1,61 +1,94 @@
 # ---
 # jupyter:
 #   jupytext:
-#     cell_metadata_filter: -id,-colab,-outputId
 #     text_representation:
 #       extension: .py
 #       format_name: percent
-#       format_version: '1.3'
-#       jupytext_version: 1.19.0
 #   kernelspec:
 #     display_name: Python 3
 #     name: python3
 # ---
 
 # %% [markdown]
+# # Lecture09
+
+# %%
+class Context(dict):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setdefault('data', None)
+        self.setdefault('tensors', {})
+        self.setdefault('model', None)
+        self.setdefault('viz', None)
+
+ctx = Context()
+
+# %% [markdown]
 # > Reminder: detailed presentation plan due 3/14 for discussion.
 # Presentations should be 8 minutes + 2 minutes for Q&A.
 # Detailed instructions will be posted to Canvas soon.
-
-# %% [markdown]
+#
 # Today's topics:
 # * Hyperparameter tuning
 # * Cross-fold validation
 # * Flavors of cross-validation
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
+
 # %% [markdown]
 # ## Revisiting nonlinear regression
 #
 # Let's pick up where we left off with nonlinear regression: using `sklearn` models to fit a multivariate regression problem for `Concrete compressive strength`.
-
-# %%
-import pandas as pd
-import numpy as np
-import os
-
-# Set the path to the data file
-filename = 'concrete.csv'
-local_path = f'../datasets/{filename}'
-github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
-
-# Load the data: try local path first, fallback to GitHub for Colab
-if os.path.exists(local_path):
-    data = pd.read_csv(local_path)
-else:
-    data = pd.read_csv(github_url)
-data
-
-# %% [markdown]
+#
 # Split the dataset into train and test sets:
 
 # %%
-from sklearn import model_selection
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    import pandas as pd
+    import numpy as np
+    import os
 
-x = data.loc[:, 'Cement (component 1)(kg in a m^3 mixture)':'Age (day)']
-y = data.loc[:, 'Concrete compressive strength(MPa, megapascals) ']
+    # Set the path to the data file
+    filename = 'concrete.csv'
+    local_path = f'../datasets/{filename}'
+    github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
 
-xtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, random_state=0)
-print(xtrain.shape, xtest.shape)
+    # Load the data: try local path first, fallback to GitHub for Colab
+    if os.path.exists(local_path):
+        data = pd.read_csv(local_path)
+    else:
+        data = pd.read_csv(github_url)
+    data
+
+    from sklearn import model_selection
+
+    x = data.loc[:, 'Cement (component 1)(kg in a m^3 mixture)':'Age (day)']
+    y = data.loc[:, 'Concrete compressive strength(MPa, megapascals) ']
+
+    xtrain, xtest, ytrain, ytest = model_selection.train_test_split(x, y, random_state=0)
+    print(xtrain.shape, xtest.shape)
+    ctx['data'] = data
+    ctx['tensors']['filename'] = filename
+    ctx['tensors']['github_url'] = github_url
+    ctx['tensors']['local_path'] = local_path
+    ctx['tensors']['x'] = x
+    ctx['tensors']['y'] = y
+run_module(ctx)
 
 # %% [markdown]
 # # Hyperparameters
@@ -69,101 +102,129 @@ print(xtrain.shape, xtest.shape)
 # However, there is nothing special about the default parameters and in most cases we will want to select different parameters.
 # Here we'll discuss how to select optimal hyperparameters.
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
+
 # %% [markdown]
 # ## Evaluating the effect of hyperparameters
 #
 # Let's start by just looking at how changing the hyperparameters influences model performance in an example: K-Neighbors.
-
-# %%
-from sklearn import neighbors
-
-model = neighbors.KNeighborsRegressor()
-
-model.fit(xtrain, ytrain)
-
-y_pred = model.predict(xtrain)
-residual = y_pred - ytrain
-rmse = np.sqrt(np.mean(residual**2))
-print(f'Train  RMSE = {rmse:.3f}')
-
-y_pred = model.predict(xtest)
-residual = y_pred - ytest
-rmse = np.sqrt(np.mean(residual**2))
-print(f'Test RMSE = {rmse:.3f}')
-
-
-# %% [markdown]
+#
 # Let's push some of these operations into functions to make our life easier going forward.
-
-# %%
-def calc_rmse(model, X, y):
-    "Calculate the RMSE from a fitted model"
-    y_pred = model.predict(X)
-    residuals = y_pred - y
-    return np.sqrt(np.mean(residuals**2))
-
-
-def train_and_report_performance(model, xtrain, ytrain, xtest, ytest):
-    "Train a model and print RMSE results for train and test sets"
-    model.fit(xtrain, ytrain)
-    train_rmse = calc_rmse(model, xtrain, ytrain)
-    test_rmse  = calc_rmse(model, xtest, ytest)
-    print(f'Train RMSE = {train_rmse:.3f}; Test RMSE = {test_rmse:.3f}')
-
-
-# %% [markdown]
+#
 # Now we'll repeat the analysis above with our new convenience functions:
-
-# %%
-train_and_report_performance(neighbors.KNeighborsRegressor(),
-                             xtrain, ytrain, xtest, ytest)
-
-# %% [markdown]
+#
 # Let's finally get to changing the hyperparameters.
 # You'll see why we spent the time on that detour shortly...
 #
 # The two key hyperparameters for K-Neighbors are `n_neighbors` and `weights`.
 # They default to `5` and `uniform` respectively.
 # Let's try doubling to `n_neighbors=10` and changing to `weights=distance`:
-
-# %%
-train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=10),
-                             xtrain, ytrain, xtest, ytest)
-
-# %% [markdown]
+#
 # OK, so that made things slightly worse in both training and testing.
 # Let's try the other one:
-
-# %%
-train_and_report_performance(neighbors.KNeighborsRegressor(weights='distance'),
-                             xtrain, ytrain, xtest, ytest)
-
-# %% [markdown]
+#
 # This improves the test performance a good amount but substantially overfits to the training data!
 #
 # Of course we could also try doing both together:
+#
+# Same problem with overfitting but it gives the best test performance so far.
 
 # %%
-train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=10, weights='distance'),
-                             xtrain, ytrain, xtest, ytest)
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    calc_rmse = ctx.get('tensors', {}).get('calc_rmse')
+    train_and_report_performance = ctx.get('tensors', {}).get('train_and_report_performance')
+    xtest = ctx.get('tensors', {}).get('xtest')
+    xtrain = ctx.get('tensors', {}).get('xtrain')
+    ytest = ctx.get('tensors', {}).get('ytest')
+    ytrain = ctx.get('tensors', {}).get('ytrain')
+    from sklearn import neighbors
 
-# %% [markdown]
-# Same problem with overfitting but it gives the best test performance so far.
+    model = neighbors.KNeighborsRegressor()
+
+    model.fit(xtrain, ytrain)
+
+    y_pred = model.predict(xtrain)
+    residual = y_pred - ytrain
+    rmse = np.sqrt(np.mean(residual**2))
+    print(f'Train  RMSE = {rmse:.3f}')
+
+    y_pred = model.predict(xtest)
+    residual = y_pred - ytest
+    rmse = np.sqrt(np.mean(residual**2))
+    print(f'Test RMSE = {rmse:.3f}')
+
+    def calc_rmse(model, X, y):
+        "Calculate the RMSE from a fitted model"
+        y_pred = model.predict(X)
+        residuals = y_pred - y
+        return np.sqrt(np.mean(residuals**2))
+
+
+    def train_and_report_performance(model, xtrain, ytrain, xtest, ytest):
+        "Train a model and print RMSE results for train and test sets"
+        model.fit(xtrain, ytrain)
+        train_rmse = calc_rmse(model, xtrain, ytrain)
+        test_rmse  = calc_rmse(model, xtest, ytest)
+        print(f'Train RMSE = {train_rmse:.3f}; Test RMSE = {test_rmse:.3f}')
+
+    train_and_report_performance(neighbors.KNeighborsRegressor(),
+                                 xtrain, ytrain, xtest, ytest)
+
+    train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=10),
+                                 xtrain, ytrain, xtest, ytest)
+
+    train_and_report_performance(neighbors.KNeighborsRegressor(weights='distance'),
+                                 xtrain, ytrain, xtest, ytest)
+
+    train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=10, weights='distance'),
+                                 xtrain, ytrain, xtest, ytest)
+    ctx['model'] = model
+    ctx['tensors']['residual'] = residual
+    ctx['tensors']['rmse'] = rmse
+    ctx['tensors']['y_pred'] = y_pred
+run_module(ctx)
 
 # %% [markdown]
 # ## A naiive approach to hyperparameter tuning
 #
 # Now that we have things well under control, let's just try all the possible values of `n_neighbors`!
-
-# %%
-for k in range(1, 20):
-    print(f'k = {k:2d}: ', end='')
-    train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance'),
-                             xtrain, ytrain, xtest, ytest)
-
-# %% [markdown]
+#
 # We can see from this that there is a non-monotonic relationship with `n_neighbors` and an optimal value lies in the middle of the range.
 # So is that all there is to it?
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    train_and_report_performance = ctx.get('tensors', {}).get('train_and_report_performance')
+    xtest = ctx.get('tensors', {}).get('xtest')
+    xtrain = ctx.get('tensors', {}).get('xtrain')
+    ytest = ctx.get('tensors', {}).get('ytest')
+    ytrain = ctx.get('tensors', {}).get('ytrain')
+    for k in range(1, 20):
+        print(f'k = {k:2d}: ', end='')
+        train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance'),
+                                 xtrain, ytrain, xtest, ytest)
+run_module(ctx)
 
 # %% [markdown]
 # ## Validation set
@@ -176,61 +237,65 @@ for k in range(1, 20):
 # We need another split in our data!
 #
 # <img src="../lectures/assets/hyperparameter_tuning_bias_variance.jpg" alt="Illustration of the bias-variance tradeoff in hyperparameter tuning showing underfitting and overfitting regions">
-
-# %%
-# split off 20% of the data for testing -- it will never be seen by the model
-x_trv, x_test, y_trv, y_test = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)
-
-# remaining data has 80% of total ... want 60% of total for training = 75% of the remainder
-x_train, x_val, y_train, y_val = model_selection.train_test_split(x_trv, y_trv, train_size=0.75, shuffle=True, random_state=0)
-
-# use the optimal hyperparameters from above...
-model = neighbors.KNeighborsRegressor(n_neighbors=10, weights='distance')
-train_and_report_performance(model, x_train, y_train, x_val, y_val)
-
-# check the test result
-print(f'Test RMSE = {calc_rmse(model, x_test, y_test):.3f}')
-
-
-# %% [markdown]
+#
 # Here we see that the performance on truly unseen data is not as good as we hoped based on the validation set -- note that our "test" result printed by `train_and_report_performance` is actually the *validation* set.
 # We should update our convenience function:
-
-# %%
-def train_and_report_performance(model, xtrain, ytrain, xtest, ytest, xval=None, yval=None):
-    "Train a model and print RMSE results for train and test sets"
-    model.fit(xtrain, ytrain)
-    train_rmse = calc_rmse(model, xtrain, ytrain)
-    test_rmse  = calc_rmse(model, xtest, ytest)
-    if xval is not None and yval is not None:
-        val_rmse = calc_rmse(model, xval, yval)
-        print(f'Train RMSE = {train_rmse:.3f}; Val RMSE = {val_rmse:.3f}; Test RMSE = {test_rmse:.3f}')
-    else:
-        print(f'Train RMSE = {train_rmse:.3f}; Test RMSE = {test_rmse:.3f}')
-
-
-# %% [markdown]
+#
 # Here's the new function in action:
-
-# %%
-model = neighbors.KNeighborsRegressor(n_neighbors=10, weights='distance')
-train_and_report_performance(model, x_train, y_train, x_test, y_test, x_val, y_val)
-
-# %% [markdown]
+#
 # Now we can deploy it in our hyperparameter tuning:
-
-# %%
-for k in range(1, 20):
-    print(f'k = {k:2d}: ', end='')
-    train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance'),
-                                 x_train, y_train, x_test, y_test, x_val, y_val)
-
-# %% [markdown]
+#
 # The result is much less clear than before.
 # We can clearly see that the result with the lowest validation performance ($k = 9$) is not the one with the lowest test performance ($k = 6$).
 # This illustrates a similar problem as with overfitting -- you can't trust the performance on data included in the workflow when deploying on unseen data!
 #
 # In practice, we do have to choose a single set of hyperparameters to use, so we would select $k=9$ and report a test RMSE of 8.230 even though there are other options that would give a lower test RMSE.
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    calc_rmse = ctx.get('tensors', {}).get('calc_rmse')
+    train_and_report_performance = ctx.get('tensors', {}).get('train_and_report_performance')
+    x = ctx.get('tensors', {}).get('x')
+    y = ctx.get('tensors', {}).get('y')
+    # split off 20% of the data for testing -- it will never be seen by the model
+    x_trv, x_test, y_trv, y_test = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True, random_state=0)
+
+    # remaining data has 80% of total ... want 60% of total for training = 75% of the remainder
+    x_train, x_val, y_train, y_val = model_selection.train_test_split(x_trv, y_trv, train_size=0.75, shuffle=True, random_state=0)
+
+    # use the optimal hyperparameters from above...
+    model = neighbors.KNeighborsRegressor(n_neighbors=10, weights='distance')
+    train_and_report_performance(model, x_train, y_train, x_val, y_val)
+
+    # check the test result
+    print(f'Test RMSE = {calc_rmse(model, x_test, y_test):.3f}')
+
+    def train_and_report_performance(model, xtrain, ytrain, xtest, ytest, xval=None, yval=None):
+        "Train a model and print RMSE results for train and test sets"
+        model.fit(xtrain, ytrain)
+        train_rmse = calc_rmse(model, xtrain, ytrain)
+        test_rmse  = calc_rmse(model, xtest, ytest)
+        if xval is not None and yval is not None:
+            val_rmse = calc_rmse(model, xval, yval)
+            print(f'Train RMSE = {train_rmse:.3f}; Val RMSE = {val_rmse:.3f}; Test RMSE = {test_rmse:.3f}')
+        else:
+            print(f'Train RMSE = {train_rmse:.3f}; Test RMSE = {test_rmse:.3f}')
+
+    model = neighbors.KNeighborsRegressor(n_neighbors=10, weights='distance')
+    train_and_report_performance(model, x_train, y_train, x_test, y_test, x_val, y_val)
+
+    for k in range(1, 20):
+        print(f'k = {k:2d}: ', end='')
+        train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance'),
+                                     x_train, y_train, x_test, y_test, x_val, y_val)
+    ctx['model'] = model
+run_module(ctx)
 
 # %% [markdown]
 # ## Grid search
@@ -246,36 +311,54 @@ for k in range(1, 20):
 # We'll see how this looks in just a minute.
 #
 # For now, the easiest way to implement grid search is to use nested `for` loops:
-
-# %%
-results = []
-for k in range(2, 12):
-    for w in ['uniform', 'distance']:
-        print(f'Evaluating ({k}, {w})...')
-        # set up the model
-        model = neighbors.KNeighborsRegressor(n_neighbors=k, weights=w)
-        model.fit(x_train, y_train)
-        # evaluate rmse on all the splits
-        train = calc_rmse(model, x_train, y_train)
-        val = calc_rmse(model, x_val, y_val)
-        test = calc_rmse(model, x_test, y_test)
-        # save results
-        results.append( [k, w, train, val, test] )
-
-# %% [markdown]
+#
 # Based on the stored results, we can visualize the grid of possible models:
+#
+# This shows the same result from above, that optimal validation performance is achieve with `weights=distance` and $k = 9$.
 
 # %%
-from plotly import express as px
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    calc_rmse = ctx.get('tensors', {}).get('calc_rmse')
+    px = ctx.get('tensors', {}).get('px')
+    x_test = ctx.get('tensors', {}).get('x_test')
+    x_train = ctx.get('tensors', {}).get('x_train')
+    x_val = ctx.get('tensors', {}).get('x_val')
+    y_test = ctx.get('tensors', {}).get('y_test')
+    y_train = ctx.get('tensors', {}).get('y_train')
+    y_val = ctx.get('tensors', {}).get('y_val')
+    results = []
+    for k in range(2, 12):
+        for w in ['uniform', 'distance']:
+            print(f'Evaluating ({k}, {w})...')
+            # set up the model
+            model = neighbors.KNeighborsRegressor(n_neighbors=k, weights=w)
+            model.fit(x_train, y_train)
+            # evaluate rmse on all the splits
+            train = calc_rmse(model, x_train, y_train)
+            val = calc_rmse(model, x_val, y_val)
+            test = calc_rmse(model, x_test, y_test)
+            # save results
+            results.append( [k, w, train, val, test] )
 
-# create a DataFrame with results
-df = pd.DataFrame(results, columns=['k', 'w', 'Train', 'Validation', 'Test'])
+    from plotly import express as px
 
-# make a scatter plot of the grid
-px.scatter(df, x='k', y='w', color='Validation')
+    # create a DataFrame with results
+    df = pd.DataFrame(results, columns=['k', 'w', 'Train', 'Validation', 'Test'])
 
-# %% [markdown]
-# This shows the same result from above, that optimal validation performance is achieve with `weights=distance` and $k = 9$.
+    # make a scatter plot of the grid
+    px.scatter(df, x='k', y='w', color='Validation')
+    ctx['data'] = df
+    ctx['model'] = model
+    ctx['tensors']['results'] = results
+    ctx['tensors']['test'] = test
+    ctx['tensors']['train'] = train
+run_module(ctx)
 
 # %% [markdown]
 # ## In more dimensions
@@ -283,47 +366,88 @@ px.scatter(df, x='k', y='w', color='Validation')
 # Many models have more than two hyperparameters.
 # The grid search can easily be extended to additional dimensions using nested `for` loops.
 # For instance, consider the `max_depth`, `n_estimators`, and `min_samples_split` hyperparameters of the `RandomForestRegressor`:
-
-# %%
-from sklearn import ensemble
-
-results = []
-for md in np.arange(10, 31, 10):
-    for ne in np.arange(20, 61, 20):
-        for mss in np.arange(2, 5):
-            print(f'Evaluating ({md}, {ne}, {mss})...')
-            model = ensemble.RandomForestRegressor(max_depth=md, n_estimators=ne, min_samples_split=mss, random_state=0)
-            model.fit(x_train, y_train)
-            # evaluate rmse on all the splits
-            train = calc_rmse(model, x_train, y_train)
-            val = calc_rmse(model, x_val, y_val)
-            test = calc_rmse(model, x_test, y_test)
-            # save results
-            results.append( [md, ne, mss, train, val, test] )
-
-# %%
-df = pd.DataFrame(results, columns=['md', 'ne', 'mss', 'Train', 'Validation', 'Test'])
-px.scatter_3d(df, x='md', y='ne', z='mss', color='Validation')
-
-# %% [markdown]
+#
 # Note once again that even though the best validation RMSE is `4.84` at `(10, 40, 4)`, the test RMSE is `5.19` here and as low as `5.08` elsewhere (with validation RMSE slightly higher at `4.89`):
 
 # %%
-df
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    calc_rmse = ctx.get('tensors', {}).get('calc_rmse')
+    px = ctx.get('tensors', {}).get('px')
+    x_test = ctx.get('tensors', {}).get('x_test')
+    x_train = ctx.get('tensors', {}).get('x_train')
+    x_val = ctx.get('tensors', {}).get('x_val')
+    y_test = ctx.get('tensors', {}).get('y_test')
+    y_train = ctx.get('tensors', {}).get('y_train')
+    y_val = ctx.get('tensors', {}).get('y_val')
+    from sklearn import ensemble
+
+    results = []
+    for md in np.arange(10, 31, 10):
+        for ne in np.arange(20, 61, 20):
+            for mss in np.arange(2, 5):
+                print(f'Evaluating ({md}, {ne}, {mss})...')
+                model = ensemble.RandomForestRegressor(max_depth=md, n_estimators=ne, min_samples_split=mss, random_state=0)
+                model.fit(x_train, y_train)
+                # evaluate rmse on all the splits
+                train = calc_rmse(model, x_train, y_train)
+                val = calc_rmse(model, x_val, y_val)
+                test = calc_rmse(model, x_test, y_test)
+                # save results
+                results.append( [md, ne, mss, train, val, test] )
+
+    df = pd.DataFrame(results, columns=['md', 'ne', 'mss', 'Train', 'Validation', 'Test'])
+    px.scatter_3d(df, x='md', y='ne', z='mss', color='Validation')
+
+    df
+    ctx['data'] = df
+    ctx['model'] = model
+    ctx['tensors']['results'] = results
+    ctx['tensors']['test'] = test
+    ctx['tensors']['train'] = train
+run_module(ctx)
 
 # %% [markdown]
 # ## [Check your understanding]
 #
-# Find the best set of hyperparameters for the decision tree based on validation RMSE using grid search.
-# Does it outperform the other options on the test set?
+# Apply Group K-Fold CV to split the data by `Age (day)` feature groups.
+# This will allow you to test the performance when exposed to new values not seen in training.
+# Evaluate the model validation performance on interpolation and extrapolation tasks.
+#
+# > Note: the [`scikit-learn` documentation](https://scikit-learn.org/stable/modules/cross_validation.html) has a great resource explaning different kinds of CV.
 
 # %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # # Cross-fold validation
 #
 # How do we deal with the issue of the validation set being unreliable?
 # We can't keep taking data out of the training set or we won't have any left.
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## In theory
@@ -335,48 +459,73 @@ df
 #
 # This has the great advantage of not needing to remove any more data from the training set while averaging out some of the variance in the test performance.
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
+
 # %% [markdown]
 # ## In practice
 #
 # We can implement cross-fold validation using `model_selection.KFold`:
-
-# %%
-from sklearn import model_selection
-
-# set up the splitter
-folds = model_selection.KFold(n_splits=5)
-
-# run through each subset
-k = 0
-results = []
-for train_index, test_index in folds.split(x):
-
-    # define the train / test split
-    # each fold gets its own split!
-    x_train, x_test = x.iloc[train_index], x.iloc[test_index]
-    y_train, y_test = y.iloc[train_index], y.iloc[test_index]
-
-    # train and evaluate the model
-    model = ensemble.RandomForestRegressor().fit(x_train, y_train)
-    rmse_train = calc_rmse(model, x_train, y_train)
-    rmse_test = calc_rmse(model, x_test, y_test)
-
-    k += 1
-    print(f'fold k = {k} RMSE: Train = {rmse_train:.3f}; Test = {rmse_test:.3f}')
-    results.append([rmse_train, rmse_test])
-
-# %% [markdown]
+#
 # These results are all over the place.
 # We can look at the mean and standard deviation to try and get a clearer picture:
+#
+# We see here that the average test RMSE is both substantially higher than the training RMSE, and also highly variable.
 
 # %%
-mu = np.mean(results, axis=0)
-sigma = np.std(results, axis=0)
-for i, s in enumerate(['Train', 'Test ']):
-    print(f'{s} average: {mu[i]:.3f} +/- {sigma[i]:.3f}')
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    calc_rmse = ctx.get('tensors', {}).get('calc_rmse')
+    x = ctx.get('tensors', {}).get('x')
+    y = ctx.get('tensors', {}).get('y')
+    from sklearn import model_selection
 
-# %% [markdown]
-# We see here that the average test RMSE is both substantially higher than the training RMSE, and also highly variable.
+    # set up the splitter
+    folds = model_selection.KFold(n_splits=5)
+
+    # run through each subset
+    k = 0
+    results = []
+    for train_index, test_index in folds.split(x):
+
+        # define the train / test split
+        # each fold gets its own split!
+        x_train, x_test = x.iloc[train_index], x.iloc[test_index]
+        y_train, y_test = y.iloc[train_index], y.iloc[test_index]
+
+        # train and evaluate the model
+        model = ensemble.RandomForestRegressor().fit(x_train, y_train)
+        rmse_train = calc_rmse(model, x_train, y_train)
+        rmse_test = calc_rmse(model, x_test, y_test)
+
+        k += 1
+        print(f'fold k = {k} RMSE: Train = {rmse_train:.3f}; Test = {rmse_test:.3f}')
+        results.append([rmse_train, rmse_test])
+
+    mu = np.mean(results, axis=0)
+    sigma = np.std(results, axis=0)
+    for i, s in enumerate(['Train', 'Test ']):
+        print(f'{s} average: {mu[i]:.3f} +/- {sigma[i]:.3f}')
+    ctx['model'] = model
+    ctx['tensors']['folds'] = folds
+    ctx['tensors']['results'] = results
+    ctx['tensors']['rmse_test'] = rmse_test
+    ctx['tensors']['rmse_train'] = rmse_train
+    ctx['tensors']['sigma'] = sigma
+run_module(ctx)
 
 # %% [markdown]
 # ## Holding out a test set
@@ -388,48 +537,30 @@ for i, s in enumerate(['Train', 'Test ']):
 # <img src="../lectures/assets/grid_search_cv.jpg" width=500 alt="Workflow combining Grid Search with Cross-Validation for robust hyperparameter optimization">
 #
 # All the models trained on the different fold-specific train/test splits can then be tested using the held-out test set.
-
-# %%
-# first split out 20% for testing at the end
-x_kf, x_test, y_kf, y_test = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True)
-
-# now do cross-fold validation on the remaining data
-folds = model_selection.KFold(n_splits=4, shuffle=True)
-results = []
-k = 0
-for train_index, val_index in folds.split(x_kf):
-    # define the train / test split for this fold
-    x_train, x_val = x_kf.iloc[train_index], x_kf.iloc[val_index]
-    y_train, y_val = y_kf.iloc[train_index], y_kf.iloc[val_index]
-
-    # train and evaluate the model
-    model = ensemble.RandomForestRegressor().fit(x_train, y_train)
-    rmse_train = calc_rmse(model, x_train, y_train)
-    rmse_val = calc_rmse(model, x_val, y_val)
-    rmse_test = calc_rmse(model, x_test, y_test)
-
-    results.append( [rmse_train, rmse_val, rmse_test] )
-
-    k += 1
-    print(f'fold k = {k} RMSE: Train = {rmse_train:.3f}; Val = {rmse_val:.3f}; Test = {rmse_test:.3f}')
-
-# %% [markdown]
+#
 # Again, we can aggregate these results into a mean and standard deviation:
-
-# %%
-mu = np.mean(results, axis=0)
-sigma = np.std(results, axis=0)
-for i, kind in enumerate(['Train', 'Val  ', 'Test ']):
-    print(f'{kind} RMSE = {mu[i]:.3f} +/- {sigma[i]:.3f}')
-
-
-# %% [markdown]
+#
 # From the aggregated results we actually see that the performance is slightly worse in testing compared to validation, but the standard deviations are relatively low so we can have some confidence about the values.
 #
 # We can use the stabilization from cross-fold validation on the hyperparameter optimization problem from before:
+#
+# The chart shows that although validation does not always match test performance, the error bars provided by cross-fold validation do typically encompass the average test performance.
 
 # %%
-def cv_rmse(model, X_train, y_train, X_test, y_test, X_val, y_val):
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    calc_rmse = ctx.get('tensors', {}).get('calc_rmse')
+    cv_rmse = ctx.get('tensors', {}).get('cv_rmse')
+    x = ctx.get('tensors', {}).get('x')
+    y = ctx.get('tensors', {}).get('y')
+    # first split out 20% for testing at the end
+    x_kf, x_test, y_kf, y_test = model_selection.train_test_split(x, y, test_size=0.20, shuffle=True)
+
     # now do cross-fold validation on the remaining data
     folds = model_selection.KFold(n_splits=4, shuffle=True)
     results = []
@@ -440,57 +571,98 @@ def cv_rmse(model, X_train, y_train, X_test, y_test, X_val, y_val):
         y_train, y_val = y_kf.iloc[train_index], y_kf.iloc[val_index]
 
         # train and evaluate the model
-        model.fit(x_train, y_train)
+        model = ensemble.RandomForestRegressor().fit(x_train, y_train)
         rmse_train = calc_rmse(model, x_train, y_train)
         rmse_val = calc_rmse(model, x_val, y_val)
         rmse_test = calc_rmse(model, x_test, y_test)
 
         results.append( [rmse_train, rmse_val, rmse_test] )
 
-    return results
+        k += 1
+        print(f'fold k = {k} RMSE: Train = {rmse_train:.3f}; Val = {rmse_val:.3f}; Test = {rmse_test:.3f}')
 
-
-# %%
-all_mu = []
-all_sigma = []
-for k in range(1, 20):
-    print(f'k = {k:2d}: ', end='')
-    model = neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance')
-    results = cv_rmse(model, x_train, y_train, x_test, y_test, x_val, y_val)
     mu = np.mean(results, axis=0)
     sigma = np.std(results, axis=0)
-    for i, kind in enumerate(['Train', 'Val', 'Test']):
-        print(f'{kind} = {mu[i]:.2f} +/- {sigma[i]:.2f}', end='; ')
-    print()
-    all_mu.append(mu)  # save these for later
-    all_sigma.append(sigma)
+    for i, kind in enumerate(['Train', 'Val  ', 'Test ']):
+        print(f'{kind} RMSE = {mu[i]:.3f} +/- {sigma[i]:.3f}')
 
-# %%
-from matplotlib import pyplot as plt
+    def cv_rmse(model, X_train, y_train, X_test, y_test, X_val, y_val):
+        # now do cross-fold validation on the remaining data
+        folds = model_selection.KFold(n_splits=4, shuffle=True)
+        results = []
+        k = 0
+        for train_index, val_index in folds.split(x_kf):
+            # define the train / test split for this fold
+            x_train, x_val = x_kf.iloc[train_index], x_kf.iloc[val_index]
+            y_train, y_val = y_kf.iloc[train_index], y_kf.iloc[val_index]
 
-# convert to numpy arrays
-mu = np.array(all_mu)
-sigma = np.array(all_sigma)
-k = np.arange(1, 20)
-# set up the plot
-fig, ax = plt.subplots()
-ax.bar(k, mu[:, 1], yerr=sigma[:, 1], label='Val', width=0.5)
-ax.bar(k, mu[:, 2], label='Test', width=0.5, align='edge', zorder=-1)
-# labels and legend
-ax.set_xlabel('$k$')
-ax.set_ylabel('RMSE')
-ax.legend()
-# zoom in
-ax.set_ylim(7.5, 10)
+            # train and evaluate the model
+            model.fit(x_train, y_train)
+            rmse_train = calc_rmse(model, x_train, y_train)
+            rmse_val = calc_rmse(model, x_val, y_val)
+            rmse_test = calc_rmse(model, x_test, y_test)
 
-# %% [markdown]
-# The chart shows that although validation does not always match test performance, the error bars provided by cross-fold validation do typically encompass the average test performance.
+            results.append( [rmse_train, rmse_val, rmse_test] )
+
+        return results
+
+    all_mu = []
+    all_sigma = []
+    for k in range(1, 20):
+        print(f'k = {k:2d}: ', end='')
+        model = neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance')
+        results = cv_rmse(model, x_train, y_train, x_test, y_test, x_val, y_val)
+        mu = np.mean(results, axis=0)
+        sigma = np.std(results, axis=0)
+        for i, kind in enumerate(['Train', 'Val', 'Test']):
+            print(f'{kind} = {mu[i]:.2f} +/- {sigma[i]:.2f}', end='; ')
+        print()
+        all_mu.append(mu)  # save these for later
+        all_sigma.append(sigma)
+
+    from matplotlib import pyplot as plt
+
+    # convert to numpy arrays
+    mu = np.array(all_mu)
+    sigma = np.array(all_sigma)
+    k = np.arange(1, 20)
+    # set up the plot
+    fig, ax = plt.subplots()
+    ax.bar(k, mu[:, 1], yerr=sigma[:, 1], label='Val', width=0.5)
+    ax.bar(k, mu[:, 2], label='Test', width=0.5, align='edge', zorder=-1)
+    # labels and legend
+    ax.set_xlabel('$k$')
+    ax.set_ylabel('RMSE')
+    ax.legend()
+    # zoom in
+    ax.set_ylim(7.5, 10)
+    ctx['model'] = model
+    ctx['tensors']['all_mu'] = all_mu
+    ctx['tensors']['all_sigma'] = all_sigma
+    ctx['tensors']['folds'] = folds
+    ctx['tensors']['results'] = results
+    ctx['tensors']['rmse_test'] = rmse_test
+    ctx['tensors']['rmse_train'] = rmse_train
+    ctx['tensors']['rmse_val'] = rmse_val
+    ctx['tensors']['sigma'] = sigma
+run_module(ctx)
 
 # %% [markdown]
 # # Flavors of cross-validation
 #
 # There are many more sophisticated schemes that can be applied when the situation calls for it.
 # Let's review some of these variations.
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## K-Fold
@@ -503,124 +675,98 @@ ax.set_ylim(7.5, 10)
 # What is the problem with this scheme?
 #
 # Let's explore this on the cement dataset:
-
-# %%
-# define the fold splitting strategy
-folds = model_selection.KFold(n_splits=5)
-
-in_fold = np.zeros([x.shape[0], folds.n_splits])
-this_fold = np.zeros(x.shape[0])
-for i, (train_index, test_index) in enumerate(folds.split(x)):
-    in_fold[test_index, i] = 1
-    this_fold[test_index] = i
-
-order = np.argsort(this_fold)
-x_sort_local = x.iloc[order]
-in_fold = in_fold[order]
-
-fig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)
-ax = axes[0]
-_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_ylabel('Age')
-ax = axes[1]
-_ = ax.imshow(in_fold.T, interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_xlabel('Observation')
-_ = ax.set_ylabel('Fold')
-plt.subplots_adjust(hspace=0.05)
-
-# %% [markdown]
+#
 # Here we see that the `Age (day)` variable has high and low values distributed throughout the folds.
 # What if the data were entered in ascending order (such as in a spreadsheet or lab notebook while the cement was curing)?
 
 # %%
-# create a sorted dataset to illustrate the pathological cases
-x_sort = x.sort_values(by='Age (day)')
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    x = ctx.get('tensors', {}).get('x')
+    # define the fold splitting strategy
+    folds = model_selection.KFold(n_splits=5)
 
-# define the fold splitting strategy
-folds = model_selection.KFold(n_splits=5)
+    in_fold = np.zeros([x.shape[0], folds.n_splits])
+    this_fold = np.zeros(x.shape[0])
+    for i, (train_index, test_index) in enumerate(folds.split(x)):
+        in_fold[test_index, i] = 1
+        this_fold[test_index] = i
 
-in_fold = np.zeros([x_sort.shape[0], folds.n_splits])
-this_fold = np.zeros(x_sort.shape[0])
-for i, (train_index, test_index) in enumerate(folds.split(x_sort)):
-    in_fold[test_index, i] = 1
-    this_fold[test_index] = i
+    order = np.argsort(this_fold)
+    x_sort_local = x.iloc[order]
+    in_fold = in_fold[order]
 
-order = np.argsort(this_fold)
-x_sort_local = x_sort.iloc[order]
-in_fold = in_fold[order]
+    fig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)
+    ax = axes[0]
+    _ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_ylabel('Age')
+    ax = axes[1]
+    _ = ax.imshow(in_fold.T, interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_xlabel('Observation')
+    _ = ax.set_ylabel('Fold')
+    plt.subplots_adjust(hspace=0.05)
 
-fig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)
-ax = axes[0]
-_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_ylabel('Age')
-ax = axes[1]
-_ = ax.imshow(in_fold.T, interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_xlabel('Observation')
-_ = ax.set_ylabel('Fold')
-plt.subplots_adjust(hspace=0.05)
+    # create a sorted dataset to illustrate the pathological cases
+    x_sort = x.sort_values(by='Age (day)')
+
+    # define the fold splitting strategy
+    folds = model_selection.KFold(n_splits=5)
+
+    in_fold = np.zeros([x_sort.shape[0], folds.n_splits])
+    this_fold = np.zeros(x_sort.shape[0])
+    for i, (train_index, test_index) in enumerate(folds.split(x_sort)):
+        in_fold[test_index, i] = 1
+        this_fold[test_index] = i
+
+    order = np.argsort(this_fold)
+    x_sort_local = x_sort.iloc[order]
+    in_fold = in_fold[order]
+
+    fig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)
+    ax = axes[0]
+    _ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_ylabel('Age')
+    ax = axes[1]
+    _ = ax.imshow(in_fold.T, interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_xlabel('Observation')
+    _ = ax.set_ylabel('Fold')
+    plt.subplots_adjust(hspace=0.05)
+    ctx['tensors']['folds'] = folds
+    ctx['tensors']['in_fold'] = in_fold
+    ctx['tensors']['order'] = order
+    ctx['tensors']['this_fold'] = this_fold
+    ctx['tensors']['x_sort'] = x_sort
+    ctx['tensors']['x_sort_local'] = x_sort_local
+run_module(ctx)
 
 # %% [markdown]
 # ## [Check your understanding]
 #
-# Calculate validation RMSE for regression models trained on each fold using each of the `x` and `x_sort` dataset above.
-# How much worse is the result when using the sorted data?
-# Why?
+# Apply Group K-Fold CV to split the data by `Age (day)` feature groups.
+# This will allow you to test the performance when exposed to new values not seen in training.
+# Evaluate the model validation performance on interpolation and extrapolation tasks.
+#
+# > Note: the [`scikit-learn` documentation](https://scikit-learn.org/stable/modules/cross_validation.html) has a great resource explaning different kinds of CV.
 
 # %%
-# define the fold splitting strategy
-folds = model_selection.KFold(n_splits=5)
-
-order = np.arange(x.shape[0])
-print('unsorted:')
-
-results = []
-for k, (train_index, test_index) in enumerate(folds.split(np.arange(x_sort.shape[0]))):
-    # define the train / test split for this fold
-    x_train, x_val = x.iloc[order].iloc[train_index], x.iloc[order].iloc[val_index]
-    y_train, y_val = y[order].iloc[train_index], y[order].iloc[val_index]
-
-    print(x_train['Age (day)'].min(), x_train['Age (day)'].max())
-
-    # train and evaluate the model
-    model = ensemble.RandomForestRegressor().fit(x_train, y_train)
-    rmse_train = calc_rmse(model, x_train, y_train)
-    rmse_val = calc_rmse(model, x_val, y_val)
-    rmse_test = calc_rmse(model, x_test, y_test)
-
-    results.append( [rmse_train, rmse_val, rmse_test] )
-
-    k += 1
-    print(f'fold k = {k} RMSE: Train = {rmse_train:.3f}; Val = {rmse_val:.3f}; Test = {rmse_test:.3f}')
-
-# %%
-# define the fold splitting strategy
-folds = model_selection.KFold(n_splits=5)
-
-order = np.argsort(x['Age (day)'].values)
-print('sorted:')
-
-results = []
-for k, (train_index, test_index) in enumerate(folds.split(np.arange(x_sort.shape[0]))):
-    # define the train / test split for this fold
-    x_train, x_val = x.iloc[order].iloc[train_index], x.iloc[order].iloc[val_index]
-    y_train, y_val = y[order].iloc[train_index], y[order].iloc[val_index]
-
-    print(x_train['Age (day)'].min(), x_train['Age (day)'].max())
-
-    # train and evaluate the model
-    model = ensemble.RandomForestRegressor().fit(x_train, y_train)
-    rmse_train = calc_rmse(model, x_train, y_train)
-    rmse_val = calc_rmse(model, x_val, y_val)
-    rmse_test = calc_rmse(model, x_test, y_test)
-
-    results.append( [rmse_train, rmse_val, rmse_test] )
-
-    k += 1
-    print(f'fold k = {k} RMSE: Train = {rmse_train:.3f}; Val = {rmse_val:.3f}; Test = {rmse_test:.3f}')
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## Shuffle and split
@@ -632,30 +778,44 @@ for k, (train_index, test_index) in enumerate(folds.split(np.arange(x_sort.shape
 # Let's see how this applies to the cement data:
 
 # %%
-# define the fold splitting strategy
-folds = model_selection.KFold(n_splits=5, shuffle=True, random_state=0)
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    x_sort = ctx.get('tensors', {}).get('x_sort')
+    # define the fold splitting strategy
+    folds = model_selection.KFold(n_splits=5, shuffle=True, random_state=0)
 
-in_fold = np.zeros([x_sort.shape[0], folds.n_splits])
-this_fold = np.zeros(x_sort.shape[0])
-for i, (train_index, test_index) in enumerate(folds.split(x_sort)):
-    in_fold[test_index, i] = 1
-    this_fold[test_index] = i
+    in_fold = np.zeros([x_sort.shape[0], folds.n_splits])
+    this_fold = np.zeros(x_sort.shape[0])
+    for i, (train_index, test_index) in enumerate(folds.split(x_sort)):
+        in_fold[test_index, i] = 1
+        this_fold[test_index] = i
 
-order = np.argsort(this_fold)
-x_sort_local = x_sort.iloc[order]
-in_fold = in_fold[order]
+    order = np.argsort(this_fold)
+    x_sort_local = x_sort.iloc[order]
+    in_fold = in_fold[order]
 
-fig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)
-ax = axes[0]
-_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_ylabel('Age')
-ax = axes[1]
-_ = ax.imshow(in_fold.T, interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_xlabel('Observation')
-_ = ax.set_ylabel('Fold')
-plt.subplots_adjust(hspace=0.05)
+    fig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)
+    ax = axes[0]
+    _ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_ylabel('Age')
+    ax = axes[1]
+    _ = ax.imshow(in_fold.T, interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_xlabel('Observation')
+    _ = ax.set_ylabel('Fold')
+    plt.subplots_adjust(hspace=0.05)
+    ctx['tensors']['folds'] = folds
+    ctx['tensors']['in_fold'] = in_fold
+    ctx['tensors']['order'] = order
+    ctx['tensors']['this_fold'] = this_fold
+    ctx['tensors']['x_sort_local'] = x_sort_local
+run_module(ctx)
 
 # %% [markdown]
 # ## Leave-one-out
@@ -671,30 +831,44 @@ plt.subplots_adjust(hspace=0.05)
 # Let's see what this looks like on our cement data:
 
 # %%
-# define the fold splitting strategy
-folds = model_selection.LeaveOneOut()
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    x_sort = ctx.get('tensors', {}).get('x_sort')
+    # define the fold splitting strategy
+    folds = model_selection.LeaveOneOut()
 
-in_fold = np.zeros([x_sort.shape[0], folds.get_n_splits(x_sort)])
-this_fold = np.zeros(x_sort.shape[0])
-for i, (train_index, test_index) in enumerate(folds.split(x_sort)):
-    in_fold[test_index, i] = 1
-    this_fold[test_index] = i
+    in_fold = np.zeros([x_sort.shape[0], folds.get_n_splits(x_sort)])
+    this_fold = np.zeros(x_sort.shape[0])
+    for i, (train_index, test_index) in enumerate(folds.split(x_sort)):
+        in_fold[test_index, i] = 1
+        this_fold[test_index] = i
 
-order = np.argsort(this_fold)
-x_sort_local = x_sort.iloc[order]
-in_fold = in_fold[order]
+    order = np.argsort(this_fold)
+    x_sort_local = x_sort.iloc[order]
+    in_fold = in_fold[order]
 
-fig, axes = plt.subplots(2, 1, figsize=(16, 12), sharex=True)
-ax = axes[0]
-_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_ylabel('Age')
-ax = axes[1]
-_ = ax.imshow(in_fold.T, interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_xlabel('Observation')
-_ = ax.set_ylabel('Fold')
-plt.subplots_adjust(hspace=0.05)
+    fig, axes = plt.subplots(2, 1, figsize=(16, 12), sharex=True)
+    ax = axes[0]
+    _ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_ylabel('Age')
+    ax = axes[1]
+    _ = ax.imshow(in_fold.T, interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_xlabel('Observation')
+    _ = ax.set_ylabel('Fold')
+    plt.subplots_adjust(hspace=0.05)
+    ctx['tensors']['folds'] = folds
+    ctx['tensors']['in_fold'] = in_fold
+    ctx['tensors']['order'] = order
+    ctx['tensors']['this_fold'] = this_fold
+    ctx['tensors']['x_sort_local'] = x_sort_local
+run_module(ctx)
 
 # %% [markdown]
 # ## Stratified CV
@@ -709,34 +883,6 @@ plt.subplots_adjust(hspace=0.05)
 #
 # Let's see what it looks like on the cement data.
 #
-
-# %%
-# define the fold splitting strategy
-folds = model_selection.StratifiedKFold(n_splits=5)
-
-in_fold = np.zeros([x_sort.shape[0], folds.n_splits])
-this_fold = np.zeros(x_sort.shape[0])
-for i, (train_index, test_index) in enumerate(folds.split(x_sort, x_sort['Age (day)'])):
-    in_fold[test_index, i] = 1
-    this_fold[test_index] = i
-
-order = np.argsort(this_fold)
-x_sort_local = x_sort.iloc[order]
-in_fold = in_fold[order]
-
-fig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)
-ax = axes[0]
-_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_ylabel('Age')
-ax = axes[1]
-_ = ax.imshow(in_fold.T, interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_xlabel('Observation')
-_ = ax.set_ylabel('Fold')
-plt.subplots_adjust(hspace=0.05)
-
-# %% [markdown]
 # Note this error message:
 #
 # `The least populated class in y has only 2 members, which is less than n_splits=5.`
@@ -745,51 +891,88 @@ plt.subplots_adjust(hspace=0.05)
 # If we want to use stratification for continuous values, we should first transform the values to discrete bins.
 # We did this before using the `KBinsDiscretizer`:
 #
-
-# %%
-from sklearn import preprocessing
-
-# create the discretizer object
-discretizer = preprocessing.KBinsDiscretizer(n_bins=4, encode='ordinal', strategy='uniform')
-classes = discretizer.fit_transform(x_sort['Age (day)'].values.reshape(-1, 1))
-
-fig, ax = plt.subplots()
-_ = ax.plot(x_sort['Age (day)'], classes, '.')
-_ = ax.set_xlabel('Age (day)')
-_ = ax.set_ylabel('Discrete bin')
-
-# %% [markdown]
 # Now we try again to implement the `StratifiedKFold` but reference the `classes` instead of the `Age (day)`:
-
-# %%
-# define the fold splitting strategy
-folds = model_selection.StratifiedKFold(n_splits=5)
-
-in_fold = np.zeros([x_sort.shape[0], folds.n_splits])
-this_fold = np.zeros(x_sort.shape[0])
-for i, (train_index, test_index) in enumerate(folds.split(x_sort, classes)):
-    in_fold[test_index, i] = 1
-    this_fold[test_index] = i
-
-order = np.argsort(this_fold)
-x_sort_local = x_sort.iloc[order]
-in_fold = in_fold[order]
-
-fig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)
-ax = axes[0]
-_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_ylabel('Age')
-ax = axes[1]
-_ = ax.imshow(in_fold.T, interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_xlabel('Observation')
-_ = ax.set_ylabel('Fold')
-plt.subplots_adjust(hspace=0.05)
-
-# %% [markdown]
+#
 # As you can see, the high and low values are more evenly distributed between different folds.
 # This will reduce variance between *replicas* (repeated splits).
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    x_sort = ctx.get('tensors', {}).get('x_sort')
+    # define the fold splitting strategy
+    folds = model_selection.StratifiedKFold(n_splits=5)
+
+    in_fold = np.zeros([x_sort.shape[0], folds.n_splits])
+    this_fold = np.zeros(x_sort.shape[0])
+    for i, (train_index, test_index) in enumerate(folds.split(x_sort, x_sort['Age (day)'])):
+        in_fold[test_index, i] = 1
+        this_fold[test_index] = i
+
+    order = np.argsort(this_fold)
+    x_sort_local = x_sort.iloc[order]
+    in_fold = in_fold[order]
+
+    fig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)
+    ax = axes[0]
+    _ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_ylabel('Age')
+    ax = axes[1]
+    _ = ax.imshow(in_fold.T, interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_xlabel('Observation')
+    _ = ax.set_ylabel('Fold')
+    plt.subplots_adjust(hspace=0.05)
+
+    from sklearn import preprocessing
+
+    # create the discretizer object
+    discretizer = preprocessing.KBinsDiscretizer(n_bins=4, encode='ordinal', strategy='uniform')
+    classes = discretizer.fit_transform(x_sort['Age (day)'].values.reshape(-1, 1))
+
+    fig, ax = plt.subplots()
+    _ = ax.plot(x_sort['Age (day)'], classes, '.')
+    _ = ax.set_xlabel('Age (day)')
+    _ = ax.set_ylabel('Discrete bin')
+
+    # define the fold splitting strategy
+    folds = model_selection.StratifiedKFold(n_splits=5)
+
+    in_fold = np.zeros([x_sort.shape[0], folds.n_splits])
+    this_fold = np.zeros(x_sort.shape[0])
+    for i, (train_index, test_index) in enumerate(folds.split(x_sort, classes)):
+        in_fold[test_index, i] = 1
+        this_fold[test_index] = i
+
+    order = np.argsort(this_fold)
+    x_sort_local = x_sort.iloc[order]
+    in_fold = in_fold[order]
+
+    fig, axes = plt.subplots(2, 1, figsize=(16, 6), sharex=True)
+    ax = axes[0]
+    _ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_ylabel('Age')
+    ax = axes[1]
+    _ = ax.imshow(in_fold.T, interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_xlabel('Observation')
+    _ = ax.set_ylabel('Fold')
+    plt.subplots_adjust(hspace=0.05)
+    ctx['tensors']['classes'] = classes
+    ctx['tensors']['discretizer'] = discretizer
+    ctx['tensors']['folds'] = folds
+    ctx['tensors']['in_fold'] = in_fold
+    ctx['tensors']['order'] = order
+    ctx['tensors']['this_fold'] = this_fold
+    ctx['tensors']['x_sort_local'] = x_sort_local
+run_module(ctx)
 
 # %% [markdown]
 # ## Group K Fold
@@ -812,61 +995,77 @@ plt.subplots_adjust(hspace=0.05)
 #
 # Let's try using `GroupKFold` CV to evaluate different groups in the cement dataset.
 # Imagine there are discrete groups according to the `Superplasticizer` content:
-
-# %%
-discretizer = preprocessing.KBinsDiscretizer(n_bins=10, encode='ordinal', strategy='uniform')
-
-y = x_sort['Superplasticizer (component 5)(kg in a m^3 mixture)']
-groups = discretizer.fit_transform(y.values.reshape(-1, 1))
-
-fig, ax = plt.subplots()
-_ = ax.plot(y, groups, '.')
-_ = ax.set_xlabel(y.name)
-_ = ax.set_ylabel('Discrete bin')
-
-# %% [markdown]
+#
 # Now we'll use these bins to create group-based folds:
-
-# %%
-# define the fold splitting strategy
-folds = model_selection.GroupKFold(n_splits=5)
-
-in_group = np.zeros([x_sort.shape[0], discretizer.n_bins])
-for i, g in enumerate(groups.astype(int)):
-    in_group[i, g] = 1
-
-in_fold = np.zeros([x_sort.shape[0], folds.get_n_splits(x_sort, classes, groups=groups)])
-this_fold = np.zeros(x_sort.shape[0])
-for i, (train_index, test_index) in enumerate(folds.split(x_sort, classes, groups=groups)):
-    in_fold[test_index, i] = 1
-    this_fold[test_index] = i
-
-order = np.argsort(groups.flatten())
-x_sort_local = x_sort.iloc[order]
-in_fold = in_fold[order]
-in_group = in_group[order]
-
-fig, axes = plt.subplots(3, 1, figsize=(16, 6), sharex=True)
-ax = axes[0]
-_ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_ylabel('Age')
-ax = axes[1]
-_ = ax.imshow(in_group.T, interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_ylabel('Group')
-ax = axes[2]
-_ = ax.imshow(in_fold.T, interpolation='none')
-_ = ax.set_aspect('auto')
-_ = ax.set_xlabel('Observation')
-_ = ax.set_ylabel('Fold')
-plt.subplots_adjust(hspace=0.05)
-
-# %% [markdown]
+#
 # What happened to our uniform group size and `Age` distribution?
 # Creating folds by group naturally leads to imbalance in the size and data distribution in each fold as it becomes difficult to assign equally sized groups.
 # While it will likely lead to worse model performance, it is also more realistic!
 # How often do you get to decide what your new data will look like?
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    classes = ctx.get('tensors', {}).get('classes')
+    x_sort = ctx.get('tensors', {}).get('x_sort')
+    discretizer = preprocessing.KBinsDiscretizer(n_bins=10, encode='ordinal', strategy='uniform')
+
+    y = x_sort['Superplasticizer (component 5)(kg in a m^3 mixture)']
+    groups = discretizer.fit_transform(y.values.reshape(-1, 1))
+
+    fig, ax = plt.subplots()
+    _ = ax.plot(y, groups, '.')
+    _ = ax.set_xlabel(y.name)
+    _ = ax.set_ylabel('Discrete bin')
+
+    # define the fold splitting strategy
+    folds = model_selection.GroupKFold(n_splits=5)
+
+    in_group = np.zeros([x_sort.shape[0], discretizer.n_bins])
+    for i, g in enumerate(groups.astype(int)):
+        in_group[i, g] = 1
+
+    in_fold = np.zeros([x_sort.shape[0], folds.get_n_splits(x_sort, classes, groups=groups)])
+    this_fold = np.zeros(x_sort.shape[0])
+    for i, (train_index, test_index) in enumerate(folds.split(x_sort, classes, groups=groups)):
+        in_fold[test_index, i] = 1
+        this_fold[test_index] = i
+
+    order = np.argsort(groups.flatten())
+    x_sort_local = x_sort.iloc[order]
+    in_fold = in_fold[order]
+    in_group = in_group[order]
+
+    fig, axes = plt.subplots(3, 1, figsize=(16, 6), sharex=True)
+    ax = axes[0]
+    _ = ax.imshow(x_sort_local['Age (day)'].values.reshape(1, -1), interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_ylabel('Age')
+    ax = axes[1]
+    _ = ax.imshow(in_group.T, interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_ylabel('Group')
+    ax = axes[2]
+    _ = ax.imshow(in_fold.T, interpolation='none')
+    _ = ax.set_aspect('auto')
+    _ = ax.set_xlabel('Observation')
+    _ = ax.set_ylabel('Fold')
+    plt.subplots_adjust(hspace=0.05)
+    ctx['tensors']['discretizer'] = discretizer
+    ctx['tensors']['folds'] = folds
+    ctx['tensors']['groups'] = groups
+    ctx['tensors']['in_fold'] = in_fold
+    ctx['tensors']['in_group'] = in_group
+    ctx['tensors']['order'] = order
+    ctx['tensors']['this_fold'] = this_fold
+    ctx['tensors']['x_sort_local'] = x_sort_local
+    ctx['tensors']['y'] = y
+run_module(ctx)
 
 # %% [markdown]
 # ## The problem of extrapolation
@@ -880,8 +1079,17 @@ plt.subplots_adjust(hspace=0.05)
 #
 # How can we address this?
 # By using **groups** to investigate how the models perform on data towards the center of the distribution versus the edges!
-#
-#
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## [Check your understanding]
@@ -889,8 +1097,16 @@ plt.subplots_adjust(hspace=0.05)
 # Apply Group K-Fold CV to split the data by `Age (day)` feature groups.
 # This will allow you to test the performance when exposed to new values not seen in training.
 # Evaluate the model validation performance on interpolation and extrapolation tasks.
+#
+# > Note: the [`scikit-learn` documentation](https://scikit-learn.org/stable/modules/cross_validation.html) has a great resource explaning different kinds of CV.
 
 # %%
-
-# %% [markdown]
-# > Note: the [`scikit-learn` documentation](https://scikit-learn.org/stable/modules/cross_validation.html) has a great resource explaning different kinds of CV.
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)

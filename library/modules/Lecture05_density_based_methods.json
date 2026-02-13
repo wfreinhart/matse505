@@ -1,9 +1,8 @@
 {
   "id": "Lecture05_density_based_methods",
   "type": "Foundational",
-  "sequence": 7,
   "parent_lecture": "Lecture05",
   "requirements": [],
   "markdown_content": "## Density-based methods\n\nWe can instead specify a minimum density of points that constitutes a continuous cluster.\nThis avoids penalizing non-convex shapes (which are completely plausible for some data distributions).\nThis has important consequences for the resulting shape of clusters:\n\n<img src=\"../lectures/assets/dbscan_vs_others.jpg\" width=600 alt=\"Comparison of DBSCAN clustering performance on non-spherical datasets compared to K-Means\">",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from scipy.cluster.hierarchy import dendrogram\n    from sklearn import cluster\n    from sklearn import decomposition\n    from sklearn import metrics\n    from sklearn import preprocessing\n    from sklearn.mixture import GaussianMixture\n    import numpy as np\n    import os\n    import pandas as pd\n    import tqdm  # a very useful package for progress bars\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
 }

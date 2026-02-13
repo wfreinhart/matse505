@@ -1,0 +1,25 @@
+id: Lecture09
+title: Lecture09
+modules:
+  - id: Lecture09_0
+  - id: Lecture09_revisiting_nonlinear_regression
+  - id: Lecture09_hyperparameters
+  - id: Lecture09_evaluating_the_effect_of_hyperparameters
+  - id: Lecture09_a_naiive_approach_to_hyperparameter_tuning
+  - id: Lecture09_validation_set
+  - id: Lecture09_grid_search
+  - id: Lecture09_in_more_dimensions
+  - id: Lecture09_check_your_understanding
+  - id: Lecture09_cross_fold_validation
+  - id: Lecture09_in_theory
+  - id: Lecture09_in_practice
+  - id: Lecture09_holding_out_a_test_set
+  - id: Lecture09_flavors_of_cross_validation
+  - id: Lecture09_k_fold
+  - id: Lecture09_check_your_understanding
+  - id: Lecture09_shuffle_and_split
+  - id: Lecture09_leave_one_out
+  - id: Lecture09_stratified_cv
+  - id: Lecture09_group_k_fold
+  - id: Lecture09_the_problem_of_extrapolation
+  - id: Lecture09_check_your_understanding

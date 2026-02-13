@@ -1,0 +1,14 @@
+{
+  "id": "Lecture15_a_simple_example",
+  "type": "Foundational",
+  "parent_lecture": "Lecture15",
+  "requirements": [
+    "tensors['i']",
+    "tensors['legendre']",
+    "tensors['make_function']",
+    "tensors['tqdm']",
+    "tensors['f']"
+  ],
+  "markdown_content": "## A simple example\n\nWe will return to the polynomial example for simplicity.\nIn future lectures we will implement autoencoders for images using the same principles but with CNNs.\nLet's create some sample polynomials with 5 basis functions (the Legendre polynomials).\n\nThese are 101-dimensional data artifacts, but they really only represent a 5-dimensional space (i.e., coefficients of the basis set).\nI select this example because there is an analytical relationship between the high-dimensional objects and the low-dimensional coefficients.\n\nNow we'll use this as our dataset:",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    f = ctx.get('tensors', {}).get('f')\n    i = ctx.get('tensors', {}).get('i')\n    legendre = ctx.get('tensors', {}).get('legendre')\n    make_function = ctx.get('tensors', {}).get('make_function')\n    tqdm = ctx.get('tensors', {}).get('tqdm')\n    import numpy as np\n    from scipy.special import legendre\n    import matplotlib.pyplot as plt\n    \n    rng = np.random.RandomState(0)\n    \n    npoly = 5\n    a = 2*(rng.rand(npoly) - 0.5)\n    x = np.linspace(-1, 1, 101)\n    \n    def f(x):\n        y = np.sum([a[i] * legendre(i)(x) for i in range(npoly)], axis=0)\n        return y\n    \n    fig, ax = plt.subplots()\n    ax.plot(x, f(x), '.')\n    \n    import tqdm\n    \n    rng = np.random.RandomState(0)\n    \n    npoly = 5\n    x = np.linspace(-1, 1, 101)\n    \n    def f(x, a):\n        return np.sum([a[i] * legendre(i)(x) for i in range(npoly)], axis=0)\n    \n    def make_function():\n        a = 2*(rng.rand(npoly) - 0.5)\n        return a, f(x, a)\n    \n    # need to make a whole bunch of functions!\n    N_samples = 1000\n    a = np.zeros([N_samples, npoly])\n    y = np.zeros([N_samples, len(x)])\n    for i in tqdm.tqdm(np.arange(N_samples)):\n        this_a, this_f = make_function()\n        a[i] = this_a\n        y[i] = this_f\n    \n    print( y.shape )\n    ctx['tensors']['npoly'] = npoly\n    ctx['tensors']['rng'] = rng\n    ctx['tensors']['x'] = x\n    ctx['tensors']['y'] = y"
+}

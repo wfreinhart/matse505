@@ -1,0 +1,16 @@
+{
+  "id": "Lecture20_search",
+  "type": "Foundational",
+  "parent_lecture": "Lecture20",
+  "requirements": [
+    "tensors['optimize']",
+    "tensors['p']",
+    "model",
+    "tensors['plot_contour']",
+    "tensors['render']",
+    "tensors['xy_to_comp']",
+    "tensors['ax_fitness']"
+  ],
+  "markdown_content": "## Search\n\nWe can employ Bayesian Optimization to search for the minimum:\n\nYour result will vary here.\nIn my trials I sometimes got very close and other times much farther away.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    ax_fitness = ctx.get('tensors', {}).get('ax_fitness')\n    model = ctx.get('model')\n    optimize = ctx.get('tensors', {}).get('optimize')\n    p = ctx.get('tensors', {}).get('p')\n    plot_contour = ctx.get('tensors', {}).get('plot_contour')\n    render = ctx.get('tensors', {}).get('render')\n    xy_to_comp = ctx.get('tensors', {}).get('xy_to_comp')\n    from ax.service.managed_loop import optimize\n    \n    def ax_fitness(parameterization):\n        xy = np.array([parameterization[p] for p in 'xy']).reshape(1, -1)\n        return model.predict(xy)[0]\n    \n    best_parameters, values, experiment, ax_model = optimize(\n        parameters=[\n            {\"name\": \"x\", \"type\": \"range\", \"bounds\": [0.0, 1.0]},\n            {\"name\": \"y\", \"type\": \"range\", \"bounds\": [0.0, 1.0]},\n        ],\n        evaluation_function=ax_fitness,\n        objective_name='objective',\n        minimize=True,\n    )\n    \n    from ax.utils.notebook.plotting import render\n    from ax.plot.contour import plot_contour\n    \n    render(plot_contour(model=ax_model, param_x='x', param_y='y', metric_name='objective'))\n    \n    # process the experiments\n    x_out = []\n    y_out = []\n    for i, trial in experiment.trials.items():\n        parameterization = trial.arm.parameters\n        features = np.array([parameterization[p] for p in 'xy'])\n        x_out.append(features)\n        out = model.predict(features.reshape(1, -1))[0]\n        y_out.append(out)\n    \n    # make figure\n    fig, ax = plt.subplots()\n    im = ax.scatter(*np.array(x_out).T, s=4, c=y_out)\n    ax.plot([0, 1, 0.5, 0], [0, 0, np.sqrt(3)/2, 0], 'k-', alpha=0.5)\n    ax.set_aspect('equal')\n    cb = plt.colorbar(im)\n    \n    # plot the true minimum\n    ax.plot([0.455], [0.472], 's', color='tab:green', label='Ground Truth')\n    \n    # plot the minimum by Bayesian Optimization\n    best_features = np.array([best_parameters[p] for p in 'xy'])\n    best_outcome = model.predict(best_features.reshape(1, -1))[0]\n    ax.plot(*best_features, '^', color='tab:orange', label='Best Result')\n    print(f'min value is {best_outcome} at {xy_to_comp( best_features )}')\n    \n    ax.legend()\n    ctx['tensors']['best_features'] = best_features\n    ctx['tensors']['best_outcome'] = best_outcome\n    ctx['tensors']['features'] = features\n    ctx['tensors']['out'] = out\n    ctx['tensors']['parameterization'] = parameterization\n    ctx['tensors']['x_out'] = x_out\n    ctx['tensors']['y_out'] = y_out"
+}

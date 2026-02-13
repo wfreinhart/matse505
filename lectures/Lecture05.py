@@ -1,21 +1,43 @@
 # ---
 # jupyter:
 #   jupytext:
-#     cell_metadata_filter: -id,-colab,-outputId
 #     text_representation:
 #       extension: .py
 #       format_name: percent
-#       format_version: '1.3'
-#       jupytext_version: 1.19.0
 #   kernelspec:
 #     display_name: Python 3
 #     name: python3
 # ---
 
 # %% [markdown]
+# # Lecture05
+
+# %%
+class Context(dict):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setdefault('data', None)
+        self.setdefault('tensors', {})
+        self.setdefault('model', None)
+        self.setdefault('viz', None)
+
+ctx = Context()
+
+# %% [markdown]
 # Today's topics:
 # * Clustering
 # * Dimensionality reduction with PCA
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # # Unsupervised learning
@@ -26,6 +48,17 @@
 # * *Clustering* - dividing data into categorical groups
 # * *Dimensionality reduction* - mapping data from high dimension to low dimension
 #   * this can sometimes be referred to as "representation learning"
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## Clustering
@@ -48,30 +81,22 @@
 #
 # <img src="../lectures/assets/classification_vs_clustering.jpg" width=600 alt="Comparison between supervised classification (with labels) and unsupervised clustering (without labels)">
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
+
 # %% [markdown]
 # ## Implementation in `sklearn`
-
-# %% [markdown]
+#
 # Let's load the alloys dataset from before...
-
-# %%
-import pandas as pd
-import numpy as np
-import os
-
-# Set the path to the data file
-filename = 'steels.csv'
-local_path = f'../datasets/{filename}'
-github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
-
-# Load the data: try local path first, fallback to GitHub for Colab
-if os.path.exists(local_path):
-    data = pd.read_csv(local_path)
-else:
-    data = pd.read_csv(github_url)
-data                            # show a view of the data file
-
-# %% [markdown]
+#
 # We start by defining our features, $X$.
 #
 # Unlike in the supervised case, we have no $y$ labels.
@@ -79,8 +104,37 @@ data                            # show a view of the data file
 # Also, we don't need to do a train/test split because we have no labels to check against!
 
 # %%
-x = data.loc[:, ' C':'Nb + Ta']
-x
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    import pandas as pd
+    import numpy as np
+    import os
+
+    # Set the path to the data file
+    filename = 'steels.csv'
+    local_path = f'../datasets/{filename}'
+    github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
+
+    # Load the data: try local path first, fallback to GitHub for Colab
+    if os.path.exists(local_path):
+        data = pd.read_csv(local_path)
+    else:
+        data = pd.read_csv(github_url)
+    data                            # show a view of the data file
+
+    x = data.loc[:, ' C':'Nb + Ta']
+    x
+    ctx['data'] = data
+    ctx['tensors']['filename'] = filename
+    ctx['tensors']['github_url'] = github_url
+    ctx['tensors']['local_path'] = local_path
+    ctx['tensors']['x'] = x
+run_module(ctx)
 
 # %% [markdown]
 # ## Gaussian mixtures
@@ -100,97 +154,108 @@ x
 # Depending on how the assumptions, the model can behave quite differently:
 #
 # <img src="../lectures/assets/gmm_covariances.jpg" width=500 alt="Visualization of different Gaussian Mixture Model covariance types: spherical, tied, diag, and full">
-
-# %% [markdown]
+#
 # The implementation in `scikit-learn` is very straightforward to use.
 # The interface is pretty similar to the supervised models: `fit()` and `predict()`.
 # The only difference is `fit` takes only one argument: `x` (since again, there are no labels).
-
-# %%
-from sklearn.mixture import GaussianMixture
-
-gmm = GaussianMixture(n_components=4).fit(x)  # no y labels!
-labels = gmm.predict(x)
-print(labels)
-
-# %% [markdown]
+#
 # This output is similar to the classification problems, but obviously we have no target labels to compare to.
 # We can visualize this result in a 3D space:
-
-# %%
-from plotly import express as px
-
-px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
-
-# %% [markdown]
+#
 # Some of the clusters intersect in this view.
 # It's important to remember this is only 3 of 8 dimensions in the space -- and all 8 are considered by the GMM.
 # We can view it in another slice to see a clearer picture:
 
 # %%
-px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    data = ctx.get('data')
+    px = ctx.get('tensors', {}).get('px')
+    x = ctx.get('tensors', {}).get('x')
+    from sklearn.mixture import GaussianMixture
+
+    gmm = GaussianMixture(n_components=4).fit(x)  # no y labels!
+    labels = gmm.predict(x)
+    print(labels)
+
+    from plotly import express as px
+
+    px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
+
+    px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
+    ctx['tensors']['gmm'] = gmm
+    ctx['tensors']['labels'] = labels
+run_module(ctx)
 
 # %% [markdown]
 # ## k-Means
-
-# %% [markdown]
+#
 # Another common scheme is the $k$-means algorithm.
 # $k$-means minimizes within-cluster variances of $k$ clusters.
 # It basically means it looks for compact groups and splits the data along any "gaps" or "ridges" as shown in the figure below:
 #
 # <img src="../lectures/assets/kmeans_viz.jpg" width=500 alt="Visualization of K-Means clustering centroids and partition boundaries">
 #
-#
-
-# %% [markdown]
 # The interface is exactly like GMM since we're using a well-developed library:
-
-# %%
-from sklearn import cluster
-
-model = cluster.KMeans().fit(x)
-labels = model.predict(x)
-
-# %% [markdown]
+#
 # We can visualize the outcome in 3D just like last time:
-
-# %%
-px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
-
-# %% [markdown]
+#
 # We can compare this to the results of the `Alloy family` codes we developed last time:
-
-# %%
-from sklearn import preprocessing
-
-data['Alloy family'] = [it[0] for it in data['Alloy code']]
-
-encoder = preprocessing.LabelEncoder().fit(data['Alloy family'])
-y = encoder.transform(data['Alloy family'])  # these are numerical so we can plot them!
-
-px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=y)
-
-# %% [markdown]
+#
 # One thing we see right away is that we fitted too many clusters compared to the `Alloy family` codes.
 #
 # If we want to see how k-means compares to the labels, we can reduce the `n_clusters` to 4 (this is a **hyperparameter**).
-
-# %%
-model = cluster.KMeans(n_clusters=4).fit(x)
-labels = model.predict(x)
-
-px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
-
-# %% [markdown]
+#
 # Here we see that several of the clusters do match nicely with the `Alloy family` codes, but two are sort of entangled. Remember there was no guarantee that these labels would match those! This just shows that there is an intrinsic, obvious distinction between the high-V compounds, the high-Cr compounds, and the rest.
 #
 # We can also observe that the 3D view of the data that gave the clearest distinction in the GMM does not correspond to the real labels:
+#
+# This is a critical aspect of clustering methods that you must understand in order to deploy them responsibly!
 
 # %%
-px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=y)
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    data = ctx.get('data')
+    it = ctx.get('tensors', {}).get('it')
+    px = ctx.get('tensors', {}).get('px')
+    x = ctx.get('tensors', {}).get('x')
+    from sklearn import cluster
 
-# %% [markdown]
-# This is a critical aspect of clustering methods that you must understand in order to deploy them responsibly!
+    model = cluster.KMeans().fit(x)
+    labels = model.predict(x)
+
+    px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
+
+    from sklearn import preprocessing
+
+    data['Alloy family'] = [it[0] for it in data['Alloy code']]
+
+    encoder = preprocessing.LabelEncoder().fit(data['Alloy family'])
+    y = encoder.transform(data['Alloy family'])  # these are numerical so we can plot them!
+
+    px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=y)
+
+    model = cluster.KMeans(n_clusters=4).fit(x)
+    labels = model.predict(x)
+
+    px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
+
+    px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=y)
+    ctx['model'] = model
+    ctx['model_artifacts']['encoder'] = encoder
+    ctx['tensors']['labels'] = labels
+    ctx['tensors']['y'] = y
+run_module(ctx)
 
 # %% [markdown]
 # ## Cutoff-based methods
@@ -209,60 +274,71 @@ px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=y)
 # As a result, there are no separate `fit` / `predict` methods, and instead we can only perform `fit_predict` in one step (i.e., new data cannot be clustered using pre-trained model parameters).
 
 # %%
-model = cluster.AgglomerativeClustering()
-labels = model.fit_predict(x)
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    data = ctx.get('data')
+    dendrogram = ctx.get('tensors', {}).get('dendrogram')
+    plot_dendrogram = ctx.get('tensors', {}).get('plot_dendrogram')
+    px = ctx.get('tensors', {}).get('px')
+    x = ctx.get('tensors', {}).get('x')
+    model = cluster.AgglomerativeClustering()
+    labels = model.fit_predict(x)
 
-px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
+    px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
 
-# %%
-model = cluster.AgglomerativeClustering(n_clusters=4)
-labels = model.fit_predict(x)
+    model = cluster.AgglomerativeClustering(n_clusters=4)
+    labels = model.fit_predict(x)
 
-px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
+    px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
 
-# %%
-from scipy.cluster.hierarchy import dendrogram
-
-
-def plot_dendrogram(model, **kwargs):
-    # Create linkage matrix and then plot the dendrogram
-    # from https://scikit-learn.org/stable/auto_examples/cluster/plot_agglomerative_dendrogram.html
-
-    # create the counts of samples under each node
-    counts = np.zeros(model.children_.shape[0])
-    n_samples = len(model.labels_)
-    for i, merge in enumerate(model.children_):
-        current_count = 0
-        for child_idx in merge:
-            if child_idx < n_samples:
-                current_count += 1  # leaf node
-            else:
-                current_count += counts[child_idx - n_samples]
-        counts[i] = current_count
-
-    linkage_matrix = np.column_stack(
-        [model.children_, model.distances_, counts]
-    ).astype(float)
-
-    # Plot the corresponding dendrogram
-    dendrogram(linkage_matrix, **kwargs)
+    from scipy.cluster.hierarchy import dendrogram
 
 
-model = cluster.AgglomerativeClustering(distance_threshold=0, n_clusters=None)
-model.fit(x)
-plot_dendrogram(model)
+    def plot_dendrogram(model, **kwargs):
+        # Create linkage matrix and then plot the dendrogram
+        # from https://scikit-learn.org/stable/auto_examples/cluster/plot_agglomerative_dendrogram.html
 
-# %%
-model = cluster.AgglomerativeClustering(distance_threshold=0.3, n_clusters=None, linkage='single')
-labels = model.fit_predict(x)
+        # create the counts of samples under each node
+        counts = np.zeros(model.children_.shape[0])
+        n_samples = len(model.labels_)
+        for i, merge in enumerate(model.children_):
+            current_count = 0
+            for child_idx in merge:
+                if child_idx < n_samples:
+                    current_count += 1  # leaf node
+                else:
+                    current_count += counts[child_idx - n_samples]
+            counts[i] = current_count
 
-px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
+        linkage_matrix = np.column_stack(
+            [model.children_, model.distances_, counts]
+        ).astype(float)
 
-# %%
-model = cluster.AgglomerativeClustering(n_clusters=3, linkage='single')
-labels = model.fit_predict(x)
+        # Plot the corresponding dendrogram
+        dendrogram(linkage_matrix, **kwargs)
 
-px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
+
+    model = cluster.AgglomerativeClustering(distance_threshold=0, n_clusters=None)
+    model.fit(x)
+    plot_dendrogram(model)
+
+    model = cluster.AgglomerativeClustering(distance_threshold=0.3, n_clusters=None, linkage='single')
+    labels = model.fit_predict(x)
+
+    px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
+
+    model = cluster.AgglomerativeClustering(n_clusters=3, linkage='single')
+    labels = model.fit_predict(x)
+
+    px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
+    ctx['model'] = model
+    ctx['tensors']['labels'] = labels
+run_module(ctx)
 
 # %% [markdown]
 # ## Density-based methods
@@ -273,6 +349,17 @@ px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
 #
 # <img src="../lectures/assets/dbscan_vs_others.jpg" width=600 alt="Comparison of DBSCAN clustering performance on non-spherical datasets compared to K-Means">
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
+
 # %% [markdown]
 # ## Other methods
 #
@@ -281,13 +368,37 @@ px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
 #
 # <img src="../lectures/assets/sklearn_clustering_comparison.jpg" width=600 alt="Comprehensive comparison chart of different scikit-learn clustering algorithms on various dataset shapes">
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
+
 # %% [markdown]
 # ## [Check your understanding]
 #
-# Apply the DBSCAN algorithm to the clustering problem above.
-# Experiment with the hyperparameters to find a reasonable result.
+# Keep identifying and removing outliers from the dataset until you are satisfied with the point cloud produced by the projection.
+#
+# Can you automate this process (i.e., determine a cutoff distance and automatically terminate the pruning once that cutoff is reached)?
 
 # %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pca = ctx.get('tensors', {}).get('pca')
+    x = ctx.get('tensors', {}).get('x')
+    fig, ax = plt.subplots()
+    _ = ax.bar(x.columns, pca.components_[:, 1])
+run_module(ctx)
 
 # %% [markdown]
 # # Evaluating clustering methods
@@ -295,6 +406,17 @@ px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
 # There are many clustering methods implemented in `scikit-learn`, but which should we choose?
 # And how many clusters should we use for a chosen model anyways?
 # Unlike in supervised learning, we can't simply check how often we get the right answer...
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## With ground truth labels
@@ -305,42 +427,54 @@ px.scatter_3d(x=data[' Cr'], y=data[' Mn'], z=data[' Al'], color=labels)
 # The `adjusted_rand_score` evaluates something like accuracy while accounting for the fact that cluster indices can be in any order.
 # Meanwhile the `normalized_mutual_info_score` is a measure of [mutual information](https://en.wikipedia.org/wiki/Mutual_information) (something kind of like a correlation) between the two labeling schemes.
 # In either case, higher values are better (indicating greater correlation between the obtained labels and the ground truth).
+#
+# Here we see very similar performance between all 3 model classes, with a slight edge to GMM and KMeans (tied).
 
 # %%
-from sklearn import metrics
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    model = ctx.get('model')
+    report_cluster_scores = ctx.get('tensors', {}).get('report_cluster_scores')
+    x = ctx.get('tensors', {}).get('x')
+    y = ctx.get('tensors', {}).get('y')
+    from sklearn import metrics
 
-def report_cluster_scores(labels):
-    "Compare labels predicted by a clustering algorithm to ground truth."
-    ars = metrics.adjusted_rand_score(y, labels)
-    amis = metrics.adjusted_mutual_info_score(y, labels)
+    def report_cluster_scores(labels):
+        "Compare labels predicted by a clustering algorithm to ground truth."
+        ars = metrics.adjusted_rand_score(y, labels)
+        amis = metrics.adjusted_mutual_info_score(y, labels)
 
-    print(f'{str(model):40s}: ARS = {ars:.3f}, AMIS = {amis:.3f}')
+        print(f'{str(model):40s}: ARS = {ars:.3f}, AMIS = {amis:.3f}')
 
 
-# apply the function to several clustering models...
+    # apply the function to several clustering models...
 
-model = GaussianMixture(n_components=4).fit(x)
-labels = model.predict(x)
-report_cluster_scores(labels)
+    model = GaussianMixture(n_components=4).fit(x)
+    labels = model.predict(x)
+    report_cluster_scores(labels)
 
-model = cluster.KMeans(n_clusters=4).fit(x)
-labels = model.predict(x)
-report_cluster_scores(labels)
+    model = cluster.KMeans(n_clusters=4).fit(x)
+    labels = model.predict(x)
+    report_cluster_scores(labels)
 
-model = cluster.AgglomerativeClustering(n_clusters=4)
-labels = model.fit_predict(x)
-report_cluster_scores(labels)
-
-# %% [markdown]
-# Here we see very similar performance between all 3 model classes, with a slight edge to GMM and KMeans (tied).
+    model = cluster.AgglomerativeClustering(n_clusters=4)
+    labels = model.fit_predict(x)
+    report_cluster_scores(labels)
+    ctx['model'] = model
+    ctx['tensors']['labels'] = labels
+run_module(ctx)
 
 # %% [markdown]
 # ## Without labels
 #
 # In most clustering scenarios, ground truth labels are not known (this would typically lead to a classification problem).
 # Thus we must make do with metrics that evaluate only the clusters themselves and not their accuracy relative to a target outcome.
-
-# %% [markdown]
+#
 # The "Silhouette Coefficient" evaluates how well the clusters are separated from each other.
 # It is calculated as:
 #
@@ -351,66 +485,17 @@ report_cluster_scores(labels)
 # An intermediate value of $s=0.5$ means samples in different clusters are about twice as far apart as samples within clusters.
 #
 # We can try calculating the performance of our `KMeans` model:
-
-# %%
-model = cluster.KMeans(n_clusters=4).fit(x)
-labels = model.predict(x)
-
-metrics.silhouette_score(x, labels, metric='euclidean')
-
-# %% [markdown]
+#
 # Let's consider how to use this score to evaluate a suitable number of clusters.
 # We can write a `for` loop to iterate over a large number of possible clusters:
-
-# %%
-from matplotlib import pyplot as plt
-
-k_list = np.arange(2, 16)
-s = np.zeros(len(k_list))
-for i, k in enumerate(k_list):
-
-    model = cluster.KMeans(n_clusters=k, random_state=0).fit(x)
-    labels = model.predict(x)
-    s[i] = metrics.silhouette_score(x, labels, metric='euclidean')
-
-fig, ax = plt.subplots()
-ax.plot(k_list, s, 's')
-ax.set_xlabel('$k$')
-ax.set_ylabel('$s$')
-
-# %% [markdown]
+#
 # This shows that $s$ increases substantially from $k=3$ to around $k=5$, then stagnates, and has non-monotonic increases until $k=15$.
 # Among these options we need to evaluate how many clusters will be meaningful for our application.
 # I think $k=5$ would be the first choice, then maybe $k=9$, and then $k=14$ if this is still few enough to be useful.
-
-# %%
-model = cluster.KMeans(n_clusters=14, random_state=0).fit(x)
-labels = model.predict(x)
-
-px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
-
-# %% [markdown]
+#
 # What if we zoom out and try many more clusters?
 # After all, it looks like $s$ is increasing with $k$...
-
-# %%
-from matplotlib import pyplot as plt
-import tqdm  # a very useful package for progress bars
-
-k_list = np.arange(5, 96, 5)
-s = np.zeros(len(k_list))
-for i, k in tqdm.tqdm(enumerate(k_list), total=len(k_list)):
-
-    model = cluster.KMeans(n_clusters=k, random_state=0).fit(x)
-    labels = model.predict(x)
-    s[i] = metrics.silhouette_score(x, labels, metric='euclidean')
-
-fig, ax = plt.subplots()
-_ = ax.plot(k_list, s, 's')
-_ = ax.set_xlabel('$k$')
-_ = ax.set_ylabel('$s$')
-
-# %% [markdown]
+#
 # This result shows that the Silhouette score generally increases as we move from 5 to 95 clusters.
 # Now you have to ask yourself: is 95 clusters a useful result?
 # In many cases, probably not.
@@ -421,19 +506,100 @@ _ = ax.set_ylabel('$s$')
 # The importance of different metrics will greatly depend on how you plan to deploy the models.
 # There is often a general range of allowable hyperparameters (such as $k \le 10$) and then you can determine an optimal choice within this range.
 
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    data = ctx.get('data')
+    px = ctx.get('tensors', {}).get('px')
+    tqdm = ctx.get('tensors', {}).get('tqdm')
+    x = ctx.get('tensors', {}).get('x')
+    model = cluster.KMeans(n_clusters=4).fit(x)
+    labels = model.predict(x)
+
+    metrics.silhouette_score(x, labels, metric='euclidean')
+
+    from matplotlib import pyplot as plt
+
+    k_list = np.arange(2, 16)
+    s = np.zeros(len(k_list))
+    for i, k in enumerate(k_list):
+
+        model = cluster.KMeans(n_clusters=k, random_state=0).fit(x)
+        labels = model.predict(x)
+        s[i] = metrics.silhouette_score(x, labels, metric='euclidean')
+
+    fig, ax = plt.subplots()
+    ax.plot(k_list, s, 's')
+    ax.set_xlabel('$k$')
+    ax.set_ylabel('$s$')
+
+    model = cluster.KMeans(n_clusters=14, random_state=0).fit(x)
+    labels = model.predict(x)
+
+    px.scatter_3d(x=data[' Mo'], y=data[' Cr'], z=data['V'], color=labels)
+
+    from matplotlib import pyplot as plt
+    import tqdm  # a very useful package for progress bars
+
+    k_list = np.arange(5, 96, 5)
+    s = np.zeros(len(k_list))
+    for i, k in tqdm.tqdm(enumerate(k_list), total=len(k_list)):
+
+        model = cluster.KMeans(n_clusters=k, random_state=0).fit(x)
+        labels = model.predict(x)
+        s[i] = metrics.silhouette_score(x, labels, metric='euclidean')
+
+    fig, ax = plt.subplots()
+    _ = ax.plot(k_list, s, 's')
+    _ = ax.set_xlabel('$k$')
+    _ = ax.set_ylabel('$s$')
+    ctx['model'] = model
+    ctx['tensors']['k_list'] = k_list
+    ctx['tensors']['labels'] = labels
+run_module(ctx)
+
 # %% [markdown]
 # ## [Check your understanding]
 #
-# Identify an optimal clustering model and hyperparameters for this alloys dataset based on one or more metrics.
-# Think about how you would justify your choice with the metrics, characteristics of the algorithm, and some intended use case.
+# Keep identifying and removing outliers from the dataset until you are satisfied with the point cloud produced by the projection.
+#
+# Can you automate this process (i.e., determine a cutoff distance and automatically terminate the pruning once that cutoff is reached)?
 
 # %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pca = ctx.get('tensors', {}).get('pca')
+    x = ctx.get('tensors', {}).get('x')
+    fig, ax = plt.subplots()
+    _ = ax.bar(x.columns, pca.components_[:, 1])
+run_module(ctx)
 
 # %% [markdown]
 # # Dimensionality reduction
 #
 # Here we will try to find a new representation for our data in a lower dimensional space.
 # As such, we can also call this "representation learning."
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pass
+run_module(ctx)
 
 # %% [markdown]
 # ## Principal Component Analysis
@@ -451,8 +617,7 @@ _ = ax.set_ylabel('$s$')
 #
 # Here we have 3 spatial dimensions plus a color.
 # The PCA shows clear groupings in a 2D space which is a plane through the original 3D space.
-
-# %% [markdown]
+#
 # PCA is based on the eigenvectors of the covariance matrix.
 # You are probably familiar with the concept of covariance in 2D, like the following:
 #
@@ -460,122 +625,130 @@ _ = ax.set_ylabel('$s$')
 #
 # This readily extends to higher dimensions, and can be calculated with builtins such as with `numpy.cov`:
 # > The transpose is needed because `numpy.cov` assumes "Each row of m represents a variable, and each column a single observation of all those variables" -- the transpose of our `DataFrame`
-
-# %%
-np.cov(x.T).shape
-
-# %% [markdown]
+#
 # If we take the eigenvectors of this covariance matrix, we will get something special:
-
-# %%
-w, v = np.linalg.eig(np.cov(x.T))
-print(w.shape, v.shape)
-
-# %% [markdown]
+#
 # `w` are the eigenvalues while `v` are the eigenvectors of the covariance matrix (each column is one eigenvector).
 # What is the use of these?
 # Let's start with the eigenvalues:
-
-# %%
-fig, ax = plt.subplots()
-ax.plot(np.real(w), '.')
-ax.set_yscale('log')
-
-# %% [markdown]
+#
 # The eigenvalues decay over the column index from 4e-1 to 3e-8.
 # This is proportional to the variance in that dimension, so the first eigenvector will be associated with 10 million times greater variance than the last one.
 # With this in mind, we can investigate the eigenvectors.
-
-# %%
-fig, ax = plt.subplots()
-_ = ax.bar(x.columns, v[:, 0])
-
-# %% [markdown]
+#
 # From this we see that something like `+Cr, +Mo, -Mn, -Ceq` is the dominant direction of variance.
 # In other words, alloys with high `Cr` and `Mo` have low `Mn` and vice versa.
 # As shown above, this is the direction of maximal variance.
 #
 # We can project the `x` values onto the first two eigenvectors.
 # You should think of this like rotating your viewpoint to view the maximally varying directions in the plane (just like the example above).
-
-# %%
-projected = (x.values @ v)
-print( projected.shape )
-
-fig, ax = plt.subplots()
-_ = ax.scatter(projected[:, 0], projected[:, 1])
-
-# %% [markdown]
+#
 # So what is the point of this trick?
 # Let's plot the above with the original alloy code labels.
-
-# %%
-fig, ax = plt.subplots()
-_ = ax.scatter(projected[:, 0], projected[:, 1], c=y)
-_ = ax.set_xlabel('Principal Component 1')
-_ = ax.set_ylabel('Principal Component 2')
-
-# %% [markdown]
+#
 # Unlike above where we searched for a suitable 3D representation (with only moderate success), here we have constructed a rotation using analysis of the dataset.
 # The resulting projection reveals the ground truth labeling clearly (existing almost exclusively in the PC1 direction).
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    x = ctx.get('tensors', {}).get('x')
+    y = ctx.get('tensors', {}).get('y')
+    np.cov(x.T).shape
+
+    w, v = np.linalg.eig(np.cov(x.T))
+    print(w.shape, v.shape)
+
+    fig, ax = plt.subplots()
+    ax.plot(np.real(w), '.')
+    ax.set_yscale('log')
+
+    fig, ax = plt.subplots()
+    _ = ax.bar(x.columns, v[:, 0])
+
+    projected = (x.values @ v)
+    print( projected.shape )
+
+    fig, ax = plt.subplots()
+    _ = ax.scatter(projected[:, 0], projected[:, 1])
+
+    fig, ax = plt.subplots()
+    _ = ax.scatter(projected[:, 0], projected[:, 1], c=y)
+    _ = ax.set_xlabel('Principal Component 1')
+    _ = ax.set_ylabel('Principal Component 2')
+    ctx['tensors']['projected'] = projected
+run_module(ctx)
 
 # %% [markdown]
 # ## PCA with `scikit-learn`
 #
 # Of course there is always the `sklearn` interface for the same operation:
-
-# %%
-from sklearn import decomposition
-
-# fit the model
-pca = decomposition.PCA().fit(x)
-
-# project X using PCA
-p = pca.transform(x)
-print(p.shape)
-
-# %% [markdown]
+#
 # We see that the output of `pca.transform` is the same size as the original `x`.
 # These are the coefficients of `x` projected onto the vectors identified by PCA.
 # Let's see what these projections look like:
-
-# %%
-fig, ax = plt.subplots()
-ax.scatter(p[:, 0], p[:, 1], c=y)
-ax.set_xlabel('Principal Component 1')
-ax.set_ylabel('Principal Component 2')
-
-# %% [markdown]
+#
 # If we want to understand where each `Alloy family` appears in the manifold, we could do something like this:
-
-# %%
-fig, ax = plt.subplots()
-ax.scatter(p[:, 0], p[:, 1], c=y)
-
-# label the centers
-for i in range(4):
-    center = np.mean(p[y==i], axis=0)
-    ax.text(center[0], center[1], encoder.classes_[i])
-
-ax.set_xlabel('Principal Component 1')
-ax.set_ylabel('Principal Component 2')
-
-# %% [markdown]
+#
 # Here we begin to see why the `KMeans` clustering was confused between the `C` and `L` families -- they do not form compact groupings in the space! Instead they are defined by some strict definitions about their elemental compositions (which we saw last time using `DecisionTreeClassifier`).
 #
 # We can plot the `KMeans` predictions in this space to see what it thinks should be the clusters:
+#
+# The clustering algorithm prioritizes compact groupings in the 2D space whereas the ground truth labels make more slender/anisotropic groups.
 
 # %%
-model = cluster.KMeans(n_clusters=4).fit(x)
-labels = model.predict(x)
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    encoder = ctx.get('model_artifacts', {}).get('encoder')
+    x = ctx.get('tensors', {}).get('x')
+    y = ctx.get('tensors', {}).get('y')
+    from sklearn import decomposition
 
-fig, ax = plt.subplots()
-ax.scatter(p[:, 0], p[:, 1], c=labels)
-ax.set_xlabel('Principal Component 1')
-ax.set_ylabel('Principal Component 2')
+    # fit the model
+    pca = decomposition.PCA().fit(x)
 
-# %% [markdown]
-# The clustering algorithm prioritizes compact groupings in the 2D space whereas the ground truth labels make more slender/anisotropic groups.
+    # project X using PCA
+    p = pca.transform(x)
+    print(p.shape)
+
+    fig, ax = plt.subplots()
+    ax.scatter(p[:, 0], p[:, 1], c=y)
+    ax.set_xlabel('Principal Component 1')
+    ax.set_ylabel('Principal Component 2')
+
+    fig, ax = plt.subplots()
+    ax.scatter(p[:, 0], p[:, 1], c=y)
+
+    # label the centers
+    for i in range(4):
+        center = np.mean(p[y==i], axis=0)
+        ax.text(center[0], center[1], encoder.classes_[i])
+
+    ax.set_xlabel('Principal Component 1')
+    ax.set_ylabel('Principal Component 2')
+
+    model = cluster.KMeans(n_clusters=4).fit(x)
+    labels = model.predict(x)
+
+    fig, ax = plt.subplots()
+    ax.scatter(p[:, 0], p[:, 1], c=labels)
+    ax.set_xlabel('Principal Component 1')
+    ax.set_ylabel('Principal Component 2')
+    ctx['model'] = model
+    ctx['tensors']['center'] = center
+    ctx['tensors']['labels'] = labels
+    ctx['tensors']['pca'] = pca
+run_module(ctx)
 
 # %% [markdown]
 # ## Evaluating the projection
@@ -584,86 +757,99 @@ ax.set_ylabel('Principal Component 2')
 # What components should we choose?
 # Maybe the 14th one is the best?
 # It turns out we have a very systematic way of evaluating these projections using "explained variance":
-
-# %%
-fig, ax = plt.subplots()
-ax.plot(pca.explained_variance_, '.-')
-ax.set_xlabel('Component #')
-ax.set_ylabel('Explained variance')
-
-# %% [markdown]
+#
 # The explained variance tells us how much of the overall variance in data can be captured by each component.
 # From the chart we see that `sklearn` already orders the components by decreasing explained variance.
 # Furthermore, the first few components capture most of the variance.
 # We can also plot the cumulative explained variance ratio to make it a little easier to decide:
+#
+# Now we can see that the first 2 components capture 85% of the variance, and the first 3 capture 95%!
 
 # %%
-fig, ax = plt.subplots()
-ax.plot(np.cumsum(pca.explained_variance_ratio_), '.-')
-ax.set_xlabel('Component #')
-ax.set_ylabel('Cumulative explained variance')
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pca = ctx.get('tensors', {}).get('pca')
+    fig, ax = plt.subplots()
+    ax.plot(pca.explained_variance_, '.-')
+    ax.set_xlabel('Component #')
+    ax.set_ylabel('Explained variance')
 
-# %% [markdown]
-# Now we can see that the first 2 components capture 85% of the variance, and the first 3 capture 95%!
+    fig, ax = plt.subplots()
+    ax.plot(np.cumsum(pca.explained_variance_ratio_), '.-')
+    ax.set_xlabel('Component #')
+    ax.set_ylabel('Cumulative explained variance')
+run_module(ctx)
 
 # %% [markdown]
 # ## Outlier detection
 #
 # Another use of dimensionality reduction can be outlier detection. Let's switch our definition of $X$ from the compositions to the properties.
-
-# %%
-x = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']
-
-pca = decomposition.PCA().fit(x)
-P = pca.transform(x)
-
-fig, ax = plt.subplots()
-ax.scatter(P[:, 0], P[:, 1])
-ax.set_xlabel('$P_0$')
-ax.set_ylabel('$P_1$')
-
-# %% [markdown]
+#
 # Clearly something is strange with that one point off on its own. Let's check it out:
-
-# %%
-outlier = np.argmax(P[:, 0])  # find the largest value in Z_0
-print(x.loc[outlier])
-
-# %% [markdown]
+#
 # Look at that `Tensile Strength` value! If we examine the `Tensile Strength` data, we will see that it is indeed anomalous:
-
-# %%
-fig, ax = plt.subplots()
-_ = ax.hist(x[' Tensile Strength (MPa)'], bins=100)
-ax.set_xlabel('Tensile Strength (MPa)')
-ax.set_ylabel('Count')
-
-# %% [markdown]
+#
 # This value was almost certainly entered incorrectly (e.g., wrong decimal place). We can remove the outlier using `drop()`:
-
-# %%
-clean_data = data.drop(index=outlier)
-clean_y = encoder.transform(clean_data['Alloy family'])
-
-# %% [markdown]
+#
 # Then we can look at our manifold again:
-
-# %%
-clean_x = clean_data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']
-
-pca = decomposition.PCA().fit(clean_x)
-P = pca.transform(clean_x)
-
-fig, ax = plt.subplots()
-ax.scatter(P[:, 0], P[:, 1])
-ax.set_xlabel('$P_0$')
-ax.set_ylabel('$P_1$')
-
-# %% [markdown]
+#
 # Of course here we see some more strange behavior. We could continue to investigate these additional outliers using this method (though we may not always want to remove them, some might be "real" special cases).
 #
 # To be clear, we could easily have found this anomaly by analyzing the `Tensile Strength (MPa)` column individually.
 # However, the upshot is that we see that data point as an anomaly in the first Principal Component, without considering any column-wise statistics.
+
+# %%
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    data = ctx.get('data')
+    encoder = ctx.get('model_artifacts', {}).get('encoder')
+    x = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']
+
+    pca = decomposition.PCA().fit(x)
+    P = pca.transform(x)
+
+    fig, ax = plt.subplots()
+    ax.scatter(P[:, 0], P[:, 1])
+    ax.set_xlabel('$P_0$')
+    ax.set_ylabel('$P_1$')
+
+    outlier = np.argmax(P[:, 0])  # find the largest value in Z_0
+    print(x.loc[outlier])
+
+    fig, ax = plt.subplots()
+    _ = ax.hist(x[' Tensile Strength (MPa)'], bins=100)
+    ax.set_xlabel('Tensile Strength (MPa)')
+    ax.set_ylabel('Count')
+
+    clean_data = data.drop(index=outlier)
+    clean_y = encoder.transform(clean_data['Alloy family'])
+
+    clean_x = clean_data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']
+
+    pca = decomposition.PCA().fit(clean_x)
+    P = pca.transform(clean_x)
+
+    fig, ax = plt.subplots()
+    ax.scatter(P[:, 0], P[:, 1])
+    ax.set_xlabel('$P_0$')
+    ax.set_ylabel('$P_1$')
+    ctx['tensors']['clean_data'] = clean_data
+    ctx['tensors']['clean_x'] = clean_x
+    ctx['tensors']['clean_y'] = clean_y
+    ctx['tensors']['outlier'] = outlier
+    ctx['tensors']['pca'] = pca
+    ctx['tensors']['x'] = x
+run_module(ctx)
 
 # %% [markdown]
 # ## [Check your understanding]
@@ -673,5 +859,15 @@ ax.set_ylabel('$P_1$')
 # Can you automate this process (i.e., determine a cutoff distance and automatically terminate the pruning once that cutoff is reached)?
 
 # %%
-fig, ax = plt.subplots()
-_ = ax.bar(x.columns, pca.components_[:, 1])
+def run_module(ctx):
+    import numpy as np
+    import pandas as pd
+    from matplotlib import pyplot as plt
+    from scipy import stats
+    import sklearn
+    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
+    pca = ctx.get('tensors', {}).get('pca')
+    x = ctx.get('tensors', {}).get('x')
+    fig, ax = plt.subplots()
+    _ = ax.bar(x.columns, pca.components_[:, 1])
+run_module(ctx)

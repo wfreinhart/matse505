@@ -1,0 +1,23 @@
+id: Lecture05
+title: Lecture05
+modules:
+  - id: Lecture05_0
+  - id: Lecture05_unsupervised_learning
+  - id: Lecture05_clustering
+  - id: Lecture05_implementation_in_sklearn
+  - id: Lecture05_gaussian_mixtures
+  - id: Lecture05_k_means
+  - id: Lecture05_cutoff_based_methods
+  - id: Lecture05_density_based_methods
+  - id: Lecture05_other_methods
+  - id: Lecture05_check_your_understanding
+  - id: Lecture05_evaluating_clustering_methods
+  - id: Lecture05_with_ground_truth_labels
+  - id: Lecture05_without_labels
+  - id: Lecture05_check_your_understanding
+  - id: Lecture05_dimensionality_reduction
+  - id: Lecture05_principal_component_analysis
+  - id: Lecture05_pca_with_scikit_learn
+  - id: Lecture05_evaluating_the_projection
+  - id: Lecture05_outlier_detection
+  - id: Lecture05_check_your_understanding

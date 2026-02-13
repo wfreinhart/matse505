@@ -1,0 +1,13 @@
+{
+  "id": "Lecture18_interpolation",
+  "type": "Foundational",
+  "parent_lecture": "Lecture18",
+  "requirements": [
+    "tensors['light_blue']",
+    "data",
+    "tensors['ys']",
+    "tensors['xs']"
+  ],
+  "markdown_content": "# Interpolation\n\nWhat's wrong with this? Let's pretend we're especially interested in the region around 25% strain.\n\nIf we wanted to read a value off the chart in between 0.25 and 0.26, for instance, we would need to *interpolate* between the known values. Let's remind ourselves what values we know from the chart:\n\nOk, let's say we want to get the stress at 0.253 % strain. How can we do it? We need to make in informed guess at what it would be based on the values around it. The simplest strategy could be to assume it is the same value as the closest known result. In this case, it would be:\n\nSo we're saying that because we know the stress is 11.75 MPa at 0.250 strain, it's also 11.75 MPa at 0.253 strain.\n\nWhat would this strategy look like in general? I'll plot it below:\n\nHmm, this isn't a very nice looking result. Let's try something else...",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    light_blue = ctx.get('tensors', {}).get('light_blue')\n    xs = ctx.get('tensors', {}).get('xs')\n    ys = ctx.get('tensors', {}).get('ys')\n    ax.set_xlim(0.22, 0.28)  # zoom in on 0.22 to 0.28 strain\n    ax.set_ylim(5, 15)       # zoom in on 5 to 15 MPa stress\n    fig\n    \n    print(data[xs][45:55])\n    \n    idx = np.argmin(np.abs(data[xs] - 0.253))  # find the index of closest x value\n    print(data.iloc[idx, :])                   # print the corresponding row\n    \n    xlist = np.linspace(data[xs].min(), data[xs].max(), 1000)\n    ylist = np.zeros_like(xlist)   # make an array of zeros the same size as xlist\n    i = 0\n    for x in xlist:\n        idx = np.argmin(np.abs(data[xs] - x))  # find the index of closest x value\n        ylist[i] = data[ys][idx]               # assign the corresponding y value\n        i += 1\n    fig2, ax2 = plt.subplots()\n    ax2.plot(xlist, ylist, c=light_blue)\n    ax2.set_xlabel(xs)\n    ax2.set_ylabel(ys + '(interpolated)')\n    ax2.set_title('Compression of architected material')\n    ctx['tensors']['idx'] = idx\n    ctx['tensors']['xlist'] = xlist\n    ctx['tensors']['ylist'] = ylist"
+}

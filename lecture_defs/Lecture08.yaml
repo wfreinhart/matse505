@@ -1,0 +1,18 @@
+id: Lecture08
+title: Lecture08
+modules:
+  - id: Lecture08_0
+  - id: Lecture08_representing_categorical_features
+  - id: Lecture08_integer_encoding
+  - id: Lecture08_one_hot_encoding
+  - id: Lecture08_check_your_understanding
+  - id: Lecture08_feature_augmentation
+  - id: Lecture08_binning
+  - id: Lecture08_exercise_expert_knowledge
+  - id: Lecture08_new_dataset_3d_printing
+  - id: Lecture08_interactions
+  - id: Lecture08_automatic_feature_selection
+  - id: Lecture08_exercise_feature_elimination
+  - id: Lecture08_removing_features_with_low_variance
+  - id: Lecture08_sequential_feature_selection
+  - id: Lecture08_recursive_feature_elimination

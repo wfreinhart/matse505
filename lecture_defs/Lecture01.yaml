@@ -1,0 +1,22 @@
+id: Lecture01
+title: Lecture01
+modules:
+  - id: Lecture01_introduction
+  - id: Lecture01_python_language
+  - id: Lecture01_google_colaboratory
+  - id: Lecture01_jupyter_notebooks
+  - id: Lecture01_python_syntax
+  - id: Lecture01_comments
+  - id: Lecture01_getting_help
+  - id: Lecture01_tab_completion
+  - id: Lecture01_variables
+  - id: Lecture01_functions
+  - id: Lecture01_a_note_about_the_interpreter
+  - id: Lecture01_defining_functions
+  - id: Lecture01_arguments
+  - id: Lecture01_modules
+  - id: Lecture01_importing_modules
+  - id: Lecture01_aliases
+  - id: Lecture01_everything_is_an_object
+  - id: Lecture01_a_builtin_example
+  - id: Lecture01_methods_and_attributes

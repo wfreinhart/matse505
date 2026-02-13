@@ -73,7 +73,9 @@ class Refactorer:
             'np', 'pd', 'plt', 'sns', 'tf', 'torch', 'stats', 'sklearn',
             'decomposition', 'cluster', 'metrics', 'model_selection', 
             'linear_model', 'preprocessing', 'ensemble', 'tree', 'neighbors',
-            'svm', 'mixture', 'matplotlib', 'numpy'
+            'svm', 'mixture', 'matplotlib', 'numpy', 'os', 'requests',
+            'sys', 're', 'json', 'math', 'random', 'time', 'datetime',
+            'pathlib', 'shutil', 'glob', 'argparse', 'yaml', 'urllib'
         ]
         
         return {name for name in used_before_defined if name not in lib_names}

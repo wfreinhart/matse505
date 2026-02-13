@@ -1,0 +1,49 @@
+# ---
+# jupyter:
+#   jupytext:
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.16.1
+#   kernelspec:
+#     display_name: Python 3
+#     name: python3
+# ---
+
+# %% [markdown]
+# ---
+# id: Lecture14_data_augmentation
+# type: Foundational
+# parent_lecture: Lecture14
+# ---
+#
+# # Data augmentation
+#
+# Data augmentation is a technique used to artificially increase the size of a dataset by creating additional, slightly modified versions of the original data. This is typically done by applying various image transformations such as rotating, flipping, cropping, zooming, or changing the brightness and contrast of the images.
+#
+# The purpose of data augmentation is to increase the diversity of the training data and to reduce overfitting. By creating more variations of the original data, the model is exposed to a wider range of examples, making it more robust and better able to generalize to new, unseen data.
+#
+# Data augmentation is commonly used in computer vision tasks, such as image classification or object detection, where the number of available training examples may be limited. By generating new data, it is possible to improve the performance of the model without the need for additional labeled data.
+#
+# It is important to note that the choice of data augmentation techniques depends on the specific task and the characteristics of the dataset. Some transformations may be more appropriate for certain types of images, while others may be less effective or even detrimental to performance. It is also important to be careful not to introduce too much noise or artifacts into the data, as this can have a negative impact on the model's performance.
+#
+# <img src="../lectures/assets/lecture14_data_augmentation.jpg" alt="Examples of data augmentation techniques applied to an image" width=600>
+#
+# Here are some specific techniques for data augmentation in image processing:
+#
+# 1. Flipping: horizontally or vertically flipping the image. This can be useful for tasks such as object detection or face recognition where the orientation of the object may vary.
+#
+# 2. Rotation: rotating the image by a certain angle. This can be useful for tasks such as document recognition where the text may be oriented in different directions.
+#
+# 3. Zooming: zooming in or out of the image. This can be useful for tasks such as object recognition or image classification where the size of the object in the image may vary.
+#
+# 4. Cropping: cropping the image to a smaller size. This can be useful for tasks such as image segmentation where the object of interest may be smaller than the full image.
+#
+# 5. Brightness and contrast adjustments: changing the brightness and contrast of the image. This can be useful for tasks such as face recognition where lighting conditions may vary.
+#
+# 6. Adding noise: adding random noise to the image. This can be useful for tasks such as denoising or image restoration where the input image may be noisy.
+#
+# 7. Color space transformations: transforming the image from one color space to another, such as converting from RGB to grayscale. This can be useful for tasks such as object detection or image segmentation where color is not important.
+#
+# These techniques can be applied in different combinations and with different parameters to create a diverse set of training data for the model. It is important to strike a balance between creating diverse data and not introducing too much noise or artifacts into the images.
