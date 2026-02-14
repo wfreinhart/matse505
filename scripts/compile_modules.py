@@ -96,7 +96,8 @@ def compile_file(filepath, refactorer):
             "parent_lecture": metadata.get("parent_lecture", ""),
             "requirements": refactored["requirements"],
             "markdown_content": data["markdown"],
-            "code_block": refactored["refactored_code"]
+            "code_block": refactored["refactored_code"],
+            "raw_code": data["code"]
         }
 
         out_path = os.path.join("library/modules", f"{metadata['id']}.json")

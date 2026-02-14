@@ -3,9 +3,10 @@
   "type": "Foundational",
   "parent_lecture": "Lecture02",
   "requirements": [
-    "tensors['x']",
-    "data"
+    "data",
+    "tensors['x']"
   ],
   "markdown_content": "## Variance\n\nExactly the same except with either `np.var` (variance) or `np.std` (standard deviation):\n\nWe can also use the `axis` keyword as always:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    x = ctx.get('tensors', {}).get('x')\n    print(np.std(x))\n    print(np.var(x))\n    print(np.sqrt(np.var(x)))  # demonstrate the definition of std dev\n    \n    print(data.std(axis=0))"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    x = ctx.get('tensors', {}).get('x')\n    print(np.std(x))\n    print(np.var(x))\n    print(np.sqrt(np.var(x)))  # demonstrate the definition of std dev\n    \n    print(data.std(axis=0))",
+  "raw_code": "print(np.std(x))\nprint(np.var(x))\nprint(np.sqrt(np.var(x)))  # demonstrate the definition of std dev\n\nprint(data.std(axis=0))"
 }

@@ -1,9 +1,9 @@
 {
   "id": "Lecture09_hyperparameters",
   "type": "Foundational",
-  "sequence": 2,
   "parent_lecture": "Lecture09",
   "requirements": [],
   "markdown_content": "# Hyperparameters\n\nTo reiterate:\nHyperparameters are the settings of a model that are not fitted.\nThe \"hyper\" is in contrast to the \"regular\" parameters of the model (which are fitted).\nThese are things like the number of neighbors to use in K-Neighbors, maximum tree depth for tree models, and the max iterations in Neural Networks.\n\nSo far we have mostly been using the default hyperparameters of the models from `sklearn`, with a few exceptions.\nHowever, there is nothing special about the default parameters and in most cases we will want to select different parameters.\nHere we'll discuss how to select optimal hyperparameters.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from sklearn import ensemble\n    from sklearn import model_selection\n    from sklearn import neighbors\n    from sklearn import preprocessing\n    import numpy as np\n    import os\n    import pandas as pd\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass",
+  "raw_code": ""
 }

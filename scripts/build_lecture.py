@@ -72,6 +72,47 @@ def load_lecture_def(filepath):
         print("Warning: PyYAML not installed, using simple parser (limited support).")
         return simple_yaml_parse(filepath)
 
+def expand_modules(module_list, module_dir="library/modules", group_dir="library/groups"):
+    """
+    Recursively expands a list of module items.
+    Items can be:
+    - dict with "id" (references a module or a group)
+    - dict with "markdown" (inline markdown)
+    - dict with "code" (inline code)
+    """
+    expanded = []
+
+    for item in module_list:
+        if "id" in item:
+            mod_id = item["id"]
+            
+            # 1. Check if it's an atomic module (JSON)
+            json_path = os.path.join(module_dir, f"{mod_id}.json")
+            if os.path.exists(json_path):
+                with open(json_path, 'r') as f:
+                    mod_data = json.load(f)
+                expanded.append({"type": "module", "data": mod_data})
+                continue
+
+            # 2. Check if it's a group (YAML)
+            yaml_path = os.path.join(group_dir, f"{mod_id}.yaml")
+            if os.path.exists(yaml_path):
+                print(f"  Expanding group: {mod_id}")
+                group_def = load_lecture_def(yaml_path)
+                # Recursively expand the group's modules
+                group_items = group_def.get("modules", [])
+                expanded.extend(expand_modules(group_items, module_dir, group_dir))
+                continue
+
+            print(f"Warning: Module or Group {mod_id} not found.")
+
+        elif "markdown" in item:
+            expanded.append({"type": "markdown", "data": item["markdown"]})
+        elif "code" in item:
+            expanded.append({"type": "code", "data": item["code"]})
+    
+    return expanded
+
 def build_lecture(def_path, output_dir):
     try:
         lect_def = load_lecture_def(def_path)
@@ -91,31 +132,16 @@ def build_lecture(def_path, output_dir):
             "",
             "# %% [markdown]",
             f"# # {lect_def.get('title', lect_id)}",
-            "",
-            "# %%",
-            "class Context(dict):",
-            "    def __init__(self, *args, **kwargs):",
-            "        super().__init__(*args, **kwargs)",
-            "        self.setdefault('data', None)",
-            "        self.setdefault('tensors', {})",
-            "        self.setdefault('model', None)",
-            "        self.setdefault('viz', None)",
-            "",
-            "ctx = Context()",
             ""
         ]
 
-        for item in lect_def.get("modules", []):
-            if "id" in item:
-                mod_id = item["id"]
-                mod_path = os.path.join("library/modules", f"{mod_id}.json")
-                if not os.path.exists(mod_path):
-                    print(f"Warning: Module {mod_id} not found at {mod_path}")
-                    continue
+        # Expand the top-level modules list recursively
+        flat_items = expand_modules(lect_def.get("modules", []))
 
-                with open(mod_path, 'r') as f:
-                    mod = json.load(f)
-
+        for item in flat_items:
+            if item["type"] == "module":
+                mod = item["data"]
+                
                 # Markdown
                 if mod.get("markdown_content"):
                     full_content.append("# %% [markdown]")
@@ -124,22 +150,22 @@ def build_lecture(def_path, output_dir):
                     full_content.append("")
 
                 # Code
-                if mod.get("code_block"):
+                code_to_use = mod.get("raw_code", mod.get("code_block"))
+                if code_to_use:
                     full_content.append("# %%")
-                    lines = mod["code_block"].split('\n')
+                    lines = code_to_use.split('\n')
                     full_content.extend(lines)
-                    full_content.append("run_module(ctx)")
                     full_content.append("")
 
-            elif "markdown" in item:
+            elif item["type"] == "markdown":
                 full_content.append("# %% [markdown]")
-                for line in item["markdown"].split('\n'):
+                for line in item["data"].split('\n'):
                     full_content.append(f"# {line}")
                 full_content.append("")
 
-            elif "code" in item:
+            elif item["type"] == "code":
                 full_content.append("# %%")
-                full_content.append(item["code"])
+                full_content.append(item["data"])
                 full_content.append("")
 
         out_path = os.path.join(output_dir, f"{lect_id}.py")

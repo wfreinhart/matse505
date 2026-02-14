@@ -1,15 +1,15 @@
 {
   "id": "Lecture09_a_naiive_approach_to_hyperparameter_tuning",
   "type": "Foundational",
-  "sequence": 4,
   "parent_lecture": "Lecture09",
   "requirements": [
-    "tensors['train_and_report_performance']",
+    "tensors['xtest']",
     "tensors['ytrain']",
-    "tensors['ytest']",
+    "tensors['train_and_report_performance']",
     "tensors['xtrain']",
-    "tensors['xtest']"
+    "tensors['ytest']"
   ],
   "markdown_content": "## A naiive approach to hyperparameter tuning\n\nNow that we have things well under control, let's just try all the possible values of `n_neighbors`!\n\nWe can see from this that there is a non-monotonic relationship with `n_neighbors` and an optimal value lies in the middle of the range.\nSo is that all there is to it?",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from sklearn import ensemble\n    from sklearn import model_selection\n    from sklearn import neighbors\n    from sklearn import preprocessing\n    import numpy as np\n    import os\n    import pandas as pd\n    train_and_report_performance = ctx.get('tensors', {}).get('train_and_report_performance')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    xtrain = ctx.get('tensors', {}).get('xtrain')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    ytrain = ctx.get('tensors', {}).get('ytrain')\n    \n    \n    for k in range(1, 20):\n        print(f'k = {k:2d}: ', end='')\n        train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance'),\n                                 xtrain, ytrain, xtest, ytest)"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    train_and_report_performance = ctx.get('tensors', {}).get('train_and_report_performance')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    xtrain = ctx.get('tensors', {}).get('xtrain')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    ytrain = ctx.get('tensors', {}).get('ytrain')\n    for k in range(1, 20):\n        print(f'k = {k:2d}: ', end='')\n        train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance'),\n                                 xtrain, ytrain, xtest, ytest)",
+  "raw_code": "for k in range(1, 20):\n    print(f'k = {k:2d}: ', end='')\n    train_and_report_performance(neighbors.KNeighborsRegressor(n_neighbors=k, weights='distance'),\n                             xtrain, ytrain, xtest, ytest)"
 }

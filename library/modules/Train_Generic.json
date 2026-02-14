@@ -1,0 +1,13 @@
+{
+  "id": "Train_Generic",
+  "type": "Training",
+  "parent_lecture": "",
+  "requirements": [
+    "model",
+    "tensors['X']",
+    "tensors['y']"
+  ],
+  "markdown_content": "# Generic Training\nTraining the model on the generated tensors.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    X = ctx.get('tensors', {}).get('X')\n    model = ctx.get('model')\n    y = ctx.get('tensors', {}).get('y')\n    # Uses variables from global state: model, X, y\n    model.fit(X, y)\n    score = model.score(X, y)\n    print(f\"R2 Score: {score:.3f}\")\n    ctx['tensors']['score'] = score",
+  "raw_code": "# Uses variables from global state: model, X, y\nmodel.fit(X, y)\nscore = model.score(X, y)\nprint(f\"R2 Score: {score:.3f}\")"
+}

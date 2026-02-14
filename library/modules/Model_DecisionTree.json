@@ -1,0 +1,9 @@
+{
+  "id": "Model_DecisionTree",
+  "type": "Model",
+  "parent_lecture": "",
+  "requirements": [],
+  "markdown_content": "# Decision Tree Model\nInitializing a Scikit-Learn Decision Tree Regressor.",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.tree import DecisionTreeRegressor\n    model = DecisionTreeRegressor(max_depth=3)\n    ctx['model'] = model",
+  "raw_code": "from sklearn.tree import DecisionTreeRegressor\nmodel = DecisionTreeRegressor(max_depth=3)"
+}

@@ -4,5 +4,6 @@
   "parent_lecture": "Lecture16",
   "requirements": [],
   "markdown_content": "## [Check your understanding]\n\nTry training the VAE with fewer and greater latent dimensions.\n* How does the loss change?\n* How does the shape of the latent space change?\n\nMake a 2D grid of generated samples in these different cases.\n* How does the spatial variation in the latent space change with more and less dimensions?",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass",
+  "raw_code": ""
 }

@@ -4,5 +4,6 @@
   "parent_lecture": "Lecture01",
   "requirements": [],
   "markdown_content": "# Everything is an object\n\nIn Python, every variable is an **object**.\nThis is not the case in all languages, but only in \"object-oriented\" languages.\n\nWhat does it mean?\nIt means that variables in Python aren't just numbers, a lot of additional information is attached to them.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass",
+  "raw_code": ""
 }

@@ -4,5 +4,6 @@
   "parent_lecture": "Lecture17",
   "requirements": [],
   "markdown_content": "# Peer review of presentation plan\n\nWorksheet [presentation plan worksheet](https://colab.research.google.com/drive/1IMtQneMv-aRgbfRkAisUvKRUWqiDvWE4?usp=sharing)\n\nWork in pairs.\nReview each other's plan and then report a summary back to the class.\n\nYou will have 8 minutes total for discussion and about 30 seconds each to report out.\n\nWe will repeat twice so you will see 2 other students' project plans.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass",
+  "raw_code": ""
 }

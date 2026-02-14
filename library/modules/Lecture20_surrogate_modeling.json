@@ -3,9 +3,10 @@
   "type": "Foundational",
   "parent_lecture": "Lecture20",
   "requirements": [
-    "tensors['x']",
-    "tensors['y']"
+    "tensors['y']",
+    "tensors['x']"
   ],
   "markdown_content": "## Surrogate modeling\n\nLet's generate a surrogate model for this simplified system:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    # split data\n    idx_train, idx_test = model_selection.train_test_split(np.arange(x.shape[0]))\n    \n    # fit model\n    model = ensemble.RandomForestRegressor(random_state=0)\n    _ = model.fit(x[idx_train], y[idx_train].flatten())\n    \n    # report performance\n    print(f'Train {model.score(x[idx_train], y[idx_train]):.3f}')\n    print(f'Test  {model.score(x[idx_test],  y[idx_test]):.3f}')\n    ctx['model'] = model"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    # split data\n    idx_train, idx_test = model_selection.train_test_split(np.arange(x.shape[0]))\n    \n    # fit model\n    model = ensemble.RandomForestRegressor(random_state=0)\n    _ = model.fit(x[idx_train], y[idx_train].flatten())\n    \n    # report performance\n    print(f'Train {model.score(x[idx_train], y[idx_train]):.3f}')\n    print(f'Test  {model.score(x[idx_test],  y[idx_test]):.3f}')\n    ctx['model'] = model",
+  "raw_code": "# split data\nidx_train, idx_test = model_selection.train_test_split(np.arange(x.shape[0]))\n\n# fit model\nmodel = ensemble.RandomForestRegressor(random_state=0)\n_ = model.fit(x[idx_train], y[idx_train].flatten())\n\n# report performance\nprint(f'Train {model.score(x[idx_train], y[idx_train]):.3f}')\nprint(f'Test  {model.score(x[idx_test],  y[idx_test]):.3f}')"
 }

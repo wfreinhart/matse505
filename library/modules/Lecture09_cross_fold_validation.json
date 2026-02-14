@@ -1,9 +1,9 @@
 {
   "id": "Lecture09_cross_fold_validation",
   "type": "Foundational",
-  "sequence": 9,
   "parent_lecture": "Lecture09",
   "requirements": [],
   "markdown_content": "# Cross-fold validation\n\nHow do we deal with the issue of the validation set being unreliable?\nWe can't keep taking data out of the training set or we won't have any left.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from sklearn import ensemble\n    from sklearn import model_selection\n    from sklearn import neighbors\n    from sklearn import preprocessing\n    import numpy as np\n    import os\n    import pandas as pd\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass",
+  "raw_code": ""
 }

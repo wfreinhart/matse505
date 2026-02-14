@@ -1,0 +1,7 @@
+id: ScenarioC
+title: Underfitting Example
+modules:
+  - id: ToyData_Quadratic
+  - id: Model_LinearRegression
+  - id: Train_Generic
+  - id: Viz_Regression

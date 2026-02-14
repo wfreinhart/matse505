@@ -3,10 +3,11 @@
   "type": "Foundational",
   "parent_lecture": "Lecture02",
   "requirements": [
+    "tensors['y']",
     "tensors['z']",
-    "tensors['x']",
-    "tensors['y']"
+    "tensors['x']"
   ],
   "markdown_content": "## Scatter\n\nWe can add color to our charts with `scatter`, by specifying a `c` keyword argument (short for \"color\").\n\nThis isn't helpful without a colorbar indicating the values of the colors and a label to describe it:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    z = ctx.get('tensors', {}).get('z')\n    fig, ax = plt.subplots()\n    \n    ax.scatter(x, y, c=z)\n    \n    ax.set_xlabel(x.name)\n    ax.set_ylabel(y.name)\n    \n    fig, ax = plt.subplots()\n    \n    im = ax.scatter(x, y, c=z)  # save the output here (scatter object)\n    \n    cb = plt.colorbar(im)  # save the output again (colorbar object)\n    cb.set_label(z.name)   # label the colorbar\n    \n    ax.set_xlabel(x.name)\n    ax.set_ylabel(y.name)"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    z = ctx.get('tensors', {}).get('z')\n    fig, ax = plt.subplots()\n    \n    ax.scatter(x, y, c=z)\n    \n    ax.set_xlabel(x.name)\n    ax.set_ylabel(y.name)\n    \n    fig, ax = plt.subplots()\n    \n    im = ax.scatter(x, y, c=z)  # save the output here (scatter object)\n    \n    cb = plt.colorbar(im)  # save the output again (colorbar object)\n    cb.set_label(z.name)   # label the colorbar\n    \n    ax.set_xlabel(x.name)\n    ax.set_ylabel(y.name)",
+  "raw_code": "fig, ax = plt.subplots()\n\nax.scatter(x, y, c=z)\n\nax.set_xlabel(x.name)\nax.set_ylabel(y.name)\n\nfig, ax = plt.subplots()\n\nim = ax.scatter(x, y, c=z)  # save the output here (scatter object)\n\ncb = plt.colorbar(im)  # save the output again (colorbar object)\ncb.set_label(z.name)   # label the colorbar\n\nax.set_xlabel(x.name)\nax.set_ylabel(y.name)"
 }

@@ -58,3 +58,63 @@ To keep the repository size manageable and version-control friendly, we use [Jup
 This project is dual-licensed:
 - **Lecture Materials & Diagrams**: Licensed under [CC-BY-4.0](LICENSE).
 - **Software & Code Snippets**: Licensed under the [MIT License](LICENSE).
+
+## Module Development
+
+The courseware is built using a "Composable Module" system. Content is authored in small, reusable source files, compiled into JSON modules, and then assembled into full lectures.
+
+### 1. Workflow Overview
+1.  **Source** (`library/sources/*.py`): Author content in Python scripts with markdown cells.
+2.  **Compile** (`scripts/compile_modules.py`): Converts sources into JSON modules (`library/modules/*.json`), handling variable context and imports.
+3.  **Assemble** (`scripts/build_lecture.py`): Combines modules defined in `lecture_defs/*.yaml` into a single lecture script (`lectures/LectureXX.py`).
+4.  **Sync**: Jupytext automatically syncs the lecture script to `notebooks/LectureXX.ipynb`.
+
+### 2. Creating a Module
+Create a Python file in `library/sources/`. Use the `#%%` syntax to denote cells.
+
+**Format:**
+```python
+# %% [markdown]
+# ---
+# id: my_unique_module_id
+# type: Foundational
+# parent_lecture: LectureXX
+# ---
+# # Module Title
+# Markdown content here...
+
+# %%
+# Python code here...
+x = 10
+y = 20
+```
+
+**Key Rules:**
+-   **Context (`ctx`)**: The system automatically wraps your code in a function `run_module(ctx)`.
+-   **Inputs**: Variables used but not defined in your module are automatically retrieved from `ctx` (e.g., `data`, `model`, `tensors`).
+-   **Outputs**: Top-level variable assignments are automatically saved to `ctx` for subsequent modules to use.
+
+### 3. Compiling Modules
+Run the compiler to generate/update JSON modules:
+```bash
+python scripts/compile_modules.py
+# Or watch for changes:
+python scripts/compile_modules.py --watch
+```
+
+### 4. Building a Lecture
+Define the lecture structure in `lecture_defs/LectureXX.yaml`:
+```yaml
+id: LectureXX
+title: My Lecture
+modules:
+  - id: module_id_1
+  - id: module_id_2
+```
+
+Then build the lecture script:
+```bash
+python scripts/build_lecture.py --lecture LectureXX
+# Or build all:
+python scripts/build_lecture.py --all
+```

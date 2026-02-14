@@ -1,0 +1,7 @@
+id: ScenarioB
+title: Modeling Non-Linearity
+modules:
+  - id: ToyData_Quadratic
+  - id: Model_DecisionTree
+  - id: Train_Generic
+  - id: Viz_Regression

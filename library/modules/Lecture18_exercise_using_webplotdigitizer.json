@@ -4,5 +4,6 @@
   "parent_lecture": "Lecture18",
   "requirements": [],
   "markdown_content": "## [Exercise: using WebPlotDigitizer]\n\nHere are the steps:\n* Load image -> select this image from disk\n* 2D (X-Y) Plot -> Align Axes\n  * Select low X, high X, low Y, high Y on the chart\n  * You can use arrow keys to shift the point slightly after each click\n  * Complete -> type in the values (i.e., 0.0, 0.8, 0.0, 80) -> OK\n* Foreground Color (click the colored box on the right)\n  * Color Picker -> Click on the blue line -> Done\n* Automatic Extraction: Box -> drag around the blue line\n  * You will see a yellow box appear\n  * Distance -> 80 (this is a color range) -> Filter Colors\n  * You will see the line highlighted in yellow\n* Averaging Window -> 6 Px, 6 Px -> Run\n  * You will see red dots appear on top of the blue line\n* View Data\n  * You will see the X, Y values in a popup window",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass",
+  "raw_code": ""
 }

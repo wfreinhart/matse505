@@ -4,5 +4,6 @@
   "parent_lecture": "Lecture02",
   "requirements": [],
   "markdown_content": "## Making a line chart\n\nWe should start be referencing the documentation for `plt.plot`:\n\nLet's create a line plot by manually defining a `list` of $y$ values.\nThe $x$ values will be implicit if not provided (as indicated by the `[x]` above).\n\nWe can also provide both $x$ and $y$ values:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    help(plt.plot)\n    \n    y = [1, 2, 4, 8]\n    plt.plot( y )  # we provide 4 y values, x will go from 0 to 3\n    \n    plt.plot([1, 2, 3, 10], [2, 4, 6, 10])\n    ctx['tensors']['y'] = y"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    help(plt.plot)\n    \n    y = [1, 2, 4, 8]\n    plt.plot( y )  # we provide 4 y values, x will go from 0 to 3\n    \n    plt.plot([1, 2, 3, 10], [2, 4, 6, 10])\n    ctx['tensors']['y'] = y",
+  "raw_code": "help(plt.plot)\n\ny = [1, 2, 4, 8]\nplt.plot( y )  # we provide 4 y values, x will go from 0 to 3\n\nplt.plot([1, 2, 3, 10], [2, 4, 6, 10])"
 }

@@ -4,5 +4,6 @@
   "parent_lecture": "Lecture02",
   "requirements": [],
   "markdown_content": "## Multiple series\n\nWe can plot multiple series by calling `plot` twice:\n\nHowever, watch what happens if we don't call this in the same cell:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    plt.plot([2, 4, 6, 10], [1, 2, 3, 10])\n    plt.plot([1, 2, 3, 10], [2, 4, 6, 10])\n    \n    plt.plot([2, 4, 6, 10], [1, 2, 3, 10])\n    \n    plt.plot([1, 2, 3, 10], [2, 4, 6, 10])"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    plt.plot([2, 4, 6, 10], [1, 2, 3, 10])\n    plt.plot([1, 2, 3, 10], [2, 4, 6, 10])\n    \n    plt.plot([2, 4, 6, 10], [1, 2, 3, 10])\n    \n    plt.plot([1, 2, 3, 10], [2, 4, 6, 10])",
+  "raw_code": "plt.plot([2, 4, 6, 10], [1, 2, 3, 10])\nplt.plot([1, 2, 3, 10], [2, 4, 6, 10])\n\nplt.plot([2, 4, 6, 10], [1, 2, 3, 10])\n\nplt.plot([1, 2, 3, 10], [2, 4, 6, 10])"
 }

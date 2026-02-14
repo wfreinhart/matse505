@@ -1,0 +1,7 @@
+id: ScenarioA
+title: Linear Regression Intro
+modules:
+  - id: ToyData_Linear
+  - id: Model_LinearRegression
+  - id: Train_Generic
+  - id: Viz_Regression

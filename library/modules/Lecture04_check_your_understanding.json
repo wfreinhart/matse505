@@ -4,5 +4,6 @@
   "parent_lecture": "Lecture04",
   "requirements": [],
   "markdown_content": "## [Check your understanding]\n\n* Train a Random Forest to predict these same labels.\n> Make sure you use a classifier model, not a regressor!\n* Print the metrics and identify the model average precision, recall, and overall accuracy.\n* Draw a confusion matrix showing the model performance on the test set.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass",
+  "raw_code": ""
 }

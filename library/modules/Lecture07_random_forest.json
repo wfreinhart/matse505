@@ -1,17 +1,17 @@
 {
   "id": "Lecture07_random_forest",
   "type": "Foundational",
-  "sequence": 9,
   "parent_lecture": "Lecture07",
   "requirements": [
-    "tensors['it']",
-    "tensors['xtrain']",
-    "tensors['permutation_importance']",
-    "tensors['ytest']",
     "tensors['xtest']",
+    "tensors['permutation_importance']",
+    "tensors['ytrain']",
     "tensors['x']",
-    "tensors['ytrain']"
+    "tensors['ytest']",
+    "tensors['xtrain']",
+    "tensors['it']"
   ],
   "markdown_content": "## Random Forest\n\nNow we can start with the best go-to model, the Random Forest.\n\nIt looks like these have a lot more variance compared to our linear result.\n\nWe see that Cement and Age continue to play important roles in this new model, although there are appear to be some stronger influences from the other features compared to the linear model.\nLet's check...",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from sklearn import decomposition\n    from sklearn import ensemble\n    from sklearn import linear_model\n    from sklearn import metrics\n    from sklearn import metrics, preprocessing\n    from sklearn import model_selection\n    from sklearn import neighbors, tree, neural_network\n    from sklearn import preprocessing\n    from sklearn import svm\n    import copy\n    import numpy as np\n    import os\n    import pandas as pd\n    it = ctx.get('tensors', {}).get('it')\n    permutation_importance = ctx.get('tensors', {}).get('permutation_importance')\n    x = ctx.get('tensors', {}).get('x')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    xtrain = ctx.get('tensors', {}).get('xtrain')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    ytrain = ctx.get('tensors', {}).get('ytrain')\n    \n    \n    from sklearn import ensemble\n    \n    model = ensemble.RandomForestRegressor(random_state=0)\n    model.fit(xtrain, ytrain)\n    \n    baseline_rf, permuted_rf = permutation_importance(model, xtest, ytest)\n    print('rmse on baseline data is:', baseline_rf)\n    print('rmse on permuted columns is:', permuted_rf)\n    \n    fig, ax = plt.subplots()\n    ax.bar(x.columns, permuted_rf, label='Random Forest')\n    ax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\n    ax.hlines(baseline_rf, 0, len(x.columns)-1, linestyles='dashed', label='Baseline (RF)')\n    ax.set_ylabel('Model RMSE')\n    ax.legend()\n    ctx['model'] = model"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    it = ctx.get('tensors', {}).get('it')\n    permutation_importance = ctx.get('tensors', {}).get('permutation_importance')\n    x = ctx.get('tensors', {}).get('x')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    xtrain = ctx.get('tensors', {}).get('xtrain')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    ytrain = ctx.get('tensors', {}).get('ytrain')\n    from sklearn import ensemble\n    \n    model = ensemble.RandomForestRegressor(random_state=0)\n    model.fit(xtrain, ytrain)\n    \n    baseline_rf, permuted_rf = permutation_importance(model, xtest, ytest)\n    print('rmse on baseline data is:', baseline_rf)\n    print('rmse on permuted columns is:', permuted_rf)\n    \n    fig, ax = plt.subplots()\n    ax.bar(x.columns, permuted_rf, label='Random Forest')\n    ax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\n    ax.hlines(baseline_rf, 0, len(x.columns)-1, linestyles='dashed', label='Baseline (RF)')\n    ax.set_ylabel('Model RMSE')\n    ax.legend()\n    ctx['model'] = model",
+  "raw_code": "from sklearn import ensemble\n\nmodel = ensemble.RandomForestRegressor(random_state=0)\nmodel.fit(xtrain, ytrain)\n\nbaseline_rf, permuted_rf = permutation_importance(model, xtest, ytest)\nprint('rmse on baseline data is:', baseline_rf)\nprint('rmse on permuted columns is:', permuted_rf)\n\nfig, ax = plt.subplots()\nax.bar(x.columns, permuted_rf, label='Random Forest')\nax.set_xticklabels([it.split('(')[0].strip() for it in x.columns], rotation=90)\nax.hlines(baseline_rf, 0, len(x.columns)-1, linestyles='dashed', label='Baseline (RF)')\nax.set_ylabel('Model RMSE')\nax.legend()"
 }

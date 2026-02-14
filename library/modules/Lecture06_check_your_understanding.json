@@ -1,9 +1,9 @@
 {
   "id": "Lecture06_check_your_understanding",
   "type": "Foundational",
-  "sequence": 10,
   "parent_lecture": "Lecture06",
   "requirements": [],
   "markdown_content": "## [Check your understanding]\n\nTry repeating this reconstruction experiment using rescaled features.\nFollow these steps:\n* Apply a feature scaler to the data\n* Plot the PCA embedding from scaled features\n* Plot the explained variance curve\n* Try reconstructing the original data from the low-dimensional embeddings\n> Note: you will have to invert the feature scaling in addition to the embedding!",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from matplotlib import pyplot as plt\n    from plotly import express as px\n    from scipy.spatial import distance\n    from sklearn import datasets\n    from sklearn import decomposition\n    from sklearn import manifold\n    from sklearn import preprocessing\n    from sklearn import semi_supervised\n    import numpy as np\n    import os\n    import pandas as pd\n    import umap\n    pass"
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass",
+  "raw_code": ""
 }
