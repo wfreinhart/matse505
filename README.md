@@ -63,6 +63,19 @@ This project is dual-licensed:
 
 The courseware is built using a "Composable Module" system. Content is authored in small, reusable source files, compiled into JSON modules, and then assembled into full lectures.
 
+## Separate Packaging
+
+To package CAMEL, telemetry, and composable courseware independently from MATSE505 lecture materials, use:
+
+```bash
+python scripts/package_tracks.py --dry-run camel telemetry composable
+python scripts/package_tracks.py camel telemetry composable
+```
+
+This stages plain directories under `dist/separated/` that you can move into another repo.
+Use `--zip` only if you need archives.
+See `docs/separate-packaging.md` for exact bundle contents and custom output options.
+
 ### 1. Workflow Overview
 1.  **Source** (`library/sources/*.py`): Author content in Python scripts with markdown cells.
 2.  **Compile** (`scripts/compile_modules.py`): Converts sources into JSON modules (`library/modules/*.json`), handling variable context and imports.

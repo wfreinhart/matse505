@@ -1,9 +1,12 @@
 # ---
 # jupyter:
 #   jupytext:
+#     cell_metadata_filter: -id,-colab,-outputId
 #     text_representation:
 #       extension: .py
 #       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.0
 #   kernelspec:
 #     display_name: Python 3
 #     name: python3
@@ -12,32 +15,10 @@
 # %% [markdown]
 # # Lecture04
 
-# %%
-class Context(dict):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.setdefault('data', None)
-        self.setdefault('tensors', {})
-        self.setdefault('model', None)
-        self.setdefault('viz', None)
-
-ctx = Context()
-
 # %% [markdown]
 # Today's topics:
 # * Classification
 # * Evaluating classification models
-
-# %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    pass
-run_module(ctx)
 
 # %% [markdown]
 # # Classification
@@ -49,17 +30,6 @@ run_module(ctx)
 # At first glance you might think we could just do regression with `int` in place of `float`. For instance, consider data falling in 3 groups: `Apple, Banana, Orange`. If we convert these to `int` so they are discrete, we would get `0, 1, 2`. Technically we can then use a regressor to predict the values.
 #
 # Aside from having to round off the outputs, this simple strategy makes a HUGE assumption in the math: that `Apple` is closer to `Banana` than it is to `Orange`, since they are represented by `0, 1, 2`. This will lead to systematic bias in the predictions and reward the wrong types of predictions, while having no basis in reality for the problem.
-
-# %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    pass
-run_module(ctx)
 
 # %% [markdown]
 # ## Dataset
@@ -82,54 +52,38 @@ run_module(ctx)
 # We can prepare the train/test data by including all the composition columns in our $X$ and the `Alloy family` as our $y$:
 
 # %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    train_test_split = ctx.get('tensors', {}).get('train_test_split')
-    x = ctx.get('tensors', {}).get('x')
-    # import requests
-    import pandas as pd
-    import os
+# import requests
+import pandas as pd
+import os
 
-    # Set the path to the data file
-    filename = 'steels.csv'
-    local_path = f'../datasets/{filename}'
-    github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
+# Set the path to the data file
+filename = 'steels.csv'
+local_path = f'../datasets/{filename}'
+github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'
 
-    # Load the data: try local path first, fallback to GitHub for Colab
-    if os.path.exists(local_path):
-        data = pd.read_csv(local_path)
-    else:
-        data = pd.read_csv(github_url)
+# Load the data: try local path first, fallback to GitHub for Colab
+if os.path.exists(local_path):
+    data = pd.read_csv(local_path)
+else:
+    data = pd.read_csv(github_url)
 
-    data                            # show a view of the data file
+data                            # show a view of the data file
 
-    data['Alloy code'].unique()
+data['Alloy code'].unique()
 
-    data['Alloy family'] = [x[0] for x in data['Alloy code']]
-    data.head()
+data['Alloy family'] = [x[0] for x in data['Alloy code']]
+data.head()
 
-    data['Alloy family'].unique()
+data['Alloy family'].unique()
 
-    from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
-    x = data.loc[:, ' C':'Nb + Ta']
-    y = data['Alloy family']
+x = data.loc[:, ' C':'Nb + Ta']
+y = data['Alloy family']
 
-    xtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)
-    # note: we make sure to all get the same answer with random_state=0
-    print(xtrain.shape, xtest.shape)
-    ctx['data'] = data
-    ctx['tensors']['filename'] = filename
-    ctx['tensors']['github_url'] = github_url
-    ctx['tensors']['local_path'] = local_path
-    ctx['tensors']['x'] = x
-    ctx['tensors']['y'] = y
-run_module(ctx)
+xtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)
+# note: we make sure to all get the same answer with random_state=0
+print(xtrain.shape, xtest.shape)
 
 # %% [markdown]
 # ## Logistic regression
@@ -163,42 +117,27 @@ run_module(ctx)
 # You can note here how `scikit-learn` conveniently handles conversion between integer labels and categorical label codes for us.
 
 # %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    xtest = ctx.get('tensors', {}).get('xtest')
-    xtrain = ctx.get('tensors', {}).get('xtrain')
-    y = ctx.get('tensors', {}).get('y')
-    ytest = ctx.get('tensors', {}).get('ytest')
-    ytrain = ctx.get('tensors', {}).get('ytrain')
-    from sklearn import linear_model
+from sklearn import linear_model
 
-    model = linear_model.LogisticRegression(random_state=0).fit(xtrain, ytrain)
-    model.score(xtest, ytest)
+model = linear_model.LogisticRegression(random_state=0).fit(xtrain, ytrain)
+model.score(xtest, ytest)
 
-    model.predict(xtest)
+model.predict(xtest)
 
-    print( model.intercept_ )
-    print( model.coef_ )
+print( model.intercept_ )
+print( model.coef_ )
 
-    model.predict_proba(xtest)
+model.predict_proba(xtest)
 
-    import numpy as np
+import numpy as np
 
-    p = model.predict_proba(xtest)
-    pred_label = np.argmax(p, axis=1)
-    print(pred_label)
+p = model.predict_proba(xtest)
+pred_label = np.argmax(p, axis=1)
+print(pred_label)
 
-    np.unique(y)[pred_label]
+np.unique(y)[pred_label]
 
-    np.unique(y)[pred_label] == model.predict(xtest)
-    ctx['model'] = model
-    ctx['tensors']['pred_label'] = pred_label
-run_module(ctx)
+np.unique(y)[pred_label] == model.predict(xtest)
 
 # %% [markdown]
 # ## Support Vector Machines
@@ -247,29 +186,16 @@ run_module(ctx)
 # For more information on choosing kernels: https://www.kdnuggets.com/2016/06/select-support-vector-machine-kernels.html
 
 # %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    xtest = ctx.get('tensors', {}).get('xtest')
-    xtrain = ctx.get('tensors', {}).get('xtrain')
-    ytest = ctx.get('tensors', {}).get('ytest')
-    ytrain = ctx.get('tensors', {}).get('ytrain')
-    from sklearn import svm
+from sklearn import svm
 
-    model = svm.SVC(kernel='linear', random_state=0).fit(xtrain, ytrain)
-    model.score(xtest, ytest)
+model = svm.SVC(kernel='linear', random_state=0).fit(xtrain, ytrain)
+model.score(xtest, ytest)
 
-    model = svm.SVC(kernel='rbf', random_state=0).fit(xtrain, ytrain)
-    model.score(xtest, ytest)
+model = svm.SVC(kernel='rbf', random_state=0).fit(xtrain, ytrain)
+model.score(xtest, ytest)
 
-    model = svm.SVC(kernel='poly', random_state=0).fit(xtrain, ytrain)
-    model.score(xtest, ytest)
-    ctx['model'] = model
-run_module(ctx)
+model = svm.SVC(kernel='poly', random_state=0).fit(xtrain, ytrain)
+model.score(xtest, ytest)
 
 # %% [markdown]
 # ## Naive Bayes
@@ -289,25 +215,11 @@ run_module(ctx)
 # We see here that while the accuracy is quite high, two points in the test set are misclassified using Gaussian Naive Bayes whereas there were no errors using Logistic Regression or Support Vector Machines.
 
 # %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    naive_bayes = ctx.get('tensors', {}).get('naive_bayes')
-    xtest = ctx.get('tensors', {}).get('xtest')
-    xtrain = ctx.get('tensors', {}).get('xtrain')
-    ytest = ctx.get('tensors', {}).get('ytest')
-    ytrain = ctx.get('tensors', {}).get('ytrain')
-    from sklearn import naive_bayes
+from sklearn import naive_bayes
 
-    model = naive_bayes.GaussianNB().fit(xtrain, ytrain)
+model = naive_bayes.GaussianNB().fit(xtrain, ytrain)
 
-    model.score(xtest, ytest)
-    ctx['model'] = model
-run_module(ctx)
+model.score(xtest, ytest)
 
 # %% [markdown]
 # ## [Check your understanding]
@@ -326,7 +238,6 @@ def run_module(ctx):
     import sklearn
     from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
     pass
-run_module(ctx)
 
 # %% [markdown]
 # ## Decision tree
@@ -345,42 +256,25 @@ run_module(ctx)
 # So another way to think about the decision tree algorithm is to imagine it dividing up the space into boxes which belong to a single class.
 
 # %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    px = ctx.get('tensors', {}).get('px')
-    x = ctx.get('tensors', {}).get('x')
-    xtest = ctx.get('tensors', {}).get('xtest')
-    xtrain = ctx.get('tensors', {}).get('xtrain')
-    y = ctx.get('tensors', {}).get('y')
-    ytest = ctx.get('tensors', {}).get('ytest')
-    ytrain = ctx.get('tensors', {}).get('ytrain')
-    from sklearn import tree
+from sklearn import tree
 
-    model = tree.DecisionTreeClassifier(random_state=0).fit(xtrain, ytrain)
+model = tree.DecisionTreeClassifier(random_state=0).fit(xtrain, ytrain)
 
-    model.score(xtest, ytest)  # this gives the accuracy of the classifier
+model.score(xtest, ytest)  # this gives the accuracy of the classifier
 
-    from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 
-    fig, ax = plt.subplots(figsize=(24, 8))
-    _ = tree.plot_tree(model, ax=ax, fontsize=10, label='root', class_names=['C', 'L', 'M', 'V'],
-                       impurity=False, precision=2, proportion=True)
+fig, ax = plt.subplots(figsize=(24, 8))
+_ = tree.plot_tree(model, ax=ax, fontsize=10, label='root', class_names=['C', 'L', 'M', 'V'],
+                   impurity=False, precision=2, proportion=True)
 
-    from plotly import express as px
-    from sklearn import preprocessing
+from plotly import express as px
+from sklearn import preprocessing
 
-    # can do this in one go with `fit_transform` if we don't need the encoder object
-    labels = preprocessing.LabelEncoder().fit_transform(y)
+# can do this in one go with `fit_transform` if we don't need the encoder object
+labels = preprocessing.LabelEncoder().fit_transform(y)
 
-    px.scatter_3d(x=x.iloc[:, 6], y=x.iloc[:, 7], z=x.iloc[:, 9], color=labels)
-    ctx['model'] = model
-    ctx['tensors']['labels'] = labels
-run_module(ctx)
+px.scatter_3d(x=x.iloc[:, 6], y=x.iloc[:, 7], z=x.iloc[:, 9], color=labels)
 
 # %% [markdown]
 # ## K Neighbors
@@ -391,24 +285,11 @@ run_module(ctx)
 # This means our problem is too easy -- we'll now make it harder to learn more about how the models work.
 
 # %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    xtest = ctx.get('tensors', {}).get('xtest')
-    xtrain = ctx.get('tensors', {}).get('xtrain')
-    ytest = ctx.get('tensors', {}).get('ytest')
-    ytrain = ctx.get('tensors', {}).get('ytrain')
-    from sklearn import neighbors
+from sklearn import neighbors
 
-    model = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)
+model = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)
 
-    model.score(xtest, ytest)
-    ctx['model'] = model
-run_module(ctx)
+model.score(xtest, ytest)
 
 # %% [markdown]
 # ## A more challenging dataset
@@ -422,36 +303,23 @@ run_module(ctx)
 # Yes -- we are no longer dealing with a "definition" of the `Alloy code`.
 
 # %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    data = ctx.get('data')
-    train_test_split = ctx.get('tensors', {}).get('train_test_split')
-    x = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']
-    y = data['Alloy family']
+x = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']
+y = data['Alloy family']
 
-    xtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)
-    print(xtrain.shape)
+xtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)
+print(xtrain.shape)
 
-    from sklearn import tree
+from sklearn import tree
 
-    model = tree.DecisionTreeClassifier().fit(xtrain, ytrain)
+model = tree.DecisionTreeClassifier().fit(xtrain, ytrain)
 
-    model.score(xtest, ytest)
+model.score(xtest, ytest)
 
-    from sklearn import neighbors
+from sklearn import neighbors
 
-    model = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)
+model = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)
 
-    model.score(xtest, ytest)
-    ctx['model'] = model
-    ctx['tensors']['x'] = x
-    ctx['tensors']['y'] = y
-run_module(ctx)
+model.score(xtest, ytest)
 
 # %% [markdown]
 # ## [Check your understanding]
@@ -470,7 +338,6 @@ def run_module(ctx):
     import sklearn
     from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
     pass
-run_module(ctx)
 
 # %% [markdown]
 # # Classification Metrics
@@ -503,24 +370,12 @@ run_module(ctx)
 # > If I ask you for the precision or recall score of a model, you can pick either of the two weighting schemes. I'll always mean the overall score for the model rather than for an individual class.
 
 # %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    model = ctx.get('model')
-    xtest = ctx.get('tensors', {}).get('xtest')
-    ytest = ctx.get('tensors', {}).get('ytest')
-    from sklearn import metrics
+from sklearn import metrics
 
-    ypred = model.predict(xtest)
-    print(f'accuracy = {metrics.accuracy_score(ytest, ypred)}')
+ypred = model.predict(xtest)
+print(f'accuracy = {metrics.accuracy_score(ytest, ypred)}')
 
-    print(metrics.classification_report(ytest, ypred))
-    ctx['tensors']['ypred'] = ypred
-run_module(ctx)
+print(metrics.classification_report(ytest, ypred))
 
 # %% [markdown]
 # ## Confusion matrix
@@ -548,20 +403,9 @@ run_module(ctx)
 # * **feature importance** can help us quantify which features are responsible for certain decisions
 
 # %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    model = ctx.get('model')
-    xtest = ctx.get('tensors', {}).get('xtest')
-    ytest = ctx.get('tensors', {}).get('ytest')
-    from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import ConfusionMatrixDisplay
 
-    ConfusionMatrixDisplay.from_estimator(model, xtest, ytest)
-run_module(ctx)
+ConfusionMatrixDisplay.from_estimator(model, xtest, ytest)
 
 # %% [markdown]
 # ## [Check your understanding]
@@ -580,21 +424,9 @@ def run_module(ctx):
     import sklearn
     from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
     pass
-run_module(ctx)
 
 # %% [markdown]
 # # Additional remarks
-
-# %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    pass
-run_module(ctx)
 
 # %% [markdown]
 # ## Important reminders about classification vs regression
@@ -614,30 +446,8 @@ run_module(ctx)
 # * Classification predictions can be evaluated using accuracy, whereas regression predictions cannot.
 # * Regression predictions can be evaluated using root mean squared error, whereas classification predictions cannot.
 
-# %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    pass
-run_module(ctx)
-
 # %% [markdown]
 # ## Additional reading
 #
 # I **highly** suggest reading Chapter 2 of the textbook, "Introduction to Machine Learning with Python: A Guide for Data Scientists."
 # Many detailed examples are given with more exposition about the algorithms and ways to analyze them.
-
-# %%
-def run_module(ctx):
-    import numpy as np
-    import pandas as pd
-    from matplotlib import pyplot as plt
-    from scipy import stats
-    import sklearn
-    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture
-    pass
-run_module(ctx)

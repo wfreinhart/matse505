@@ -123,7 +123,9 @@ class Refactorer:
             'linear_model', 'preprocessing', 'ensemble', 'tree', 'neighbors',
             'svm', 'mixture', 'matplotlib', 'numpy', 'os', 'requests',
             'sys', 're', 'json', 'math', 'random', 'time', 'datetime',
-            'pathlib', 'shutil', 'glob', 'argparse', 'yaml', 'urllib', 'scipy'
+            'pathlib', 'shutil', 'glob', 'argparse', 'yaml', 'urllib', 'scipy',
+            'train_test_split', 'accuracy_score', 'precision_score', 'recall_score', 'f1_score',
+            'confusion_matrix', 'classification_report', 'load_iris', 'load_digits'
         ]
         
         return {name for name in free_vars if name not in lib_names}
@@ -173,9 +175,14 @@ class Refactorer:
                 def find_top_level_assigns(n):
                     if isinstance(n, (ast.Assign, ast.AnnAssign)):
                         targets = n.targets if hasattr(n, 'targets') else [n.target]
+                        def get_names(target):
+                            if isinstance(target, ast.Name):
+                                yield target.id
+                            elif isinstance(target, (ast.Tuple, ast.List)):
+                                for elt in target.elts:
+                                    yield from get_names(elt)
                         for t in targets:
-                            if isinstance(t, ast.Name):
-                                yield t.id
+                            yield from get_names(t)
                     elif isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)):
                         # Capture function names defined at top level
                         yield n.name
@@ -228,6 +235,7 @@ class Refactorer:
         refactored_lines.append("    from scipy import stats")
         refactored_lines.append("    import sklearn")
         refactored_lines.append("    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture")
+        refactored_lines.append("    from sklearn.model_selection import train_test_split")
         
         # Inject extra imports from the original lecture
         if extra_imports:

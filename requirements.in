@@ -22,3 +22,11 @@ ipywidgets
 tqdm
 Pillow
 requests
+
+# LLM tooling
+litellm
+python-dotenv
+
+# Telemetry backend
+fastapi
+uvicorn

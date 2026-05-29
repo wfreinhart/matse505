@@ -113,10 +113,52 @@ def expand_modules(module_list, module_dir="library/modules", group_dir="library
     
     return expanded
 
-def build_lecture(def_path, output_dir):
+def load_enrichments(lecture_id, defs_dir="lecture_defs"):
+    """Load the transitions+images sidecar. Returns (transitions_dict, images_dict)."""
+    sidecar_path = os.path.join(defs_dir, f"{lecture_id}.transitions.yaml")
+    if not os.path.exists(sidecar_path):
+        return {}, {}
+    try:
+        if yaml:
+            with open(sidecar_path) as f:
+                data = yaml.safe_load(f)
+        else:
+            return {}, {}
+        if not data:
+            return {}, {}
+        transitions = {
+            (t["after_id"], t["before_id"]): t["markdown"]
+            for t in data.get("transitions", [])
+        }
+        images = data.get("images", {})
+        return transitions, images
+    except Exception as e:
+        print(f"Warning: could not load enrichments sidecar: {e}")
+        return {}, {}
+
+
+def build_lecture(def_path, output_dir, enrich=False):
     try:
         lect_def = load_lecture_def(def_path)
         lect_id = lect_def.get("id", Path(def_path).stem)
+
+        if enrich:
+            sidecar_path = os.path.join("lecture_defs", f"{lect_id}.transitions.yaml")
+            if not os.path.exists(sidecar_path):
+                print(f"  No enrichments sidecar found for {lect_id} -- generating now...")
+                try:
+                    sys.path.append(os.path.dirname(__file__))
+                    import generate_transitions
+                    generate_transitions.process_lecture(lect_id)
+                except Exception as e:
+                    print(f"  Warning: enrichment generation failed: {e}")
+                    print(f"  Tip: ensure GEMINI_API_KEY is set or run: python scripts/manage_content.py enrich --lecture {lect_id}")
+
+        transitions, images = load_enrichments(lect_id) if enrich else ({}, {})
+        if enrich and (transitions or images):
+            print(f"  Enriching with {len(transitions)} transition(s) and {len(images)} image set(s).")
+        elif enrich:
+            print(f"  Warning: no enrichments available for {lect_id}.")
 
         full_content = [
             "# ---",
@@ -138,16 +180,28 @@ def build_lecture(def_path, output_dir):
         # Expand the top-level modules list recursively
         flat_items = expand_modules(lect_def.get("modules", []))
 
-        for item in flat_items:
+        for idx, item in enumerate(flat_items):
             if item["type"] == "module":
                 mod = item["data"]
-                
+                mod_id = mod.get("id", "")
+
                 # Markdown
                 if mod.get("markdown_content"):
                     full_content.append("# %% [markdown]")
                     for line in mod["markdown_content"].split('\n'):
                         full_content.append(f"# {line}")
                     full_content.append("")
+
+                # Dataset image: injected between this module's markdown and code
+                # when this module is identified as the dataset module in the sidecar
+                if enrich and images:
+                    ds_img = images.get("dataset", {})
+                    if ds_img.get("module_id") == mod_id and ds_img.get("path"):
+                        img_path = ds_img["path"]
+                        alt = ds_img.get("alt", "Dataset illustration")
+                        full_content.append("# %% [markdown]")
+                        full_content.append(f'# <img src="../{img_path}" alt="{alt}" width=500>')
+                        full_content.append("")
 
                 # Code
                 code_to_use = mod.get("raw_code", mod.get("code_block"))
@@ -156,6 +210,28 @@ def build_lecture(def_path, output_dir):
                     lines = code_to_use.split('\n')
                     full_content.extend(lines)
                     full_content.append("")
+
+                # After this module: inject transition + lesson image before next module
+                if enrich and transitions:
+                    next_items = [x for x in flat_items[idx+1:] if x["type"] == "module"]
+                    if next_items:
+                        next_id = next_items[0]["data"].get("id", "")
+                        transition_text = transitions.get((mod_id, next_id))
+                        if transition_text:
+                            full_content.append("# %% [markdown]")
+                            for line in transition_text.split('\n'):
+                                full_content.append(f"# {line}")
+                            full_content.append("")
+
+                        # Lesson image: right after the transition, before the task module
+                        if enrich and images:
+                            lesson_img = images.get("lesson", {})
+                            if transition_text and lesson_img.get("path"):
+                                img_path = lesson_img["path"]
+                                alt = lesson_img.get("alt", "Concept illustration")
+                                full_content.append("# %% [markdown]")
+                                full_content.append(f'# <img src="../{img_path}" alt="{alt}" width=500>')
+                                full_content.append("")
 
             elif item["type"] == "markdown":
                 full_content.append("# %% [markdown]")
@@ -179,21 +255,21 @@ def build_lecture(def_path, output_dir):
         print(f"Error building {def_path}: {e}")
         return False
 
-def run(lecture=None, build_all=False):
+def run(lecture=None, build_all=False, enrich=False):
     defs_dir = "lecture_defs"
     out_dir = "lectures"
 
     if lecture:
         def_path = os.path.join(defs_dir, f"{lecture}.yaml")
         if os.path.exists(def_path):
-            build_lecture(def_path, out_dir)
+            build_lecture(def_path, out_dir, enrich=enrich)
         else:
             print(f"Lecture definition not found: {def_path}")
 
     elif build_all:
-        files = [f for f in os.listdir(defs_dir) if f.endswith('.yaml')]
+        files = [f for f in os.listdir(defs_dir) if f.endswith('.yaml') and '.transitions' not in f]
         for f in files:
-            build_lecture(os.path.join(defs_dir, f), out_dir)
+            build_lecture(os.path.join(defs_dir, f), out_dir, enrich=enrich)
     else:
         print("Please specify --lecture or --all")
 
@@ -201,9 +277,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--lecture', help='Build specific lecture ID (e.g. Lecture01)')
     parser.add_argument('--all', action='store_true', help='Build all lectures')
+    parser.add_argument('--enrich', action='store_true',
+                        help='Inject cached LLM transitions from .transitions.yaml sidecar')
     args = parser.parse_args()
 
-    run(lecture=args.lecture, build_all=args.all)
+    run(lecture=args.lecture, build_all=args.all, enrich=args.enrich)
 
 if __name__ == "__main__":
     main()
