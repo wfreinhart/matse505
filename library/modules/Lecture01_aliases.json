@@ -4,6 +4,6 @@
   "parent_lecture": "Lecture01",
   "requirements": [],
   "markdown_content": "## Aliases\n\nEven though modules have relatively short names, they sometimes need to be referenced a ton of times (hundreds or thousands).\nIn this case, it can be handy to change the name to something even shorter.\nWhen using `import`, you can rename things with the [`as` keyword](https://www.w3schools.com/python/ref_keyword_as.asp):\n\nNow the very short `np` will serve as an alias for the NumPy module.\nYou can think of this just like a variable name, where `np` points to the full NumPy module behind the scenes.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    import numpy as np\n    print(np)",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    import numpy as np\n    print(np)",
   "raw_code": "import numpy as np\nprint(np)"
 }

@@ -1,72 +1,35 @@
 {
   "id": "Lecture04_dataset",
   "markdown_content": "## Dataset\n\nLet's dive in and see some examples of this in action. We need to switch to a dataset that has categorical labels:\n\nIn this dataset, we have elemental compositions at the left and then some mechanical properties at the right.\nLet's try to use the data to predict the `Alloy code`, which is categorical.\n\n> **Note:** Some column names in this dataset have leading spaces (e.g., `' C'`, `' 0.2% Proof Stress (MPa)'`). We include these in the code below.\n\nWe can start by looking at the values of `Alloy code`:\n\nThis is too many categories for us to keep track of.\nLet's simplify things by taking only the first letter of each code.\nWe can call this an `Alloy family`:\n\nNow we have only a few categories:\n\nWe can prepare the train/test data by including all the composition columns in our $X$ and the `Alloy family` as our $y$:",
-  "code_block": "\n\n# import requests\nimport pandas as pd\nimport os\n\n# Set the path to the data file\nfilename = 'steels.csv'\nlocal_path = f'../datasets/{filename}'\ngithub_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\n# Load the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path):\n    data = pd.read_csv(local_path)\nelse:\n    data = pd.read_csv(github_url)\n\ndata                            # show a view of the data file\n\ndata['Alloy code'].unique()\n\ndata['Alloy family'] = [x[0] for x in data['Alloy code']]\ndata.head()\n\ndata['Alloy family'].unique()\n\nfrom sklearn.model_selection import train_test_split\n\nx = data.loc[:, ' C':'Nb + Ta']\ny = data['Alloy family']\n\nxtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)\n# note: we make sure to all get the same answer with random_state=0\nprint(xtrain.shape, xtest.shape)",
+  "code_block": "\n\ndef run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    train_test_split = ctx.get('tensors', {}).get('train_test_split')\n    x = ctx.get('tensors', {}).get('x')\n    # import requests\n    import pandas as pd\n    import os\n\n    # Set the path to the data file\n    filename = 'steels.csv'\n    local_path = f'../datasets/{filename}'\n    github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\n    # Load the data: try local path first, fallback to GitHub for Colab\n    if os.path.exists(local_path):\n        data = pd.read_csv(local_path)\n    else:\n        data = pd.read_csv(github_url)\n\n    data                            # show a view of the data file\n\n    data['Alloy code'].unique()\n\n    data['Alloy family'] = [x[0] for x in data['Alloy code']]\n    data.head()\n\n    data['Alloy family'].unique()\n\n    from sklearn.model_selection import train_test_split\n\n    x = data.loc[:, ' C':'Nb + Ta']\n    y = data['Alloy family']\n\n    xtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)\n    # note: we make sure to all get the same answer with random_state=0\n    print(xtrain.shape, xtest.shape)\n    ctx['data'] = data\n    ctx['tensors']['filename'] = filename\n    ctx['tensors']['github_url'] = github_url\n    ctx['tensors']['local_path'] = local_path\n    ctx['tensors']['x'] = x\n    ctx['tensors']['y'] = y\nrun_module(ctx)",
   "imports": [
-    "import numpy as np",
-    "from sklearn.metrics import ConfusionMatrixDisplay",
-    "from sklearn.model_selection import train_test_split",
-    "from matplotlib import pyplot as plt",
+    "from sklearn import naive_bayes",
+    "from sklearn import linear_model",
+    "import sklearn",
+    "from sklearn import neighbors",
+    "from sklearn import svm",
     "import os",
     "from plotly import express as px",
-    "from sklearn import svm",
-    "from sklearn import tree",
-    "from sklearn import metrics",
     "from sklearn import preprocessing",
-    "from sklearn import linear_model",
-    "from sklearn import neighbors",
-    "from sklearn import naive_bayes",
-    "import pandas as pd"
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "import numpy as np",
+    "from scipy import stats",
+    "from sklearn import metrics",
+    "from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import tree"
   ],
   "cells": [
     {
       "type": "markdown",
-      "content": "## Dataset\n\nLet's dive in and see some examples of this in action. We need to switch to a dataset that has categorical labels:",
+      "content": "## Dataset\n\nLet's dive in and see some examples of this in action. We need to switch to a dataset that has categorical labels:\n\nIn this dataset, we have elemental compositions at the left and then some mechanical properties at the right.\nLet's try to use the data to predict the `Alloy code`, which is categorical.\n\n> **Note:** Some column names in this dataset have leading spaces (e.g., `' C'`, `' 0.2% Proof Stress (MPa)'`). We include these in the code below.\n\nWe can start by looking at the values of `Alloy code`:\n\nThis is too many categories for us to keep track of.\nLet's simplify things by taking only the first letter of each code.\nWe can call this an `Alloy family`:\n\nNow we have only a few categories:\n\nWe can prepare the train/test data by including all the composition columns in our $X$ and the `Alloy family` as our $y$:",
       "metadata": "# %% [markdown]"
     },
     {
       "type": "code",
-      "content": "# import requests\nimport pandas as pd\nimport os\n\n# Set the path to the data file\nfilename = 'steels.csv'\nlocal_path = f'../datasets/{filename}'\ngithub_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\n# Load the data: try local path first, fallback to GitHub for Colab\nif os.path.exists(local_path):\n    data = pd.read_csv(local_path)\nelse:\n    data = pd.read_csv(github_url)\n\ndata                            # show a view of the data file",
-      "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "In this dataset, we have elemental compositions at the left and then some mechanical properties at the right.\nLet's try to use the data to predict the `Alloy code`, which is categorical.\n\n> **Note:** Some column names in this dataset have leading spaces (e.g., `' C'`, `' 0.2% Proof Stress (MPa)'`). We include these in the code below.\n\nWe can start by looking at the values of `Alloy code`:",
-      "metadata": "# %% [markdown]"
-    },
-    {
-      "type": "code",
-      "content": "data['Alloy code'].unique()",
-      "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "This is too many categories for us to keep track of.\nLet's simplify things by taking only the first letter of each code.\nWe can call this an `Alloy family`:",
-      "metadata": "# %% [markdown]"
-    },
-    {
-      "type": "code",
-      "content": "data['Alloy family'] = [x[0] for x in data['Alloy code']]\ndata.head()",
-      "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "Now we have only a few categories:",
-      "metadata": "# %% [markdown]"
-    },
-    {
-      "type": "code",
-      "content": "data['Alloy family'].unique()",
-      "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "We can prepare the train/test data by including all the composition columns in our $X$ and the `Alloy family` as our $y$:",
-      "metadata": "# %% [markdown]"
-    },
-    {
-      "type": "code",
-      "content": "from sklearn.model_selection import train_test_split\n\nx = data.loc[:, ' C':'Nb + Ta']\ny = data['Alloy family']\n\nxtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)\n# note: we make sure to all get the same answer with random_state=0\nprint(xtrain.shape, xtest.shape)",
+      "content": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    train_test_split = ctx.get('tensors', {}).get('train_test_split')\n    x = ctx.get('tensors', {}).get('x')\n    # import requests\n    import pandas as pd\n    import os\n\n    # Set the path to the data file\n    filename = 'steels.csv'\n    local_path = f'../datasets/{filename}'\n    github_url = f'https://raw.githubusercontent.com/wfreinhart/matse505/main/datasets/{filename}'\n\n    # Load the data: try local path first, fallback to GitHub for Colab\n    if os.path.exists(local_path):\n        data = pd.read_csv(local_path)\n    else:\n        data = pd.read_csv(github_url)\n\n    data                            # show a view of the data file\n\n    data['Alloy code'].unique()\n\n    data['Alloy family'] = [x[0] for x in data['Alloy code']]\n    data.head()\n\n    data['Alloy family'].unique()\n\n    from sklearn.model_selection import train_test_split\n\n    x = data.loc[:, ' C':'Nb + Ta']\n    y = data['Alloy family']\n\n    xtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)\n    # note: we make sure to all get the same answer with random_state=0\n    print(xtrain.shape, xtest.shape)\n    ctx['data'] = data\n    ctx['tensors']['filename'] = filename\n    ctx['tensors']['github_url'] = github_url\n    ctx['tensors']['local_path'] = local_path\n    ctx['tensors']['x'] = x\n    ctx['tensors']['y'] = y\nrun_module(ctx)",
       "metadata": "# %%"
     }
   ],

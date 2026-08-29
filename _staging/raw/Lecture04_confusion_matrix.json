@@ -1,43 +1,36 @@
 {
   "id": "Lecture04_confusion_matrix",
   "markdown_content": "## Confusion matrix\n\nWe can also evaluate the performance of the model graphically using a confusion matrix.\n\nThe confusion matrix shows the number of labels in each category for both the predictions and the true observations.\n\nIt can communicate a lot of information quickly without resorting to technical definitions such as the Accuracy, Precision, and Recall.\n\nHere's a reference:\n\n<img src=\"../lectures/assets/lecture04_confusion_matrix.jpg\" alt=\"Confusion matrix diagram showing true positives, false positives, etc.\" height=300>\n\nWe can create this confusion matrix using the convenient `sklearn.metrics.ConfusionMatrixDisplay` function:\n\nWe can see from this chart that the `V` family has relatively few mistakes, while the `L` family seems to be very difficult to distinguish from `C` and `M`.\n\nAt this moment it's difficult for us to determine which features are responsible for this.\n\nIn the following lessons we will learn several tools that could help with this problem:\n\n* **representation learning** can help us understand how high-dimensional observations differ from each other\n\n* **feature importance** can help us quantify which features are responsible for certain decisions",
-  "code_block": "\n\nfrom sklearn.metrics import ConfusionMatrixDisplay\n\nConfusionMatrixDisplay.from_estimator(model, xtest, ytest)",
+  "code_block": "\n\ndef run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    model = ctx.get('model')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    from sklearn.metrics import ConfusionMatrixDisplay\n\n    ConfusionMatrixDisplay.from_estimator(model, xtest, ytest)\nrun_module(ctx)",
   "imports": [
-    "import numpy as np",
-    "from sklearn.metrics import ConfusionMatrixDisplay",
-    "from sklearn.model_selection import train_test_split",
-    "from matplotlib import pyplot as plt",
+    "from sklearn import naive_bayes",
+    "from sklearn import linear_model",
+    "import sklearn",
+    "from sklearn import neighbors",
+    "from sklearn import svm",
     "import os",
     "from plotly import express as px",
-    "from sklearn import svm",
-    "from sklearn import tree",
-    "from sklearn import metrics",
     "from sklearn import preprocessing",
-    "from sklearn import linear_model",
-    "from sklearn import neighbors",
-    "from sklearn import naive_bayes",
-    "import pandas as pd"
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "import numpy as np",
+    "from scipy import stats",
+    "from sklearn import metrics",
+    "from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import tree"
   ],
   "cells": [
     {
       "type": "markdown",
-      "content": "## Confusion matrix\n\nWe can also evaluate the performance of the model graphically using a confusion matrix.\n\nThe confusion matrix shows the number of labels in each category for both the predictions and the true observations.\n\nIt can communicate a lot of information quickly without resorting to technical definitions such as the Accuracy, Precision, and Recall.\n\nHere's a reference:\n\n<img src=\"../lectures/assets/lecture04_confusion_matrix.jpg\" alt=\"Confusion matrix diagram showing true positives, false positives, etc.\" height=300>",
-      "metadata": "# %% [markdown]"
-    },
-    {
-      "type": "markdown",
-      "content": "We can create this confusion matrix using the convenient `sklearn.metrics.ConfusionMatrixDisplay` function:",
+      "content": "## Confusion matrix\n\nWe can also evaluate the performance of the model graphically using a confusion matrix.\n\nThe confusion matrix shows the number of labels in each category for both the predictions and the true observations.\n\nIt can communicate a lot of information quickly without resorting to technical definitions such as the Accuracy, Precision, and Recall.\n\nHere's a reference:\n\n<img src=\"../lectures/assets/lecture04_confusion_matrix.jpg\" alt=\"Confusion matrix diagram showing true positives, false positives, etc.\" height=300>\n\nWe can create this confusion matrix using the convenient `sklearn.metrics.ConfusionMatrixDisplay` function:\n\nWe can see from this chart that the `V` family has relatively few mistakes, while the `L` family seems to be very difficult to distinguish from `C` and `M`.\n\nAt this moment it's difficult for us to determine which features are responsible for this.\n\nIn the following lessons we will learn several tools that could help with this problem:\n\n* **representation learning** can help us understand how high-dimensional observations differ from each other\n\n* **feature importance** can help us quantify which features are responsible for certain decisions",
       "metadata": "# %% [markdown]"
     },
     {
       "type": "code",
-      "content": "from sklearn.metrics import ConfusionMatrixDisplay\n\nConfusionMatrixDisplay.from_estimator(model, xtest, ytest)",
+      "content": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    model = ctx.get('model')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    from sklearn.metrics import ConfusionMatrixDisplay\n\n    ConfusionMatrixDisplay.from_estimator(model, xtest, ytest)\nrun_module(ctx)",
       "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "We can see from this chart that the `V` family has relatively few mistakes, while the `L` family seems to be very difficult to distinguish from `C` and `M`.\n\nAt this moment it's difficult for us to determine which features are responsible for this.\n\nIn the following lessons we will learn several tools that could help with this problem:\n\n* **representation learning** can help us understand how high-dimensional observations differ from each other\n\n* **feature importance** can help us quantify which features are responsible for certain decisions",
-      "metadata": "# %% [markdown]"
     }
   ],
   "sequence": 12,

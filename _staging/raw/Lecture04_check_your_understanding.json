@@ -1,22 +1,25 @@
 {
   "id": "Lecture04_check_your_understanding",
   "markdown_content": "## [Check your understanding]\n\n* Train a Random Forest to predict these same labels.\n> Make sure you use a classifier model, not a regressor!\n* Print the metrics and identify the model average precision, recall, and overall accuracy.\n* Draw a confusion matrix showing the model performance on the test set.",
-  "code_block": "\n\n",
+  "code_block": "\n\ndef run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass\nrun_module(ctx)",
   "imports": [
-    "import numpy as np",
-    "from sklearn.metrics import ConfusionMatrixDisplay",
-    "from sklearn.model_selection import train_test_split",
-    "from matplotlib import pyplot as plt",
+    "from sklearn import naive_bayes",
+    "from sklearn import linear_model",
+    "import sklearn",
+    "from sklearn import neighbors",
+    "from sklearn import svm",
     "import os",
     "from plotly import express as px",
-    "from sklearn import svm",
-    "from sklearn import tree",
-    "from sklearn import metrics",
     "from sklearn import preprocessing",
-    "from sklearn import linear_model",
-    "from sklearn import neighbors",
-    "from sklearn import naive_bayes",
-    "import pandas as pd"
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "import numpy as np",
+    "from scipy import stats",
+    "from sklearn import metrics",
+    "from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import tree"
   ],
   "cells": [
     {
@@ -26,7 +29,7 @@
     },
     {
       "type": "code",
-      "content": "",
+      "content": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass\nrun_module(ctx)",
       "metadata": "# %%"
     }
   ],

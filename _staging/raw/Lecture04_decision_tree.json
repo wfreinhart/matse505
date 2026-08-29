@@ -1,58 +1,36 @@
 {
   "id": "Lecture04_decision_tree",
   "markdown_content": "## Decision tree\n\nNow let's try with a Decision Tree.\nThe interface is very similar to the code we gave you for regression, we just use a `DecisionTreeClassifier` instead of a `DecisionTreeRegressor`:\n\nOur simple model scored a perfect 100% accuracy on the test set, which it hadn't seen before! Let's explore this by drawing the tree itself:\n\nAs you can see, the tree is very shallow and requires few decisions.\nThis is actually because the `Alloy code` is defined by the composition of the alloy -- our decision tree is actually learning the real definition of the codes.\nIn cases such as this, decision tree is actually a great option!\n\nWe can also use the fitted tree to visualize the compositions -- we see that features 7, 9, and 6 completely define the tree!\n\nSo another way to think about the decision tree algorithm is to imagine it dividing up the space into boxes which belong to a single class.",
-  "code_block": "\n\nfrom sklearn import tree\n\nmodel = tree.DecisionTreeClassifier(random_state=0).fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)  # this gives the accuracy of the classifier\n\nfrom matplotlib import pyplot as plt\n\nfig, ax = plt.subplots(figsize=(24, 8))\n_ = tree.plot_tree(model, ax=ax, fontsize=10, label='root', class_names=['C', 'L', 'M', 'V'],\n                   impurity=False, precision=2, proportion=True)\n\nfrom plotly import express as px\nfrom sklearn import preprocessing\n\n# can do this in one go with `fit_transform` if we don't need the encoder object\nlabels = preprocessing.LabelEncoder().fit_transform(y)\n\npx.scatter_3d(x=x.iloc[:, 6], y=x.iloc[:, 7], z=x.iloc[:, 9], color=labels)",
+  "code_block": "\n\ndef run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    px = ctx.get('tensors', {}).get('px')\n    x = ctx.get('tensors', {}).get('x')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    xtrain = ctx.get('tensors', {}).get('xtrain')\n    y = ctx.get('tensors', {}).get('y')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    ytrain = ctx.get('tensors', {}).get('ytrain')\n    from sklearn import tree\n\n    model = tree.DecisionTreeClassifier(random_state=0).fit(xtrain, ytrain)\n\n    model.score(xtest, ytest)  # this gives the accuracy of the classifier\n\n    from matplotlib import pyplot as plt\n\n    fig, ax = plt.subplots(figsize=(24, 8))\n    _ = tree.plot_tree(model, ax=ax, fontsize=10, label='root', class_names=['C', 'L', 'M', 'V'],\n                       impurity=False, precision=2, proportion=True)\n\n    from plotly import express as px\n    from sklearn import preprocessing\n\n    # can do this in one go with `fit_transform` if we don't need the encoder object\n    labels = preprocessing.LabelEncoder().fit_transform(y)\n\n    px.scatter_3d(x=x.iloc[:, 6], y=x.iloc[:, 7], z=x.iloc[:, 9], color=labels)\n    ctx['model'] = model\n    ctx['tensors']['labels'] = labels\nrun_module(ctx)",
   "imports": [
-    "import numpy as np",
-    "from sklearn.metrics import ConfusionMatrixDisplay",
-    "from sklearn.model_selection import train_test_split",
-    "from matplotlib import pyplot as plt",
+    "from sklearn import naive_bayes",
+    "from sklearn import linear_model",
+    "import sklearn",
+    "from sklearn import neighbors",
+    "from sklearn import svm",
     "import os",
     "from plotly import express as px",
-    "from sklearn import svm",
-    "from sklearn import tree",
-    "from sklearn import metrics",
     "from sklearn import preprocessing",
-    "from sklearn import linear_model",
-    "from sklearn import neighbors",
-    "from sklearn import naive_bayes",
-    "import pandas as pd"
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "import numpy as np",
+    "from scipy import stats",
+    "from sklearn import metrics",
+    "from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import tree"
   ],
   "cells": [
     {
       "type": "markdown",
-      "content": "## Decision tree\n\nNow let's try with a Decision Tree.\nThe interface is very similar to the code we gave you for regression, we just use a `DecisionTreeClassifier` instead of a `DecisionTreeRegressor`:",
+      "content": "## Decision tree\n\nNow let's try with a Decision Tree.\nThe interface is very similar to the code we gave you for regression, we just use a `DecisionTreeClassifier` instead of a `DecisionTreeRegressor`:\n\nOur simple model scored a perfect 100% accuracy on the test set, which it hadn't seen before! Let's explore this by drawing the tree itself:\n\nAs you can see, the tree is very shallow and requires few decisions.\nThis is actually because the `Alloy code` is defined by the composition of the alloy -- our decision tree is actually learning the real definition of the codes.\nIn cases such as this, decision tree is actually a great option!\n\nWe can also use the fitted tree to visualize the compositions -- we see that features 7, 9, and 6 completely define the tree!\n\nSo another way to think about the decision tree algorithm is to imagine it dividing up the space into boxes which belong to a single class.",
       "metadata": "# %% [markdown]"
     },
     {
       "type": "code",
-      "content": "from sklearn import tree\n\nmodel = tree.DecisionTreeClassifier(random_state=0).fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)  # this gives the accuracy of the classifier",
+      "content": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    px = ctx.get('tensors', {}).get('px')\n    x = ctx.get('tensors', {}).get('x')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    xtrain = ctx.get('tensors', {}).get('xtrain')\n    y = ctx.get('tensors', {}).get('y')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    ytrain = ctx.get('tensors', {}).get('ytrain')\n    from sklearn import tree\n\n    model = tree.DecisionTreeClassifier(random_state=0).fit(xtrain, ytrain)\n\n    model.score(xtest, ytest)  # this gives the accuracy of the classifier\n\n    from matplotlib import pyplot as plt\n\n    fig, ax = plt.subplots(figsize=(24, 8))\n    _ = tree.plot_tree(model, ax=ax, fontsize=10, label='root', class_names=['C', 'L', 'M', 'V'],\n                       impurity=False, precision=2, proportion=True)\n\n    from plotly import express as px\n    from sklearn import preprocessing\n\n    # can do this in one go with `fit_transform` if we don't need the encoder object\n    labels = preprocessing.LabelEncoder().fit_transform(y)\n\n    px.scatter_3d(x=x.iloc[:, 6], y=x.iloc[:, 7], z=x.iloc[:, 9], color=labels)\n    ctx['model'] = model\n    ctx['tensors']['labels'] = labels\nrun_module(ctx)",
       "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "Our simple model scored a perfect 100% accuracy on the test set, which it hadn't seen before! Let's explore this by drawing the tree itself:",
-      "metadata": "# %% [markdown]"
-    },
-    {
-      "type": "code",
-      "content": "from matplotlib import pyplot as plt\n\nfig, ax = plt.subplots(figsize=(24, 8))\n_ = tree.plot_tree(model, ax=ax, fontsize=10, label='root', class_names=['C', 'L', 'M', 'V'],\n                   impurity=False, precision=2, proportion=True)",
-      "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "As you can see, the tree is very shallow and requires few decisions.\nThis is actually because the `Alloy code` is defined by the composition of the alloy -- our decision tree is actually learning the real definition of the codes.\nIn cases such as this, decision tree is actually a great option!\n\nWe can also use the fitted tree to visualize the compositions -- we see that features 7, 9, and 6 completely define the tree!",
-      "metadata": "# %% [markdown]"
-    },
-    {
-      "type": "code",
-      "content": "from plotly import express as px\nfrom sklearn import preprocessing\n\n# can do this in one go with `fit_transform` if we don't need the encoder object\nlabels = preprocessing.LabelEncoder().fit_transform(y)\n\npx.scatter_3d(x=x.iloc[:, 6], y=x.iloc[:, 7], z=x.iloc[:, 9], color=labels)",
-      "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "So another way to think about the decision tree algorithm is to imagine it dividing up the space into boxes which belong to a single class.",
-      "metadata": "# %% [markdown]"
     }
   ],
   "sequence": 7,

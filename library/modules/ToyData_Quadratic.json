@@ -4,6 +4,6 @@
   "parent_lecture": "",
   "requirements": [],
   "markdown_content": "# Quadratic Data Generation\nGenerating synthetic quadratic data.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    import numpy as np\n    X = np.linspace(-5, 5, 100).reshape(-1, 1)\n    y = 0.5 * X.flatten()**2 + np.random.normal(0, 1, 100)\n    ctx['tensors']['X'] = X\n    ctx['tensors']['y'] = y",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    import numpy as np\n    X = np.linspace(-5, 5, 100).reshape(-1, 1)\n    y = 0.5 * X.flatten()**2 + np.random.normal(0, 1, 100)\n    ctx['tensors']['X'] = X\n    ctx['tensors']['y'] = y",
   "raw_code": "import numpy as np\nX = np.linspace(-5, 5, 100).reshape(-1, 1)\ny = 0.5 * X.flatten()**2 + np.random.normal(0, 1, 100)"
 }

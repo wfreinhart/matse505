@@ -6,6 +6,6 @@
     "data"
   ],
   "markdown_content": "## With `pandas` builtins\n\nThere is a huge shortcut we can take using `pandas` again:\n\nThis returns all the correlations between pairs of columns.\nIt is itself a `DataFrame` so we can filter using `loc`:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    xyz_data = ctx.get('data')\n    xyz_data.corr()\n    \n    xyz_data.corr().loc[:, 'Atomic Mass']",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    xyz_data = ctx.get('data')\n    xyz_data.corr()\n    \n    xyz_data.corr().loc[:, 'Atomic Mass']",
   "raw_code": "xyz_data.corr()\n\nxyz_data.corr().loc[:, 'Atomic Mass']"
 }

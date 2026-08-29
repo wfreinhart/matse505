@@ -4,6 +4,6 @@
   "parent_lecture": "Lecture02",
   "requirements": [],
   "markdown_content": "## Why is it called subplots?\n\n`subplots` is meant for making multiple plots in a single `figure`.\nWe specify `nrows` and `ncols`:\n\nFor now we'll just use it with the default `nrows=1` and `ncols=1` to make simple charts.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    fig, ax = plt.subplots(nrows=2, ncols=3)\n    \n    # plt.subplots?\n    \n    fig, ax = plt.subplots()",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    fig, ax = plt.subplots(nrows=2, ncols=3)\n    \n    # plt.subplots?\n    \n    fig, ax = plt.subplots()\n    ctx['viz'] = fig",
   "raw_code": "fig, ax = plt.subplots(nrows=2, ncols=3)\n\n# plt.subplots?\n\nfig, ax = plt.subplots()"
 }

@@ -4,6 +4,6 @@
   "parent_lecture": "Lecture03",
   "requirements": [],
   "markdown_content": "## Contrasting vocabulary: Unsupervised learning\n\nNow consider that we have only a collection of $(X)_i$ without corresponding $(y)_i$.\nIn other words, we have **unlabeled** data.\nHowever, we may still want to learn something about the data.\nFor instance, do any of the data stick out as outliers?\nAre there discrete groups which can be discerned?\nThis is the objective of unsupervised learning.\nThe problem can be stated mathematically as $f(X) = \\ell$, where $\\ell$ is a categorical label belonging to a **class** or **cluster**. Graphically, the problem looks like this:\n\n<img src=\"../lectures/assets/lecture03_classification_groups.jpg\" height=400>\n\nWe'll do some unsupervised learning in a future lecture.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    pass",
   "raw_code": ""
 }

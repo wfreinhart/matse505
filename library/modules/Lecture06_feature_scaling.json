@@ -4,6 +4,6 @@
   "parent_lecture": "Lecture06",
   "requirements": [],
   "markdown_content": "# Feature scaling\n\nOne thing to watch out for when doing unsupervised representation learning is features with different units. If one of the features has magnitudes of $10^6$ and another has $10^1$, the big one will completely dominate the embedding. We can get around this using **feature scaling**.\n\n<img src=\"../lectures/assets/feature_scaling.jpg\" width=600 alt=\"Comparison of data distribution before and after different scaling methods: StandardScaler, MinMaxScaler, and RobustScaler\">\n\nMaking sure the data are roughly isotropic really helps us capture more information in the embedding.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    pass",
   "raw_code": ""
 }

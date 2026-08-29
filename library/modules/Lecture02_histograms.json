@@ -6,6 +6,6 @@
     "tensors['x']"
   ],
   "markdown_content": "## Histograms\n\nLet's quickly add some additional plot styles to our repertoire.\n**Histograms** can be created using `plt.hist`.\nRemember that histograms visualize distributions of a single variable, so it takes only one variable as input:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    x = ctx.get('tensors', {}).get('x')\n    fig, ax = plt.subplots()\n    ax.hist(x)\n    ax.set_xlabel(x.name)\n    ax.set_ylabel('Frequency')",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    x = ctx.get('tensors', {}).get('x')\n    fig, ax = plt.subplots()\n    ax.hist(x)\n    ax.set_xlabel(x.name)\n    ax.set_ylabel('Frequency')\n    ctx['viz'] = fig",
   "raw_code": "fig, ax = plt.subplots()\nax.hist(x)\nax.set_xlabel(x.name)\nax.set_ylabel('Frequency')"
 }

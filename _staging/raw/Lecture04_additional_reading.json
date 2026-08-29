@@ -1,28 +1,36 @@
 {
   "id": "Lecture04_additional_reading",
   "markdown_content": "## Additional reading\n\nI **highly** suggest reading Chapter 2 of the textbook, \"Introduction to Machine Learning with Python: A Guide for Data Scientists.\"\nMany detailed examples are given with more exposition about the algorithms and ways to analyze them.",
-  "code_block": "",
+  "code_block": "\n\ndef run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass\nrun_module(ctx)",
   "imports": [
-    "import numpy as np",
-    "from sklearn.metrics import ConfusionMatrixDisplay",
-    "from sklearn.model_selection import train_test_split",
-    "from matplotlib import pyplot as plt",
+    "from sklearn import naive_bayes",
+    "from sklearn import linear_model",
+    "import sklearn",
+    "from sklearn import neighbors",
+    "from sklearn import svm",
     "import os",
     "from plotly import express as px",
-    "from sklearn import svm",
-    "from sklearn import tree",
-    "from sklearn import metrics",
     "from sklearn import preprocessing",
-    "from sklearn import linear_model",
-    "from sklearn import neighbors",
-    "from sklearn import naive_bayes",
-    "import pandas as pd"
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "import numpy as np",
+    "from scipy import stats",
+    "from sklearn import metrics",
+    "from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import tree"
   ],
   "cells": [
     {
       "type": "markdown",
       "content": "## Additional reading\n\nI **highly** suggest reading Chapter 2 of the textbook, \"Introduction to Machine Learning with Python: A Guide for Data Scientists.\"\nMany detailed examples are given with more exposition about the algorithms and ways to analyze them.",
       "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass\nrun_module(ctx)",
+      "metadata": "# %%"
     }
   ],
   "sequence": 16,

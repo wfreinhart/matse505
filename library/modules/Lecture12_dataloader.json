@@ -3,11 +3,11 @@
   "type": "Foundational",
   "parent_lecture": "Lecture12",
   "requirements": [
-    "tensors['xlt']",
     "tensors['ylt']",
-    "tensors['i']"
+    "tensors['i']",
+    "tensors['xlt']"
   ],
   "markdown_content": "## `DataLoader`\n\nWe'll start with `DataLoader`, an iterable that abstracts this complexity for us in an easy API:\n\nThe `batch_size` argument specifies the number of samples to include in each batch, and the `shuffle` argument tells the DataLoader to shuffle the data before each epoch.\nWe could also specify `num_workers` to use a specific number of subprocesses to load the data, which can speed up the loading process if it's expensive.\n\nTo demonstrate the effect, here's how we would loop over the data during a training loop:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    i = ctx.get('tensors', {}).get('i')\n    xlt = ctx.get('tensors', {}).get('xlt')\n    ylt = ctx.get('tensors', {}).get('ylt')\n    from torch.utils.data import DataLoader\n    \n    # create an interable with (x, y) pairs:\n    train_data = [(xlt[i], ylt[i]) for i in range(xlt.shape[0])]\n    \n    # make the DataLoader object:\n    dl = DataLoader(train_data, batch_size=8, shuffle=True)\n    \n    for x, y in dl:\n        print(x)\n        print(y)\n        break  # avoid flooding the output\n    ctx['tensors']['train_data'] = train_data",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    i = ctx.get('tensors', {}).get('i')\n    xlt = ctx.get('tensors', {}).get('xlt')\n    ylt = ctx.get('tensors', {}).get('ylt')\n    from torch.utils.data import DataLoader\n    \n    # create an interable with (x, y) pairs:\n    train_data = [(xlt[i], ylt[i]) for i in range(xlt.shape[0])]\n    \n    # make the DataLoader object:\n    dl = DataLoader(train_data, batch_size=8, shuffle=True)\n    \n    for x, y in dl:\n        print(x)\n        print(y)\n        break  # avoid flooding the output\n    ctx['tensors']['train_data'] = train_data",
   "raw_code": "from torch.utils.data import DataLoader\n\n# create an interable with (x, y) pairs:\ntrain_data = [(xlt[i], ylt[i]) for i in range(xlt.shape[0])]\n\n# make the DataLoader object:\ndl = DataLoader(train_data, batch_size=8, shuffle=True)\n\nfor x, y in dl:\n    print(x)\n    print(y)\n    break  # avoid flooding the output"
 }

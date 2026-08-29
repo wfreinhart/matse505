@@ -1,58 +1,36 @@
 {
   "id": "Lecture04_a_more_challenging_dataset",
   "markdown_content": "## A more challenging dataset\n\nInstead of using the alloy compositions, let's try to predict the family based on the properties. This corresponds to the columns `0.2% Proof Stress (MPa)` through `Reduction in Area (%)`.\n\nNow we can test our `DecisionTreeClassifier` again.\n\nWe see here the model accuracy is less than perfect. Does this hold up for the `KNeighborsClassifier`?\n\nYes -- we are no longer dealing with a \"definition\" of the `Alloy code`.",
-  "code_block": "\n\nx = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']\ny = data['Alloy family']\n\nxtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)\nprint(xtrain.shape)\n\nfrom sklearn import tree\n\nmodel = tree.DecisionTreeClassifier().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)\n\nfrom sklearn import neighbors\n\nmodel = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)",
+  "code_block": "\n\ndef run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    train_test_split = ctx.get('tensors', {}).get('train_test_split')\n    x = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']\n    y = data['Alloy family']\n\n    xtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)\n    print(xtrain.shape)\n\n    from sklearn import tree\n\n    model = tree.DecisionTreeClassifier().fit(xtrain, ytrain)\n\n    model.score(xtest, ytest)\n\n    from sklearn import neighbors\n\n    model = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)\n\n    model.score(xtest, ytest)\n    ctx['model'] = model\n    ctx['tensors']['x'] = x\n    ctx['tensors']['y'] = y\nrun_module(ctx)",
   "imports": [
-    "import numpy as np",
-    "from sklearn.metrics import ConfusionMatrixDisplay",
-    "from sklearn.model_selection import train_test_split",
-    "from matplotlib import pyplot as plt",
+    "from sklearn import naive_bayes",
+    "from sklearn import linear_model",
+    "import sklearn",
+    "from sklearn import neighbors",
+    "from sklearn import svm",
     "import os",
     "from plotly import express as px",
-    "from sklearn import svm",
-    "from sklearn import tree",
-    "from sklearn import metrics",
     "from sklearn import preprocessing",
-    "from sklearn import linear_model",
-    "from sklearn import neighbors",
-    "from sklearn import naive_bayes",
-    "import pandas as pd"
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "import numpy as np",
+    "from scipy import stats",
+    "from sklearn import metrics",
+    "from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import tree"
   ],
   "cells": [
     {
       "type": "markdown",
-      "content": "## A more challenging dataset\n\nInstead of using the alloy compositions, let's try to predict the family based on the properties. This corresponds to the columns `0.2% Proof Stress (MPa)` through `Reduction in Area (%)`.",
+      "content": "## A more challenging dataset\n\nInstead of using the alloy compositions, let's try to predict the family based on the properties. This corresponds to the columns `0.2% Proof Stress (MPa)` through `Reduction in Area (%)`.\n\nNow we can test our `DecisionTreeClassifier` again.\n\nWe see here the model accuracy is less than perfect. Does this hold up for the `KNeighborsClassifier`?\n\nYes -- we are no longer dealing with a \"definition\" of the `Alloy code`.",
       "metadata": "# %% [markdown]"
     },
     {
       "type": "code",
-      "content": "x = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']\ny = data['Alloy family']\n\nxtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)\nprint(xtrain.shape)",
+      "content": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    train_test_split = ctx.get('tensors', {}).get('train_test_split')\n    x = data.loc[:, ' 0.2% Proof Stress (MPa)':' Reduction in Area (%)']\n    y = data['Alloy family']\n\n    xtrain, xtest, ytrain, ytest = train_test_split(x, y, random_state=0)\n    print(xtrain.shape)\n\n    from sklearn import tree\n\n    model = tree.DecisionTreeClassifier().fit(xtrain, ytrain)\n\n    model.score(xtest, ytest)\n\n    from sklearn import neighbors\n\n    model = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)\n\n    model.score(xtest, ytest)\n    ctx['model'] = model\n    ctx['tensors']['x'] = x\n    ctx['tensors']['y'] = y\nrun_module(ctx)",
       "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "Now we can test our `DecisionTreeClassifier` again.",
-      "metadata": "# %% [markdown]"
-    },
-    {
-      "type": "code",
-      "content": "from sklearn import tree\n\nmodel = tree.DecisionTreeClassifier().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)",
-      "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "We see here the model accuracy is less than perfect. Does this hold up for the `KNeighborsClassifier`?",
-      "metadata": "# %% [markdown]"
-    },
-    {
-      "type": "code",
-      "content": "from sklearn import neighbors\n\nmodel = neighbors.KNeighborsClassifier().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)",
-      "metadata": "# %%"
-    },
-    {
-      "type": "markdown",
-      "content": "Yes -- we are no longer dealing with a \"definition\" of the `Alloy code`.",
-      "metadata": "# %% [markdown]"
     }
   ],
   "sequence": 9,

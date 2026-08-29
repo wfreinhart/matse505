@@ -3,12 +3,12 @@
   "type": "Foundational",
   "parent_lecture": "Lecture06",
   "requirements": [
+    "tensors['x']",
     "tensors['px']",
-    "data",
     "tensors['y']",
-    "tensors['x']"
+    "data"
   ],
   "markdown_content": "## Unsupervised UMAP\n\nUniform Manifold APproximation uses more sophisticated machinery to compute something like the spectral embedding.\nIt ends up being able to resolve irregularly space data like [this visualization of UMAP topology](https://umap-learn.readthedocs.io/en/latest/how_umap_works.html):\n\n<img src=\"../lectures/assets/umap_graph.jpg\" width=600 alt=\"Visualization of a high-dimensional dataset projected into 2D using the UMAP manifold learning algorithm\">\n\nTo use the package, we first need to install the UMAP package using `pip`:\n\nNow we can import the `umap` module and fit a `UMAP` object.\nIt has an interface just like `sklearn`:\n\nWe can see here the result looks quite different from PCA -- instead of a few contiguous clusters there are many discrete clusters spread across the space.\nWe can investigate this result using `plotly.express`:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    px = ctx.get('tensors', {}).get('px')\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    # !pip install umap-learn\n    \n    import umap\n    \n    Z = umap.UMAP(random_state=0).fit_transform(x)\n    \n    fig, ax = plt.subplots()\n    ax.scatter(Z[:, 0], Z[:, 1], c=y)\n    ax.set_xlabel('$Z_0$')\n    ax.set_ylabel('$Z_1$')\n    \n    px.scatter(x=Z[:, 0], y=Z[:, 1], color=y, hover_name=data['Alloy code'])\n    ctx['tensors']['Z'] = Z",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    data = ctx.get('data')\n    px = ctx.get('tensors', {}).get('px')\n    x = ctx.get('tensors', {}).get('x')\n    y = ctx.get('tensors', {}).get('y')\n    # !pip install umap-learn\n    \n    import umap\n    \n    Z = umap.UMAP(random_state=0).fit_transform(x)\n    \n    fig, ax = plt.subplots()\n    ax.scatter(Z[:, 0], Z[:, 1], c=y)\n    ax.set_xlabel('$Z_0$')\n    ax.set_ylabel('$Z_1$')\n    \n    px.scatter(x=Z[:, 0], y=Z[:, 1], color=y, hover_name=data['Alloy code'])\n    ctx['tensors']['Z'] = Z\n    ctx['viz'] = fig",
   "raw_code": "# !pip install umap-learn\n\nimport umap\n\nZ = umap.UMAP(random_state=0).fit_transform(x)\n\nfig, ax = plt.subplots()\nax.scatter(Z[:, 0], Z[:, 1], c=y)\nax.set_xlabel('$Z_0$')\nax.set_ylabel('$Z_1$')\n\npx.scatter(x=Z[:, 0], y=Z[:, 1], color=y, hover_name=data['Alloy code'])"
 }

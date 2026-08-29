@@ -1,0 +1,48 @@
+{
+  "id": "Lecture04_lecture04",
+  "markdown_content": "# Lecture04\n\nToday's topics:\n* Classification\n* Evaluating classification models",
+  "code_block": "\n\nclass Context(dict):\n    def __init__(self, *args, **kwargs):\n        super().__init__(*args, **kwargs)\n        self.setdefault('data', None)\n        self.setdefault('tensors', {})\n        self.setdefault('model', None)\n        self.setdefault('viz', None)\n\nctx = Context()\n\ndef run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass\nrun_module(ctx)",
+  "imports": [
+    "from sklearn import naive_bayes",
+    "from sklearn import linear_model",
+    "import sklearn",
+    "from sklearn import neighbors",
+    "from sklearn import svm",
+    "import os",
+    "from plotly import express as px",
+    "from sklearn import preprocessing",
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "import numpy as np",
+    "from scipy import stats",
+    "from sklearn import metrics",
+    "from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import tree"
+  ],
+  "cells": [
+    {
+      "type": "markdown",
+      "content": "# Lecture04",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "class Context(dict):\n    def __init__(self, *args, **kwargs):\n        super().__init__(*args, **kwargs)\n        self.setdefault('data', None)\n        self.setdefault('tensors', {})\n        self.setdefault('model', None)\n        self.setdefault('viz', None)\n\nctx = Context()",
+      "metadata": "# %%"
+    },
+    {
+      "type": "markdown",
+      "content": "Today's topics:\n* Classification\n* Evaluating classification models",
+      "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass\nrun_module(ctx)",
+      "metadata": "# %%"
+    }
+  ],
+  "sequence": 0,
+  "parent_lecture": "Lecture04"
+}

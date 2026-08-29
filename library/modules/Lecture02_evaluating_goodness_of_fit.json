@@ -3,11 +3,11 @@
   "type": "Foundational",
   "parent_lecture": "Lecture02",
   "requirements": [
+    "tensors['result']",
     "tensors['z_model']",
-    "tensors['z']",
-    "tensors['result']"
+    "tensors['z']"
   ],
   "markdown_content": "## Evaluating goodness of fit\n\nA common metric for goodness of fit is the $R^2$:\n\n$R^2 = 1 - \\frac{SS_\\mathrm{residual}}{SS_\\mathrm{total}}$\n\nwhere $SS_\\mathrm{residual} = \\sum_i (y_i - \\hat{y}_i)^2$ and $SS_\\mathrm{total} = \\sum_i (y_i - \\mu)^2$ with $\\hat{y}$ being the model prediction and $\\mu$ being the data mean.\n\nThis is also sometimes called \"explained variance\" because you can use this alternative formulation:\n\n$R^2 = 1 - \\frac{ \\mathrm{Var}(y_\\mathrm{residual}) } { \\mathrm{Var}(y_\\mathrm{data}) }$\n\nWe can check that we get the same answer as provided by `stats.linregress`:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    result = ctx.get('tensors', {}).get('result')\n    z = ctx.get('tensors', {}).get('z')\n    z_model = ctx.get('tensors', {}).get('z_model')\n    residual = z - z_model\n    Rsquare = 1 - np.var(residual) / np.var(z)\n    print(Rsquare)\n    \n    print(result.rvalue**2)\n    ctx['tensors']['residual'] = residual",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    result = ctx.get('tensors', {}).get('result')\n    z = ctx.get('tensors', {}).get('z')\n    z_model = ctx.get('tensors', {}).get('z_model')\n    residual = z - z_model\n    Rsquare = 1 - np.var(residual) / np.var(z)\n    print(Rsquare)\n    \n    print(result.rvalue**2)\n    ctx['tensors']['residual'] = residual",
   "raw_code": "residual = z - z_model\nRsquare = 1 - np.var(residual) / np.var(z)\nprint(Rsquare)\n\nprint(result.rvalue**2)"
 }

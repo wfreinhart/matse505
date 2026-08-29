@@ -3,12 +3,12 @@
   "type": "Foundational",
   "parent_lecture": "Lecture04",
   "requirements": [
-    "tensors['xtest']",
     "tensors['xtrain']",
     "tensors['ytest']",
-    "tensors['ytrain']"
+    "tensors['ytrain']",
+    "tensors['xtest']"
   ],
   "markdown_content": "## Naive Bayes\n\nThe Naive Bayes method assumes conditional independence between pairs of features.\nThis permits a relatively simple formula for making class predictions:\n\n$\\hat{y} = \\mathrm{arg} \\mathrm{max}_y P(y) \\prod_{i=1}^n P(x_i | y)$\n\nDifferent likelihood probabilities can be selected.\nFor instance, we can try a Gaussian:\n\n$P(x_i | y) = (2 \\pi \\sigma^2_y)^{-1/2} \\exp \\left( - \\frac{(x_i-\\mu_y)^2}{2\\sigma^2_y} \\right)$\n\nwhere $\\sigma_y$ and $\\mu_y$ are **parameters** of the model estimated by maximum likelihood estimation.\n\nWe see here that while the accuracy is quite high, two points in the test set are misclassified using Gaussian Naive Bayes whereas there were no errors using Logistic Regression or Support Vector Machines.",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    xtest = ctx.get('tensors', {}).get('xtest')\n    xtrain = ctx.get('tensors', {}).get('xtrain')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    ytrain = ctx.get('tensors', {}).get('ytrain')\n    from sklearn import naive_bayes\n    \n    model = naive_bayes.GaussianNB().fit(xtrain, ytrain)\n    \n    model.score(xtest, ytest)\n    ctx['model'] = model",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    xtest = ctx.get('tensors', {}).get('xtest')\n    xtrain = ctx.get('tensors', {}).get('xtrain')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    ytrain = ctx.get('tensors', {}).get('ytrain')\n    from sklearn import naive_bayes\n    \n    model = naive_bayes.GaussianNB().fit(xtrain, ytrain)\n    \n    model.score(xtest, ytest)\n    ctx['model'] = model",
   "raw_code": "from sklearn import naive_bayes\n\nmodel = naive_bayes.GaussianNB().fit(xtrain, ytrain)\n\nmodel.score(xtest, ytest)"
 }

@@ -3,10 +3,10 @@
   "type": "Foundational",
   "parent_lecture": "Lecture02",
   "requirements": [
-    "data",
-    "tensors['y']"
+    "tensors['y']",
+    "data"
   ],
   "markdown_content": "## Bar charts\n\n**Bar charts** look like histograms but show labeled values instead of the distribution of values.\nThe `plt.bar` function takes arguments `(labels, values)` like so:\n\nThis is a little crammed so let's expand the width of the figure to read the symbols more clearly.\n\nWhat happened?\nGreen checkmark means the code executed.\nBut we didn't ask for it to show us anything -- we need to render the figure again:",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    data = ctx.get('data')\n    y = ctx.get('tensors', {}).get('y')\n    sym = data['Symbol']\n    \n    fig, ax = plt.subplots()\n    ax.bar(sym, y)\n    ax.set_xlabel(sym.name)\n    ax.set_ylabel(y.name)\n    \n    fig.set_figwidth(12)\n    \n    fig\n    ctx['tensors']['sym'] = sym",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    data = ctx.get('data')\n    y = ctx.get('tensors', {}).get('y')\n    sym = data['Symbol']\n    \n    fig, ax = plt.subplots()\n    ax.bar(sym, y)\n    ax.set_xlabel(sym.name)\n    ax.set_ylabel(y.name)\n    \n    fig.set_figwidth(12)\n    \n    fig\n    ctx['tensors']['sym'] = sym\n    ctx['viz'] = fig",
   "raw_code": "sym = data['Symbol']\n\nfig, ax = plt.subplots()\nax.bar(sym, y)\nax.set_xlabel(sym.name)\nax.set_ylabel(y.name)\n\nfig.set_figwidth(12)\n\nfig"
 }

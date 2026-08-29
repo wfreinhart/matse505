@@ -3,11 +3,11 @@
   "type": "Foundational",
   "parent_lecture": "Lecture04",
   "requirements": [
+    "tensors['ytest']",
     "tensors['xtest']",
-    "model",
-    "tensors['ytest']"
+    "model"
   ],
   "markdown_content": "## Confusion matrix\n\nWe can also evaluate the performance of the model graphically using a confusion matrix.\n\nThe confusion matrix shows the number of labels in each category for both the predictions and the true observations.\n\nIt can communicate a lot of information quickly without resorting to technical definitions such as the Accuracy, Precision, and Recall.\n\nHere's a reference:\n\n<img src=\"../lectures/assets/lecture04_confusion_matrix.jpg\" alt=\"Confusion matrix diagram showing true positives, false positives, etc.\" height=300>\n\nWe can create this confusion matrix using the convenient `sklearn.metrics.ConfusionMatrixDisplay` function:\n\nWe can see from this chart that the `V` family has relatively few mistakes, while the `L` family seems to be very difficult to distinguish from `C` and `M`.\n\nAt this moment it's difficult for us to determine which features are responsible for this.\n\nIn the following lessons we will learn several tools that could help with this problem:\n\n* **representation learning** can help us understand how high-dimensional observations differ from each other\n\n* **feature importance** can help us quantify which features are responsible for certain decisions",
-  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    model = ctx.get('model')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    from sklearn.metrics import ConfusionMatrixDisplay\n    \n    ConfusionMatrixDisplay.from_estimator(model, xtest, ytest)",
+  "code_block": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    from sklearn.model_selection import train_test_split\n    model = ctx.get('model')\n    xtest = ctx.get('tensors', {}).get('xtest')\n    ytest = ctx.get('tensors', {}).get('ytest')\n    from sklearn.metrics import ConfusionMatrixDisplay\n    \n    ConfusionMatrixDisplay.from_estimator(model, xtest, ytest)",
   "raw_code": "from sklearn.metrics import ConfusionMatrixDisplay\n\nConfusionMatrixDisplay.from_estimator(model, xtest, ytest)"
 }

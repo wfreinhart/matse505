@@ -1,28 +1,36 @@
 {
   "id": "Lecture04_important_reminders_about_classification_vs_regression",
   "markdown_content": "## Important reminders about classification vs regression\n\nClassification predictive modeling problems are different from regression predictive modeling problems.\n* Classification is the task of predicting a discrete class label.\n* Regression is the task of predicting a continuous quantity.\n\nThere is some overlap between the algorithms for classification and regression; for example:\n* A classification algorithm may predict a continuous value, but the continuous value is in the form of a probability for a class label.\n* A regression algorithm may predict a discrete value, but the discrete value is in the form of an integer quantity.\n\nSome algorithms can be used for both classification and regression with small modifications, such as decision trees and artificial neural networks.\nSome algorithms cannot, or cannot easily be used for both problem types, such as linear regression for regression predictive modeling and logistic regression for classification predictive modeling.\n\nImportantly, the way that we evaluate classification and regression predictions varies and does not overlap, for instance:\n* Classification predictions can be evaluated using accuracy, whereas regression predictions cannot.\n* Regression predictions can be evaluated using root mean squared error, whereas classification predictions cannot.",
-  "code_block": "",
+  "code_block": "\n\ndef run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass\nrun_module(ctx)",
   "imports": [
-    "import numpy as np",
-    "from sklearn.metrics import ConfusionMatrixDisplay",
-    "from sklearn.model_selection import train_test_split",
-    "from matplotlib import pyplot as plt",
+    "from sklearn import naive_bayes",
+    "from sklearn import linear_model",
+    "import sklearn",
+    "from sklearn import neighbors",
+    "from sklearn import svm",
     "import os",
     "from plotly import express as px",
-    "from sklearn import svm",
-    "from sklearn import tree",
-    "from sklearn import metrics",
     "from sklearn import preprocessing",
-    "from sklearn import linear_model",
-    "from sklearn import neighbors",
-    "from sklearn import naive_bayes",
-    "import pandas as pd"
+    "from sklearn.metrics import ConfusionMatrixDisplay",
+    "from sklearn.model_selection import train_test_split",
+    "import numpy as np",
+    "from scipy import stats",
+    "from sklearn import metrics",
+    "from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture",
+    "from matplotlib import pyplot as plt",
+    "import pandas as pd",
+    "from sklearn import tree"
   ],
   "cells": [
     {
       "type": "markdown",
       "content": "## Important reminders about classification vs regression\n\nClassification predictive modeling problems are different from regression predictive modeling problems.\n* Classification is the task of predicting a discrete class label.\n* Regression is the task of predicting a continuous quantity.\n\nThere is some overlap between the algorithms for classification and regression; for example:\n* A classification algorithm may predict a continuous value, but the continuous value is in the form of a probability for a class label.\n* A regression algorithm may predict a discrete value, but the discrete value is in the form of an integer quantity.\n\nSome algorithms can be used for both classification and regression with small modifications, such as decision trees and artificial neural networks.\nSome algorithms cannot, or cannot easily be used for both problem types, such as linear regression for regression predictive modeling and logistic regression for classification predictive modeling.\n\nImportantly, the way that we evaluate classification and regression predictions varies and does not overlap, for instance:\n* Classification predictions can be evaluated using accuracy, whereas regression predictions cannot.\n* Regression predictions can be evaluated using root mean squared error, whereas classification predictions cannot.",
       "metadata": "# %% [markdown]"
+    },
+    {
+      "type": "code",
+      "content": "def run_module(ctx):\n    import numpy as np\n    import pandas as pd\n    from matplotlib import pyplot as plt\n    from scipy import stats\n    import sklearn\n    from sklearn import metrics, model_selection, linear_model, cluster, decomposition, preprocessing, ensemble, tree, neighbors, svm, mixture\n    pass\nrun_module(ctx)",
+      "metadata": "# %%"
     }
   ],
   "sequence": 15,
